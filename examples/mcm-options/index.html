@@ -1770,10 +1770,65 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-this-example-covers" class="md-nav__link">
+  <a href="#what-this-covers" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What this example covers
+        What this covers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#my_full_mod_mcmscript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        my_full_mod_mcm.script
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#my_full_modscript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        my_full_mod.script
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ui_st_my_full_modxml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ui_st_my_full_mod.xml
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-decisions-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key decisions explained
       
     </span>
   </a>
@@ -1823,10 +1878,65 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-this-example-covers" class="md-nav__link">
+  <a href="#what-this-covers" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What this example covers
+        What this covers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#my_full_mod_mcmscript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        my_full_mod_mcm.script
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#my_full_modscript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        my_full_mod.script
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ui_st_my_full_modxml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ui_st_my_full_mod.xml
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-decisions-explained" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key decisions explained
       
     </span>
   </a>
@@ -1851,18 +1961,309 @@
 
 
 <h1 id="example-mcm-options">Example: MCM Options<a class="headerlink" href="#example-mcm-options" title="Permanent link">&para;</a></h1>
-<div class="admonition note">
-<p class="admonition-title">Work in progress</p>
-<p>This page is being written. Content coming soon.</p>
-</div>
-<h2 id="what-this-example-covers">What this example covers<a class="headerlink" href="#what-this-example-covers" title="Permanent link">&para;</a></h2>
+<p>A reference implementation showing every common MCM option type, correct defaults handling, and the <code>on_option_change</code> pattern. Use this as a starting template for any mod that exposes settings.</p>
+<hr />
+<h2 id="what-this-covers">What this covers<a class="headerlink" href="#what-this-covers" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Full MCM registration with <code>on_mcm_load</code></li>
-<li>Checkbox, slider, and key bind option types</li>
-<li>Reading settings with <code>ui_mcm.get</code></li>
-<li>Providing sensible defaults when MCM is not installed</li>
-<li>Reacting to <code>on_option_change</code></li>
+<li>All standard MCM control types: checkbox, slider, dropdown, keybind, text input</li>
+<li>Organising options into collapsible sections</li>
+<li>Providing defaults that work when MCM is not installed</li>
+<li>Reacting to setting changes at runtime</li>
 </ul>
+<hr />
+<h2 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>gamedata/
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  scripts/
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    my_full_mod.script
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    my_full_mod_mcm.script
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  configs/
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    text/
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>      eng/
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        ui_st_my_full_mod.xml
+</span></code></pre></div>
+<hr />
+<h2 id="my_full_mod_mcmscript">my_full_mod_mcm.script<a class="headerlink" href="#my_full_mod_mcmscript" title="Permanent link">&para;</a></h2>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">function</span><span class="w"> </span><span class="nf">on_mcm_load</span><span class="p">()</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my_full_mod&quot;</span><span class="p">,</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">        </span><span class="nv">sh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">        </span><span class="nv">gr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">            </span><span class="c1">-- ─── Header banner ────────────────────────────────────</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">            </span><span class="p">{</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">                </span><span class="nv">id</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;banner&quot;</span><span class="p">,</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">                </span><span class="nb">type</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;slide&quot;</span><span class="p">,</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">                </span><span class="nv">text</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ui_mcm_my_full_mod&quot;</span><span class="p">,</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">                </span><span class="nv">link</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ui_options_slider_player&quot;</span><span class="p">,</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">                </span><span class="nv">size</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">512</span><span class="p">,</span><span class="w"> </span><span class="mi">50</span><span class="p">},</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">                </span><span class="nv">spacing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">            </span><span class="p">},</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">            </span><span class="c1">-- ─── General settings section ─────────────────────────</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">            </span><span class="p">{</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">                </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">                </span><span class="nv">sh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">                </span><span class="nv">gr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">                    </span><span class="p">{</span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;title_general&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;title&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ui_mcm_my_full_mod_general&quot;</span><span class="p">},</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">                    </span><span class="c1">-- Checkbox: simple boolean toggle</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">                    </span><span class="p">{</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">                        </span><span class="nv">id</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;enable&quot;</span><span class="p">,</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">                        </span><span class="nb">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;check&quot;</span><span class="p">,</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">                        </span><span class="nv">val</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">                        </span><span class="nv">def</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="w">                        </span><span class="nv">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ui_mcm_my_full_mod_enable&quot;</span><span class="p">,</span>
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="w">                    </span><span class="p">},</span>
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>
+</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">                    </span><span class="c1">-- Slider: numeric value with min/max/step</span>
+</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w">                    </span><span class="p">{</span>
+</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a><span class="w">                        </span><span class="nv">id</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;intensity&quot;</span><span class="p">,</span>
+</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a><span class="w">                        </span><span class="nb">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;track&quot;</span><span class="p">,</span>
+</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a><span class="w">                        </span><span class="nv">val</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a><span class="w">                        </span><span class="nv">min</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">,</span>
+</span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a><span class="w">                        </span><span class="nv">max</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">,</span>
+</span><span id="__span-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a><span class="w">                        </span><span class="nv">step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span>
+</span><span id="__span-1-40"><a id="__codelineno-1-40" name="__codelineno-1-40" href="#__codelineno-1-40"></a><span class="w">                        </span><span class="nv">def</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+</span><span id="__span-1-41"><a id="__codelineno-1-41" name="__codelineno-1-41" href="#__codelineno-1-41"></a><span class="w">                        </span><span class="nv">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ui_mcm_my_full_mod_intensity&quot;</span><span class="p">,</span>
+</span><span id="__span-1-42"><a id="__codelineno-1-42" name="__codelineno-1-42" href="#__codelineno-1-42"></a><span class="w">                    </span><span class="p">},</span>
+</span><span id="__span-1-43"><a id="__codelineno-1-43" name="__codelineno-1-43" href="#__codelineno-1-43"></a>
+</span><span id="__span-1-44"><a id="__codelineno-1-44" name="__codelineno-1-44" href="#__codelineno-1-44"></a><span class="w">                    </span><span class="c1">-- Dropdown list</span>
+</span><span id="__span-1-45"><a id="__codelineno-1-45" name="__codelineno-1-45" href="#__codelineno-1-45"></a><span class="w">                    </span><span class="p">{</span>
+</span><span id="__span-1-46"><a id="__codelineno-1-46" name="__codelineno-1-46" href="#__codelineno-1-46"></a><span class="w">                        </span><span class="nv">id</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;mode&quot;</span><span class="p">,</span>
+</span><span id="__span-1-47"><a id="__codelineno-1-47" name="__codelineno-1-47" href="#__codelineno-1-47"></a><span class="w">                        </span><span class="nb">type</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;list&quot;</span><span class="p">,</span>
+</span><span id="__span-1-48"><a id="__codelineno-1-48" name="__codelineno-1-48" href="#__codelineno-1-48"></a><span class="w">                        </span><span class="nv">val</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+</span><span id="__span-1-49"><a id="__codelineno-1-49" name="__codelineno-1-49" href="#__codelineno-1-49"></a><span class="w">                        </span><span class="nv">def</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+</span><span id="__span-1-50"><a id="__codelineno-1-50" name="__codelineno-1-50" href="#__codelineno-1-50"></a><span class="w">                        </span><span class="nv">text</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ui_mcm_my_full_mod_mode&quot;</span><span class="p">,</span>
+</span><span id="__span-1-51"><a id="__codelineno-1-51" name="__codelineno-1-51" href="#__codelineno-1-51"></a><span class="w">                        </span><span class="nv">content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-52"><a id="__codelineno-1-52" name="__codelineno-1-52" href="#__codelineno-1-52"></a><span class="w">                            </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ui_mcm_my_full_mod_mode_off&quot;</span><span class="p">},</span>
+</span><span id="__span-1-53"><a id="__codelineno-1-53" name="__codelineno-1-53" href="#__codelineno-1-53"></a><span class="w">                            </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ui_mcm_my_full_mod_mode_low&quot;</span><span class="p">},</span>
+</span><span id="__span-1-54"><a id="__codelineno-1-54" name="__codelineno-1-54" href="#__codelineno-1-54"></a><span class="w">                            </span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ui_mcm_my_full_mod_mode_medium&quot;</span><span class="p">},</span>
+</span><span id="__span-1-55"><a id="__codelineno-1-55" name="__codelineno-1-55" href="#__codelineno-1-55"></a><span class="w">                            </span><span class="p">{</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ui_mcm_my_full_mod_mode_high&quot;</span><span class="p">},</span>
+</span><span id="__span-1-56"><a id="__codelineno-1-56" name="__codelineno-1-56" href="#__codelineno-1-56"></a><span class="w">                        </span><span class="p">},</span>
+</span><span id="__span-1-57"><a id="__codelineno-1-57" name="__codelineno-1-57" href="#__codelineno-1-57"></a><span class="w">                    </span><span class="p">},</span>
+</span><span id="__span-1-58"><a id="__codelineno-1-58" name="__codelineno-1-58" href="#__codelineno-1-58"></a><span class="w">                </span><span class="p">},</span>
+</span><span id="__span-1-59"><a id="__codelineno-1-59" name="__codelineno-1-59" href="#__codelineno-1-59"></a><span class="w">            </span><span class="p">},</span>
+</span><span id="__span-1-60"><a id="__codelineno-1-60" name="__codelineno-1-60" href="#__codelineno-1-60"></a>
+</span><span id="__span-1-61"><a id="__codelineno-1-61" name="__codelineno-1-61" href="#__codelineno-1-61"></a><span class="w">            </span><span class="c1">-- ─── Advanced settings section ────────────────────────</span>
+</span><span id="__span-1-62"><a id="__codelineno-1-62" name="__codelineno-1-62" href="#__codelineno-1-62"></a><span class="w">            </span><span class="p">{</span>
+</span><span id="__span-1-63"><a id="__codelineno-1-63" name="__codelineno-1-63" href="#__codelineno-1-63"></a><span class="w">                </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;advanced&quot;</span><span class="p">,</span>
+</span><span id="__span-1-64"><a id="__codelineno-1-64" name="__codelineno-1-64" href="#__codelineno-1-64"></a><span class="w">                </span><span class="nv">sh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-1-65"><a id="__codelineno-1-65" name="__codelineno-1-65" href="#__codelineno-1-65"></a><span class="w">                </span><span class="nv">gr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-66"><a id="__codelineno-1-66" name="__codelineno-1-66" href="#__codelineno-1-66"></a><span class="w">                    </span><span class="p">{</span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;title_advanced&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;title&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ui_mcm_my_full_mod_advanced&quot;</span><span class="p">},</span>
+</span><span id="__span-1-67"><a id="__codelineno-1-67" name="__codelineno-1-67" href="#__codelineno-1-67"></a>
+</span><span id="__span-1-68"><a id="__codelineno-1-68" name="__codelineno-1-68" href="#__codelineno-1-68"></a><span class="w">                    </span><span class="c1">-- Another checkbox</span>
+</span><span id="__span-1-69"><a id="__codelineno-1-69" name="__codelineno-1-69" href="#__codelineno-1-69"></a><span class="w">                    </span><span class="p">{</span>
+</span><span id="__span-1-70"><a id="__codelineno-1-70" name="__codelineno-1-70" href="#__codelineno-1-70"></a><span class="w">                        </span><span class="nv">id</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;debug_log&quot;</span><span class="p">,</span>
+</span><span id="__span-1-71"><a id="__codelineno-1-71" name="__codelineno-1-71" href="#__codelineno-1-71"></a><span class="w">                        </span><span class="nb">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;check&quot;</span><span class="p">,</span>
+</span><span id="__span-1-72"><a id="__codelineno-1-72" name="__codelineno-1-72" href="#__codelineno-1-72"></a><span class="w">                        </span><span class="nv">val</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+</span><span id="__span-1-73"><a id="__codelineno-1-73" name="__codelineno-1-73" href="#__codelineno-1-73"></a><span class="w">                        </span><span class="nv">def</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+</span><span id="__span-1-74"><a id="__codelineno-1-74" name="__codelineno-1-74" href="#__codelineno-1-74"></a><span class="w">                        </span><span class="nv">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ui_mcm_my_full_mod_debug&quot;</span><span class="p">,</span>
+</span><span id="__span-1-75"><a id="__codelineno-1-75" name="__codelineno-1-75" href="#__codelineno-1-75"></a><span class="w">                    </span><span class="p">},</span>
+</span><span id="__span-1-76"><a id="__codelineno-1-76" name="__codelineno-1-76" href="#__codelineno-1-76"></a>
+</span><span id="__span-1-77"><a id="__codelineno-1-77" name="__codelineno-1-77" href="#__codelineno-1-77"></a><span class="w">                    </span><span class="c1">-- Text input</span>
+</span><span id="__span-1-78"><a id="__codelineno-1-78" name="__codelineno-1-78" href="#__codelineno-1-78"></a><span class="w">                    </span><span class="p">{</span>
+</span><span id="__span-1-79"><a id="__codelineno-1-79" name="__codelineno-1-79" href="#__codelineno-1-79"></a><span class="w">                        </span><span class="nv">id</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;custom_label&quot;</span><span class="p">,</span>
+</span><span id="__span-1-80"><a id="__codelineno-1-80" name="__codelineno-1-80" href="#__codelineno-1-80"></a><span class="w">                        </span><span class="nb">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;input&quot;</span><span class="p">,</span>
+</span><span id="__span-1-81"><a id="__codelineno-1-81" name="__codelineno-1-81" href="#__codelineno-1-81"></a><span class="w">                        </span><span class="nv">val</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+</span><span id="__span-1-82"><a id="__codelineno-1-82" name="__codelineno-1-82" href="#__codelineno-1-82"></a><span class="w">                        </span><span class="nv">def</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Stalker&quot;</span><span class="p">,</span>
+</span><span id="__span-1-83"><a id="__codelineno-1-83" name="__codelineno-1-83" href="#__codelineno-1-83"></a><span class="w">                        </span><span class="nv">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ui_mcm_my_full_mod_label&quot;</span><span class="p">,</span>
+</span><span id="__span-1-84"><a id="__codelineno-1-84" name="__codelineno-1-84" href="#__codelineno-1-84"></a><span class="w">                    </span><span class="p">},</span>
+</span><span id="__span-1-85"><a id="__codelineno-1-85" name="__codelineno-1-85" href="#__codelineno-1-85"></a>
+</span><span id="__span-1-86"><a id="__codelineno-1-86" name="__codelineno-1-86" href="#__codelineno-1-86"></a><span class="w">                    </span><span class="p">{</span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;divider&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;line&quot;</span><span class="p">},</span>
+</span><span id="__span-1-87"><a id="__codelineno-1-87" name="__codelineno-1-87" href="#__codelineno-1-87"></a>
+</span><span id="__span-1-88"><a id="__codelineno-1-88" name="__codelineno-1-88" href="#__codelineno-1-88"></a><span class="w">                    </span><span class="c1">-- Description block (non-interactive)</span>
+</span><span id="__span-1-89"><a id="__codelineno-1-89" name="__codelineno-1-89" href="#__codelineno-1-89"></a><span class="w">                    </span><span class="p">{</span>
+</span><span id="__span-1-90"><a id="__codelineno-1-90" name="__codelineno-1-90" href="#__codelineno-1-90"></a><span class="w">                        </span><span class="nv">id</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;help_text&quot;</span><span class="p">,</span>
+</span><span id="__span-1-91"><a id="__codelineno-1-91" name="__codelineno-1-91" href="#__codelineno-1-91"></a><span class="w">                        </span><span class="nb">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;desc&quot;</span><span class="p">,</span>
+</span><span id="__span-1-92"><a id="__codelineno-1-92" name="__codelineno-1-92" href="#__codelineno-1-92"></a><span class="w">                        </span><span class="nv">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ui_mcm_my_full_mod_help&quot;</span><span class="p">,</span>
+</span><span id="__span-1-93"><a id="__codelineno-1-93" name="__codelineno-1-93" href="#__codelineno-1-93"></a><span class="w">                        </span><span class="nv">clr</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">150</span><span class="p">,</span><span class="w"> </span><span class="mi">150</span><span class="p">,</span><span class="w"> </span><span class="mi">150</span><span class="p">},</span>
+</span><span id="__span-1-94"><a id="__codelineno-1-94" name="__codelineno-1-94" href="#__codelineno-1-94"></a><span class="w">                    </span><span class="p">},</span>
+</span><span id="__span-1-95"><a id="__codelineno-1-95" name="__codelineno-1-95" href="#__codelineno-1-95"></a><span class="w">                </span><span class="p">},</span>
+</span><span id="__span-1-96"><a id="__codelineno-1-96" name="__codelineno-1-96" href="#__codelineno-1-96"></a><span class="w">            </span><span class="p">},</span>
+</span><span id="__span-1-97"><a id="__codelineno-1-97" name="__codelineno-1-97" href="#__codelineno-1-97"></a>
+</span><span id="__span-1-98"><a id="__codelineno-1-98" name="__codelineno-1-98" href="#__codelineno-1-98"></a><span class="w">            </span><span class="c1">-- ─── Keybinds section ─────────────────────────────────</span>
+</span><span id="__span-1-99"><a id="__codelineno-1-99" name="__codelineno-1-99" href="#__codelineno-1-99"></a><span class="w">            </span><span class="p">{</span>
+</span><span id="__span-1-100"><a id="__codelineno-1-100" name="__codelineno-1-100" href="#__codelineno-1-100"></a><span class="w">                </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;keybinds&quot;</span><span class="p">,</span>
+</span><span id="__span-1-101"><a id="__codelineno-1-101" name="__codelineno-1-101" href="#__codelineno-1-101"></a><span class="w">                </span><span class="nv">sh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-1-102"><a id="__codelineno-1-102" name="__codelineno-1-102" href="#__codelineno-1-102"></a><span class="w">                </span><span class="nv">gr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-103"><a id="__codelineno-1-103" name="__codelineno-1-103" href="#__codelineno-1-103"></a><span class="w">                    </span><span class="p">{</span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;title_keys&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;title&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ui_mcm_my_full_mod_keybinds&quot;</span><span class="p">},</span>
+</span><span id="__span-1-104"><a id="__codelineno-1-104" name="__codelineno-1-104" href="#__codelineno-1-104"></a>
+</span><span id="__span-1-105"><a id="__codelineno-1-105" name="__codelineno-1-105" href="#__codelineno-1-105"></a><span class="w">                    </span><span class="p">{</span>
+</span><span id="__span-1-106"><a id="__codelineno-1-106" name="__codelineno-1-106" href="#__codelineno-1-106"></a><span class="w">                        </span><span class="nv">id</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;hotkey_main&quot;</span><span class="p">,</span>
+</span><span id="__span-1-107"><a id="__codelineno-1-107" name="__codelineno-1-107" href="#__codelineno-1-107"></a><span class="w">                        </span><span class="nb">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;key_bind&quot;</span><span class="p">,</span>
+</span><span id="__span-1-108"><a id="__codelineno-1-108" name="__codelineno-1-108" href="#__codelineno-1-108"></a><span class="w">                        </span><span class="nv">val</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+</span><span id="__span-1-109"><a id="__codelineno-1-109" name="__codelineno-1-109" href="#__codelineno-1-109"></a><span class="w">                        </span><span class="nv">def</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nv">DIK_keys</span><span class="p">.</span><span class="py">DIK_F7</span><span class="p">,</span>
+</span><span id="__span-1-110"><a id="__codelineno-1-110" name="__codelineno-1-110" href="#__codelineno-1-110"></a><span class="w">                        </span><span class="nv">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ui_mcm_my_full_mod_hotkey_main&quot;</span><span class="p">,</span>
+</span><span id="__span-1-111"><a id="__codelineno-1-111" name="__codelineno-1-111" href="#__codelineno-1-111"></a><span class="w">                    </span><span class="p">},</span>
+</span><span id="__span-1-112"><a id="__codelineno-1-112" name="__codelineno-1-112" href="#__codelineno-1-112"></a>
+</span><span id="__span-1-113"><a id="__codelineno-1-113" name="__codelineno-1-113" href="#__codelineno-1-113"></a><span class="w">                    </span><span class="p">{</span>
+</span><span id="__span-1-114"><a id="__codelineno-1-114" name="__codelineno-1-114" href="#__codelineno-1-114"></a><span class="w">                        </span><span class="nv">id</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;hotkey_toggle&quot;</span><span class="p">,</span>
+</span><span id="__span-1-115"><a id="__codelineno-1-115" name="__codelineno-1-115" href="#__codelineno-1-115"></a><span class="w">                        </span><span class="nb">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;key_bind&quot;</span><span class="p">,</span>
+</span><span id="__span-1-116"><a id="__codelineno-1-116" name="__codelineno-1-116" href="#__codelineno-1-116"></a><span class="w">                        </span><span class="nv">val</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+</span><span id="__span-1-117"><a id="__codelineno-1-117" name="__codelineno-1-117" href="#__codelineno-1-117"></a><span class="w">                        </span><span class="nv">def</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nv">DIK_keys</span><span class="p">.</span><span class="py">DIK_F8</span><span class="p">,</span>
+</span><span id="__span-1-118"><a id="__codelineno-1-118" name="__codelineno-1-118" href="#__codelineno-1-118"></a><span class="w">                        </span><span class="nv">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ui_mcm_my_full_mod_hotkey_toggle&quot;</span><span class="p">,</span>
+</span><span id="__span-1-119"><a id="__codelineno-1-119" name="__codelineno-1-119" href="#__codelineno-1-119"></a><span class="w">                    </span><span class="p">},</span>
+</span><span id="__span-1-120"><a id="__codelineno-1-120" name="__codelineno-1-120" href="#__codelineno-1-120"></a><span class="w">                </span><span class="p">},</span>
+</span><span id="__span-1-121"><a id="__codelineno-1-121" name="__codelineno-1-121" href="#__codelineno-1-121"></a><span class="w">            </span><span class="p">},</span>
+</span><span id="__span-1-122"><a id="__codelineno-1-122" name="__codelineno-1-122" href="#__codelineno-1-122"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-1-123"><a id="__codelineno-1-123" name="__codelineno-1-123" href="#__codelineno-1-123"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-1-124"><a id="__codelineno-1-124" name="__codelineno-1-124" href="#__codelineno-1-124"></a><span class="kr">end</span>
+</span></code></pre></div>
+<hr />
+<h2 id="my_full_modscript">my_full_mod.script<a class="headerlink" href="#my_full_modscript" title="Permanent link">&para;</a></h2>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">-- ─────────────────────────────────────────────────────────────</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1">-- Defaults (used when MCM isn&#39;t installed)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1">-- ─────────────────────────────────────────────────────────────</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="kd">local</span><span class="w"> </span><span class="nv">defaults</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nv">enable</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nv">intensity</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nv">mode</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="nv">debug_log</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="nv">custom_label</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Stalker&quot;</span><span class="p">,</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="nv">hotkey_main</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nv">DIK_keys</span><span class="p">.</span><span class="py">DIK_F7</span><span class="p">,</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="nv">hotkey_toggle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">DIK_keys</span><span class="p">.</span><span class="py">DIK_F8</span><span class="p">,</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="p">}</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="c1">-- ─────────────────────────────────────────────────────────────</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="c1">-- Settings accessor</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="c1">-- ─────────────────────────────────────────────────────────────</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">cfg</span><span class="p">(</span><span class="nv">key</span><span class="p">)</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">ui_mcm</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">        </span><span class="kd">local</span><span class="w"> </span><span class="nv">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">ui_mcm</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">&quot;my_full_mod/&quot;</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="nv">key</span><span class="p">)</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">        </span><span class="kr">return</span><span class="w"> </span><span class="nv">v</span><span class="w"> </span><span class="o">~=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">v</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="nv">defaults</span><span class="p">[</span><span class="nv">key</span><span class="p">]</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="nv">defaults</span><span class="p">[</span><span class="nv">key</span><span class="p">]</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="kr">end</span>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="c1">-- For nested paths (general/enable, keybinds/hotkey_main, etc.)</span>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">cfg_path</span><span class="p">(</span><span class="nv">path</span><span class="p">)</span>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">ui_mcm</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="w">        </span><span class="kd">local</span><span class="w"> </span><span class="nv">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">ui_mcm</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">&quot;my_full_mod/&quot;</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="nv">path</span><span class="p">)</span>
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="w">        </span><span class="c1">-- Extract the key after the last /</span>
+</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="w">        </span><span class="kd">local</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">path</span><span class="p">:</span><span class="nf">match</span><span class="p">(</span><span class="s2">&quot;[^/]+$&quot;</span><span class="p">)</span>
+</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="w">        </span><span class="kr">return</span><span class="w"> </span><span class="nv">v</span><span class="w"> </span><span class="o">~=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">v</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="nv">defaults</span><span class="p">[</span><span class="nv">key</span><span class="p">]</span>
+</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">path</span><span class="p">:</span><span class="nf">match</span><span class="p">(</span><span class="s2">&quot;[^/]+$&quot;</span><span class="p">)</span>
+</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="nv">defaults</span><span class="p">[</span><span class="nv">key</span><span class="p">]</span>
+</span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a><span class="kr">end</span>
+</span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>
+</span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a><span class="c1">-- ─────────────────────────────────────────────────────────────</span>
+</span><span id="__span-2-40"><a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a><span class="c1">-- Runtime state updated from settings</span>
+</span><span id="__span-2-41"><a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a><span class="c1">-- ─────────────────────────────────────────────────────────────</span>
+</span><span id="__span-2-42"><a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a>
+</span><span id="__span-2-43"><a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a><span class="kd">local</span><span class="w"> </span><span class="nv">is_enabled</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-2-44"><a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a><span class="kd">local</span><span class="w"> </span><span class="nv">active_mode</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+</span><span id="__span-2-45"><a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a><span class="kd">local</span><span class="w"> </span><span class="nv">debug_mode</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+</span><span id="__span-2-46"><a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a>
+</span><span id="__span-2-47"><a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">apply_settings</span><span class="p">()</span>
+</span><span id="__span-2-48"><a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a><span class="w">    </span><span class="nv">is_enabled</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nf">cfg_path</span><span class="p">(</span><span class="s2">&quot;general/enable&quot;</span><span class="p">)</span>
+</span><span id="__span-2-49"><a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a><span class="w">    </span><span class="nv">active_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">cfg_path</span><span class="p">(</span><span class="s2">&quot;general/mode&quot;</span><span class="p">)</span>
+</span><span id="__span-2-50"><a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a><span class="w">    </span><span class="nv">debug_mode</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nf">cfg_path</span><span class="p">(</span><span class="s2">&quot;advanced/debug_log&quot;</span><span class="p">)</span>
+</span><span id="__span-2-51"><a id="__codelineno-2-51" name="__codelineno-2-51" href="#__codelineno-2-51"></a>
+</span><span id="__span-2-52"><a id="__codelineno-2-52" name="__codelineno-2-52" href="#__codelineno-2-52"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">debug_mode</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-2-53"><a id="__codelineno-2-53" name="__codelineno-2-53" href="#__codelineno-2-53"></a><span class="w">        </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;[my_full_mod] settings applied: enable=%s mode=%s intensity=%.2f&quot;</span><span class="p">,</span>
+</span><span id="__span-2-54"><a id="__codelineno-2-54" name="__codelineno-2-54" href="#__codelineno-2-54"></a><span class="w">            </span><span class="nb">tostring</span><span class="p">(</span><span class="nv">is_enabled</span><span class="p">),</span>
+</span><span id="__span-2-55"><a id="__codelineno-2-55" name="__codelineno-2-55" href="#__codelineno-2-55"></a><span class="w">            </span><span class="nb">tostring</span><span class="p">(</span><span class="nv">active_mode</span><span class="p">),</span>
+</span><span id="__span-2-56"><a id="__codelineno-2-56" name="__codelineno-2-56" href="#__codelineno-2-56"></a><span class="w">            </span><span class="nf">cfg_path</span><span class="p">(</span><span class="s2">&quot;general/intensity&quot;</span><span class="p">)</span>
+</span><span id="__span-2-57"><a id="__codelineno-2-57" name="__codelineno-2-57" href="#__codelineno-2-57"></a><span class="w">        </span><span class="p">)</span>
+</span><span id="__span-2-58"><a id="__codelineno-2-58" name="__codelineno-2-58" href="#__codelineno-2-58"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-2-59"><a id="__codelineno-2-59" name="__codelineno-2-59" href="#__codelineno-2-59"></a><span class="kr">end</span>
+</span><span id="__span-2-60"><a id="__codelineno-2-60" name="__codelineno-2-60" href="#__codelineno-2-60"></a>
+</span><span id="__span-2-61"><a id="__codelineno-2-61" name="__codelineno-2-61" href="#__codelineno-2-61"></a><span class="c1">-- ─────────────────────────────────────────────────────────────</span>
+</span><span id="__span-2-62"><a id="__codelineno-2-62" name="__codelineno-2-62" href="#__codelineno-2-62"></a><span class="c1">-- Key handlers</span>
+</span><span id="__span-2-63"><a id="__codelineno-2-63" name="__codelineno-2-63" href="#__codelineno-2-63"></a><span class="c1">-- ─────────────────────────────────────────────────────────────</span>
+</span><span id="__span-2-64"><a id="__codelineno-2-64" name="__codelineno-2-64" href="#__codelineno-2-64"></a>
+</span><span id="__span-2-65"><a id="__codelineno-2-65" name="__codelineno-2-65" href="#__codelineno-2-65"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">on_key_press</span><span class="p">(</span><span class="nv">key</span><span class="p">)</span>
+</span><span id="__span-2-66"><a id="__codelineno-2-66" name="__codelineno-2-66" href="#__codelineno-2-66"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">is_enabled</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-2-67"><a id="__codelineno-2-67" name="__codelineno-2-67" href="#__codelineno-2-67"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">actor_menu</span><span class="p">.</span><span class="nf">is_hud_free</span><span class="p">()</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-2-68"><a id="__codelineno-2-68" name="__codelineno-2-68" href="#__codelineno-2-68"></a>
+</span><span id="__span-2-69"><a id="__codelineno-2-69" name="__codelineno-2-69" href="#__codelineno-2-69"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nf">cfg_path</span><span class="p">(</span><span class="s2">&quot;keybinds/hotkey_main&quot;</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-2-70"><a id="__codelineno-2-70" name="__codelineno-2-70" href="#__codelineno-2-70"></a><span class="w">        </span><span class="nf">do_main_action</span><span class="p">()</span>
+</span><span id="__span-2-71"><a id="__codelineno-2-71" name="__codelineno-2-71" href="#__codelineno-2-71"></a><span class="w">    </span><span class="kr">elseif</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nf">cfg_path</span><span class="p">(</span><span class="s2">&quot;keybinds/hotkey_toggle&quot;</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-2-72"><a id="__codelineno-2-72" name="__codelineno-2-72" href="#__codelineno-2-72"></a><span class="w">        </span><span class="nf">toggle_feature</span><span class="p">()</span>
+</span><span id="__span-2-73"><a id="__codelineno-2-73" name="__codelineno-2-73" href="#__codelineno-2-73"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-2-74"><a id="__codelineno-2-74" name="__codelineno-2-74" href="#__codelineno-2-74"></a><span class="kr">end</span>
+</span><span id="__span-2-75"><a id="__codelineno-2-75" name="__codelineno-2-75" href="#__codelineno-2-75"></a>
+</span><span id="__span-2-76"><a id="__codelineno-2-76" name="__codelineno-2-76" href="#__codelineno-2-76"></a><span class="kr">function</span><span class="w"> </span><span class="nf">do_main_action</span><span class="p">()</span>
+</span><span id="__span-2-77"><a id="__codelineno-2-77" name="__codelineno-2-77" href="#__codelineno-2-77"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">intensity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">cfg_path</span><span class="p">(</span><span class="s2">&quot;general/intensity&quot;</span><span class="p">)</span>
+</span><span id="__span-2-78"><a id="__codelineno-2-78" name="__codelineno-2-78" href="#__codelineno-2-78"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">label</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nf">cfg_path</span><span class="p">(</span><span class="s2">&quot;advanced/custom_label&quot;</span><span class="p">)</span>
+</span><span id="__span-2-79"><a id="__codelineno-2-79" name="__codelineno-2-79" href="#__codelineno-2-79"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">string.format</span><span class="p">(</span><span class="s2">&quot;Hello, %s! Intensity: %.1f&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">label</span><span class="p">,</span><span class="w"> </span><span class="nv">intensity</span><span class="p">)</span>
+</span><span id="__span-2-80"><a id="__codelineno-2-80" name="__codelineno-2-80" href="#__codelineno-2-80"></a><span class="w">    </span><span class="nv">actor_menu</span><span class="p">.</span><span class="nf">set_msg</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nv">msg</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span>
+</span><span id="__span-2-81"><a id="__codelineno-2-81" name="__codelineno-2-81" href="#__codelineno-2-81"></a><span class="kr">end</span>
+</span><span id="__span-2-82"><a id="__codelineno-2-82" name="__codelineno-2-82" href="#__codelineno-2-82"></a>
+</span><span id="__span-2-83"><a id="__codelineno-2-83" name="__codelineno-2-83" href="#__codelineno-2-83"></a><span class="kr">function</span><span class="w"> </span><span class="nf">toggle_feature</span><span class="p">()</span>
+</span><span id="__span-2-84"><a id="__codelineno-2-84" name="__codelineno-2-84" href="#__codelineno-2-84"></a><span class="w">    </span><span class="c1">-- override local enable independently of MCM</span>
+</span><span id="__span-2-85"><a id="__codelineno-2-85" name="__codelineno-2-85" href="#__codelineno-2-85"></a><span class="w">    </span><span class="nv">is_enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">is_enabled</span>
+</span><span id="__span-2-86"><a id="__codelineno-2-86" name="__codelineno-2-86" href="#__codelineno-2-86"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">is_enabled</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="s2">&quot;my_full_mod_on&quot;</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s2">&quot;my_full_mod_off&quot;</span>
+</span><span id="__span-2-87"><a id="__codelineno-2-87" name="__codelineno-2-87" href="#__codelineno-2-87"></a><span class="w">    </span><span class="nv">actor_menu</span><span class="p">.</span><span class="nf">set_msg</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nv">game</span><span class="p">.</span><span class="nf">translate_string</span><span class="p">(</span><span class="nv">key</span><span class="p">),</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span>
+</span><span id="__span-2-88"><a id="__codelineno-2-88" name="__codelineno-2-88" href="#__codelineno-2-88"></a><span class="kr">end</span>
+</span><span id="__span-2-89"><a id="__codelineno-2-89" name="__codelineno-2-89" href="#__codelineno-2-89"></a>
+</span><span id="__span-2-90"><a id="__codelineno-2-90" name="__codelineno-2-90" href="#__codelineno-2-90"></a><span class="c1">-- ─────────────────────────────────────────────────────────────</span>
+</span><span id="__span-2-91"><a id="__codelineno-2-91" name="__codelineno-2-91" href="#__codelineno-2-91"></a><span class="c1">-- Option change callback</span>
+</span><span id="__span-2-92"><a id="__codelineno-2-92" name="__codelineno-2-92" href="#__codelineno-2-92"></a><span class="c1">-- ─────────────────────────────────────────────────────────────</span>
+</span><span id="__span-2-93"><a id="__codelineno-2-93" name="__codelineno-2-93" href="#__codelineno-2-93"></a>
+</span><span id="__span-2-94"><a id="__codelineno-2-94" name="__codelineno-2-94" href="#__codelineno-2-94"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">on_option_change</span><span class="p">()</span>
+</span><span id="__span-2-95"><a id="__codelineno-2-95" name="__codelineno-2-95" href="#__codelineno-2-95"></a><span class="w">    </span><span class="nf">apply_settings</span><span class="p">()</span>
+</span><span id="__span-2-96"><a id="__codelineno-2-96" name="__codelineno-2-96" href="#__codelineno-2-96"></a><span class="kr">end</span>
+</span><span id="__span-2-97"><a id="__codelineno-2-97" name="__codelineno-2-97" href="#__codelineno-2-97"></a>
+</span><span id="__span-2-98"><a id="__codelineno-2-98" name="__codelineno-2-98" href="#__codelineno-2-98"></a><span class="c1">-- ─────────────────────────────────────────────────────────────</span>
+</span><span id="__span-2-99"><a id="__codelineno-2-99" name="__codelineno-2-99" href="#__codelineno-2-99"></a><span class="c1">-- Lifecycle</span>
+</span><span id="__span-2-100"><a id="__codelineno-2-100" name="__codelineno-2-100" href="#__codelineno-2-100"></a><span class="c1">-- ─────────────────────────────────────────────────────────────</span>
+</span><span id="__span-2-101"><a id="__codelineno-2-101" name="__codelineno-2-101" href="#__codelineno-2-101"></a>
+</span><span id="__span-2-102"><a id="__codelineno-2-102" name="__codelineno-2-102" href="#__codelineno-2-102"></a><span class="kr">function</span><span class="w"> </span><span class="nf">on_game_start</span><span class="p">()</span>
+</span><span id="__span-2-103"><a id="__codelineno-2-103" name="__codelineno-2-103" href="#__codelineno-2-103"></a><span class="w">    </span><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;on_key_press&quot;</span><span class="p">,</span><span class="w">    </span><span class="nv">on_key_press</span><span class="p">)</span>
+</span><span id="__span-2-104"><a id="__codelineno-2-104" name="__codelineno-2-104" href="#__codelineno-2-104"></a><span class="w">    </span><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;on_option_change&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">on_option_change</span><span class="p">)</span>
+</span><span id="__span-2-105"><a id="__codelineno-2-105" name="__codelineno-2-105" href="#__codelineno-2-105"></a>
+</span><span id="__span-2-106"><a id="__codelineno-2-106" name="__codelineno-2-106" href="#__codelineno-2-106"></a><span class="w">    </span><span class="c1">-- Apply settings immediately so defaults take effect without MCM</span>
+</span><span id="__span-2-107"><a id="__codelineno-2-107" name="__codelineno-2-107" href="#__codelineno-2-107"></a><span class="w">    </span><span class="nf">apply_settings</span><span class="p">()</span>
+</span><span id="__span-2-108"><a id="__codelineno-2-108" name="__codelineno-2-108" href="#__codelineno-2-108"></a><span class="kr">end</span>
+</span><span id="__span-2-109"><a id="__codelineno-2-109" name="__codelineno-2-109" href="#__codelineno-2-109"></a>
+</span><span id="__span-2-110"><a id="__codelineno-2-110" name="__codelineno-2-110" href="#__codelineno-2-110"></a><span class="kr">function</span><span class="w"> </span><span class="nf">on_game_end</span><span class="p">()</span>
+</span><span id="__span-2-111"><a id="__codelineno-2-111" name="__codelineno-2-111" href="#__codelineno-2-111"></a><span class="w">    </span><span class="nf">UnregisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;on_key_press&quot;</span><span class="p">,</span><span class="w">    </span><span class="nv">on_key_press</span><span class="p">)</span>
+</span><span id="__span-2-112"><a id="__codelineno-2-112" name="__codelineno-2-112" href="#__codelineno-2-112"></a><span class="w">    </span><span class="nf">UnregisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;on_option_change&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">on_option_change</span><span class="p">)</span>
+</span><span id="__span-2-113"><a id="__codelineno-2-113" name="__codelineno-2-113" href="#__codelineno-2-113"></a><span class="kr">end</span>
+</span></code></pre></div>
+<hr />
+<h2 id="ui_st_my_full_modxml">ui_st_my_full_mod.xml<a class="headerlink" href="#ui_st_my_full_modxml" title="Permanent link">&para;</a></h2>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;windows-1251&quot;?&gt;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nt">&lt;string_table&gt;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;ui_mcm_my_full_mod&quot;</span><span class="nt">&gt;&lt;text&gt;</span>My<span class="w"> </span>Full<span class="w"> </span>Mod<span class="nt">&lt;/text&gt;&lt;/string&gt;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="cm">&lt;!-- General section --&gt;</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;ui_mcm_my_full_mod_general&quot;</span><span class="nt">&gt;&lt;text&gt;</span>General<span class="nt">&lt;/text&gt;&lt;/string&gt;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;ui_mcm_my_full_mod_enable&quot;</span><span class="nt">&gt;&lt;text&gt;</span>Enable<span class="w"> </span>mod<span class="nt">&lt;/text&gt;&lt;/string&gt;</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;ui_mcm_my_full_mod_intensity&quot;</span><span class="nt">&gt;&lt;text&gt;</span>Effect<span class="w"> </span>intensity<span class="nt">&lt;/text&gt;&lt;/string&gt;</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;ui_mcm_my_full_mod_mode&quot;</span><span class="nt">&gt;&lt;text&gt;</span>Operating<span class="w"> </span>mode<span class="nt">&lt;/text&gt;&lt;/string&gt;</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;ui_mcm_my_full_mod_mode_off&quot;</span><span class="nt">&gt;&lt;text&gt;</span>Off<span class="nt">&lt;/text&gt;&lt;/string&gt;</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;ui_mcm_my_full_mod_mode_low&quot;</span><span class="nt">&gt;&lt;text&gt;</span>Low<span class="nt">&lt;/text&gt;&lt;/string&gt;</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;ui_mcm_my_full_mod_mode_medium&quot;</span><span class="nt">&gt;&lt;text&gt;</span>Medium<span class="nt">&lt;/text&gt;&lt;/string&gt;</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;ui_mcm_my_full_mod_mode_high&quot;</span><span class="nt">&gt;&lt;text&gt;</span>High<span class="nt">&lt;/text&gt;&lt;/string&gt;</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span><span class="cm">&lt;!-- Advanced section --&gt;</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;ui_mcm_my_full_mod_advanced&quot;</span><span class="nt">&gt;&lt;text&gt;</span>Advanced<span class="nt">&lt;/text&gt;&lt;/string&gt;</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;ui_mcm_my_full_mod_debug&quot;</span><span class="nt">&gt;&lt;text&gt;</span>Enable<span class="w"> </span>debug<span class="w"> </span>logging<span class="nt">&lt;/text&gt;&lt;/string&gt;</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;ui_mcm_my_full_mod_label&quot;</span><span class="nt">&gt;&lt;text&gt;</span>Display<span class="w"> </span>name<span class="nt">&lt;/text&gt;&lt;/string&gt;</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;ui_mcm_my_full_mod_help&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">        </span><span class="nt">&lt;text&gt;</span>Changes<span class="w"> </span>take<span class="w"> </span>effect<span class="w"> </span>immediately<span class="w"> </span>after<span class="w"> </span>saving<span class="w"> </span>MCM<span class="w"> </span>settings.<span class="nt">&lt;/text&gt;</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">    </span><span class="nt">&lt;/string&gt;</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">    </span><span class="cm">&lt;!-- Keybinds section --&gt;</span>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;ui_mcm_my_full_mod_keybinds&quot;</span><span class="nt">&gt;&lt;text&gt;</span>Keybinds<span class="nt">&lt;/text&gt;&lt;/string&gt;</span>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;ui_mcm_my_full_mod_hotkey_main&quot;</span><span class="nt">&gt;&lt;text&gt;</span>Main<span class="w"> </span>action<span class="w"> </span>key<span class="nt">&lt;/text&gt;&lt;/string&gt;</span>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;ui_mcm_my_full_mod_hotkey_toggle&quot;</span><span class="nt">&gt;&lt;text&gt;</span>Toggle<span class="w"> </span>key<span class="nt">&lt;/text&gt;&lt;/string&gt;</span>
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>
+</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="w">    </span><span class="cm">&lt;!-- Runtime strings --&gt;</span>
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;my_full_mod_on&quot;</span><span class="nt">&gt;&lt;text&gt;</span>Feature<span class="w"> </span>enabled.<span class="nt">&lt;/text&gt;&lt;/string&gt;</span>
+</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;my_full_mod_off&quot;</span><span class="nt">&gt;&lt;text&gt;</span>Feature<span class="w"> </span>disabled.<span class="nt">&lt;/text&gt;&lt;/string&gt;</span>
+</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="nt">&lt;/string_table&gt;</span>
+</span></code></pre></div>
+<hr />
+<h2 id="key-decisions-explained">Key decisions explained<a class="headerlink" href="#key-decisions-explained" title="Permanent link">&para;</a></h2>
+<p><strong>Nested MCM paths.</strong> When you use nested <code>gr</code> sections with their own <code>id</code>, the MCM key path includes each level: <code>"my_full_mod/general/enable"</code>. The <code>cfg_path</code> helper in the script above handles this, but you can also use <code>cfg</code> with top-level keys if you keep all options flat.</p>
+<p><strong><code>apply_settings()</code> on startup.</strong> Calling <code>apply_settings()</code> inside <code>on_game_start</code> means the mod reads its settings immediately — before the player ever opens the MCM menu. Without this, settings would only take effect after the first <code>on_option_change</code> fires.</p>
+<p><strong><code>defaults</code> table.</strong> Every setting has a matching entry in <code>defaults</code>. The <code>cfg</code> / <code>cfg_path</code> function falls back to <code>defaults[key]</code> when MCM is nil or when the MCM value is nil (which happens for new keys on first load after an update).</p>
+<p><strong>Boolean <code>nil</code> check in <code>cfg</code>.</strong> The pattern <code>v ~= nil and v or defaults[key]</code> handles the case where <code>v</code> is <code>false</code> — a plain <code>v or default</code> would return the default for <code>false</code>, which is wrong for checkboxes.</p>
 
 
 

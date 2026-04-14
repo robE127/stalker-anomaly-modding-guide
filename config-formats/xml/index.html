@@ -1223,10 +1223,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#topics-to-cover" class="md-nav__link">
+  <a href="#where-xml-is-used" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Topics to cover
+        Where XML is used
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#syntax-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Syntax overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ui-layout-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UI layout files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#localization-string-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Localization string tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dialog-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dialog trees
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task definitions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#npc-character-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NPC character profiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-xml-from-lua" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading XML from Lua
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modding-xml-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modding XML files
       
     </span>
   </a>
@@ -1825,10 +1913,98 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#topics-to-cover" class="md-nav__link">
+  <a href="#where-xml-is-used" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Topics to cover
+        Where XML is used
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#syntax-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Syntax overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ui-layout-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UI layout files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#localization-string-tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Localization string tables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dialog-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dialog trees
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-definitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task definitions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#npc-character-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NPC character profiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-xml-from-lua" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading XML from Lua
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modding-xml-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modding XML files
       
     </span>
   </a>
@@ -1853,19 +2029,236 @@
 
 
 <h1 id="xml-configs">XML Configs<a class="headerlink" href="#xml-configs" title="Permanent link">&para;</a></h1>
-<div class="admonition note">
-<p class="admonition-title">Work in progress</p>
-<p>This page is being written. Content coming soon.</p>
-</div>
-<h2 id="topics-to-cover">Topics to cover<a class="headerlink" href="#topics-to-cover" title="Permanent link">&para;</a></h2>
+<p>XML is used alongside LTX for a specific subset of game data: UI layouts, localization strings, dialog trees, character spawn profiles, and task definitions. The two formats serve different purposes and are never interchangeable.</p>
+<hr />
+<h2 id="where-xml-is-used">Where XML is used<a class="headerlink" href="#where-xml-is-used" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Folder</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>configs/ui/</code></td>
+<td>UI element definitions — positions, sizes, textures, fonts</td>
+</tr>
+<tr>
+<td><code>configs/text/&lt;lang&gt;/</code></td>
+<td>Localization string tables</td>
+</tr>
+<tr>
+<td><code>configs/gameplay/</code></td>
+<td>Task definitions, dialog trees</td>
+</tr>
+<tr>
+<td><code>configs/gameplay/character_desc_*.xml</code></td>
+<td>NPC character profiles</td>
+</tr>
+<tr>
+<td><code>configs/gameplay/spawn_sections*.xml</code></td>
+<td>Spawn profiles</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="syntax-overview">Syntax overview<a class="headerlink" href="#syntax-overview" title="Permanent link">&para;</a></h2>
+<p>Anomaly XML follows standard XML rules with a few conventions:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;windows-1251&quot;?&gt;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">&lt;root_element&gt;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="cm">&lt;!-- This is a comment --&gt;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nt">&lt;child_element</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;my_name&quot;</span><span class="w"> </span><span class="na">x=</span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="na">y=</span><span class="s">&quot;20&quot;</span><span class="w"> </span><span class="na">width=</span><span class="s">&quot;100&quot;</span><span class="w"> </span><span class="na">height=</span><span class="s">&quot;50&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">        </span><span class="nt">&lt;nested&gt;</span>content<span class="nt">&lt;/nested&gt;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nt">&lt;/child_element&gt;</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nt">&lt;/root_element&gt;</span>
+</span></code></pre></div>
+<p><strong>Important:</strong> Anomaly XML must be encoded as <code>windows-1251</code>, not UTF-8. Opening these files in a modern text editor set to UTF-8 may corrupt non-ASCII characters.</p>
+<hr />
+<h2 id="ui-layout-files">UI layout files<a class="headerlink" href="#ui-layout-files" title="Permanent link">&para;</a></h2>
+<p>UI XML files define control positions, sizes, textures, and fonts. The Lua script then loads these definitions using <code>CScriptXmlInit</code>.</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cm">&lt;!-- configs/ui/my_mod_window.xml --&gt;</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">&lt;w&gt;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">&lt;background</span><span class="w"> </span><span class="na">x=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">y=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">width=</span><span class="s">&quot;400&quot;</span><span class="w"> </span><span class="na">height=</span><span class="s">&quot;300&quot;</span><span class="w"> </span><span class="na">stretch=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">        </span><span class="nt">&lt;texture&gt;</span>ui\ui_common_window<span class="nt">&lt;/texture&gt;</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">&lt;/background&gt;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="nt">&lt;button</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;btn_ok&quot;</span><span class="w"> </span><span class="na">x=</span><span class="s">&quot;155&quot;</span><span class="w"> </span><span class="na">y=</span><span class="s">&quot;260&quot;</span><span class="w"> </span><span class="na">width=</span><span class="s">&quot;90&quot;</span><span class="w"> </span><span class="na">height=</span><span class="s">&quot;24&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="nt">&lt;text</span><span class="w"> </span><span class="na">font=</span><span class="s">&quot;letterica16&quot;</span><span class="w"> </span><span class="na">r=</span><span class="s">&quot;200&quot;</span><span class="w"> </span><span class="na">g=</span><span class="s">&quot;200&quot;</span><span class="w"> </span><span class="na">b=</span><span class="s">&quot;200&quot;</span><span class="nt">&gt;</span>OK<span class="nt">&lt;/text&gt;</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="nt">&lt;/button&gt;</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="nt">&lt;static</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;lbl_title&quot;</span><span class="w"> </span><span class="na">x=</span><span class="s">&quot;20&quot;</span><span class="w"> </span><span class="na">y=</span><span class="s">&quot;15&quot;</span><span class="w"> </span><span class="na">width=</span><span class="s">&quot;360&quot;</span><span class="w"> </span><span class="na">height=</span><span class="s">&quot;30&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">        </span><span class="nt">&lt;text</span><span class="w"> </span><span class="na">font=</span><span class="s">&quot;letterica18&quot;</span><span class="w"> </span><span class="na">align=</span><span class="s">&quot;c&quot;</span><span class="w"> </span><span class="na">r=</span><span class="s">&quot;255&quot;</span><span class="w"> </span><span class="na">g=</span><span class="s">&quot;215&quot;</span><span class="w"> </span><span class="na">b=</span><span class="s">&quot;0&quot;</span><span class="nt">/&gt;</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="nt">&lt;/static&gt;</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="nt">&lt;edit_box</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;input_field&quot;</span><span class="w"> </span><span class="na">x=</span><span class="s">&quot;20&quot;</span><span class="w"> </span><span class="na">y=</span><span class="s">&quot;60&quot;</span><span class="w"> </span><span class="na">width=</span><span class="s">&quot;360&quot;</span><span class="w"> </span><span class="na">height=</span><span class="s">&quot;24&quot;</span><span class="nt">/&gt;</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="nt">&lt;/w&gt;</span>
+</span></code></pre></div>
+<p><strong>Common attributes:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x</code>, <code>y</code></td>
+<td>Position in virtual 1024×768 screen space</td>
+</tr>
+<tr>
+<td><code>width</code>, <code>height</code></td>
+<td>Dimensions</td>
+</tr>
+<tr>
+<td><code>stretch="1"</code></td>
+<td>Scale texture to fill bounds</td>
+</tr>
+<tr>
+<td><code>align</code></td>
+<td>Text alignment: <code>"l"</code>, <code>"c"</code>, <code>"r"</code></td>
+</tr>
+<tr>
+<td><code>font</code></td>
+<td>Font name: <code>"letterica16"</code>, <code>"letterica18"</code>, <code>"graffiti19"</code>, <code>"small"</code></td>
+</tr>
+<tr>
+<td><code>r</code>, <code>g</code>, <code>b</code></td>
+<td>Text colour (0–255)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Loading in Lua:</strong></p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">xml</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">CScriptXmlInit</span><span class="p">()</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nv">xml</span><span class="p">:</span><span class="nf">ParseFile</span><span class="p">(</span><span class="s2">&quot;my_mod_window.xml&quot;</span><span class="p">)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nv">self</span><span class="p">.</span><span class="py">btn_ok</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nv">xml</span><span class="p">:</span><span class="nf">Init3tButton</span><span class="p">(</span><span class="s2">&quot;button[name=btn_ok]&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">self</span><span class="p">)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nv">self</span><span class="p">.</span><span class="py">lbl_title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">xml</span><span class="p">:</span><span class="nf">InitTextWnd</span><span class="p">(</span><span class="s2">&quot;static[name=lbl_title]&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">self</span><span class="p">)</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nv">self</span><span class="p">.</span><span class="py">input</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nv">xml</span><span class="p">:</span><span class="nf">InitEditBox</span><span class="p">(</span><span class="s2">&quot;edit_box[name=input_field]&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">self</span><span class="p">)</span>
+</span></code></pre></div>
+<p>See <a href="../../systems/ui-scripting/">UI Scripting</a> for the full window building pattern.</p>
+<hr />
+<h2 id="localization-string-tables">Localization string tables<a class="headerlink" href="#localization-string-tables" title="Permanent link">&para;</a></h2>
+<p>String tables are simple key→value XML files. Every piece of visible text in the game goes through this system.</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;windows-1251&quot;?&gt;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nt">&lt;string_table&gt;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;my_mod_quest_title&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">        </span><span class="nt">&lt;text&gt;</span>The<span class="w"> </span>Lost<span class="w"> </span>Signal<span class="nt">&lt;/text&gt;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="nt">&lt;/string&gt;</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;my_mod_reward_fmt&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">        </span><span class="nt">&lt;text&gt;</span>You<span class="w"> </span>received<span class="w"> </span>%d<span class="w"> </span>roubles.<span class="nt">&lt;/text&gt;</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="nt">&lt;/string&gt;</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;my_mod_hint&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">        </span><span class="nt">&lt;text&gt;</span>%c[d_green]Hint:%c[default]<span class="w"> </span>Check<span class="w"> </span>the<span class="w"> </span>stash<span class="w"> </span>near<span class="w"> </span>the<span class="w"> </span>bridge.<span class="nt">&lt;/text&gt;</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="nt">&lt;/string&gt;</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="nt">&lt;/string_table&gt;</span>
+</span></code></pre></div>
 <ul>
-<li>Where XML is used vs LTX (UI layouts, localization, dialog trees, character/spawn profiles)</li>
-<li><code>configs/ui/</code> — UI element definitions: positions, sizes, textures, font references</li>
-<li><code>configs/text/&lt;lang&gt;/</code> — Localization string tables (<code>&lt;string id="key"&gt;&lt;text&gt;Value&lt;/text&gt;&lt;/string&gt;</code>)</li>
-<li><code>configs/gameplay/</code> — Task definitions, dialog trees, character profiles</li>
-<li>Reading XML from Lua using <code>CScriptXmlInit</code></li>
-<li>The <code>on_xml_read</code> callback — fired when the engine reads an XML file, used for DXML patching</li>
+<li>Files go in <code>configs/text/eng/</code> (and optionally other language folders)</li>
+<li>Filename can be anything — all files in the folder are loaded</li>
+<li>Keys must be globally unique; prefix with your mod name</li>
+<li>Look up with <code>game.translate_string("my_mod_quest_title")</code></li>
 </ul>
+<p>See <a href="../../systems/localization/">Localization</a> for the full system.</p>
+<hr />
+<h2 id="dialog-trees">Dialog trees<a class="headerlink" href="#dialog-trees" title="Permanent link">&para;</a></h2>
+<p>Dialog XML defines the conversation trees shown when the player talks to an NPC. Each <code>phrase</code> is a line of dialog; <code>next</code> links to the next phrase; <code>precondition</code> and <code>action</code> call Lua functions.</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">&lt;dialog</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;my_mod_quest_dialog&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="nt">&lt;phrase_list&gt;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">        </span><span class="cm">&lt;!-- Opening line (always phrase 0) --&gt;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">        </span><span class="nt">&lt;phrase</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;0&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">            </span><span class="nt">&lt;text&gt;</span>my_mod_dialog_greeting<span class="nt">&lt;/text&gt;</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">            </span><span class="nt">&lt;next&gt;</span>1<span class="nt">&lt;/next&gt;</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">            </span><span class="nt">&lt;next&gt;</span>2<span class="nt">&lt;/next&gt;</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">        </span><span class="nt">&lt;/phrase&gt;</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">        </span><span class="cm">&lt;!-- Option 1: start quest (only shown if quest not yet started) --&gt;</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">        </span><span class="nt">&lt;phrase</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">            </span><span class="nt">&lt;text&gt;</span>my_mod_dialog_ask_quest<span class="nt">&lt;/text&gt;</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">            </span><span class="nt">&lt;precondition&gt;</span>my_mod_can_give_quest<span class="nt">&lt;/precondition&gt;</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">            </span><span class="nt">&lt;action&gt;</span>my_mod_give_quest<span class="nt">&lt;/action&gt;</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">            </span><span class="nt">&lt;next&gt;</span>10<span class="nt">&lt;/next&gt;</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">        </span><span class="nt">&lt;/phrase&gt;</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">        </span><span class="cm">&lt;!-- Option 2: goodbye --&gt;</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">        </span><span class="nt">&lt;phrase</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;2&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">            </span><span class="nt">&lt;text&gt;</span>my_mod_dialog_goodbye<span class="nt">&lt;/text&gt;</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">        </span><span class="nt">&lt;/phrase&gt;</span>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">        </span><span class="cm">&lt;!-- NPC response after accepting quest --&gt;</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">        </span><span class="nt">&lt;phrase</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;10&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">            </span><span class="nt">&lt;text&gt;</span>my_mod_dialog_quest_given<span class="nt">&lt;/text&gt;</span>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">        </span><span class="nt">&lt;/phrase&gt;</span>
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">    </span><span class="nt">&lt;/phrase_list&gt;</span>
+</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="nt">&lt;/dialog&gt;</span>
+</span></code></pre></div>
+<p><code>precondition</code> and <code>action</code> reference <strong>global Lua function names</strong>. The functions receive <code>(first_speaker, second_speaker)</code> where first_speaker is the NPC and second_speaker is the actor.</p>
+<p>Dialogs must also be registered in the NPC's character description XML:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">&lt;specific_character</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;my_npc_character&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span>...
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nt">&lt;actor_dialog&gt;</span>my_mod_quest_dialog<span class="nt">&lt;/actor_dialog&gt;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="nt">&lt;/specific_character&gt;</span>
+</span></code></pre></div>
+<hr />
+<h2 id="task-definitions">Task definitions<a class="headerlink" href="#task-definitions" title="Permanent link">&para;</a></h2>
+<p>Tasks (quests) are defined in <code>configs/gameplay/</code> XML files:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">&lt;game_task</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;my_mod_find_item_task&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="nt">&lt;title&gt;</span>my_mod_task_find_title<span class="nt">&lt;/title&gt;</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nt">&lt;descr&gt;</span>my_mod_task_find_descr<span class="nt">&lt;/descr&gt;</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="nt">&lt;job_descr&gt;</span>my_mod_task_find_job<span class="nt">&lt;/job_descr&gt;</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="nt">&lt;icon&gt;</span>ui_icon_default<span class="nt">&lt;/icon&gt;</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="nt">&lt;article&gt;</span>article_my_mod<span class="nt">&lt;/article&gt;</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="nt">&lt;objectives&gt;</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">        </span><span class="nt">&lt;objective&gt;</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">            </span><span class="nt">&lt;text&gt;</span>my_mod_task_objective_1<span class="nt">&lt;/text&gt;</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">            </span><span class="nt">&lt;infoportion_complete&gt;</span>my_mod_item_found<span class="nt">&lt;/infoportion_complete&gt;</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">            </span><span class="nt">&lt;on_complete&gt;</span>my_mod_on_task_complete<span class="nt">&lt;/on_complete&gt;</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">        </span><span class="nt">&lt;/objective&gt;</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">    </span><span class="nt">&lt;/objectives&gt;</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="nt">&lt;/game_task&gt;</span>
+</span></code></pre></div>
+<p>All <code>&lt;text&gt;</code> values are localization keys. <code>infoportion_complete</code> is an info portion ID — the task objective completes automatically when the actor receives that info portion.</p>
+<hr />
+<h2 id="npc-character-profiles">NPC character profiles<a class="headerlink" href="#npc-character-profiles" title="Permanent link">&para;</a></h2>
+<p>Character profiles define an NPC's appearance, voice, faction, and dialog:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">&lt;specific_character</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;my_npc_unique_stalker&quot;</span><span class="w"> </span><span class="na">team_default=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="nt">&lt;name&gt;</span>my_npc_name_key<span class="nt">&lt;/name&gt;</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nt">&lt;icon&gt;</span>ui_inGame2_Stalker_1<span class="nt">&lt;/icon&gt;</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="nt">&lt;bio&gt;</span>my_npc_bio_key<span class="nt">&lt;/bio&gt;</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="nt">&lt;class&gt;</span>stalker<span class="nt">&lt;/class&gt;</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="nt">&lt;community&gt;</span>stalker<span class="nt">&lt;/community&gt;</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="nt">&lt;rank&gt;</span>400<span class="nt">&lt;/rank&gt;</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="nt">&lt;reputation&gt;</span>200<span class="nt">&lt;/reputation&gt;</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="nt">&lt;money</span><span class="w"> </span><span class="na">count=</span><span class="s">&quot;500&quot;</span><span class="w"> </span><span class="na">delay=</span><span class="s">&quot;0&quot;</span><span class="nt">/&gt;</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="nt">&lt;rank_insignia</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;0&quot;</span><span class="nt">/&gt;</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="nt">&lt;visual&gt;</span>actors\stalker_soldier\stalker_soldier_1<span class="nt">&lt;/visual&gt;</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">    </span><span class="nt">&lt;actor_dialog&gt;</span>my_mod_quest_dialog<span class="nt">&lt;/actor_dialog&gt;</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="nt">&lt;start_dialog&gt;</span>my_mod_greeting_dialog<span class="nt">&lt;/start_dialog&gt;</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">    </span><span class="nt">&lt;supplies&gt;</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">        </span>[wpn_ak74]<span class="w"> </span>count<span class="w"> </span>=<span class="w"> </span>1
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">        </span>[ammo_5.45x39_fmj]<span class="w"> </span>count<span class="w"> </span>=<span class="w"> </span>2
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">    </span><span class="nt">&lt;/supplies&gt;</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="nt">&lt;/specific_character&gt;</span>
+</span></code></pre></div>
+<hr />
+<h2 id="reading-xml-from-lua">Reading XML from Lua<a class="headerlink" href="#reading-xml-from-lua" title="Permanent link">&para;</a></h2>
+<p>Beyond UI layouts, scripts can directly inspect XML using <code>CScriptXmlInit</code>:</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">xml</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">CScriptXmlInit</span><span class="p">()</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nv">xml</span><span class="p">:</span><span class="nf">ParseFile</span><span class="p">(</span><span class="s2">&quot;gameplay</span><span class="se">\\</span><span class="s2">my_task_file.xml&quot;</span><span class="p">)</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1">-- Navigate to a specific element</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="kd">local</span><span class="w"> </span><span class="nv">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">xml</span><span class="p">:</span><span class="nf">GetNodesNum</span><span class="p">(</span><span class="s2">&quot;game_task&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w">  </span><span class="c1">-- number of &lt;game_task&gt; elements</span>
+</span></code></pre></div>
+<p>For runtime XML modification, use <a href="../dxml/">DXML</a>.</p>
+<hr />
+<h2 id="modding-xml-files">Modding XML files<a class="headerlink" href="#modding-xml-files" title="Permanent link">&para;</a></h2>
+<p><strong>Don't replace files directly</strong> when other mods might also modify them. Replacing <code>ui_inventory.xml</code> means your version wins and the other mod's changes are lost.</p>
+<p>Use <a href="../dxml/">DXML</a> to apply targeted patches instead — it lets multiple mods modify the same XML file without conflicts.</p>
+<p>The exception is new files you create from scratch (new dialogs, new string tables, new UI windows). Those don't conflict with anything and can simply be placed in the appropriate folder.</p>
 
 
 

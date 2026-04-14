@@ -1477,13 +1477,285 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#topics-to-cover" class="md-nav__link">
+  <a href="#npc-vs-mutant" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Topics to cover
+        NPC vs mutant
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#death-callbacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Death callbacks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Death callbacks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#npc_on_death_callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        npc_on_death_callback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monster_on_death_callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        monster_on_death_callback
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifying-incoming-hits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modifying incoming hits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#npc-game_object-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NPC game_object methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dbstorage-per-npc-lua-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        db.storage — per-NPC Lua state
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#factions-and-relations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Factions and relations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Factions and relations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reading-relations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading relations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-relations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting relations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#communityfaction-goodwill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Community/faction goodwill
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#squads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Squads
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Squads">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-an-npcs-squad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting an NPC's squad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iterating-squad-members" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Iterating squad members
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dialog-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dialog system
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dialog system">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#condition-function-precondition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Condition function (precondition)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#action-function-dialog-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Action function (dialog result)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registering-in-dialog-xml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registering in dialog XML
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common patterns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#give-loot-when-an-npc-dies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Give loot when an NPC dies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-if-the-player-killed-an-npc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check if the player killed an NPC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-all-online-npcs-of-a-faction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Find all online NPCs of a faction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make-all-nearby-npcs-friendly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Make all nearby NPCs friendly
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1825,13 +2097,285 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#topics-to-cover" class="md-nav__link">
+  <a href="#npc-vs-mutant" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Topics to cover
+        NPC vs mutant
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#death-callbacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Death callbacks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Death callbacks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#npc_on_death_callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        npc_on_death_callback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monster_on_death_callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        monster_on_death_callback
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifying-incoming-hits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modifying incoming hits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#npc-game_object-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NPC game_object methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dbstorage-per-npc-lua-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        db.storage — per-NPC Lua state
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#factions-and-relations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Factions and relations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Factions and relations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reading-relations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading relations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setting-relations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting relations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#communityfaction-goodwill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Community/faction goodwill
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#squads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Squads
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Squads">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-an-npcs-squad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting an NPC's squad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iterating-squad-members" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Iterating squad members
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dialog-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dialog system
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dialog system">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#condition-function-precondition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Condition function (precondition)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#action-function-dialog-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Action function (dialog result)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#registering-in-dialog-xml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registering in dialog XML
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common patterns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#give-loot-when-an-npc-dies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Give loot when an NPC dies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-if-the-player-killed-an-npc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check if the player killed an NPC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-all-online-npcs-of-a-faction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Find all online NPCs of a faction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make-all-nearby-npcs-friendly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Make all nearby NPCs friendly
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1853,23 +2397,324 @@
 
 
 <h1 id="npcs-factions">NPCs &amp; Factions<a class="headerlink" href="#npcs-factions" title="Permanent link">&para;</a></h1>
+<p>This page covers working with NPCs, mutants, squads, and the faction relation system from script.</p>
+<hr />
+<h2 id="npc-vs-mutant">NPC vs mutant<a class="headerlink" href="#npc-vs-mutant" title="Permanent link">&para;</a></h2>
+<p>Anomaly has two broad categories of AI entities:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Stalkers / humanoid NPCs</th>
+<th>Mutants / creatures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Class</td>
+<td><code>CAI_Stalker</code></td>
+<td>Various monster classes</td>
+</tr>
+<tr>
+<td>Check</td>
+<td><code>IsStalker(obj)</code></td>
+<td><code>IsMonster(obj)</code></td>
+</tr>
+<tr>
+<td>Death callback</td>
+<td><code>npc_on_death_callback</code></td>
+<td><code>monster_on_death_callback</code></td>
+</tr>
+<tr>
+<td>Faction</td>
+<td>Yes (<code>.community()</code>)</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Dialog</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Squad</td>
+<td>Usually</td>
+<td>Rarely (some creature packs)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="death-callbacks">Death callbacks<a class="headerlink" href="#death-callbacks" title="Permanent link">&para;</a></h2>
+<p>The two most common NPC callbacks. Both follow the same pattern.</p>
+<h3 id="npc_on_death_callback">npc_on_death_callback<a class="headerlink" href="#npc_on_death_callback" title="Permanent link">&para;</a></h3>
+<p>Fires when any humanoid NPC dies.</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">npc_on_death_callback</span><span class="p">(</span><span class="nv">victim</span><span class="p">,</span><span class="w"> </span><span class="nv">who</span><span class="p">)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="c1">-- victim and who are game_object references</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="c1">-- who can be nil (killed by environment / anomaly)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="p">(</span><span class="nv">victim</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">who</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">victim_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">victim</span><span class="p">:</span><span class="nf">name</span><span class="p">()</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">killer_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">who</span><span class="p">:</span><span class="nf">name</span><span class="p">()</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;[my_mod] %s killed by %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">victim_name</span><span class="p">,</span><span class="w"> </span><span class="nv">killer_name</span><span class="p">)</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="c1">-- Check if player was the killer</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">who</span><span class="p">:</span><span class="nf">id</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="kr">then</span><span class="w">   </span><span class="c1">-- actor always has id 0 on the client</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">        </span><span class="nf">on_player_killed_npc</span><span class="p">(</span><span class="nv">victim</span><span class="p">)</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="kr">end</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="kr">function</span><span class="w"> </span><span class="nf">on_game_start</span><span class="p">()</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;npc_on_death_callback&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">npc_on_death_callback</span><span class="p">)</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="kr">end</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="kr">function</span><span class="w"> </span><span class="nf">on_game_end</span><span class="p">()</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">    </span><span class="nf">UnregisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;npc_on_death_callback&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">npc_on_death_callback</span><span class="p">)</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="kr">end</span>
+</span></code></pre></div>
+<h3 id="monster_on_death_callback">monster_on_death_callback<a class="headerlink" href="#monster_on_death_callback" title="Permanent link">&para;</a></h3>
+<p>Same signature, fires for mutants.</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">monster_on_death_callback</span><span class="p">(</span><span class="nv">victim</span><span class="p">,</span><span class="w"> </span><span class="nv">who</span><span class="p">)</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="p">(</span><span class="nv">victim</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">who</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="c1">-- same pattern as npc_on_death_callback</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kr">end</span>
+</span></code></pre></div>
+<hr />
+<h2 id="modifying-incoming-hits">Modifying incoming hits<a class="headerlink" href="#modifying-incoming-hits" title="Permanent link">&para;</a></h2>
+<p><code>npc_on_before_hit</code> fires before damage is applied to an NPC. You can read the hit, modify it, or cancel it entirely.</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">npc_on_before_hit</span><span class="p">(</span><span class="nv">npc</span><span class="p">,</span><span class="w"> </span><span class="nv">hit</span><span class="p">,</span><span class="w"> </span><span class="nv">bone_id</span><span class="p">,</span><span class="w"> </span><span class="nv">flags</span><span class="p">)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="c1">-- hit.draftsman  = source game_object (who fired the shot)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="c1">-- hit.type       = hit type (hit.wound, hit.explosion, etc.)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="c1">-- hit.power      = damage amount</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="c1">-- bone_id        = bone that was hit</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="c1">-- Example: cancel all damage from the actor to a specific NPC</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">hit</span><span class="p">.</span><span class="py">draftsman</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">hit</span><span class="p">.</span><span class="py">draftsman</span><span class="p">:</span><span class="nf">id</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">        </span><span class="kr">if</span><span class="w"> </span><span class="nv">npc</span><span class="p">:</span><span class="nf">name</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;my_protected_npc&quot;</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">            </span><span class="nv">flags</span><span class="p">.</span><span class="py">ret_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w">   </span><span class="c1">-- block the hit</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">        </span><span class="kr">end</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="c1">-- Example: halve all damage to NPCs from explosions</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">hit</span><span class="p">.</span><span class="py">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">hit</span><span class="p">.</span><span class="py">explosion</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">        </span><span class="nv">hit</span><span class="p">.</span><span class="py">power</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">hit</span><span class="p">.</span><span class="py">power</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="kr">end</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="kr">function</span><span class="w"> </span><span class="nf">on_game_start</span><span class="p">()</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">    </span><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;npc_on_before_hit&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">npc_on_before_hit</span><span class="p">)</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="kr">end</span>
+</span></code></pre></div>
+<p>The equivalent <code>actor_on_before_hit</code> fires when the player is hit.</p>
+<hr />
+<h2 id="npc-game_object-methods">NPC game_object methods<a class="headerlink" href="#npc-game_object-methods" title="Permanent link">&para;</a></h2>
+<p>When you have an NPC as a <code>game_object</code> (from a callback or <code>db.storage</code>), the common methods:</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">-- Identity</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nv">npc</span><span class="p">:</span><span class="nf">id</span><span class="p">()</span><span class="w">                    </span><span class="c1">-- numeric ID</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nv">npc</span><span class="p">:</span><span class="nf">name</span><span class="p">()</span><span class="w">                  </span><span class="c1">-- internal name (unique per NPC)</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nv">npc</span><span class="p">:</span><span class="nf">character_name</span><span class="p">()</span><span class="w">        </span><span class="c1">-- display name (for PDA/dialog)</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nv">npc</span><span class="p">:</span><span class="nf">section</span><span class="p">()</span><span class="w">               </span><span class="c1">-- config section</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="nv">npc</span><span class="p">:</span><span class="nf">community</span><span class="p">()</span><span class="w">             </span><span class="c1">-- faction string, e.g. &quot;stalker&quot;, &quot;bandit&quot;, &quot;dolg&quot;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="c1">-- Status</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="nv">npc</span><span class="p">:</span><span class="nf">alive</span><span class="p">()</span><span class="w">                 </span><span class="c1">-- true if alive</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="nv">npc</span><span class="p">:</span><span class="py">health</span><span class="w">                  </span><span class="c1">-- property (0.0–1.0)</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="nv">npc</span><span class="p">:</span><span class="nf">position</span><span class="p">()</span><span class="w">              </span><span class="c1">-- vector3</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="nv">npc</span><span class="p">:</span><span class="nf">game_vertex_id</span><span class="p">()</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="nv">npc</span><span class="p">:</span><span class="nf">level_vertex_id</span><span class="p">()</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="c1">-- Sight</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="nv">npc</span><span class="p">:</span><span class="nf">see</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span><span class="w">                </span><span class="c1">-- can NPC see this object?</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="c1">-- Info portions</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="nv">npc</span><span class="p">:</span><span class="nf">give_info_portion</span><span class="p">(</span><span class="nv">id</span><span class="p">)</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="nv">npc</span><span class="p">:</span><span class="nf">has_info</span><span class="p">(</span><span class="nv">id</span><span class="p">)</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="nv">npc</span><span class="p">:</span><span class="nf">disable_info_portion</span><span class="p">(</span><span class="nv">id</span><span class="p">)</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="c1">-- Relations</span>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="nv">npc</span><span class="p">:</span><span class="nf">relation</span><span class="p">(</span><span class="nv">other</span><span class="p">)</span><span class="w">         </span><span class="c1">-- game_object.enemy / .neutral / .friend</span>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="nv">npc</span><span class="p">:</span><span class="nf">sympathy</span><span class="p">()</span><span class="w">              </span><span class="c1">-- 0.0–1.0</span>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="nv">npc</span><span class="p">:</span><span class="nf">set_sympathy</span><span class="p">(</span><span class="nv">v</span><span class="p">)</span>
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="nv">npc</span><span class="p">:</span><span class="nf">force_set_goodwill</span><span class="p">(</span><span class="nv">value</span><span class="p">,</span><span class="w"> </span><span class="nv">target</span><span class="p">)</span>
+</span></code></pre></div>
+<hr />
+<h2 id="dbstorage-per-npc-lua-state">db.storage — per-NPC Lua state<a class="headerlink" href="#dbstorage-per-npc-lua-state" title="Permanent link">&para;</a></h2>
+<p><code>db.storage</code> is a table keyed by object ID that holds each online NPC's Lua-side state. It's written by the NPC binder when the NPC enters the world, and cleared when it leaves.</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">-- Get the game_object for any online NPC by ID</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">npc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">id</span><span class="p">]</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">id</span><span class="p">].</span><span class="nv">object</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="kr">if</span><span class="w"> </span><span class="nv">npc</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">npc</span><span class="p">:</span><span class="nf">alive</span><span class="p">()</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">npc</span><span class="p">:</span><span class="nf">position</span><span class="p">()</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="kr">end</span>
+</span></code></pre></div>
+<p>Key fields inside <code>db.storage[id]</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.object</code></td>
+<td>The NPC's <code>game_object</code></td>
+</tr>
+<tr>
+<td><code>.active_section</code></td>
+<td>Current behavior section (e.g. <code>"walker@idle"</code>)</td>
+</tr>
+<tr>
+<td><code>.state_mgr</code></td>
+<td>State machine manager instance</td>
+</tr>
+<tr>
+<td><code>.move_mgr</code></td>
+<td>Movement manager instance</td>
+</tr>
+<tr>
+<td><code>.squad_id</code></td>
+<td>Squad ID (may not always be present)</td>
+</tr>
+</tbody>
+</table>
 <div class="admonition note">
-<p class="admonition-title">Work in progress</p>
-<p>This page is being written. Content coming soon.</p>
+<p class="admonition-title">Note</p>
+<p><code>db.storage[id]</code> only exists while the NPC is <strong>online</strong> (within spawn distance). For offline NPCs, use <code>alife_object(id)</code> to get the server-side entity.</p>
 </div>
-<h2 id="topics-to-cover">Topics to cover<a class="headerlink" href="#topics-to-cover" title="Permanent link">&para;</a></h2>
-<ul>
-<li>NPC vs monster — different class hierarchies, different callbacks</li>
-<li><code>npc_on_death_callback(victim, who)</code> — most common NPC callback (41 uses); <code>victim</code> and <code>who</code> are <code>game_object</code></li>
-<li><code>npc_on_before_hit(npc, hit, bone_id)</code> — intercept and modify incoming hits</li>
-<li><code>monster_on_death_callback</code> — same pattern for mutants</li>
-<li>Squad system: <code>se_simulated_squad</code> server object, getting a squad from an NPC</li>
-<li><code>db.storage[id]</code> — per-NPC Lua state table, where scripts store NPC-local data</li>
-<li>Faction relations: <code>game_relations.get_npcs_relation</code>, setting and getting goodwill</li>
-<li>Spawning an NPC squad: <code>alife():create_squad(section, smart_terrain_id)</code></li>
-<li><code>server_entity_on_unregister</code> — cleanup when any entity (including NPCs) is removed</li>
-<li>Dialog callbacks: triggered from XML dialog trees via <code>precondition</code> and <code>action</code> scripts</li>
-</ul>
+<hr />
+<h2 id="factions-and-relations">Factions and relations<a class="headerlink" href="#factions-and-relations" title="Permanent link">&para;</a></h2>
+<h3 id="reading-relations">Reading relations<a class="headerlink" href="#reading-relations" title="Permanent link">&para;</a></h3>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">relation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">game_relations</span><span class="p">.</span><span class="nf">get_npcs_relation</span><span class="p">(</span><span class="nv">npc1</span><span class="p">,</span><span class="w"> </span><span class="nv">npc2</span><span class="p">)</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1">-- returns: game_object.friend, game_object.neutral, or game_object.enemy</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="kr">if</span><span class="w"> </span><span class="nv">relation</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">game_object</span><span class="p">.</span><span class="py">enemy</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="c1">-- hostile</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="kr">end</span>
+</span></code></pre></div>
+<h3 id="setting-relations">Setting relations<a class="headerlink" href="#setting-relations" title="Permanent link">&para;</a></h3>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">game_relations</span><span class="p">.</span><span class="nf">set_npcs_relation</span><span class="p">(</span><span class="nv">npc</span><span class="p">,</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">,</span><span class="w"> </span><span class="nv">game_relations</span><span class="p">.</span><span class="py">FRIENDS</span><span class="p">)</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1">-- game_relations.FRIENDS  =  1000</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1">-- game_relations.NEUTRALS =     0</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1">-- game_relations.ENEMIES  = -1000</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="c1">-- Set NPC sympathy (0.0 = hate, 1.0 = love)</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="nv">game_relations</span><span class="p">.</span><span class="nf">set_npc_sympathy</span><span class="p">(</span><span class="nv">npc</span><span class="p">,</span><span class="w"> </span><span class="mf">0.8</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="communityfaction-goodwill">Community/faction goodwill<a class="headerlink" href="#communityfaction-goodwill" title="Permanent link">&para;</a></h3>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">-- Actor&#39;s goodwill with a faction (-10000 to 10000)</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">goodwill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">community_goodwill</span><span class="p">(</span><span class="s2">&quot;dolg&quot;</span><span class="p">)</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">set_community_goodwill</span><span class="p">(</span><span class="s2">&quot;dolg&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1">-- NPC&#39;s faction community (short name)</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="kd">local</span><span class="w"> </span><span class="nv">faction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">npc</span><span class="p">:</span><span class="nf">community</span><span class="p">()</span><span class="w">  </span><span class="c1">-- &quot;stalker&quot;, &quot;bandit&quot;, &quot;dolg&quot;, &quot;freedom&quot;, etc.</span>
+</span></code></pre></div>
+<hr />
+<h2 id="squads">Squads<a class="headerlink" href="#squads" title="Permanent link">&para;</a></h2>
+<p>Squads are the server-side grouping of NPCs. They have their own <code>se_abstract</code> object accessible via <code>alife_object(squad_id)</code>.</p>
+<h3 id="getting-an-npcs-squad">Getting an NPC's squad<a class="headerlink" href="#getting-an-npcs-squad" title="Permanent link">&para;</a></h3>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">get_squad</span><span class="p">(</span><span class="nv">npc_or_se_obj</span><span class="p">)</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="nf">get_object_squad</span><span class="p">(</span><span class="nv">npc_or_se_obj</span><span class="p">)</span><span class="w">  </span><span class="c1">-- helper from _g.script</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="kr">end</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="c1">-- Or manually from the server entity</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="kd">local</span><span class="w"> </span><span class="nv">se_npc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">alife_object</span><span class="p">(</span><span class="nv">npc</span><span class="p">:</span><span class="nf">id</span><span class="p">())</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="kr">if</span><span class="w"> </span><span class="nv">se_npc</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">se_npc</span><span class="p">.</span><span class="py">group_id</span><span class="w"> </span><span class="o">~=</span><span class="w"> </span><span class="mi">65535</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">squad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">alife_object</span><span class="p">(</span><span class="nv">se_npc</span><span class="p">.</span><span class="py">group_id</span><span class="p">)</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">    </span><span class="c1">-- use squad</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="kr">end</span>
+</span></code></pre></div>
+<h3 id="iterating-squad-members">Iterating squad members<a class="headerlink" href="#iterating-squad-members" title="Permanent link">&para;</a></h3>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">squad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">get_object_squad</span><span class="p">(</span><span class="nv">npc</span><span class="p">)</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kr">if</span><span class="w"> </span><span class="nv">squad</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="kr">for</span><span class="w"> </span><span class="nv">member</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">squad</span><span class="p">:</span><span class="nf">squad_members</span><span class="p">()</span><span class="w"> </span><span class="kr">do</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">        </span><span class="c1">-- member.id is the NPC&#39;s ID</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">        </span><span class="kd">local</span><span class="w"> </span><span class="nv">member_obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">member</span><span class="p">.</span><span class="py">id</span><span class="p">]</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">member</span><span class="p">.</span><span class="py">id</span><span class="p">].</span><span class="nv">object</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">        </span><span class="kr">if</span><span class="w"> </span><span class="nv">member_obj</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">member_obj</span><span class="p">:</span><span class="nf">alive</span><span class="p">()</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">            </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;squad member: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">member_obj</span><span class="p">:</span><span class="nf">name</span><span class="p">())</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">        </span><span class="kr">end</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">leader_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">squad</span><span class="p">:</span><span class="nf">commander_id</span><span class="p">()</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">count</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nv">squad</span><span class="p">:</span><span class="nf">npc_count</span><span class="p">()</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="kr">end</span>
+</span></code></pre></div>
+<hr />
+<h2 id="dialog-system">Dialog system<a class="headerlink" href="#dialog-system" title="Permanent link">&para;</a></h2>
+<p>Dialog conditions and actions are plain Lua functions called from dialog XML. The XML references them by <code>script_text</code> function name.</p>
+<h3 id="condition-function-precondition">Condition function (precondition)<a class="headerlink" href="#condition-function-precondition" title="Permanent link">&para;</a></h3>
+<p>Returns <code>true</code> to show a dialog option, <code>false</code> to hide it.</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">-- In dialogs.script or your own script file (must be a global function)</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kr">function</span><span class="w"> </span><span class="nf">my_mod_can_give_quest</span><span class="p">(</span><span class="nv">first_speaker</span><span class="p">,</span><span class="w"> </span><span class="nv">second_speaker</span><span class="p">)</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="c1">-- first_speaker = NPC, second_speaker = actor (db.actor)</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">has_info</span><span class="p">(</span><span class="s2">&quot;my_mod_quest_given&quot;</span><span class="p">)</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">        </span><span class="ow">and</span><span class="w"> </span><span class="nv">first_speaker</span><span class="p">:</span><span class="nf">community</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;stalker&quot;</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="kr">end</span>
+</span></code></pre></div>
+<h3 id="action-function-dialog-result">Action function (dialog result)<a class="headerlink" href="#action-function-dialog-result" title="Permanent link">&para;</a></h3>
+<p>Called when the player selects a dialog option. No return value.</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kr">function</span><span class="w"> </span><span class="nf">my_mod_give_quest</span><span class="p">(</span><span class="nv">first_speaker</span><span class="p">,</span><span class="w"> </span><span class="nv">second_speaker</span><span class="p">)</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">give_info_portion</span><span class="p">(</span><span class="s2">&quot;my_mod_quest_given&quot;</span><span class="p">)</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="nf">alife_create_item</span><span class="p">(</span><span class="s2">&quot;my_quest_document&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">)</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="nv">news_manager</span><span class="p">.</span><span class="nf">send_tip</span><span class="p">(</span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;my_mod_quest_start_tip&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nv">first_speaker</span><span class="p">,</span><span class="w"> </span><span class="mi">7000</span><span class="p">)</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="kr">end</span>
+</span></code></pre></div>
+<h3 id="registering-in-dialog-xml">Registering in dialog XML<a class="headerlink" href="#registering-in-dialog-xml" title="Permanent link">&para;</a></h3>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nt">&lt;dialog</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;my_mod_quest_dialog&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="nt">&lt;phrase_list&gt;</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">        </span><span class="nt">&lt;phrase</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;0&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">            </span><span class="nt">&lt;text&gt;</span>my_mod_dialog_ask<span class="nt">&lt;/text&gt;</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">            </span><span class="nt">&lt;next&gt;</span>1<span class="nt">&lt;/next&gt;</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">        </span><span class="nt">&lt;/phrase&gt;</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">        </span><span class="nt">&lt;phrase</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">            </span><span class="nt">&lt;text&gt;</span>my_mod_dialog_response<span class="nt">&lt;/text&gt;</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">            </span><span class="nt">&lt;precondition&gt;</span>my_mod_can_give_quest<span class="nt">&lt;/precondition&gt;</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">            </span><span class="nt">&lt;action&gt;</span>my_mod_give_quest<span class="nt">&lt;/action&gt;</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">        </span><span class="nt">&lt;/phrase&gt;</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">    </span><span class="nt">&lt;/phrase_list&gt;</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="nt">&lt;/dialog&gt;</span>
+</span></code></pre></div>
+<hr />
+<h2 id="common-patterns">Common patterns<a class="headerlink" href="#common-patterns" title="Permanent link">&para;</a></h2>
+<h3 id="give-loot-when-an-npc-dies">Give loot when an NPC dies<a class="headerlink" href="#give-loot-when-an-npc-dies" title="Permanent link">&para;</a></h3>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">npc_on_death_callback</span><span class="p">(</span><span class="nv">victim</span><span class="p">,</span><span class="w"> </span><span class="nv">who</span><span class="p">)</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">victim</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">victim</span><span class="p">:</span><span class="nf">name</span><span class="p">()</span><span class="w"> </span><span class="o">~=</span><span class="w"> </span><span class="s2">&quot;my_special_npc&quot;</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="c1">-- Spawn items on their body (will appear when looting)</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="nf">alife_create_item</span><span class="p">(</span><span class="s2">&quot;my_special_document&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">victim</span><span class="p">)</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="nf">alife_create_item</span><span class="p">(</span><span class="s2">&quot;bandage&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">victim</span><span class="p">)</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="kr">end</span>
+</span></code></pre></div>
+<h3 id="check-if-the-player-killed-an-npc">Check if the player killed an NPC<a class="headerlink" href="#check-if-the-player-killed-an-npc" title="Permanent link">&para;</a></h3>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">npc_on_death_callback</span><span class="p">(</span><span class="nv">victim</span><span class="p">,</span><span class="w"> </span><span class="nv">who</span><span class="p">)</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="p">(</span><span class="nv">victim</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">who</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">who</span><span class="p">:</span><span class="nf">id</span><span class="p">()</span><span class="w"> </span><span class="o">~=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">id</span><span class="p">()</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span><span class="w">  </span><span class="c1">-- actor&#39;s client id is 0, but use :id() for clarity</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="c1">-- Player made the kill</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">    </span><span class="nv">my_data</span><span class="p">.</span><span class="py">player_kills</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nv">my_data</span><span class="p">.</span><span class="py">player_kills</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="kr">end</span>
+</span></code></pre></div>
+<h3 id="find-all-online-npcs-of-a-faction">Find all online NPCs of a faction<a class="headerlink" href="#find-all-online-npcs-of-a-faction" title="Permanent link">&para;</a></h3>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">get_online_faction_npcs</span><span class="p">(</span><span class="nv">faction</span><span class="p">)</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="kr">for</span><span class="w"> </span><span class="nv">id</span><span class="p">,</span><span class="w"> </span><span class="nv">data</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nb">pairs</span><span class="p">(</span><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">)</span><span class="w"> </span><span class="kr">do</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">        </span><span class="kd">local</span><span class="w"> </span><span class="nv">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">data</span><span class="p">.</span><span class="py">object</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">        </span><span class="kr">if</span><span class="w"> </span><span class="nv">obj</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">obj</span><span class="p">:</span><span class="nf">alive</span><span class="p">()</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nf">IsStalker</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">obj</span><span class="p">:</span><span class="nf">community</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">faction</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">            </span><span class="nv">result</span><span class="p">[</span><span class="o">#</span><span class="nv">result</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">obj</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">        </span><span class="kr">end</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="nv">result</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="kr">end</span>
+</span></code></pre></div>
+<h3 id="make-all-nearby-npcs-friendly">Make all nearby NPCs friendly<a class="headerlink" href="#make-all-nearby-npcs-friendly" title="Permanent link">&para;</a></h3>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">pacify_nearby</span><span class="p">(</span><span class="nv">radius</span><span class="p">)</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="nv">level</span><span class="p">.</span><span class="nf">iterate_nearest</span><span class="p">(</span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">position</span><span class="p">(),</span><span class="w"> </span><span class="nv">radius</span><span class="p">,</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">        </span><span class="kr">if</span><span class="w"> </span><span class="nf">IsStalker</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">obj</span><span class="p">:</span><span class="nf">alive</span><span class="p">()</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">            </span><span class="nv">game_relations</span><span class="p">.</span><span class="nf">set_npc_sympathy</span><span class="p">(</span><span class="nv">obj</span><span class="p">,</span><span class="w"> </span><span class="mf">1.0</span><span class="p">)</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">            </span><span class="nv">game_relations</span><span class="p">.</span><span class="nf">set_npcs_relation</span><span class="p">(</span><span class="nv">obj</span><span class="p">,</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">,</span><span class="w"> </span><span class="nv">game_relations</span><span class="p">.</span><span class="py">FRIENDS</span><span class="p">)</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">        </span><span class="kr">end</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">    </span><span class="kr">end</span><span class="p">)</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="kr">end</span>
+</span></code></pre></div>
 
 
 

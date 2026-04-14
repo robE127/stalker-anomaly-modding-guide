@@ -603,10 +603,93 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#topics-to-cover" class="md-nav__link">
+  <a href="#how-file-loading-works" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Topics to cover
+        How file loading works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#top-level-folders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Top-level folders
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        scripts/
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        configs/
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="configs/">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configsitemsweapons-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        configs/items/weapons/ — example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configstexteng-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        configs/text/eng/ — example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-folders-brief" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other folders (brief)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#your-addons-folder-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Your addon's folder structure
       
     </span>
   </a>
@@ -1825,10 +1908,93 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#topics-to-cover" class="md-nav__link">
+  <a href="#how-file-loading-works" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Topics to cover
+        How file loading works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#top-level-folders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Top-level folders
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        scripts/
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        configs/
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="configs/">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configsitemsweapons-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        configs/items/weapons/ — example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configstexteng-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        configs/text/eng/ — example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-folders-brief" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other folders (brief)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#your-addons-folder-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Your addon's folder structure
       
     </span>
   </a>
@@ -1853,29 +2019,146 @@
 
 
 <h1 id="gamedata-structure">Gamedata Structure<a class="headerlink" href="#gamedata-structure" title="Permanent link">&para;</a></h1>
-<div class="admonition note">
-<p class="admonition-title">Work in progress</p>
-<p>This page is being written. Content coming soon.</p>
+<p>Everything in Anomaly that a script mod can touch lives under <code>gamedata/</code>. Understanding this folder is essential — every file you create as a modder goes somewhere in this tree.</p>
+<hr />
+<h2 id="how-file-loading-works">How file loading works<a class="headerlink" href="#how-file-loading-works" title="Permanent link">&para;</a></h2>
+<p>Anomaly loads game data from two places, in order of priority:</p>
+<ol>
+<li><strong><code>gamedata/</code></strong> (your addon files, highest priority)</li>
+<li><strong><code>db/</code></strong> archives (packed base game files, lower priority)</li>
+</ol>
+<p>If a file exists in <code>gamedata/</code>, the engine uses it instead of the packed version. This is how mods work: you place your file at the same relative path as the base game file, and the engine picks yours up automatically.</p>
+<div class="admonition warning">
+<p class="admonition-title">Never edit base game files directly</p>
+<p>If you modify files inside <code>db/</code> archives directly, your changes are fragile and will break on game updates. Always put your files in <code>gamedata/</code> (or in your addon folder that gets merged in). The only exception is using the unpacker to <em>read</em> base game files as reference.</p>
 </div>
-<h2 id="topics-to-cover">Topics to cover<a class="headerlink" href="#topics-to-cover" title="Permanent link">&para;</a></h2>
-<ul>
-<li>The <code>gamedata/</code> root and how the engine resolves file precedence (addon files override base game files)</li>
-<li><code>gamedata/scripts/</code> — Lua source files (<code>.script</code> extension)</li>
-<li><code>gamedata/configs/</code> — LTX and XML configuration files</li>
-<li><code>configs/items/</code> — weapon, armor, consumable definitions</li>
-<li><code>configs/creatures/</code> — NPC and monster definitions</li>
-<li><code>configs/gameplay/</code> — tasks, dialogs, character profiles</li>
-<li><code>configs/ui/</code> — UI layout XML</li>
-<li><code>configs/text/</code> — localization strings (one subfolder per language code)</li>
-<li><code>configs/misc/</code> — trader inventories, sound definitions, artefacts</li>
-<li><code>gamedata/textures/</code> — DDS textures</li>
-<li><code>gamedata/sounds/</code> — OGG audio</li>
-<li><code>gamedata/meshes/</code> — 3D models (<code>.ogf</code>)</li>
-<li><code>gamedata/anims/</code> — Animations</li>
-<li><code>gamedata/shaders/</code> — Renderer shaders</li>
-<li>How Anomaly loads addons: the <code>db/</code> folder structure and archive precedence</li>
-<li>Why you should never edit base game files directly</li>
-</ul>
+<hr />
+<h2 id="top-level-folders">Top-level folders<a class="headerlink" href="#top-level-folders" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>gamedata/
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── ai/          AI behaviour data
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── anims/       Camera animations and post-processing effects
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── configs/     All configuration files (LTX and XML)
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├── levels/      Level/map data
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├── meshes/      3D models and animations
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>├── scripts/     Lua source files ← most modding happens here
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>├── shaders/     Renderer shader source
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>├── sounds/      Audio files
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>├── spawns/      NPC and object spawn data
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>└── textures/    DDS texture files
+</span></code></pre></div>
+<hr />
+<h2 id="scripts">scripts/<a class="headerlink" href="#scripts" title="Permanent link">&para;</a></h2>
+<p>This is where all Lua code lives. Every <code>.script</code> file in this folder is loaded by the engine at startup.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>gamedata/scripts/
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├── _g.script              Global environment setup — runs first
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>├── axr_main.script        Addon framework — manages callbacks and mod loading
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>├── bind_actor.script      Hooks the player actor to the scripting system
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>├── bind_stalker.script    Hooks NPCs to the scripting system
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>├── ui_mcm.script          Mod Configuration Menu system
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>├── utils.script           General utility functions available to all mods
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>├── db.script              Central storage for game object references
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>└── ...                    ~400 more base game scripts
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">File extension</p>
+<p>Despite the <code>.script</code> extension, these are standard Lua files. VS Code will treat them as Lua if you set up the file association from <a href="../environment-setup/">Environment Setup</a>.</p>
+</div>
+<p><strong>Your scripts go here.</strong> Name them with a unique prefix to avoid collisions with other mods:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>gamedata/scripts/my_mod_main.script
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>gamedata/scripts/my_mod_utils.script
+</span></code></pre></div>
+<hr />
+<h2 id="configs">configs/<a class="headerlink" href="#configs" title="Permanent link">&para;</a></h2>
+<p>All game data that isn't code is here. Broken into subfolders by category:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>configs/
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├── ai_tweaks/       AI behaviour adjustments
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>├── creatures/       NPC and monster definitions (stats, immunities, visuals)
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>├── environment/     Weather, sky, and lighting definitions
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>├── gameplay/        Task definitions, dialog trees, character profiles, faction data
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>├── items/
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>│   ├── items/       Consumables, ammo, attachments, artefacts
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>│   ├── outfits/     Armour and suits
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>│   ├── settings/    Global item system settings
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>│   ├── trade/       Trader inventories
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>│   └── weapons/     Weapon definitions
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>├── misc/            Sound settings, anomaly zones, HUD elements, and more
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>├── models/          Model visual properties
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>├── scripts/         Per-script configuration files read at runtime
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>├── text/
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>│   ├── eng/         English localization strings (XML)
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>│   └── rus/         Russian localization strings (XML)
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>└── ui/              UI layout definitions (XML)
+</span></code></pre></div>
+<h3 id="configsitemsweapons-example">configs/items/weapons/ — example<a class="headerlink" href="#configsitemsweapons-example" title="Permanent link">&para;</a></h3>
+<p>Each weapon is defined in a <code>.ltx</code> file that specifies its stats, sounds, model paths, and more:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>configs/items/weapons/
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>├── w_pistols.ltx
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>├── w_rifles.ltx
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>├── w_shotguns.ltx
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>├── w_smgs.ltx
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>└── ...
+</span></code></pre></div>
+<h3 id="configstexteng-example">configs/text/eng/ — example<a class="headerlink" href="#configstexteng-example" title="Permanent link">&para;</a></h3>
+<p>Localization strings are XML files containing key/value pairs:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">&lt;string_table&gt;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;my_mod_message&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">        </span><span class="nt">&lt;text&gt;</span>Hello<span class="w"> </span>from<span class="w"> </span>my<span class="w"> </span>mod!<span class="nt">&lt;/text&gt;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="nt">&lt;/string&gt;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="nt">&lt;/string_table&gt;</span>
+</span></code></pre></div>
+<p>Reference by key in code: <code>game.translate_string("my_mod_message")</code></p>
+<hr />
+<h2 id="other-folders-brief">Other folders (brief)<a class="headerlink" href="#other-folders-brief" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Folder</th>
+<th>What you'll touch as a script modder</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>anims/</code></td>
+<td>Post-processing effect definitions (<code>.ppe</code> files) referenced in <code>level.add_pp_effector</code> calls</td>
+</tr>
+<tr>
+<td><code>sounds/</code></td>
+<td><code>.ogg</code> audio files, referenced by section name in script sound configs</td>
+</tr>
+<tr>
+<td><code>textures/</code></td>
+<td>Rarely touched for pure script mods; needed for custom UI icons or item textures</td>
+</tr>
+<tr>
+<td><code>meshes/</code></td>
+<td>Only for mods that add custom 3D models</td>
+</tr>
+<tr>
+<td><code>levels/</code></td>
+<td>Only for map mods; not relevant for script/config work</td>
+</tr>
+<tr>
+<td><code>spawns/</code></td>
+<td>The <code>all.spawn</code> file controls initial world population; advanced topic</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="your-addons-folder-structure">Your addon's folder structure<a class="headerlink" href="#your-addons-folder-structure" title="Permanent link">&para;</a></h2>
+<p>A well-structured addon mirrors the <code>gamedata/</code> layout exactly:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>my_addon/
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>└── gamedata/
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    ├── scripts/
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    │   └── my_addon_main.script
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    ├── configs/
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    │   ├── scripts/
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    │   │   └── my_addon_settings.ltx
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    │   └── text/
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    │       └── eng/
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    │           └── my_addon_strings.xml
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    └── ...
+</span></code></pre></div>
+<p>When installing, the contents of your <code>gamedata/</code> folder are merged into the game's <code>gamedata/</code>. Files at the same path override the base game version.</p>
 
 
 
