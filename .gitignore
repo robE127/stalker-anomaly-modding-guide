@@ -11,5 +11,8 @@ __pycache__/
 .venv/
 venv/
 
+# MkDocs build output
+site/
+
 # Claude Code internal
 .claude/

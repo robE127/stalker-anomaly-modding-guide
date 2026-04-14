@@ -1,0 +1,89 @@
+site_name: S.T.A.L.K.E.R. Anomaly Modding Guide
+site_description: A comprehensive scripting and API reference for S.T.A.L.K.E.R. Anomaly modding — callbacks, engine bindings, config formats, and worked examples.
+site_author: stalker-anomaly-modding-guide contributors
+docs_dir: docs
+
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      primary: deep orange
+      accent: orange
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.indexes
+    - navigation.top
+    - search.highlight
+    - search.suggest
+    - content.code.copy
+    - content.code.annotate
+    - toc.follow
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.snippets
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+
+  - Getting Started:
+    - getting-started/index.md
+    - Environment Setup: getting-started/environment-setup.md
+    - Gamedata Structure: getting-started/gamedata-structure.md
+    - Your First Mod: getting-started/first-mod.md
+
+  - Scripting:
+    - scripting/index.md
+    - Lua in Anomaly: scripting/lua-in-anomaly.md
+    - Script Lifecycle: scripting/script-lifecycle.md
+    - The Callback System: scripting/callbacks.md
+    - Save & Load State: scripting/save-load.md
+
+  - API Reference:
+    - api-reference/index.md
+    - db.actor: api-reference/actor.md
+    - level: api-reference/level.md
+    - game: api-reference/game.md
+    - alife: api-reference/alife.md
+    - xr_logic: api-reference/xr-logic.md
+    - UI Functions: api-reference/ui.md
+
+  - Config Formats:
+    - config-formats/index.md
+    - LTX Format: config-formats/ltx.md
+    - XML Configs: config-formats/xml.md
+    - DXML (XML Patching): config-formats/dxml.md
+    - DLTX (LTX Patching): config-formats/dltx.md
+
+  - Systems:
+    - systems/index.md
+    - Mod Configuration Menu: systems/mcm.md
+    - Localization: systems/localization.md
+    - Items & Inventory: systems/items.md
+    - NPCs & Factions: systems/npcs.md
+    - UI Scripting: systems/ui-scripting.md
+
+  - Callbacks Reference:
+    - callbacks-reference/index.md
+
+  - Examples:
+    - examples/index.md
+    - Keybind Action: examples/keybind.md
+    - Item Use Effect: examples/item-use-effect.md
+    - NPC Death Reward: examples/npc-death-reward.md
+    - MCM Options: examples/mcm-options.md
