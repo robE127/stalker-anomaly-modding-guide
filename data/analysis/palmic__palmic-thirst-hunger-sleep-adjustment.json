@@ -1,0 +1,485 @@
+{
+  "repo": "palmic/palmic-thirst-hunger-sleep-adjustment",
+  "stars": 1,
+  "relevance_score": 69,
+  "analysis": {
+    "callbacks": {
+      "actor_on_update": 3,
+      "load_state": 3,
+      "on_game_load": 3,
+      "on_key_release": 3,
+      "save_state": 3,
+      "actor_on_item_use": 2,
+      "actor_on_sleep": 2,
+      "actor_on_before_hit": 1
+    },
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\actor_status_sleep.script",
+        "name": "on_key_release",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_sleep.script",
+        "name": "create",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_sleep.script",
+        "name": "destroy",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_sleep.script",
+        "name": "toggle_feature",
+        "params": "val"
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_sleep.script",
+        "name": "test_blur",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_sleep.script",
+        "name": "force_sleep",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_sleep.script",
+        "name": "get_sleep_deprivation",
+        "params": "visual"
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_sleep.script",
+        "name": "get_last_sleep",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_sleep.script",
+        "name": "get_sleep_blur_4",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_sleep.script",
+        "name": "get_sleep_deprivation_level",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_sleep.script",
+        "name": "set_rest_per_hour",
+        "params": "rest"
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_sleep.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_sleep.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_sleep.script",
+        "name": "actor_on_sleep",
+        "params": "hours"
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_sleep.script",
+        "name": "actor_on_item_use",
+        "params": "item"
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_sleep.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_sleep.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_thirst.script",
+        "name": "on_key_release",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_thirst.script",
+        "name": "create",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_thirst.script",
+        "name": "destroy",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_thirst.script",
+        "name": "toggle_feature",
+        "params": "val"
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_thirst.script",
+        "name": "test_blur",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_thirst.script",
+        "name": "force_sleep",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_thirst.script",
+        "name": "get_water_deprivation",
+        "params": "visual"
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_thirst.script",
+        "name": "get_last_drink",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_thirst.script",
+        "name": "get_thirst_blur_4",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_thirst.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_thirst.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_thirst.script",
+        "name": "actor_on_sleep",
+        "params": "hours"
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_thirst.script",
+        "name": "actor_on_item_use",
+        "params": "item"
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_thirst.script",
+        "name": "actor_on_update",
+        "params": "b,d"
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_thirst.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_thirst.script",
+        "name": "get_eat_thirstiness",
+        "params": "eat_thirstiness"
+      },
+      {
+        "file": "gamedata\\scripts\\actor_status_thirst.script",
+        "name": "get_bleeding_power",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "manage_power",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "get_power_difference",
+        "params": "difference"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "get_power_total",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "manage_satiety",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "get_satiety_difference",
+        "params": "difference"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "spawn_radiation_fields_at_new_game",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "spawn_radiation_fields_for_level",
+        "params": "current_level_settings"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "create_radiation_field",
+        "params": "anomaly_type, position, game_vertex_id, level_vertex_id, radius"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "get_smart_terrains_of_level",
+        "params": "level_name"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "resize_radiation_fields",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "get_new_radius_of_static_anomaly_field",
+        "params": "name_of_radiation_zone, radius"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "calculate_zone_radiation_power",
+        "params": "power, radiation_zone"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "get_environmental_radiation_power",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "get_max_power_increasement_by_wind",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "is_underground_map",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "get_min_radius_multiplier",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "get_current_radius_of_radioactive_zone",
+        "params": "radius_max"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "get_original_radius_of_radiation_zone",
+        "params": "radius_max"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "get_max_radius_without_wind",
+        "params": "radius_max_with_wind"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "get_maximal_radius_with_wind_direction",
+        "params": "min_radius"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "get_current_center_of_radioactive_zone",
+        "params": "radius_max_without_wind, initial_position, direction_of_wind"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "is_actor_in_radiation_zone",
+        "params": "id_of_radiation_zone"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "get_distance",
+        "params": "position_1, position_2"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "is_player_in_water",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "get_radiation_protection",
+        "params": "object"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "is_helmet_integrated",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "play_random_geiger_sound",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "show_message_news",
+        "params": "news_id, icon"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "show_message",
+        "params": "msg,time"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "player_has_operational_dosimeter",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "trace_this",
+        "params": "to_trace"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "initialize_radiation_table",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "remove_actor_status_icon_radiation",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "on_game_load",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "actor_on_before_hit",
+        "params": "s_hit"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "manage_radiation_zones",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "manage_geiger_sound",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "issue_wind_alert",
+        "params": "wind_power, previous_wind_power"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "issue_weather_report",
+        "params": "current_weather, previous_weather"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "on_key_release",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "manage_weather",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "get_new_wind_direction",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "get_wind_power_text",
+        "params": "wind_velocity"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "get_wind_direction_text",
+        "params": "wind_direction"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "get_weather_text",
+        "params": "current_weather"
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "get_current_weather",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "get_wind_velocity",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\arszi_radiation.script",
+        "name": "max_wind_power_percent",
+        "params": "percentage"
+      }
+    ],
+    "api_calls": {
+      "game.translate_string": 33,
+      "game.get_game_time": 9,
+      "level.set_pp_effector_factor": 8,
+      "level.remove_pp_effector": 4,
+      "db.actor.has_info": 4,
+      "db.actor.item_in_slot": 4,
+      "level.name": 3,
+      "level.add_pp_effector": 2,
+      "db.actor.give_info_portion": 2,
+      "ui_sleep_dialog.sleep_forced": 2,
+      "db.actor.change_power": 2,
+      "db.actor.change_health": 2,
+      "level.vertex_id": 2,
+      "level.get_env_rads": 2,
+      "db.actor.position": 2,
+      "db.actor.kill": 1,
+      "db.actor.get_movement_speed": 1,
+      "db.actor.cast_Actor": 1,
+      "db.actor.id": 1,
+      "db.actor.give_game_news": 1,
+      "db.actor.object": 1,
+      "level.get_time_hours": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\actor_status_sleep.script",
+      "gamedata\\scripts\\actor_status_thirst.script",
+      "gamedata\\scripts\\arszi_radiation.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\creatures\\actor.ltx",
+      "gamedata\\configs\\items\\items\\items_drink.ltx",
+      "gamedata\\configs\\items\\items\\items_drugs.ltx"
+    ],
+    "file_count": 3
+  }
+}

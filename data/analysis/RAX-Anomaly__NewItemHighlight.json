@@ -1,0 +1,116 @@
+{
+  "repo": "RAX-Anomaly/NewItemHighlight",
+  "stars": 6,
+  "relevance_score": 81,
+  "analysis": {
+    "callbacks": {
+      "ActorMenu_on_item_focus_receive": 1,
+      "GUI_on_hide": 1,
+      "GUI_on_show": 1,
+      "actor_on_first_update": 1,
+      "actor_on_item_take": 1,
+      "load_state": 1,
+      "on_key_press": 1,
+      "on_key_release": 1,
+      "on_option_change": 1,
+      "save_state": 1
+    },
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\rax_inventory_highlights_mcm.script",
+        "name": "pr",
+        "params": "txt, ..."
+      },
+      {
+        "file": "gamedata\\scripts\\rax_inventory_highlights_mcm.script",
+        "name": "on_key_press",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\rax_inventory_highlights_mcm.script",
+        "name": "on_key_release",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\rax_inventory_highlights_mcm.script",
+        "name": "GUI_on_show",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\rax_inventory_highlights_mcm.script",
+        "name": "check_new_item",
+        "params": "cell"
+      },
+      {
+        "file": "gamedata\\scripts\\rax_inventory_highlights_mcm.script",
+        "name": "GUI_on_hide",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\rax_inventory_highlights_mcm.script",
+        "name": "temp_disable",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rax_inventory_highlights_mcm.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rax_inventory_highlights_mcm.script",
+        "name": "actor_on_item_take",
+        "params": "itm"
+      },
+      {
+        "file": "gamedata\\scripts\\rax_inventory_highlights_mcm.script",
+        "name": "ActorMenu_on_item_focus_receive",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\rax_inventory_highlights_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rax_inventory_highlights_mcm.script",
+        "name": "loadsetting",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rax_inventory_highlights_mcm.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rax_persistent_highlight.script",
+        "name": "pr",
+        "params": "txt, ..."
+      },
+      {
+        "file": "gamedata\\scripts\\rax_persistent_highlight.script",
+        "name": "register",
+        "params": "name, functor"
+      },
+      {
+        "file": "gamedata\\scripts\\rax_persistent_highlight.script",
+        "name": "change_alpha",
+        "params": "clr, a"
+      }
+    ],
+    "api_calls": {
+      "ui_mcm.get": 5,
+      "game.translate_string": 3,
+      "db.actor.character_name": 1,
+      "db.actor.give_game_news": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\rax_inventory_highlights_mcm.script",
+      "gamedata\\scripts\\rax_persistent_highlight.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\text\\eng\\ui_st_rax_nih.xml"
+    ],
+    "file_count": 2
+  }
+}

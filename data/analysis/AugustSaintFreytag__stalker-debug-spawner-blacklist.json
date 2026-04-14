@@ -1,0 +1,28 @@
+{
+  "repo": "AugustSaintFreytag/stalker-debug-spawner-blacklist",
+  "stars": 0,
+  "relevance_score": 81,
+  "analysis": {
+    "callbacks": {},
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\saint_ui_debug_item_spawner_override.script",
+        "name": "ui_debug_launcher.get_spawn_table",
+        "params": "name"
+      }
+    ],
+    "api_calls": {
+      "ui_debug_launcher.get_spawn_table": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\saint_ui_debug_item_spawner_override.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\mod_system_item_kinds.ltx",
+      "gamedata\\configs\\plugins\\mod_spawner_blacklist_items.ltx",
+      "gamedata\\configs\\plugins\\mod_spawner_blacklist_streamlinedupgrades.ltx"
+    ],
+    "file_count": 1
+  }
+}

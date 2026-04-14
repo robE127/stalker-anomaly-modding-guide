@@ -1,0 +1,29 @@
+{
+  "repo": "Penomatikus/stalker-anomaly-json",
+  "stars": 1,
+  "relevance_score": 79,
+  "analysis": {
+    "callbacks": {},
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\utils_json.script",
+        "name": "to_json",
+        "params": "value, keyname"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_json.script",
+        "name": "to_logfile",
+        "params": "value, filename"
+      }
+    ],
+    "api_calls": {
+      "db.actor.character_community": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\utils_json.script"
+    ],
+    "config_files": [],
+    "file_count": 1
+  }
+}

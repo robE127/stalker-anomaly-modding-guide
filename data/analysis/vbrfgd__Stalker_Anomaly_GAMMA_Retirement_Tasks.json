@@ -1,0 +1,58 @@
+{
+  "repo": "vbrfgd/Stalker_Anomaly_GAMMA_Retirement_Tasks",
+  "stars": 0,
+  "relevance_score": 84,
+  "analysis": {
+    "callbacks": {},
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\retirement_tasks_fetch.script",
+        "name": "SetDiffModifications",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\retirement_tasks_fetch.script",
+        "name": "init_drop_settings",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\retirement_tasks_fetch.script",
+        "name": "decide_items_to_keep",
+        "params": "npc, npc_id, npc_name"
+      },
+      {
+        "file": "gamedata\\scripts\\retirement_tasks_fetch.script",
+        "name": "keep_item",
+        "params": "npc, item"
+      },
+      {
+        "file": "gamedata\\scripts\\retirement_tasks_fetch.script",
+        "name": "try_spawn_ammo",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\retirement_tasks_fetch.script",
+        "name": "set_weapon_drop_condition",
+        "params": "npc, itm"
+      }
+    ],
+    "api_calls": {
+      "axr_companions.is_assigned_item": 1,
+      "ui_mcm.get": 1
+    },
+    "ini_read_types": [
+      "line_exist",
+      "section_exist"
+    ],
+    "script_files": [
+      "gamedata\\scripts\\retirement_tasks_fetch.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\items\\settings\\mod_fetch_list_retirement_task.ltx",
+      "gamedata\\configs\\misc\\task\\tm_dynamic.ltx",
+      "gamedata\\configs\\text\\eng\\st_quests_general.xml",
+      "gamedata\\configs\\text\\rus\\st_quests_general.xml"
+    ],
+    "file_count": 1
+  }
+}

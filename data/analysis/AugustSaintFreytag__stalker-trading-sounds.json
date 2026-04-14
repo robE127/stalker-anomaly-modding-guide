@@ -1,0 +1,47 @@
+{
+  "repo": "AugustSaintFreytag/stalker-trading-sounds",
+  "stars": 0,
+  "relevance_score": 80,
+  "analysis": {
+    "callbacks": {},
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\z_saint_trading_sounds.script",
+        "name": "trading_value_from_element",
+        "params": "element"
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_trading_sounds.script",
+        "name": "trading_value_from_cell",
+        "params": "cc"
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_trading_sounds.script",
+        "name": "trading_amount_kind_for_value",
+        "params": "amount"
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_trading_sounds.script",
+        "name": "trading_sound_name",
+        "params": "trading_kind, amount_kind"
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_trading_sounds.script",
+        "name": "play_regular_trading_sound",
+        "params": "trading_kind, amount_kind"
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_trading_sounds.script",
+        "name": "play_item_move_sound",
+        "params": ""
+      }
+    ],
+    "api_calls": {},
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\z_saint_trading_sounds.script"
+    ],
+    "config_files": [],
+    "file_count": 1
+  }
+}

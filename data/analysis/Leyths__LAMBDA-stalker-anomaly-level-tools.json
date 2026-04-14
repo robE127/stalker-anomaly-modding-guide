@@ -1,0 +1,1567 @@
+{
+  "repo": "Leyths/LAMBDA-stalker-anomaly-level-tools",
+  "stars": 4,
+  "relevance_score": 80,
+  "analysis": {
+    "callbacks": {
+      "load_state": 14,
+      "save_state": 14,
+      "actor_on_first_update": 8,
+      "actor_on_item_take": 3,
+      "actor_on_update": 3,
+      "on_game_load": 3,
+      "actor_on_interaction": 2,
+      "pump_station_defense_reward": 2,
+      "pump_station_defense_task_cleanup": 2,
+      "pump_station_defense_task_commander_inv_condition": 2,
+      "pump_station_defense_task_commander_replaced": 2,
+      "pump_station_defense_task_need_end_talk": 2,
+      "pump_station_defense_task_need_intro_talk": 2,
+      "pump_station_defense_task_need_intro_talk_2": 2,
+      "pump_station_defense_task_precondition": 2,
+      "physic_object_on_use_callback": 1,
+      "physic_object_on_hit_callback": 1
+    },
+    "functions": [
+      {
+        "file": "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_dynamic_anomaly.script",
+        "name": "add_to_binder",
+        "params": "npc, ini, scheme, section, storage"
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_dynamic_anomaly.script",
+        "name": "set_scheme",
+        "params": "obj, ini, scheme, section, gulag_name"
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_dynamic_anomaly_loader.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_dynamic_anomaly_manager.script",
+        "name": "init_settings",
+        "params": ""
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_dynamic_anomaly_manager.script",
+        "name": "get_random_section",
+        "params": "ano_type"
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_dynamic_anomaly_manager.script",
+        "name": "spawn_anomaly_at_position",
+        "params": "name, ano_type, pos, lvid, gvid"
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_dynamic_anomaly_manager.script",
+        "name": "spawn_all_anomalies_for_level",
+        "params": "level_name"
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_dynamic_anomaly_manager.script",
+        "name": "shuffle_anomalies",
+        "params": ""
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_dynamic_anomaly_manager.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_item_spawner.script",
+        "name": "add_to_binder",
+        "params": "npc, ini, scheme, section, storage"
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_item_spawner.script",
+        "name": "set_scheme",
+        "params": "obj, ini, scheme, section, gulag_name"
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_item_spawner_loader.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_item_spawn_manager.script",
+        "name": "init_settings",
+        "params": ""
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_item_spawn_manager.script",
+        "name": "spawn_item_at_position",
+        "params": "name, category, pos, lvid, gvid"
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_item_spawn_manager.script",
+        "name": "spawn_all_items_for_level",
+        "params": "level_name"
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_item_spawn_manager.script",
+        "name": "is_restrictor_item",
+        "params": "id"
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_item_spawn_manager.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_dynamic_anomaly.script",
+        "name": "add_to_binder",
+        "params": "npc, ini, scheme, section, storage"
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_dynamic_anomaly.script",
+        "name": "set_scheme",
+        "params": "obj, ini, scheme, section, gulag_name"
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_dynamic_anomaly_loader.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_dynamic_anomaly_manager.script",
+        "name": "init_settings",
+        "params": ""
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_dynamic_anomaly_manager.script",
+        "name": "get_random_section",
+        "params": "ano_type"
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_dynamic_anomaly_manager.script",
+        "name": "spawn_anomaly_at_position",
+        "params": "name, ano_type, pos, lvid, gvid"
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_dynamic_anomaly_manager.script",
+        "name": "spawn_all_anomalies_for_level",
+        "params": "level_name"
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_dynamic_anomaly_manager.script",
+        "name": "shuffle_anomalies",
+        "params": ""
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_dynamic_anomaly_manager.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_item_spawner.script",
+        "name": "add_to_binder",
+        "params": "npc, ini, scheme, section, storage"
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_item_spawner.script",
+        "name": "set_scheme",
+        "params": "obj, ini, scheme, section, gulag_name"
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_item_spawner_loader.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_item_spawn_manager.script",
+        "name": "init_settings",
+        "params": ""
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_item_spawn_manager.script",
+        "name": "spawn_item_at_position",
+        "params": "name, category, pos, lvid, gvid"
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_item_spawn_manager.script",
+        "name": "spawn_all_items_for_level",
+        "params": "level_name"
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_item_spawn_manager.script",
+        "name": "is_restrictor_item",
+        "params": "id"
+      },
+      {
+        "file": "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_item_spawn_manager.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "mods\\G.A.M.M.A. Agroprom Underground Remake\\scripts\\agroprom_drugkit_spawner_gamma.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "mods\\G.A.M.M.A. Agroprom Underground Remake\\scripts\\agroprom_drugkit_spawner_gamma.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "mods\\G.A.M.M.A. Vehicles in Darkscape\\scripts\\grok_vehicles_spawner.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "mods\\G.A.M.M.A. Vehicles in Darkscape\\scripts\\grok_vehicles_spawner.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "mods\\G.A.M.M.A. Vehicles in Darkscape\\scripts\\grok_vehicles_spawner.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "mods\\G.A.M.M.A. Vehicles in Darkscape\\scripts\\grok_vehicles_spawner.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Safe Zones - Tweaki_Breeki\\scripts\\TB_Coordinate_Based_Safe_Zones.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Safe Zones - Tweaki_Breeki\\scripts\\TB_Coordinate_Based_Safe_Zones.script",
+        "name": "getlevelcoordset",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Safe Zones - Tweaki_Breeki\\scripts\\TB_Coordinate_Based_Safe_Zones.script",
+        "name": "checkifinsafearea",
+        "params": "posaa, posab, posac, posba, posbb, posbc"
+      },
+      {
+        "file": "mods\\New Safe Zones - Tweaki_Breeki\\scripts\\TB_Coordinate_Based_Safe_Zones.script",
+        "name": "addsafeicons",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Safe Zones - Tweaki_Breeki\\scripts\\TB_Coordinate_Based_Safe_Zones.script",
+        "name": "removesafeicons",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Safe Zones - Tweaki_Breeki\\scripts\\TB_Coordinate_Based_Safe_Zones.script",
+        "name": "on_game_load",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Safe Zones - Tweaki_Breeki\\scripts\\TB_Coordinate_Based_Safe_Zones.script",
+        "name": "add_tiny_cubes_to_world",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Safe Zones - Tweaki_Breeki\\scripts\\TB_Coordinate_Based_Safe_Zones.script",
+        "name": "remove_tiny_cubes_from_world",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Safe Zones - Tweaki_Breeki\\scripts\\TB_Coordinate_Based_Safe_Zones.script",
+        "name": "remove_all_cubes_for_v_1_5",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Safe Zones - Tweaki_Breeki\\scripts\\TB_Coordinate_Based_Safe_Zones.script",
+        "name": "physic_object_on_use_callback",
+        "params": "obj, who"
+      },
+      {
+        "file": "mods\\New Safe Zones - Tweaki_Breeki\\scripts\\TB_Coordinate_Based_Safe_Zones.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "mods\\New Safe Zones - Tweaki_Breeki\\scripts\\TB_Coordinate_Based_Safe_Zones.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "mods\\New Safe Zones - Tweaki_Breeki\\scripts\\TB_Coordinate_Based_Safe_Zones.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Stashes Location - Tweaki_Breeki\\scripts\\tb_new_stashes.script",
+        "name": "treasure_manager.init_settings",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Stashes Location - Tweaki_Breeki\\scripts\\tb_new_stashes.script",
+        "name": "make_new_stashes",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "give_simple_detector",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "give_expert_detector",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "give_ah_gramota",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "create_story_line_phrase",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "create_story_line_answer_phrase",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "check_community_actor",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "ah_signal",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "redirect_give_quest",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "redirect_give_quest_small_revers",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "redirect_give_quest_revers",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "redirect_give_quest_skabinsky",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "give_fail_quest_skabinsky",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "ah_fail_timer",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "kovalev_give_quest1",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "kovalev_give_quest2",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "markov_give_quest1",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "markov_give_quest2",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "markov_give_quest3",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "pirogov_give_quest1",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "pirogov_give_quest2",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "pirogov_give_quest3",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "chernov_give_quest1",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "chernov_give_quest3",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "chernov_give_quest4",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "chernov_give_quest5",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "chernov_give_quest6",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "juk_give_quest1",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "juk_give_quest2",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "juk_give_quest3",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "vorobushkin_give_quest1",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "vorobushkin_give_quest2",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+        "name": "skabinsky_give_quest1",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "attack_aes1",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "attack_aes2",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "attack_aes3",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "maks_quest_1_start",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "cherep_quest_1_start",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "seriy_quest_1_start",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "jurov_quest_1_start",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "cs_story_task0",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "barmen_task1",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "have_cs_pda",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "have_cs_pribor",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "cs_story_task0_end",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "cs_story_task2_end",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "proverka_ranga",
+        "params": "actor"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "proverka_ranga1",
+        "params": "actor"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "have_art_juravl",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "relocate_art_juravl",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "give_art_juravl",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "bandit_task1",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "have_bar_case",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "relocate_bar_case",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "boroda_task1",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "cs_task3_start",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "cs_task0_ambush_renegade",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "cs_task0_ambush_renegade_2",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "cs_task0_ambush_renegade_3",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "give_money_20000",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "have_money_20000",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "give_money_10000",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "have_money_10000",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "give_money_5000",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "have_money_5000",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "cs_task4_start",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "cs_task5_start",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "cs_task6_storytask",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "cs_task7_storytask",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "ohotnik_task1",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "have_ohotnik_task1",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "relocate_ohotnik_task1",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "cs_task8_deshifrator_have",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "cs_task8_deshifrator",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "cs_end_story",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "cs_task11_storytask",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "dolg_story_task_1",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "dolg_story_task_2",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "dolg_story_task_1_dop",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "dolg_story_task_1_dop_reward",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "recolate_dolg_task1_pda1",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "recolate_dolg_task1_pda",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "dolg_task1_pda1",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "dolg_task1_pda",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "dolg_task4_pdapr",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "dolg_story_task_4_pda",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "dolg_story_task_4_pda1",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "dolg_story_task_2_dop",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "dolg_story_task_3",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "dolg_story_task_4",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "dolg_story_task_5",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "give_task_esc_military_docs_poisk",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "check_esc_military_docs_in_actor",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "relocate_esc_military_docs_to_wolf",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\utils_slht.script",
+        "name": "valid_faction_actor",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\utils_slht.script",
+        "name": "actor_name",
+        "params": "color"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\utils_slht.script",
+        "name": "map_spot_campfire",
+        "params": "smart, mode"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\utils_slht.script",
+        "name": "set_enemy_map_spot",
+        "params": "squads"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\utils_slht.script",
+        "name": "turn_on_campfires_by_smart",
+        "params": "smart"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\utils_slht.script",
+        "name": "actor_in_smart",
+        "params": "smart, dist"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\utils_slht.script",
+        "name": "create_reward",
+        "params": "flag, sec"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\utils_slht.script",
+        "name": "end_bribe_exclusive",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\utils_slht.script",
+        "name": "bribe_exclusive_2_hours_stalker",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\utils_slht.script",
+        "name": "HTCreateNews",
+        "params": "who,str,timeout,actor_msg,color"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\utils_slht.script",
+        "name": "check_ammo_with_actor",
+        "params": "sec"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\utils_slht.script",
+        "name": "exchange_ammo_with_actor",
+        "params": "a,b,sec"
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\utils_slht.script",
+        "name": "val_1_2_attack_msg_sound",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\utils_slht.script",
+        "name": "pri_b304_spawn_agent_case",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\utils_slht.script",
+        "name": "cit_spawn_ph_radio",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\utils_slht.script",
+        "name": "aes_companion_squad_in_level",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\utils_slht.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\dead_night_configs.script",
+        "name": "rand_section",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_hold_the_ground.script",
+        "name": "save_state",
+        "params": "mdata"
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_hold_the_ground.script",
+        "name": "load_state",
+        "params": "mdata"
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_hold_the_ground.script",
+        "name": "spawn",
+        "params": "index, spawn_config"
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_hold_the_ground.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_no_step_back.script",
+        "name": "save_state",
+        "params": "mdata"
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_no_step_back.script",
+        "name": "load_state",
+        "params": "mdata"
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_no_step_back.script",
+        "name": "spawn",
+        "params": "index, spawn_config"
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_no_step_back.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_skyfall.script",
+        "name": "save_state",
+        "params": "mdata"
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_skyfall.script",
+        "name": "load_state",
+        "params": "mdata"
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_skyfall.script",
+        "name": "spawn_static_heli",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_skyfall.script",
+        "name": "static_heli_binder",
+        "params": "obj"
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_skyfall.script",
+        "name": "despawn_static_heli_and_barrels",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_skyfall.script",
+        "name": "blow_static_heli",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_skyfall.script",
+        "name": "blow_cover",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_skyfall.script",
+        "name": "spawn_dynamic_heli",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_skyfall.script",
+        "name": "is_enemies_with_military",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_skyfall.script",
+        "name": "get_dynamic_heli",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_skyfall.script",
+        "name": "set_player_enemy",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_skyfall.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_skyfall.script",
+        "name": "physic_object_on_hit_callback",
+        "params": "obj,damage,direction,who,bone_id"
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_urgent_orders.script",
+        "name": "save_state",
+        "params": "mdata"
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_urgent_orders.script",
+        "name": "load_state",
+        "params": "mdata"
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_urgent_orders.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_urgent_orders.script",
+        "name": "is_from_duty",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_urgent_orders.script",
+        "name": "is_from_army",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_urgent_orders.script",
+        "name": "get_faction_configs",
+        "params": ""
+      },
+      {
+        "file": "mods\\New Tasks - iTheon\\scripts\\tasks_urgent_orders.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "mr",
+        "params": "n,inc_0"
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "nkeys",
+        "params": "t"
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "rkeys",
+        "params": "t"
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "give_before_attack_talk",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "is_commader_replaced",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "dist_from_trigger",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "get_news_data",
+        "params": "id"
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "intro_message",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "start_message",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "loot_message",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "xr_conditions.no_guns",
+        "params": "a,b"
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "xr_conditions.pump_station_defense_task_precondition",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "xr_conditions.pump_station_defense_task_commander_inv_condition",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "xr_conditions.pump_station_defense_task_need_intro_talk",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "xr_conditions.pump_station_defense_task_need_intro_talk_2",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "xr_conditions.pump_station_defense_task_need_end_talk",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "xr_conditions.pump_station_defense_task_commander_replaced",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "xr_effects.pump_station_defense_reward",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "xr_effects.pump_station_defense_task_cleanup",
+        "params": "a,b,c"
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "cleanup",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "escape_message",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "warning_message",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "aggro",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "spawn_and_set",
+        "params": "kill,sec,x,y,z,lvid,gvid,guard_profile,give_guns"
+      },
+      {
+        "file": "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+        "name": "clean_corpses",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "mr",
+        "params": "n,inc_0"
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "nkeys",
+        "params": "t"
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "rkeys",
+        "params": "t"
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "give_before_attack_talk",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "is_commader_replaced",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "dist_from_trigger",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "get_news_data",
+        "params": "id"
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "intro_message",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "start_message",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "loot_message",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "xr_conditions.no_guns",
+        "params": "a,b"
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "xr_conditions.pump_station_defense_task_precondition",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "xr_conditions.pump_station_defense_task_commander_inv_condition",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "xr_conditions.pump_station_defense_task_need_intro_talk",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "xr_conditions.pump_station_defense_task_need_intro_talk_2",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "xr_conditions.pump_station_defense_task_need_end_talk",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "xr_conditions.pump_station_defense_task_commander_replaced",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "xr_effects.pump_station_defense_reward",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "xr_effects.pump_station_defense_task_cleanup",
+        "params": "a,b,c"
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "cleanup",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "escape_message",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "warning_message",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "aggro",
+        "params": ""
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "spawn_and_set",
+        "params": "kill,sec,x,y,z,lvid,gvid,guard_profile,give_guns"
+      },
+      {
+        "file": "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+        "name": "clean_corpses",
+        "params": ""
+      },
+      {
+        "file": "mods\\RF Receiver Tasks - Tweaki_Breeki - gamma merged\\scripts\\TB_RF_Receiver_Packages.script",
+        "name": "on_option_change",
+        "params": ""
+      },
+      {
+        "file": "mods\\RF Receiver Tasks - Tweaki_Breeki - gamma merged\\scripts\\TB_RF_Receiver_Packages.script",
+        "name": "itms_manager.use_package_random",
+        "params": "obj"
+      },
+      {
+        "file": "mods\\RF Receiver Tasks - Tweaki_Breeki - gamma merged\\scripts\\TB_RF_Receiver_Packages.script",
+        "name": "give_bonus_items",
+        "params": ""
+      },
+      {
+        "file": "mods\\RF Receiver Tasks - Tweaki_Breeki - gamma merged\\scripts\\TB_RF_Receiver_Packages.script",
+        "name": "on_game_load",
+        "params": ""
+      },
+      {
+        "file": "mods\\RF Receiver Tasks - Tweaki_Breeki - gamma merged\\scripts\\TB_RF_Receiver_Packages.script",
+        "name": "fix_queue_from_1_5_to_1_6",
+        "params": ""
+      },
+      {
+        "file": "mods\\RF Receiver Tasks - Tweaki_Breeki - gamma merged\\scripts\\TB_RF_Receiver_Packages.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "mods\\RF Receiver Tasks - Tweaki_Breeki - gamma merged\\scripts\\TB_RF_Receiver_Packages.script",
+        "name": "failsafepackagespawn",
+        "params": ""
+      },
+      {
+        "file": "mods\\RF Receiver Tasks - Tweaki_Breeki - gamma merged\\scripts\\TB_RF_Receiver_Packages.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "mods\\RF Receiver Tasks - Tweaki_Breeki - gamma merged\\scripts\\TB_RF_Receiver_Packages.script",
+        "name": "checkrelationchange",
+        "params": ""
+      },
+      {
+        "file": "mods\\RF Receiver Tasks - Tweaki_Breeki - gamma merged\\scripts\\TB_RF_Receiver_Packages.script",
+        "name": "remindaboutpackage",
+        "params": ""
+      },
+      {
+        "file": "mods\\RF Receiver Tasks - Tweaki_Breeki - gamma merged\\scripts\\TB_RF_Receiver_Packages.script",
+        "name": "tb_radio_thing",
+        "params": ""
+      },
+      {
+        "file": "mods\\RF Receiver Tasks - Tweaki_Breeki - gamma merged\\scripts\\TB_RF_Receiver_Packages.script",
+        "name": "spawn_some_badguys",
+        "params": ""
+      },
+      {
+        "file": "mods\\RF Receiver Tasks - Tweaki_Breeki - gamma merged\\scripts\\TB_RF_Receiver_Packages.script",
+        "name": "boop_if_nearby",
+        "params": ""
+      },
+      {
+        "file": "mods\\RF Receiver Tasks - Tweaki_Breeki - gamma merged\\scripts\\TB_RF_Receiver_Packages.script",
+        "name": "actor_on_item_take",
+        "params": "item"
+      },
+      {
+        "file": "mods\\RF Receiver Tasks - Tweaki_Breeki - gamma merged\\scripts\\TB_RF_Receiver_Packages.script",
+        "name": "give_note",
+        "params": ""
+      },
+      {
+        "file": "mods\\RF Receiver Tasks - Tweaki_Breeki - gamma merged\\scripts\\TB_RF_Receiver_Packages.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "mods\\RF Receiver Tasks - Tweaki_Breeki - gamma merged\\scripts\\TB_RF_Receiver_Packages.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "mods\\RF Receiver Tasks - Tweaki_Breeki - gamma merged\\scripts\\TB_RF_Receiver_Packages.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "mods\\Sleeper Scheme Fixes - Leyths\\scripts\\axr_beh.script",
+        "name": "am_i_reached",
+        "params": "npc,index"
+      },
+      {
+        "file": "mods\\Sleeper Scheme Fixes - Leyths\\scripts\\axr_beh.script",
+        "name": "set_scheme",
+        "params": "npc, ini, scheme, section, gulag_name"
+      },
+      {
+        "file": "mods\\Sleeper Scheme Fixes - Leyths\\scripts\\axr_beh.script",
+        "name": "add_to_binder",
+        "params": "npc, ini, scheme, section, storage"
+      },
+      {
+        "file": "mods\\Sleeper Scheme Fixes - Leyths\\scripts\\axr_beh.script",
+        "name": "reset_scheme",
+        "params": "loading, npc"
+      },
+      {
+        "file": "mods\\Sleeper Scheme Fixes - Leyths\\scripts\\move_mgr.script",
+        "name": "choose_look_point",
+        "params": "patrol_look, path_look_info, search_for"
+      },
+      {
+        "file": "mods\\Sleeper Scheme Fixes - Leyths\\scripts\\xr_sleeper.script",
+        "name": "add_to_binder",
+        "params": "npc, ini, scheme, section, storage"
+      },
+      {
+        "file": "mods\\Sleeper Scheme Fixes - Leyths\\scripts\\xr_sleeper.script",
+        "name": "set_scheme",
+        "params": "npc, ini, scheme, section, gulag_name"
+      },
+      {
+        "file": "mods\\Sleeper Scheme Fixes - Leyths\\scripts\\xr_sleeper.script",
+        "name": "is_npc_asleep",
+        "params": "npc"
+      }
+    ],
+    "api_calls": {
+      "game.translate_string": 84,
+      "level.name": 35,
+      "db.actor.position": 33,
+      "xr_logic.pick_section_from_condlist": 26,
+      "level.object_by_id": 21,
+      "db.actor.object": 20,
+      "db.actor.give_info_portion": 18,
+      "level.vertex_id": 15,
+      "level.map_remove_object_spot": 11,
+      "db.actor.game_vertex_id": 10,
+      "game.get_game_time": 10,
+      "db.actor.set_actor_position": 9,
+      "level.vertex_position": 9,
+      "level.map_has_object_spot": 8,
+      "level.map_add_object_spot_ser": 7,
+      "level.get_start_time": 7,
+      "xr_logic.subscribe_action_for_events": 6,
+      "xr_logic.assign_storage_and_bind": 6,
+      "xr_logic.cfg_get_switch_conditions": 6,
+      "level.add_pp_effector": 6,
+      "db.actor.give_game_news": 6,
+      "level.vertex_in_direction": 5,
+      "ui_mcm.get": 5,
+      "db.actor.level_vertex_id": 4,
+      "xr_logic.parse_condlist": 4,
+      "db.actor.money": 3,
+      "db.actor.item_in_slot": 3,
+      "ui_dyn_msg_box.multi_choice": 2,
+      "level.map_add_object_spot": 2,
+      "db.actor.character_community": 2,
+      "db.actor.id": 2,
+      "db.actor.active_detector": 2,
+      "xr_logic.is_active": 2,
+      "db.actor.transfer_item": 1,
+      "db.actor.inventory_for_each": 1,
+      "db.actor.iterate_inventory": 1,
+      "db.actor.is_talking": 1,
+      "db.actor.stop_talk": 1,
+      "ui_sleep_dialog.main": 1,
+      "level.get_time_hours": 1,
+      "db.actor.character_name": 1,
+      "db.actor.give_talk_message2": 1,
+      "db.actor.disable_info_portion": 1,
+      "db.actor.get_visual_name": 1,
+      "level.add_cam_effector": 1,
+      "level.remove_pp_effector": 1,
+      "db.actor.set_community_goodwill": 1,
+      "axr_companions.release_special_squad": 1,
+      "ui_options.get": 1,
+      "ui_pda_encyclopedia_tab.unlock_note": 1,
+      "xr_logic.switch_to_section": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_dynamic_anomaly.script",
+      "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_dynamic_anomaly_loader.script",
+      "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_dynamic_anomaly_manager.script",
+      "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_item_spawn_manager.script",
+      "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_item_spawner.script",
+      "mods\\Dynamic Items And Anomalies Anomaly\\scripts\\sr_item_spawner_loader.script",
+      "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_dynamic_anomaly.script",
+      "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_dynamic_anomaly_loader.script",
+      "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_dynamic_anomaly_manager.script",
+      "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_item_spawn_manager.script",
+      "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_item_spawner.script",
+      "mods\\Dynamic Items And Anomalies Gamma\\scripts\\sr_item_spawner_loader.script",
+      "mods\\G.A.M.M.A. Agroprom Underground Remake\\scripts\\agroprom_drugkit_spawner_gamma.script",
+      "mods\\G.A.M.M.A. Vehicles in Darkscape\\scripts\\grok_vehicles_spawner.script",
+      "mods\\Guide Fixes - Leyths\\scripts\\dialogs_mlr_guide_fixes.script",
+      "mods\\Main Story Fixes - Leyths\\scripts\\main_story_dialogs_fixes.script",
+      "mods\\Main Story Fixes - Leyths\\scripts\\main_story_spawn_fixes.script",
+      "mods\\Main Story Fixes - Leyths\\scripts\\mlr_utils_fixes.script",
+      "mods\\New Safe Zones - Tweaki_Breeki\\scripts\\TB_Coordinate_Based_Safe_Zones.script",
+      "mods\\New Stashes Location - Tweaki_Breeki\\scripts\\tb_new_stashes.script",
+      "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\ah_dialogs.script",
+      "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\operacia_monolith.script",
+      "mods\\New Storylines (DLTX minimodpack) - Demonized\\scripts\\utils_slht.script",
+      "mods\\New Tasks - iTheon\\scripts\\a_the_living_fire_configs.script",
+      "mods\\New Tasks - iTheon\\scripts\\baba_yaga_configs.script",
+      "mods\\New Tasks - iTheon\\scripts\\big_game_configs.script",
+      "mods\\New Tasks - iTheon\\scripts\\dead_night_configs.script",
+      "mods\\New Tasks - iTheon\\scripts\\house_of_horrors_configs.script",
+      "mods\\New Tasks - iTheon\\scripts\\mirage_configs.script",
+      "mods\\New Tasks - iTheon\\scripts\\mystery_of_the_swamps_configs.script",
+      "mods\\New Tasks - iTheon\\scripts\\tasks_hold_the_ground.script",
+      "mods\\New Tasks - iTheon\\scripts\\tasks_no_step_back.script",
+      "mods\\New Tasks - iTheon\\scripts\\tasks_skyfall.script",
+      "mods\\New Tasks - iTheon\\scripts\\tasks_urgent_orders.script",
+      "mods\\Pump Station Defense Anomaly\\scripts\\tasks_pump_station_defense.script",
+      "mods\\Pump Station Defense Gamma\\scripts\\tasks_pump_station_defense.script",
+      "mods\\RF Receiver Tasks - Tweaki_Breeki - gamma merged\\scripts\\TB_RF_Receiver_Packages.script",
+      "mods\\Sleeper Scheme Fixes - Leyths\\scripts\\axr_beh.script",
+      "mods\\Sleeper Scheme Fixes - Leyths\\scripts\\move_mgr.script",
+      "mods\\Sleeper Scheme Fixes - Leyths\\scripts\\xr_sleeper.script"
+    ],
+    "config_files": [
+      "mods\\Dynamic Items And Anomalies Anomaly\\configs\\items\\settings\\dynamic_item_spawn.ltx",
+      "mods\\Dynamic Items And Anomalies Anomaly\\configs\\items\\settings\\dynamic_item_spawn_locations.ltx",
+      "mods\\Dynamic Items And Anomalies Anomaly\\configs\\plugins\\dynamic_anomalies.ltx",
+      "mods\\Dynamic Items And Anomalies Anomaly\\configs\\zones\\dynamic_anomaly_locations.ltx",
+      "mods\\Dynamic Items And Anomalies Gamma\\configs\\items\\settings\\dynamic_item_spawn.ltx",
+      "mods\\Dynamic Items And Anomalies Gamma\\configs\\items\\settings\\dynamic_item_spawn_locations.ltx",
+      "mods\\Dynamic Items And Anomalies Gamma\\configs\\plugins\\dynamic_anomalies.ltx",
+      "mods\\Dynamic Items And Anomalies Gamma\\configs\\zones\\dynamic_anomaly_locations.ltx",
+      "mods\\Extra level transitions - Demonized\\configs\\items\\items\\items_extra_level_transitions_cordon.ltx",
+      "mods\\Extra level transitions - Demonized\\configs\\items\\items\\items_extra_level_transitions_limansk.ltx",
+      "mods\\Extra level transitions - Demonized\\configs\\items\\items\\items_extra_level_transitions_yantar.ltx",
+      "mods\\Main Story Fixes - Leyths\\configs\\named_locations.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_AES.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_AES2.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_AGR.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_BAR.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_CIT.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_COP_PRI.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_DS.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_ESC.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_GAR.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_GEN.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_HOS.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_JUP.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_JUP_UG.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_LIM.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_MAR.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_MIL.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_POL.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_PRI.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_RAD.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_RED.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_ROS.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_TC.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_VAL.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_YAN.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport\\sr_teleport_ZAT.ltx",
+      "mods\\Modular Level Changers - Leyths\\configs\\sr_teleport_sections.ltx",
+      "mods\\_New Game Start Locations Anomaly\\configs\\plugins\\new_game_start_locations.ltx",
+      "mods\\_New Game Start Locations Gamma\\configs\\plugins\\new_game_start_locations.ltx"
+    ],
+    "file_count": 40
+  }
+}

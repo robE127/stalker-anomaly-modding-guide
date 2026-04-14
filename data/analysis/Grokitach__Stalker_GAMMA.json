@@ -1,0 +1,3395 @@
+{
+  "repo": "Grokitach/Stalker_GAMMA",
+  "stars": 1093,
+  "relevance_score": 132,
+  "analysis": {
+    "callbacks": {
+      "actor_on_first_update": 104,
+      "save_state": 98,
+      "load_state": 92,
+      "on_option_change": 79,
+      "actor_on_update": 70,
+      "on_key_release": 47,
+      "on_key_press": 46,
+      "on_game_load": 46,
+      "npc_on_death_callback": 28,
+      "actor_on_item_use": 27,
+      "actor_on_item_take": 22,
+      "GUI_on_show": 21,
+      "actor_on_item_drop": 20,
+      "actor_item_to_ruck": 19,
+      "actor_item_to_slot": 19,
+      "npc_on_before_hit": 18,
+      "server_entity_on_unregister": 18,
+      "ActorMenu_on_item_drag_drop": 17,
+      "actor_on_weapon_fired": 16,
+      "actor_on_before_hit": 16,
+      "on_xml_read": 16,
+      "on_console_execute": 13,
+      "on_before_key_press": 13,
+      "actor_on_before_death": 13,
+      "GUI_on_hide": 13,
+      "actor_on_net_destroy": 13,
+      "actor_on_weapon_jammed": 11,
+      "actor_on_weapon_zoom_in": 11,
+      "ActorMenu_on_item_focus_receive": 11,
+      "monster_on_death_callback": 11,
+      "monster_on_before_hit": 10,
+      "actor_on_weapon_zoom_out": 10,
+      "on_before_level_changing": 10,
+      "actor_item_to_belt": 10,
+      "physic_object_on_use_callback": 10,
+      "npc_on_hit_callback": 9,
+      "actor_on_hud_animation_play": 8,
+      "monster_on_actor_use_callback": 8,
+      "ActorMenu_on_item_before_move": 7,
+      "ActorMenu_on_trade_started": 7,
+      "actor_on_item_before_use": 7,
+      "actor_on_footstep": 7,
+      "actor_on_weapon_before_fire": 6,
+      "actor_on_sleep": 6,
+      "npc_on_update": 6,
+      "ActorMenu_on_trade_closed": 6,
+      "squad_on_npc_death": 6,
+      "on_key_hold": 6,
+      "on_level_changing": 5,
+      "actor_on_weapon_reload": 5,
+      "actor_on_hit_callback": 5,
+      "on_enemy_eval": 5,
+      "actor_on_info_callback": 5,
+      "actor_on_attach_vehicle": 5,
+      "ActorMenu_on_item_after_move": 5,
+      "actor_on_hud_animation_mark": 5,
+      "actor_on_weapon_lower": 4,
+      "actor_on_weapon_raise": 4,
+      "actor_on_detach_vehicle": 4,
+      "on_before_save_input": 4,
+      "set_weapon_drop_condition": 4,
+      "trader_on_restock": 4,
+      "actor_on_interaction": 4,
+      "main_menu_on_init": 4,
+      "main_menu_on_quit": 4,
+      "actor_on_weapon_zoom_type_changed": 4,
+      "actor_on_hud_animation_end": 4,
+      "actor_on_item_take_from_box": 4,
+      "npc_on_use": 4,
+      "monster_on_loot_init": 4,
+      "on_localization_change": 3,
+      "actor_on_before_stash_create": 3,
+      "on_get_item_cost": 3,
+      "on_screen_resolution_changed": 3,
+      "npc_on_item_take": 3,
+      "actor_on_item_before_pickup": 3,
+      "actor_on_movement_changed": 3,
+      "actor_on_jump": 3,
+      "actor_on_land": 3,
+      "actor_on_feeling_anomaly": 3,
+      "ActorMenu_on_before_init_mode": 3,
+      "monster_on_hit_callback": 3,
+      "ActorMenu_on_item_focus_lost": 3,
+      "npc_on_net_spawn": 3,
+      "anomaly_on_before_activate": 3,
+      "squad_on_after_game_vertex_change": 3,
+      "squad_on_after_level_change": 3,
+      "burer_on_before_weapon_drop": 2,
+      "server_entity_on_register": 2,
+      "game_object_on_net_spawn": 2,
+      "npc_on_hear_callback": 2,
+      "actor_on_item_put_in_box": 2,
+      "npc_on_item_drop": 2,
+      "actor_on_climb_end": 2,
+      "actor_on_climb_start": 2,
+      "ea_on_item_anim_stop": 2,
+      "ea_on_item_use": 2,
+      "bullet_on_impact": 2,
+      "monster_on_update": 2,
+      "on_mouse_wheel": 2,
+      "squad_on_update": 2,
+      "actor_on_weapon_jammed_wpo": 2,
+      "npc_on_choose_weapon": 2,
+      "on_specific_character_dialog_list": 2,
+      "imgui_on_render": 2,
+      "create_item_on_npc": 1,
+      "on_pstor_load_all": 1,
+      "question_repair_item": 1,
+      "npc_on_net_destroy": 1,
+      "actor_on_achievement_earned": 1,
+      "se_stalker_on_spawn": 1,
+      "Add_Condition_Text": 1,
+      "ActorMenu_on_mode_changed": 1,
+      "on_barrier_defense_squad_death": 1,
+      "on_before_psi_storm": 1,
+      "on_before_surge": 1,
+      "pump_station_defense_reward": 1,
+      "pump_station_defense_task_cleanup": 1,
+      "pump_station_defense_task_commander_inv_condition": 1,
+      "pump_station_defense_task_commander_replaced": 1,
+      "pump_station_defense_task_need_end_talk": 1,
+      "pump_station_defense_task_need_intro_talk": 1,
+      "pump_station_defense_task_need_intro_talk_2": 1,
+      "pump_station_defense_task_precondition": 1,
+      "map_spot_menu_add_property": 1,
+      "map_spot_menu_property_clicked": 1,
+      "npc_on_fighting_actor": 1,
+      "squad_on_first_update": 1,
+      "actor_on_loot_money": 1,
+      "npc_on_loot_money": 1,
+      "weapon_eval_parts": 1,
+      "physic_object_on_hit_callback": 1,
+      "set_companion_to_loot_items_and_corpses": 1,
+      "set_companion_to_loot_items_only": 1,
+      "switch_companion_gather_items": 1,
+      "on_descr": 1,
+      "on_descr_news": 1,
+      "ea_error_ONOk": 1,
+      "ea_error_ONcancel": 1,
+      "npc_tech_upgrade_sell": 1,
+      "npc_trade_buy_sell": 1,
+      "actor_hud_on_nearwall": 1,
+      "actor_on_changed_slot": 1,
+      "actor_on_death": 1,
+      "actor_on_task_callback": 1,
+      "actor_on_update_pickup": 1,
+      "bullet_on_init": 1,
+      "bullet_on_remove": 1,
+      "bullet_on_update": 1,
+      "explosive_item_on_explode": 1,
+      "game_object_on_net_destroy": 1,
+      "npc_on_combat_set_body_state": 1,
+      "npc_on_item_before_pickup": 1,
+      "npc_set_body_state": 1,
+      "on_artefact_count_get": 1,
+      "on_before_hit_after_calcs": 1,
+      "on_before_mouse_move": 1,
+      "on_before_play_hud_sound": 1,
+      "on_belt_size_get": 1,
+      "on_loading_screen_dismissed": 1,
+      "on_loading_screen_key_prompt": 1,
+      "on_map_right_click": 1,
+      "on_news_received": 1,
+      "on_phrase_callback": 1,
+      "pseudogiant_before_stomp": 1,
+      "pseudogiant_on_start_stomp_animation": 1,
+      "pseudogiant_on_stomp": 1,
+      "rocket_on_update": 1,
+      "on_specific_character_init": 1
+    },
+    "functions": [
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "init_settings",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "init_main_settings",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "allow_animation",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "Hit_TorchToggle",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "Hit_MaskCleaning",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "Hit_GrenadeQuickthrow",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "Update_ItemSwap",
+        "params": "actor"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "Update_Animations",
+        "params": "actor"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "Update_Rad",
+        "params": "actor"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "Update_Mask",
+        "params": "actor"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "Update_Fog",
+        "params": "actor"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "Update_Breathing",
+        "params": "actor"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "Update_Bleeding",
+        "params": "actor"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "Update_Blood",
+        "params": "actor"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "Update_Impact",
+        "params": "actor"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "Update_Shooting",
+        "params": "actor"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "Update_Shooting",
+        "params": "obj, wpn, ammo_elapsed, grenade_elapsed, ammo_type, grenade_type"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "Update_HealthHUD",
+        "params": "actor"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "Update_StaminaHUD",
+        "params": "actor"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "HUD_fog",
+        "params": "enabled, actor, rect"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "HUD_mask",
+        "params": "helm_hud, helm_name, helm_respi"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "play_item_fx",
+        "params": "name"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "play_continuous_effect",
+        "params": "period"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "play_sound_breath_mask",
+        "params": "actor"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "play_sound_breath",
+        "params": "actor"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "shoot_effect",
+        "params": "sect"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "switch_helm",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "is_respi_on",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "is_mask_on",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "is_animations_on",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "set_animations",
+        "params": "state"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "clear_mask_hud",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "reset_idle_anim",
+        "params": "wpn, empty"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "actor_can_shoot",
+        "params": "state"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "disable_effects_timer",
+        "params": "n"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "use_helmet",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "use_weapon",
+        "params": "f"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "toggle_active_slot",
+        "params": "f"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "toggle_hud_autohide",
+        "params": "state"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "get_surge_manager",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "print_dbg",
+        "params": "fmt,..."
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "fade",
+        "params": "currentTime,startTime,endTime,startValue,endValue"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "play_sound_radius",
+        "params": "sndobj, radius, min, max"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "surge_callback",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "surge_callback2",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "make_dead_crow",
+        "params": "id,powr"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "make_dead",
+        "params": "id"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "get_task_descr",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "get_task_target",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "set_surge_task",
+        "params": "tsk"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "actor_on_save",
+        "params": "binder,packet"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "actor_on_load",
+        "params": "binder,packet"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "start_surge",
+        "params": "p"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "stop_surge",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "is_started",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "is_finished",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "is_loaded",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "actor_in_cover",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "npc_in_cover",
+        "params": "npc"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "job_in_surge_cover",
+        "params": "se_obj,job"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "set_surge_message",
+        "params": "mess"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "is_killing_all",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+        "name": "sound_started",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "pr",
+        "params": "txt, ..."
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "check_favs",
+        "params": "cell"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "check_junk",
+        "params": "cell"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "icon_junk",
+        "params": "cell, obj, sec"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "icon_favs",
+        "params": "cell, obj, sec"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "GUI_on_show",
+        "params": "name"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "loadsettings",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "set_item_order",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "get_sort_kind",
+        "params": "sec"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "sort_info",
+        "params": "asec, bsec"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "sort_by_size",
+        "params": "t, a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "sort_by_kind",
+        "params": "t, a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "sort_by_index",
+        "params": "t, a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "sort_by_sizekind",
+        "params": "t, a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "sort_by_props",
+        "params": "t, a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "utils_ui.UICellContainer.FindFreeCell",
+        "params": "self, obj, sec"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "ui_inventory.UIInventory.LMode_Init",
+        "params": "self, obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "ActorMenu_on_item_before_move",
+        "params": "flags, npc_id, obj, mode, bag"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "fav_menu_string",
+        "params": "obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "junk_menu_string",
+        "params": "obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "menu_precond",
+        "params": "obj, mode, bag"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "fav_menu_action",
+        "params": "obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "junk_menu_action",
+        "params": "obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "is_favorite",
+        "params": "sec"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "is_junk",
+        "params": "sec"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "set_favorite",
+        "params": "sec,state"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+        "name": "set_junk",
+        "params": "sec, state"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\115- Campfire slowly regens life - arti\\gamedata\\scripts\\cozy_campfire.script",
+        "name": "get_nearby_lit_campfire",
+        "params": "dist"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\115- Campfire slowly regens life - arti\\gamedata\\scripts\\cozy_campfire.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\115- Campfire slowly regens life - arti\\gamedata\\scripts\\cozy_campfire.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "print_dbg",
+        "params": "txt, ..."
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "send_msg",
+        "params": "msg, verbosity"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "get_jammed",
+        "params": "id"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "set_jam_status",
+        "params": "id, status"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "jam_swearing",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "reset_swear",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "start_jammin",
+        "params": "chance"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "stop_jammin",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "is_part",
+        "params": "part"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "is_barrel",
+        "params": "part"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "is_trigger",
+        "params": "part"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "has_parts",
+        "params": "wpn"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "missing_parts",
+        "params": "wpn"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "play_anim",
+        "params": "weapon, anim, sound"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "unset",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "persist_current_weapon",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "current_id",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "reset_cgd",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "get_jam_chance",
+        "params": "wpn"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "manage_overheat",
+        "params": "wpn"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "get_overheat_modifier",
+        "params": "weapon, eval"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "get_overheat_base",
+        "params": "weapon"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "get_heat",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "check_unjam",
+        "params": "obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "string_unjam",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "unjam_wep",
+        "params": "obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "unjam",
+        "params": "wpn"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "timed_restore",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "timed_unjam",
+        "params": "id, sound, message, verbosity"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "determine_slot",
+        "params": "weapon"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "get_unjam_animation",
+        "params": "weapon"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "unjam_replace",
+        "params": "weapon, slot, sound"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "move_to_slot",
+        "params": "weapon, slot, sound"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "on_key_release",
+        "params": "key"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "actor_on_weapon_jammed",
+        "params": "actor"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "actor_on_weapon_reload",
+        "params": "wpn"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "cancel_reload",
+        "params": "weapon"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "npc_on_before_hit",
+        "params": "npc,shit,bone_id, flags"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "monster_on_before_hit",
+        "params": "monster,shit,bone_id, flags"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "try_replace_part",
+        "params": "wpn, table, part, using_tool"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\scripts\\aaaa_monkeys.script",
+        "name": "print_dbg",
+        "params": "fmt,..."
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\scripts\\aaaa_monkeys.script",
+        "name": "utils_item.extract_upgrade",
+        "params": "tree, group, not_first"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\scripts\\aaaa_monkeys.script",
+        "name": "utils_item.get_upgrade_prop_tool",
+        "params": "prop"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\scripts\\kit_binder.script",
+        "name": "bind",
+        "params": "obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\scripts\\kit_binder.script",
+        "name": "convert_kit",
+        "params": "sec"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\scripts\\kit_binder.script",
+        "name": "try_combine",
+        "params": "item"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\scripts\\kit_binder.script",
+        "name": "combine",
+        "params": "item"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\scripts\\kit_binder.script",
+        "name": "try_downgrade",
+        "params": "item"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\scripts\\kit_binder.script",
+        "name": "downgrade",
+        "params": "item"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\scripts\\kit_binder.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\scripts\\upgrades_mcm.script",
+        "name": "get_config",
+        "params": "key"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\scripts\\upgrades_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\156- No Exos in the South - Grokitach\\gamedata\\scripts\\grok_nes.script",
+        "name": "Set",
+        "params": "t"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\156- No Exos in the South - Grokitach\\gamedata\\scripts\\grok_nes.script",
+        "name": "npc_on_update",
+        "params": "npc"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\156- No Exos in the South - Grokitach\\gamedata\\scripts\\grok_nes.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\156- No Exos in the South - Grokitach\\gamedata\\scripts\\grok_no_north_faction_in_south.script",
+        "name": "Set",
+        "params": "t"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\156- No Exos in the South - Grokitach\\gamedata\\scripts\\grok_no_north_faction_in_south.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\158- ABF - Jurkonov\\gamedata\\scripts\\chem_damage.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\158- ABF - Jurkonov\\gamedata\\scripts\\fire_damage.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\158- ABF - Jurkonov\\gamedata\\scripts\\psy_damage.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\160- Military not attacked by duty at Rostok - GhenTuong\\gamedata\\scripts\\gameplay_peace_zone.script",
+        "name": "level_is_bar",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\160- Military not attacked by duty at Rostok - GhenTuong\\gamedata\\scripts\\gameplay_peace_zone.script",
+        "name": "npcs_friendly_to_community",
+        "params": "npc_1,npc_2,com"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\160- Military not attacked by duty at Rostok - GhenTuong\\gamedata\\scripts\\gameplay_peace_zone.script",
+        "name": "npc_on_before_hit",
+        "params": "npc,shit,bone_id,flags"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\160- Military not attacked by duty at Rostok - GhenTuong\\gamedata\\scripts\\gameplay_peace_zone.script",
+        "name": "on_enemy_eval",
+        "params": "npc,ene,flags"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\160- Military not attacked by duty at Rostok - GhenTuong\\gamedata\\scripts\\gameplay_peace_zone.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\160- Military not attacked by duty at Rostok - GhenTuong\\gamedata\\scripts\\gameplay_peace_zone.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\160- Military not attacked by duty at Rostok - GhenTuong\\gamedata\\scripts\\gameplay_peace_zone.script",
+        "name": "on_level_changing",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\160- Military not attacked by duty at Rostok - GhenTuong\\gamedata\\scripts\\gameplay_peace_zone.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\189- Beef's NVG - theRealBeef\\gamedata\\scripts\\z_beefs_nvgs.script",
+        "name": "on_option_change",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\189- Beef's NVG - theRealBeef\\gamedata\\scripts\\z_beefs_nvgs.script",
+        "name": "pack_nvg_data",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\189- Beef's NVG - theRealBeef\\gamedata\\scripts\\z_beefs_nvgs.script",
+        "name": "pack_nvg_data_2",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\189- Beef's NVG - theRealBeef\\gamedata\\scripts\\z_beefs_nvgs.script",
+        "name": "update_nvgs",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\189- Beef's NVG - theRealBeef\\gamedata\\scripts\\z_beefs_nvgs.script",
+        "name": "allow_animation",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\189- Beef's NVG - theRealBeef\\gamedata\\scripts\\z_beefs_nvgs.script",
+        "name": "item_device.set_nightvision",
+        "params": "section,state"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\189- Beef's NVG - theRealBeef\\gamedata\\scripts\\z_beefs_nvgs.script",
+        "name": "brightness_adjust",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\189- Beef's NVG - theRealBeef\\gamedata\\scripts\\z_beefs_nvgs.script",
+        "name": "state_change_effect",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\189- Beef's NVG - theRealBeef\\gamedata\\scripts\\z_beefs_nvgs.script",
+        "name": "nvg_glitch",
+        "params": "power"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\189- Beef's NVG - theRealBeef\\gamedata\\scripts\\z_beefs_nvgs.script",
+        "name": "actor_on_weapon_zoom_in",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\189- Beef's NVG - theRealBeef\\gamedata\\scripts\\z_beefs_nvgs.script",
+        "name": "actor_on_weapon_zoom_out",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\189- Beef's NVG - theRealBeef\\gamedata\\scripts\\z_beefs_nvgs.script",
+        "name": "pda_check",
+        "params": "npc,info_id"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\189- Beef's NVG - theRealBeef\\gamedata\\scripts\\z_beefs_nvgs.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\189- Beef's NVG - theRealBeef\\gamedata\\scripts\\z_beefs_nvgs.script",
+        "name": "on_key_press",
+        "params": "key"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\189- Beef's NVG - theRealBeef\\gamedata\\scripts\\z_beefs_nvgs.script",
+        "name": "on_key_release",
+        "params": "key"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\189- Beef's NVG - theRealBeef\\gamedata\\scripts\\z_beefs_nvgs.script",
+        "name": "on_key_press_update_nvgs",
+        "params": "key"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\189- Beef's NVG - theRealBeef\\gamedata\\scripts\\z_beefs_nvgs.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+        "name": "on_before_save_input",
+        "params": "flags, typ_, text"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+        "name": "is_within_friendly_base",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+        "name": "get_friendly_bases",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+        "name": "is_base_neutral",
+        "params": "smart, community"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+        "name": "is_with_friendly_boss",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+        "name": "check_no_nearby_campfire",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+        "name": "on_option_change",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+        "name": "on_console_execute",
+        "params": "cmd"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+        "name": "on_key_release",
+        "params": "key"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+        "name": "extend_token_downtime",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+        "name": "redeem_token",
+        "params": "suppress_notification"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+        "name": "create_emergency_save",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+        "name": "switch_to_rl_mode",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+        "name": "send_notification",
+        "params": "time_remaining"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+        "name": "get_parent_type",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+        "name": "news",
+        "params": "message, ..."
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+        "name": "actor_on_attach_vehicle",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+        "name": "actor_on_detach_vehicle",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+        "name": "on_before_level_changing",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\205- Old to ammo to new ammo converter (less item bloat) - Great_Day\\gamedata\\scripts\\item_weapon.script",
+        "name": "get_weapon_slot",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\205- Old to ammo to new ammo converter (less item bloat) - Great_Day\\gamedata\\scripts\\item_weapon.script",
+        "name": "attach_scope",
+        "params": "item, weapon"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\205- Old to ammo to new ammo converter (less item bloat) - Great_Day\\gamedata\\scripts\\item_weapon.script",
+        "name": "detach_scope",
+        "params": "weapon"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\205- Old to ammo to new ammo converter (less item bloat) - Great_Day\\gamedata\\scripts\\item_weapon.script",
+        "name": "menu_scope",
+        "params": "weapon"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\205- Old to ammo to new ammo converter (less item bloat) - Great_Day\\gamedata\\scripts\\item_weapon.script",
+        "name": "menu_scope_inv",
+        "params": "weapon"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\205- Old to ammo to new ammo converter (less item bloat) - Great_Day\\gamedata\\scripts\\item_weapon.script",
+        "name": "func_scope",
+        "params": "weapon"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\205- Old to ammo to new ammo converter (less item bloat) - Great_Day\\gamedata\\scripts\\item_weapon.script",
+        "name": "test_silencer",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\205- Old to ammo to new ammo converter (less item bloat) - Great_Day\\gamedata\\scripts\\item_weapon.script",
+        "name": "toggle_silencer",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\205- Old to ammo to new ammo converter (less item bloat) - Great_Day\\gamedata\\scripts\\item_weapon.script",
+        "name": "relocate_ammo_to_actor",
+        "params": "actor, npc, section, amount"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\205- Old to ammo to new ammo converter (less item bloat) - Great_Day\\gamedata\\scripts\\item_weapon.script",
+        "name": "relocate_ammo_from_actor",
+        "params": "actor, npc, section, amount"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\205- Old to ammo to new ammo converter (less item bloat) - Great_Day\\gamedata\\scripts\\item_weapon.script",
+        "name": "ammo_aggregation",
+        "params": "obj, npc"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\205- Old to ammo to new ammo converter (less item bloat) - Great_Day\\gamedata\\scripts\\item_weapon.script",
+        "name": "ammo_aggregation_full",
+        "params": "npc_id"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\205- Old to ammo to new ammo converter (less item bloat) - Great_Day\\gamedata\\scripts\\item_weapon.script",
+        "name": "ammo_injection",
+        "params": "obj_1, obj_2, sec_1, sec_2"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\205- Old to ammo to new ammo converter (less item bloat) - Great_Day\\gamedata\\scripts\\item_weapon.script",
+        "name": "unload_all_weapons",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\205- Old to ammo to new ammo converter (less item bloat) - Great_Day\\gamedata\\scripts\\item_weapon.script",
+        "name": "clear_cache",
+        "params": "obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\205- Old to ammo to new ammo converter (less item bloat) - Great_Day\\gamedata\\scripts\\item_weapon.script",
+        "name": "remove_extra_ammo",
+        "params": "npc_id"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\205- Old to ammo to new ammo converter (less item bloat) - Great_Day\\gamedata\\scripts\\item_weapon.script",
+        "name": "start_ammo_wheel",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\205- Old to ammo to new ammo converter (less item bloat) - Great_Day\\gamedata\\scripts\\item_weapon.script",
+        "name": "get_grenades",
+        "params": "section"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\205- Old to ammo to new ammo converter (less item bloat) - Great_Day\\gamedata\\scripts\\item_weapon.script",
+        "name": "update_overheat",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\205- Old to ammo to new ammo converter (less item bloat) - Great_Day\\gamedata\\scripts\\item_weapon.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\aaa_rax_icon_override_mcm.script",
+        "name": "print_dbg",
+        "params": "text , ..."
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\aaa_rax_icon_override_mcm.script",
+        "name": "utils_xml.get_icons_texture",
+        "params": "section"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\aaa_rax_icon_override_mcm.script",
+        "name": "utils_xml.get_item_axis",
+        "params": "section, grid_size, unpacked"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\aaa_rax_icon_override_mcm.script",
+        "name": "utils_xml.set_upgr_icon",
+        "params": "obj, sec, XML_box, XML_temp"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\aaa_rax_icon_override_mcm.script",
+        "name": "utils_xml.set_icon",
+        "params": "sec, hidden, XML_temp, XML_box, XML_box_small"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\aaa_rax_icon_override_mcm.script",
+        "name": "set_item_order",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\aaa_rax_icon_override_mcm.script",
+        "name": "sort_info",
+        "params": "asec, bsec"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\aaa_rax_icon_override_mcm.script",
+        "name": "sort_by_size",
+        "params": "t,a,b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\aaa_rax_icon_override_mcm.script",
+        "name": "sort_by_kind",
+        "params": "t,a,b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\aaa_rax_icon_override_mcm.script",
+        "name": "sort_by_index",
+        "params": "t,a,b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\aaa_rax_icon_override_mcm.script",
+        "name": "sort_by_sizekind",
+        "params": "t,a,b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\aaa_rax_icon_override_mcm.script",
+        "name": "sort_by_props",
+        "params": "t,a,b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\actor_stash_patch.script",
+        "name": "add_condition",
+        "params": "f"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\actor_stash_patch.script",
+        "name": "eval",
+        "params": "item"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\actor_stash_patch.script",
+        "name": "item_backpack.actor_on_item_use",
+        "params": "obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\actor_stash_patch.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ammo_check_mcm.script",
+        "name": "print_dbg",
+        "params": "msg, ..."
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ammo_check_mcm.script",
+        "name": "null_function",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ammo_check_mcm.script",
+        "name": "get_mag_loaded_shim",
+        "params": "id"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ammo_check_mcm.script",
+        "name": "on_key_press",
+        "params": "key"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ammo_check_mcm.script",
+        "name": "on_key_hold",
+        "params": "key"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ammo_check_mcm.script",
+        "name": "l_round",
+        "params": "value"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ammo_check_mcm.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ammo_check_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ammo_check_mcm.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ammo_check_mcm.script",
+        "name": "on_option_change",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ammo_check_mcm.script",
+        "name": "checkAmmo",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ammo_check_mcm.script",
+        "name": "check_Ammo",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ammo_check_mcm.script",
+        "name": "give_news",
+        "params": "message"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\a_magazine.script",
+        "name": "utils_item.get_item_cost",
+        "params": "obj, profile"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\bind_stalker_monkey.script",
+        "name": "bind_stalker_ext.actor_on_weapon_jammed",
+        "params": "binder, actor, wpn"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "add_functor",
+        "params": "name, cond_name, func_name, cond_action, func_action, override_bags"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "remove_functor",
+        "params": "name"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "override_functor",
+        "params": "slot, cond_name, func_name, cond_action, func_action, override_bags"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "remove_override",
+        "params": "slot"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "get_functor_at_slot",
+        "params": "slot"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "get_functor_by_name",
+        "params": "name"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "print_properties",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "print_custom_functor",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "print_custom_functor_names",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\grok_reload_bind_checker.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "print_dbg",
+        "params": "text , ..."
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "print_err",
+        "params": "text , ..."
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "action_in_progress",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "action_start_reload",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "action_start_magload",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "do_interrupt_reload",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "do_interrupt_magload",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "do_interrupt",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "create_time_event",
+        "params": "ev_id,act_id,timer,f,..."
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "get_mag_time",
+        "params": "mag_section,is_unload"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "on_option_change",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "timed_refresh",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "inventory_refresh",
+        "params": "mode"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "get_ammo_map",
+        "params": "id"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "get_sec_chambered",
+        "params": "wpn"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "retain_round",
+        "params": "weapon"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "on_item_drag_dropped",
+        "params": "item, weapon, from_slot, to_slot"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "load_weapon",
+        "params": "weapon, magazine"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "delay_load_weapon",
+        "params": "id, magazine, pre_table"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "chamber_single_round",
+        "params": "ammo, weapon"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "count_ammo",
+        "params": "weapon"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "refund_ammo",
+        "params": "pre_ammo_table"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "weapon_in_slot",
+        "params": "id"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "retain_magazine",
+        "params": "id, ejection"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "check_eject_magazine",
+        "params": "weapon, bag, mode"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "eject_magazine",
+        "params": "weapon"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "timer_eject_magazine",
+        "params": "weapon_id, id, mag_data"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "find_magazine",
+        "params": "weapon, ammo_type"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "count_magazines",
+        "params": "weapon"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "actor_on_weapon_reload",
+        "params": "actor, weapon, ammo_total"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "unjam_weapon",
+        "params": "weapon"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "unjam_weapon_timer",
+        "params": "weapon_id, data, slot, replace"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "find_next_box",
+        "params": "ammo_section, id"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "load_magazine",
+        "params": "magazine, capacity, delay"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "unload_magazine",
+        "params": "magazine, delay, boxes"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "fast_load_magazine",
+        "params": "magazine, box, load_one"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "fast_unload_magazine",
+        "params": "magazine"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "on_key_press",
+        "params": "key, bind, dis, flags"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "unload_ammo",
+        "params": "obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "func_unload_ammo",
+        "params": "obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "loadout_precondition",
+        "params": "obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "loadout_func",
+        "params": "obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "retool_mag_precondition",
+        "params": "obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "retool_mag_functor",
+        "params": "obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "actor_on_weapon_fired",
+        "params": "obj, weapon, ammo_elapsed, grenade_elapsed, ammo_type, grenade_type"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "weapon_unjammed",
+        "params": "weapon"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "weapon_jammed",
+        "params": "weapon"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "is_jammed_weapon",
+        "params": "weapon"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "prep_weapon",
+        "params": "weapon, feed_next"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "actor_on_hud_animation_mark",
+        "params": "state, mark, hud_item, owner"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "ActorMenu_on_item_focus_receive",
+        "params": "obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "ActorMenu_on_item_before_move",
+        "params": "flags, npc_id, obj, mode, bag"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "on_game_load",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines_loot.script",
+        "name": "trader_autoinject.update",
+        "params": "npc"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines_loot.script",
+        "name": "stock_mags",
+        "params": "npc"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines_loot.script",
+        "name": "random_pop_mag",
+        "params": "mag_id, mag_sec, ammo_table, rank"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines_loot.script",
+        "name": "determine_ammo",
+        "params": "ammo_to_pick, mag_sec, rank"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines_loot.script",
+        "name": "npc_on_death",
+        "params": "npc, who"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines_loot.script",
+        "name": "death_manager.set_weapon_drop_condition",
+        "params": "npc, itm"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines_loot.script",
+        "name": "on_get_item_cost",
+        "params": "kind, obj, profile, calculated_cost, ret"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines_loot.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines_mcm.script",
+        "name": "get_config",
+        "params": "key"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines_mcm.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "print_dbg",
+        "params": "..."
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "print_err",
+        "params": "..."
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "dump_data",
+        "params": "data"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "get_carried_mags",
+        "params": "tbl"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "get_data",
+        "params": "id"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "set_data",
+        "params": "id, data"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "create_mag_data",
+        "params": "id, sec, is_weapon"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "clean_data",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "get_mag_property",
+        "params": "id,key"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "get_size",
+        "params": "id, mag_data"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "get_total_carried",
+        "params": "exact"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "get_loadout_size",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "get_mags_for_basetype",
+        "params": "basetype"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "get_basetypes_by_ammo_type",
+        "params": "sec"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "get_mags_by_ammo_type",
+        "params": "sec"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "is_carried_mag",
+        "params": "id"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "toggle_carried_mag",
+        "params": "id"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "update_loadout_slots",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "validate_loadout",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "room_in_pouch",
+        "params": "id"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "build_mag_revers_lookups",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "is_supported_weapon",
+        "params": "val"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "is_open_bolt_weapon",
+        "params": "val"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "has_loadout_slots",
+        "params": "val"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "get_retool_section",
+        "params": "val"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "get_loadout_slots",
+        "params": "val, combine, force_outfit"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "is_magazine",
+        "params": "val"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "get_magazine_base_type",
+        "params": "val"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "get_magazine_caliber",
+        "params": "val"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "get_weapon_base_type",
+        "params": "val"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "weapon_default_magazine",
+        "params": "val"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "weapon_improved_magazine",
+        "params": "val"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "is_compatible",
+        "params": "weapon, magazine"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "valid_mag_data",
+        "params": "mag_data"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "get_mag_loaded",
+        "params": "id"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "validate_wep",
+        "params": "id, sec"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "validate_mag",
+        "params": "id, sec"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "bind",
+        "params": "obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "check_ready",
+        "params": "cell"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "icon_check_ready",
+        "params": "cell"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "load_state",
+        "params": "mdata"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "actor_item_to_slot",
+        "params": "obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "on_trade_opened",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "on_trade_closed",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "stack_rule",
+        "params": "obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "itms_manager.play_item_sound",
+        "params": "..."
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "item_parts.disassembly_weapon",
+        "params": "obj, obj_d"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "wrap_disassembly",
+        "params": "obj, obj_d"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "wrap_upgrade",
+        "params": "self_obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "wrap_repair",
+        "params": "self_obj"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "inventory_upgrades.can_repair_item",
+        "params": "sec, cond, mechanic"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "item_weapon.unload_all_weapons",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "ui_item.build_desc_header",
+        "params": "obj, sec, str"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "collect_mag_data",
+        "params": "mag_data, tostr"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "ui_item.build_desc_footer",
+        "params": "obj, sec, str"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "_G.alife_clone_weapon",
+        "params": "se_obj, section, parent_id"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "attach_scope_or",
+        "params": "item, weapon"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "detach_scope_or",
+        "params": "weapon"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "default_mags",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "itms_manager.new_game_equippment",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "gamemode_azazel.actor_on_before_death",
+        "params": "whoID,flags"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "mag_stash",
+        "params": "item"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "xr_effects.bar_arena_teleport",
+        "params": "actor, npc"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "equip_outfit",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "fill_mag",
+        "params": "id, sec, amount, ammo_type"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "item_weapon.start_ammo_wheel",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "on_key_press",
+        "params": "key"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "on_key_release",
+        "params": "key"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mag_hud.script",
+        "name": "on_screen_resolution_changed",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mag_hud.script",
+        "name": "activate_hud",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mag_hud.script",
+        "name": "deactivate_hud",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mag_hud.script",
+        "name": "update_hud",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mag_hud.script",
+        "name": "actor_on_net_destroy",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mag_hud.script",
+        "name": "on_console_execute",
+        "params": "name"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mag_hud.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mag_hud.script",
+        "name": "scale_ui",
+        "params": "ele, adjust_x, anchor, anchor_point, parent_width"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\rax_icon_layers.script",
+        "name": "pr",
+        "params": "txt, ..."
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\rax_icon_layers.script",
+        "name": "register",
+        "params": "name, functor"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\rax_icon_layers.script",
+        "name": "refresh",
+        "params": "mode"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\rax_icon_layers.script",
+        "name": "add_icon_layer",
+        "params": "self,ele, base, sec_m, tbl"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\rax_icon_layers.script",
+        "name": "add_texture_layer",
+        "params": "self,ele, base, sec_m, tbl"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\rax_persistent_highlight.script",
+        "name": "pr",
+        "params": "txt, ..."
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\rax_persistent_highlight.script",
+        "name": "register",
+        "params": "name, functor"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\rax_persistent_highlight.script",
+        "name": "change_alpha",
+        "params": "clr, a"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\stack.script",
+        "name": "push",
+        "params": "table, value"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\stack.script",
+        "name": "pop",
+        "params": "table"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\stack.script",
+        "name": "peek",
+        "params": "table"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\trader_autoinject.script",
+        "name": "trader_autoinject.update",
+        "params": "npc"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\trader_autoinject.script",
+        "name": "trade_manager.update",
+        "params": "npc, force_refresh"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\trader_autoinject.script",
+        "name": "timed_update",
+        "params": "npc"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\trader_autoinject.script",
+        "name": "update",
+        "params": "npc"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\trader_autoinject.script",
+        "name": "get_faction_goodwill",
+        "params": "faction"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\trader_autoinject.script",
+        "name": "get_trader_type",
+        "params": "npc"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\trader_autoinject.script",
+        "name": "supply_level",
+        "params": "npc, as_number"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\trader_autoinject.script",
+        "name": "merge_tables",
+        "params": "tables"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\trader_autoinject.script",
+        "name": "get_real_community",
+        "params": "npc, default"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\trader_autoinject.script",
+        "name": "spawn_items",
+        "params": "npc, to_spawn, check_existing"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ui_encyclopedia_autoinject.script",
+        "name": "parse_cat",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ui_encyclopedia_autoinject.script",
+        "name": "on_game_load",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ui_encyclopedia_autoinject.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ui_pda_autoinject.script",
+        "name": "parse_cat",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ui_pda_autoinject.script",
+        "name": "on_game_load",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ui_pda_autoinject.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\yyy_mag_sorting.script",
+        "name": "set_item_order",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\yyy_mag_sorting.script",
+        "name": "sort_info",
+        "params": "asec, bsec"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\yyy_mag_sorting.script",
+        "name": "sort_by_size",
+        "params": "t,a,b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\yyy_mag_sorting.script",
+        "name": "sort_by_kind",
+        "params": "t,a,b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\yyy_mag_sorting.script",
+        "name": "sort_by_index",
+        "params": "t,a,b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\yyy_mag_sorting.script",
+        "name": "sort_by_sizekind",
+        "params": "t,a,b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\yyy_mag_sorting.script",
+        "name": "sort_by_props",
+        "params": "t,a,b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\yyy_mag_sorting.script",
+        "name": "utils_ui.UICellContainer.FindFreeCell",
+        "params": "self,obj, sec"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\211- NPC Loot Claim (NPCs will kill you if you loot what they killed) - Vintar0 & Nullblank\\gamedata\\scripts\\npc_loot_claim.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "can_do_task_mysteries_of_the_zone",
+        "params": "a,b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "give_task_mysteries_of_the_zone",
+        "params": "a,b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "warfare_disabled",
+        "params": "a,b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "get_npc_task_limit",
+        "params": ""
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "has_tasks_by_npc",
+        "params": "a,b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "not_has_tasks_by_npc",
+        "params": "a,b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "confirm_task_stack",
+        "params": "a,b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "clear_task_stack",
+        "params": "a,b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "check_task_stack",
+        "params": "a,b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "drx_sl_dont_has_npc_task",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "drx_sl_actor_can_change_this_faction",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "drx_sl_actor_has_finished_task",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "drx_sl_actor_has_finished_cf_task",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "drx_sl_is_endgame",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "drx_sl_is_not_endgame",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "drx_sl_text_honcho_has_storyline_task_to_give",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "drx_sl_text_mechanic_has_ordered_task_to_give",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "drx_sl_text_npc_has_change_factions_task_to_give",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "drx_sl_text_fetch_task",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "drx_sl_text_task_finish",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "drx_sl_text_cf_task_finish",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "drx_sl_text_end_game",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "drx_sl_set_finished_task_complete",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "drx_sl_set_finished_task_complete_endgame",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "drx_sl_set_finished_cf_task_complete",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "npc_has_ordered_task_to_give",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "text_npc_has_ordered_task_to_give",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "text_sim_npc_has_ordered_task_to_give",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "text_task_finish",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "text_sim_task_finish",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "task_is_fetch_task",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "not_task_is_fetch_task",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "npc_clear_skipped_tasks",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "condition_actor_has_pda",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "actor_has_finished_ordered_task",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "actor_has_not_finished_ordered_task",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "actor_sim_has_finished_ordered_task",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "actor_sim_has_not_finished_ordered_task",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "npc_sim_set_finished_task_complete",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "drx_sl_give_sl_task",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "drx_sl_give_cf_task",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "drx_sl_give_mechanic_task",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "npc_give_last_task_id",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "npc_sim_give_last_task_id",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "npc_give_first_available_task",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "npc_sim_give_first_available_task",
+        "params": "a, b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "npc_is_trader",
+        "params": "a,b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "npc_is_tech",
+        "params": "a,b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "rescue_hostage",
+        "params": "a,b"
+      },
+      {
+        "file": "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+        "name": "generate_available_tasks",
+        "params": "a,b"
+      }
+    ],
+    "api_calls": {
+      "game.translate_string": 1070,
+      "db.actor.object": 462,
+      "level.object_by_id": 324,
+      "db.actor.iterate_inventory": 319,
+      "ui_mcm.get": 251,
+      "db.actor.item_in_slot": 234,
+      "db.actor.active_item": 186,
+      "game.get_game_time": 185,
+      "db.actor.position": 181,
+      "level.name": 172,
+      "ui_options.get": 140,
+      "level.add_cam_effector": 131,
+      "db.actor.give_info_portion": 121,
+      "ui_item.get_sec_name": 118,
+      "db.actor.has_info": 96,
+      "level.add_pp_effector": 90,
+      "xr_logic.pick_section_from_condlist": 68,
+      "db.actor.active_detector": 66,
+      "db.actor.activate_slot": 66,
+      "level.remove_pp_effector": 65,
+      "db.actor.active_slot": 64,
+      "db.actor.id": 64,
+      "db.actor.money": 61,
+      "level.get_time_hours": 54,
+      "game.only_allow_movekeys": 51,
+      "level.set_pp_effector_factor": 42,
+      "game.play_hud_anm": 40,
+      "db.actor.alive": 38,
+      "db.actor.give_game_news": 38,
+      "level.map_has_object_spot": 36,
+      "level.press_action": 35,
+      "game.play_hud_motion": 34,
+      "level.remove_cam_effector": 34,
+      "db.actor.transfer_item": 34,
+      "level.map_remove_object_spot": 33,
+      "level.present": 32,
+      "db.actor.game_vertex_id": 31,
+      "db.actor.restore_weapon": 29,
+      "game.set_actor_allow_ladder": 28,
+      "xr_logic.parse_condlist": 28,
+      "level.map_add_object_spot_ser": 28,
+      "db.actor.give_talk_message2": 28,
+      "db.actor.level_vertex_id": 25,
+      "db.actor.is_talking": 24,
+      "level.get_time_factor": 22,
+      "level.enable_input": 22,
+      "db.actor.disable_info_portion": 22,
+      "level.release_action": 20,
+      "db.actor.hide_weapon": 20,
+      "db.actor.hit": 20,
+      "db.actor.give_money": 19,
+      "level.get_start_time": 19,
+      "db.actor.iterate_belt": 18,
+      "db.actor.eat": 18,
+      "db.actor.show_detector": 17,
+      "db.actor.character_community": 17,
+      "db.actor.move_to_slot": 17,
+      "ui_inventory.UIInventory": 16,
+      "db.actor.move_to_ruck": 16,
+      "db.actor.inventory_for_each": 15,
+      "axr_task_manager.get_first_available_task": 15,
+      "game.only_movekeys_allowed": 14,
+      "level.disable_input": 14,
+      "db.actor.cast_Actor": 14,
+      "db.actor.reload_weapon": 13,
+      "db.actor.character_name": 13,
+      "level.vertex_id": 13,
+      "level.get_target_obj": 13,
+      "db.actor.set_actor_position": 13,
+      "game.stop_hud_motion": 12,
+      "db.actor.drop_item": 12,
+      "axr_task_manager.get_task_job_description": 12,
+      "level.map_add_object_spot": 12,
+      "ui_workshop.get_workshop_ui": 12,
+      "level.vertex_position": 12,
+      "level.get_bounding_volume": 12,
+      "level.set_time_factor": 11,
+      "level.set_weather_fx": 11,
+      "level.change_game_time": 11,
+      "level.iterate_nearest": 11,
+      "ui_pda_encyclopedia_tab.is_unlocked_note": 11,
+      "db.actor.change_health": 10,
+      "level.rain_factor": 10,
+      "ui_mcm.get_mod_key": 10,
+      "axr_task_manager.trigger_fetch_func": 10,
+      "game.actor_weapon_lowered": 10,
+      "level.show_weapon": 10,
+      "game.get_motion_length": 9,
+      "ui_pda_encyclopedia_tab.UpdateColor": 9,
+      "ui_pda_encyclopedia_tab.pda_encyclopedia_entry": 9,
+      "ui_mcm.set": 9,
+      "ui_item.get_obj_name": 9,
+      "level.patrol_path_exists": 9,
+      "db.actor.set_character_community": 9,
+      "db.actor.character_icon": 9,
+      "db.actor.stop_talk": 9,
+      "db.actor.force_hide_detector": 8,
+      "level.get_time_minutes": 8,
+      "level.stop_weather_fx": 8,
+      "db.actor.kill": 8,
+      "db.actor.iterate_ruck": 8,
+      "game.CTime": 8,
+      "axr_task_manager.get_task_complete_text": 8,
+      "axr_task_manager.get_first_finished_task": 8,
+      "axr_task_manager.generate_available_tasks": 8,
+      "ui_mutant_loot.start": 8,
+      "db.actor.character_rank": 8,
+      "db.actor.see": 8,
+      "game.hud_motion_allowed": 7,
+      "game.start_tutorial": 7,
+      "ui_item.get_sec_short_name": 7,
+      "ui_item.build_desc_header": 7,
+      "axr_task_manager.generate_ongoing_tasks": 7,
+      "db.actor.community_goodwill": 7,
+      "game.set_hud_anm_time": 6,
+      "axr_task_manager.drx_sl_generate_random_sl_task": 6,
+      "axr_task_manager.drx_sl_get_mechanic_task": 6,
+      "axr_task_manager.drx_sl_generate_change_factions_task": 6,
+      "axr_task_manager.get_fetch_task_description": 6,
+      "level.get_target_dist": 6,
+      "level.vertex_in_direction": 6,
+      "game.set_nv_lumfactor": 6,
+      "db.actor.set_health_ex": 6,
+      "game.time": 6,
+      "axr_beh.am_i_reached": 6,
+      "db.actor.get_current_holder": 5,
+      "db.actor.is_on_belt": 5,
+      "ui_inventory.start": 5,
+      "db.actor.direction": 5,
+      "db.actor.get_total_weight": 5,
+      "xr_logic.assign_storage_and_bind": 5,
+      "ui_pda_npc_tab.register_pda": 5,
+      "db.actor.change_radiation": 5,
+      "db.actor.change_power": 5,
+      "game.has_active_tutorial": 5,
+      "db.actor.character_reputation": 5,
+      "db.actor.change_character_reputation": 5,
+      "xr_logic.switch_to_section": 5,
+      "level.set_snd_volume": 5,
+      "level.map_change_spot_hint": 5,
+      "ui_wpn_params.GetRPM": 4,
+      "ui_mcm.key_hold": 4,
+      "ui_item.build_desc_footer": 4,
+      "axr_task_manager.drx_sl_get_finished_task": 4,
+      "axr_task_manager.drx_sl_get_finished_cf_task": 4,
+      "axr_task_manager.trigger_job_func": 4,
+      "axr_task_manager.drx_sl_set_finished_task_complete": 4,
+      "axr_task_manager.set_finished_task_complete": 4,
+      "axr_task_manager.npc_give_first_available_ordered_task": 4,
+      "axr_task_manager.generate_finished_tasks": 4,
+      "db.actor.transfer_money": 4,
+      "xr_logic.subscribe_action_for_events": 4,
+      "db.actor.actor_look_at_point": 4,
+      "db.actor.make_item_active": 4,
+      "game.world2ui": 4,
+      "level.actor_moving_state": 4,
+      "db.actor.run_talk_dialog": 4,
+      "xr_logic.determine_section_to_activate": 4,
+      "xr_logic.initialize_obj": 4,
+      "db.actor.bone_position": 3,
+      "game.reload_language": 3,
+      "level.show_indicators": 3,
+      "ui_mcm.simple_press": 3,
+      "ui_mcm.double_tap": 3,
+      "ui_pda_npc_tab.can_own_pda": 3,
+      "xr_logic.try_switch_to_another_section": 3,
+      "ui_pda_encyclopedia_tab.get_ui": 3,
+      "db.actor.get_luminocity": 3,
+      "game.actor_lower_weapon": 3,
+      "level.get_env_rads": 3,
+      "db.actor.move_to_belt": 3,
+      "axr_companions.is_assigned_item": 3,
+      "axr_companions.add_special_squad": 3,
+      "db.actor.get_actor_run_coef": 3,
+      "db.actor.get_actor_runback_coef": 3,
+      "db.actor.get_actor_sprint_koef": 3,
+      "game.stop_tutorial": 3,
+      "ui_item.get_obj_desc": 3,
+      "ui_item.get_sec_desc": 3,
+      "db.actor.get_movement_speed": 3,
+      "db.actor.get_current_outfit": 3,
+      "db.actor.set_actor_direction": 3,
+      "db.actor.set_community_goodwill": 3,
+      "ui_sleep_dialog.UISleep": 3,
+      "xr_logic.configure_schemes": 3,
+      "xr_logic.activate_by_section": 3,
+      "alife.actor": 3,
+      "ui_main_menu.RemoveFactionUI": 3,
+      "level.set_music_volume": 3,
+      "ui_options.set": 2,
+      "game.stop_all_hud_anms": 2,
+      "db.actor.get_current_outfit_protection": 2,
+      "ui_inventory.is_enabled": 2,
+      "axr_task_manager.drx_sl_set_finished_cf_task_complete": 2,
+      "axr_task_manager.clear_skipped_tasks": 2,
+      "ui_workshop.list_element": 2,
+      "ui_taskboard_row.__init": 2,
+      "db.actor.belt_count": 2,
+      "axr_companions.dismiss_special_squad": 2,
+      "db.actor.set_actor_run_coef": 2,
+      "db.actor.set_actor_runback_coef": 2,
+      "db.actor.set_actor_sprint_koef": 2,
+      "ui_wpn_params.read_float": 2,
+      "db.actor.set_character_rank": 2,
+      "db.actor.set_character_reputation": 2,
+      "ui_options.init_opt_base": 2,
+      "xr_logic.issue_event": 2,
+      "level.set_weather": 2,
+      "db.actor.get_task": 2,
+      "db.actor.stop_particles": 2,
+      "ui_freeplay_dialog.show": 2,
+      "ui_dyn_msg_box.multi_choice": 2,
+      "db.actor.hide_detector": 2,
+      "ui_pda_npc_tab.use_view": 2,
+      "ui_debug_weather.activate": 2,
+      "xr_logic.restore_scheme_and_logic": 2,
+      "ui_ctrl_lighting.start": 2,
+      "game.get_resolutions": 2,
+      "ui_map_debug_ex.activate_feature": 2,
+      "ui_map_debug_ex.deactivate_feature": 2,
+      "ui_pda_glitched_tab.get_ui": 2,
+      "ui_pda_npc_tab.get_ui": 2,
+      "ui_pda_relations_tab.get_ui": 2,
+      "ui_pda_warfare_tab.get_ui": 2,
+      "ui_pda_contacts_tab.get_ui": 2,
+      "ui_pda_radio_tab.get_ui": 2,
+      "ui_pda_encyclopedia_tab.get_articles_unlocked_count": 2,
+      "ui_pda_encyclopedia_tab.get_articles_count": 2,
+      "ui_debug_launcher.toggle_respawn": 2,
+      "db.actor.disable_hit_marks": 2,
+      "level.hide_indicators_safe": 2,
+      "level.send": 2,
+      "level.rain_wetness": 2,
+      "level.rain_hemi": 2,
+      "axr_trade_manager.npc_tech_upgrade_sell": 2,
+      "axr_trade_manager.picked_set": 2,
+      "axr_trade_manager.picked_unchecked": 2,
+      "game.prefetch_model": 2,
+      "ui_mcm.init_opt_base": 1,
+      "game.open_originals_link": 1,
+      "level.game_id": 1,
+      "ui_save_dialog.UISaveDialog": 1,
+      "ui_options.UIOptions": 1,
+      "ui_mcm.UI_MCM": 1,
+      "ui_load_dialog.UILoadDialog": 1,
+      "ui_mm_faction_select.UINewGame": 1,
+      "ui_furniture_light.start_light_dialog": 1,
+      "ui_furniture_piano.start_dialog": 1,
+      "ui_furniture_workshop.start_dialog": 1,
+      "db.actor.set_character_icon": 1,
+      "ui_mcm.store_in_save": 1,
+      "xr_logic.unsubscribe_action_from_events": 1,
+      "ui_pda_encyclopedia_tab.get_articles_locked_count": 1,
+      "ui_enemy_health.on_hit": 1,
+      "axr_companions.release_special_squad": 1,
+      "db.actor.get_actor_max_walk_weight": 1,
+      "db.actor.change_character_rank": 1,
+      "ui_pda_encyclopedia_tab.unlock_note": 1,
+      "ui_options.get_opt_table": 1,
+      "xr_logic.is_active": 1,
+      "xr_logic.cfg_get_switch_conditions": 1,
+      "level.add_complex_effector": 1,
+      "level.remove_complex_effector": 1,
+      "db.actor.set_active_task": 1,
+      "db.actor.drop_item_and_teleport": 1,
+      "db.actor.change_satiety": 1,
+      "db.actor.start_particles": 1,
+      "ui_sr_teleport.msg_box_ui": 1,
+      "xr_logic.get_customdata_or_ini_file": 1,
+      "xr_logic.cfg_get_overrides": 1,
+      "ui_enemy_health.cs_remove": 1,
+      "db.actor.dont_has_info": 1,
+      "ui_debug_main.get_spawn_table": 1,
+      "ui_inventory.hide_hud_inventory": 1,
+      "ui_debug_launcher.inject": 1,
+      "xr_logic.set_new_scheme_and_logic": 1,
+      "ui_companion_inv.start": 1,
+      "axr_keybind.bind": 1,
+      "axr_companions.get_companion_count": 1,
+      "ui_inventory.hide_actor_menu": 1,
+      "db.actor.object_id": 1,
+      "db.actor.name": 1,
+      "axr_main.on_game_start": 1,
+      "axr_main.callback_set": 1,
+      "axr_main.callback_unset": 1,
+      "axr_main.make_callback": 1,
+      "axr_main.callback_add": 1,
+      "level.add_call": 1,
+      "db.actor.get_attached_vehicle": 1,
+      "axr_npc_vs_heli.is_under_npc_vs_heli": 1,
+      "ui_mutant_loot.loot_mutant": 1,
+      "db.actor.get_visual_name": 1,
+      "axr_companions.set_companion_to_loot_items_and_corpses": 1,
+      "axr_companions.set_companion_to_loot_items_only": 1,
+      "axr_companions.switch_companion_gather_items": 1,
+      "axr_companions.setup_companion_logic": 1,
+      "axr_task_manager.is_task_giver_valid": 1,
+      "ui_pda_taskboard_tab.get_ui": 1,
+      "axr_trade_manager.npc_trade_buy_sell": 1,
+      "db.actor.set_callback": 1,
+      "game.prefetch_texture": 1,
+      "level.add_bullet": 1
+    },
+    "ini_read_types": [
+      "line_exist",
+      "r_float",
+      "r_string",
+      "section_exist"
+    ],
+    "script_files": [
+      "G.A.M.M.A\\modpack_addons\\108- Remove dropping weapons from damage - Great_Day\\gamedata\\scripts\\actor_effects.script",
+      "G.A.M.M.A\\modpack_addons\\109- MCM Mod Configuration Menu - RavenAscendant\\gamedata\\scripts\\ui_main_menu.script",
+      "G.A.M.M.A\\modpack_addons\\11- Preblowout Murder - Ethylia\\gamedata\\scripts\\surge_manager.script",
+      "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\scripts\\zzz_rax_sortingplus_mcm.script",
+      "G.A.M.M.A\\modpack_addons\\115- Campfire slowly regens life - arti\\gamedata\\scripts\\cozy_campfire.script",
+      "G.A.M.M.A\\modpack_addons\\140- Weapon Parts Overhaul - arti\\gamedata\\scripts\\arti_jamming.script",
+      "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\scripts\\aaaa_monkeys.script",
+      "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\scripts\\kit_binder.script",
+      "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\scripts\\upgrades_mcm.script",
+      "G.A.M.M.A\\modpack_addons\\156- No Exos in the South - Grokitach\\gamedata\\scripts\\grok_nes.script",
+      "G.A.M.M.A\\modpack_addons\\156- No Exos in the South - Grokitach\\gamedata\\scripts\\grok_no_north_faction_in_south.script",
+      "G.A.M.M.A\\modpack_addons\\158- ABF - Jurkonov\\gamedata\\scripts\\chem_damage.script",
+      "G.A.M.M.A\\modpack_addons\\158- ABF - Jurkonov\\gamedata\\scripts\\fire_damage.script",
+      "G.A.M.M.A\\modpack_addons\\158- ABF - Jurkonov\\gamedata\\scripts\\psy_damage.script",
+      "G.A.M.M.A\\modpack_addons\\160- Military not attacked by duty at Rostok - GhenTuong\\gamedata\\scripts\\gameplay_peace_zone.script",
+      "G.A.M.M.A\\modpack_addons\\189- Beef's NVG - theRealBeef\\gamedata\\scripts\\z_beefs_nvgs.script",
+      "G.A.M.M.A\\modpack_addons\\193- Maids HD Icons (right click and reinstall if you want to use it) - Maids\\gamedata\\scripts\\placeholder.script",
+      "G.A.M.M.A\\modpack_addons\\203- YACS Better Campfire Saves (forces campfire saves but they are better) - Ishmaeel\\gamedata\\scripts\\ish_campfire_saving.script",
+      "G.A.M.M.A\\modpack_addons\\205- Old to ammo to new ammo converter (less item bloat) - Great_Day\\gamedata\\scripts\\item_weapon.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\a_magazine.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\aaa_rax_icon_override_mcm.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\actor_stash_patch.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ammo_check_mcm.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\bind_stalker_monkey.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\custom_functor_autoinject.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\grok_reload_bind_checker.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ish_mag_bars.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mag_hud.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazine_binder.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines_keybinds.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines_loot.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\magazines_mcm.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\mags_patches.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\rax_icon_layers.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\rax_persistent_highlight.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\rax_stacking_control.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\stack.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\trader_autoinject.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ui_encyclopedia_autoinject.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\ui_pda_autoinject.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\wep_binder.script",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\scripts\\yyy_mag_sorting.script",
+      "G.A.M.M.A\\modpack_addons\\211- NPC Loot Claim (NPCs will kill you if you loot what they killed) - Vintar0 & Nullblank\\gamedata\\scripts\\npc_loot_claim.script",
+      "G.A.M.M.A\\modpack_addons\\216- Duty Expansion (dialogue camera issues, nimble and spore dialogues heavy bugs) - GhenTuong\\gamedata\\scripts\\dialog.script",
+      "G.A.M.M.A\\modpack_addons\\225- Placeable Campfires - xcvb\\gamedata\\scripts\\campfire_placeable.script",
+      "G.A.M.M.A\\modpack_addons\\229- Monsters Unstucker - Demonized\\gamedata\\scripts\\monster_unstuck.script",
+      "G.A.M.M.A\\modpack_addons\\234- Dynamic Anomalies Overhaul - Demonized\\gamedata\\scripts\\drx_da_main.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture - Aoldri\\gamedata\\scripts\\bind_hf_base.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture - Aoldri\\gamedata\\scripts\\igi_conditions_hf.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture - Aoldri\\gamedata\\scripts\\igi_hf_actions.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture - Aoldri\\gamedata\\scripts\\igi_rewards.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture - Aoldri\\gamedata\\scripts\\igi_target_repair.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture - Aoldri\\gamedata\\scripts\\placeable_items_craft.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture - Aoldri\\gamedata\\scripts\\stash_capacities.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture - Aoldri\\gamedata\\scripts\\weapon_showcase.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture 1.2.0 - Aoldri\\gamedata\\scripts\\aol_bbox.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture 1.2.0 - Aoldri\\gamedata\\scripts\\bind_light_furniture.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture 1.2.0 - Aoldri\\gamedata\\scripts\\bind_piano_furniture.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture 1.2.0 - Aoldri\\gamedata\\scripts\\bind_workshop_furniture.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture 1.2.0 - Aoldri\\gamedata\\scripts\\hf_mcm.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture 1.2.0 - Aoldri\\gamedata\\scripts\\hf_monkeypatches.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture 1.2.0 - Aoldri\\gamedata\\scripts\\placeable_furniture.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture 1.2.0 - Aoldri\\gamedata\\scripts\\placeable_items_craft.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture 1.2.0 - Aoldri\\gamedata\\scripts\\placeable_items_trade.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture 1.2.0 - Aoldri\\gamedata\\scripts\\placeable_radio.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture 1.2.0 - Aoldri\\gamedata\\scripts\\stash_capacities.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture 1.2.0 - Aoldri\\gamedata\\scripts\\thial_ray.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture 1.2.0 - Aoldri\\gamedata\\scripts\\trader_autoinject.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture 1.2.0 - Aoldri\\gamedata\\scripts\\ui_furniture_light.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture 1.2.0 - Aoldri\\gamedata\\scripts\\ui_furniture_piano.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture 1.2.0 - Aoldri\\gamedata\\scripts\\ui_furniture_workshop.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture 1.2.0 - Aoldri\\gamedata\\scripts\\workshop_autoinject.script",
+      "G.A.M.M.A\\modpack_addons\\245- Hideout Furniture 1.2.0 - Aoldri\\gamedata\\scripts\\zzz_workshop_return_items.script",
+      "G.A.M.M.A\\modpack_addons\\247- Player Icon Fix - MissingnoBW\\gamedata\\scripts\\outfit_icon.script",
+      "G.A.M.M.A\\modpack_addons\\248- Night Mutants - xcvb\\gamedata\\scripts\\night_mutants.script",
+      "G.A.M.M.A\\modpack_addons\\263- Safe Areas Transitions - Darkasleif\\gamedata\\scripts\\SafeStart.script",
+      "G.A.M.M.A\\modpack_addons\\265- NPCs Die in Emissions for Real - TheMrDemonized\\gamedata\\scripts\\surge_manager.script",
+      "G.A.M.M.A\\modpack_addons\\265- NPCs Die in Emissions for Real - TheMrDemonized\\gamedata\\scripts\\surge_manager_faster_emissions.script",
+      "G.A.M.M.A\\modpack_addons\\265- NPCs Die in Emissions for Real - TheMrDemonized\\gamedata\\scripts\\zz_surge_manager_npc_die.script",
+      "G.A.M.M.A\\modpack_addons\\279- Crafting Info in Tooltips - Utjan\\gamedata\\scripts\\craft_use_in_tooltip_mcm.script",
+      "G.A.M.M.A\\modpack_addons\\279- Crafting Info in Tooltips - Utjan\\gamedata\\scripts\\zzz_craft_use_in_tooltip_mcm.script",
+      "G.A.M.M.A\\modpack_addons\\290- Atmospherics Shaders Weathers and Reshade Latest - Hippobot\\gamedata\\scripts\\visual_memory_manager.script",
+      "G.A.M.M.A\\modpack_addons\\293- PDA Taskboard - iTheon\\gamedata\\scripts\\ui_pda_taskboard_tab.script",
+      "G.A.M.M.A\\modpack_addons\\294- Autolooter - iTheon\\gamedata\\scripts\\z_auto_looter.script",
+      "G.A.M.M.A\\modpack_addons\\294- Autolooter - iTheon\\gamedata\\scripts\\zzzz_auto_looter_fix_by_kdvfirehawk.script",
+      "G.A.M.M.A\\modpack_addons\\332- QoL Patch to Tweak_Breeki's RF Receiver Hidden Packages - Cookbook\\gamedata\\scripts\\CB_RF_patch_mcm.script",
+      "G.A.M.M.A\\modpack_addons\\336- Item UI Improvements - Utjan\\gamedata\\scripts\\z_z_item_icon_info.script",
+      "G.A.M.M.A\\modpack_addons\\337- QoL Bundle - Utjan\\gamedata\\scripts\\z_fetch_shows_count.script",
+      "G.A.M.M.A\\modpack_addons\\363- Winchester 1892 - billwa\\gamedata\\scripts\\ammo_check_mcm.script",
+      "G.A.M.M.A\\modpack_addons\\393- Disassembly Item Tweaks - Asshall\\gamedata\\scripts\\dit_mcm.script",
+      "G.A.M.M.A\\modpack_addons\\393- Disassembly Item Tweaks - Asshall\\gamedata\\scripts\\zzz_dit.script",
+      "G.A.M.M.A\\modpack_addons\\394- Return Menu Music - Mirrowel\\gamedata\\scripts\\return_menu_music.script",
+      "G.A.M.M.A\\modpack_addons\\40- Food Drugs and Drinks Animations FDDA - Feel_Fried\\gamedata\\scripts\\enhanced_animations_mcm.script",
+      "G.A.M.M.A\\modpack_addons\\409- Mark Switch - party50 & meowie\\gamedata\\scripts\\z_mark_switch.script",
+      "G.A.M.M.A\\modpack_addons\\41- LowerSprintAnimaiton - Skieppy\\gamedata\\scripts\\lower_weapon_sprint.script",
+      "G.A.M.M.A\\modpack_addons\\410- 3DSS for GAMMA - Redotix99 & Andtheherois & party50\\gamedata\\scripts\\zzz_mspizza_Godis_ZoomCalc.script",
+      "G.A.M.M.A\\modpack_addons\\418- Dynamic Icons Indicators - HarukaSai\\gamedata\\scripts\\icon_overlayer_mcm.script",
+      "G.A.M.M.A\\modpack_addons\\423- Mossberg 590 Reanimation - SoulCrystal\\gamedata\\scripts\\ads_reloads.script",
+      "G.A.M.M.A\\modpack_addons\\423- Mossberg 590 Reanimation - SoulCrystal\\gamedata\\scripts\\animation_common.script",
+      "G.A.M.M.A\\modpack_addons\\423- Mossberg 590 Reanimation - SoulCrystal\\gamedata\\scripts\\aol_anim_transitions.script",
+      "G.A.M.M.A\\modpack_addons\\423- Mossberg 590 Reanimation - SoulCrystal\\gamedata\\scripts\\aol_sprint_cancel.script",
+      "G.A.M.M.A\\modpack_addons\\423- Mossberg 590 Reanimation - SoulCrystal\\gamedata\\scripts\\remove_gun_from_loadout.script",
+      "G.A.M.M.A\\modpack_addons\\423- Mossberg 590 Reanimation - SoulCrystal\\gamedata\\scripts\\shotgun_unjam_fix.script",
+      "G.A.M.M.A\\modpack_addons\\423- Mossberg 590 Reanimation - SoulCrystal\\gamedata\\scripts\\soul_anim_mutators.script",
+      "G.A.M.M.A\\modpack_addons\\423- Mossberg 590 Reanimation - SoulCrystal\\gamedata\\scripts\\uni_anim_ammo.script",
+      "G.A.M.M.A\\modpack_addons\\423- Mossberg 590 Reanimation - SoulCrystal\\gamedata\\scripts\\uni_anim_core.script",
+      "G.A.M.M.A\\modpack_addons\\423- Mossberg 590 Reanimation - SoulCrystal\\gamedata\\scripts\\uni_anim_detectors.script",
+      "G.A.M.M.A\\modpack_addons\\423- Mossberg 590 Reanimation - SoulCrystal\\gamedata\\scripts\\unjam_motion_mark.script",
+      "G.A.M.M.A\\modpack_addons\\423- Mossberg 590 Reanimation - SoulCrystal\\gamedata\\scripts\\weapon_cover_tilt_positions_mossberg.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\ea_callbacks.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\ea_error.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\ea_prefetcher.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\enhanced_animations.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\enhanced_animations_mcm.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\fdda_time_events.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\fov_anim_manager.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\headgear_animations.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\headgear_animations_hotkey.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\headgear_animations_mcm.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\lam.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\liz_fdda_redone_consumables.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\outfit_animations.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\outfit_animations_backpack.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\outfit_animations_gamma_patch.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\outfit_animations_inspect.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\outfit_animations_mcm.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\outfit_animations_patches.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\take_item_anim.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\z_enhanced_animations_hud_fov_fix.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\z_headgear_animations_fdda_strict_helmets.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\z_headgear_animations_fddapickup_patch.script",
+      "G.A.M.M.A\\modpack_addons\\447- FDDA Redone - lizzardman\\gamedata\\scripts\\zzz_ea_addon_backpack.script",
+      "G.A.M.M.A\\modpack_addons\\45- Stealth Overhaul - xcvb\\gamedata\\scripts\\camp_lum.script",
+      "G.A.M.M.A\\modpack_addons\\45- Stealth Overhaul - xcvb\\gamedata\\scripts\\light_gem_mcm.script",
+      "G.A.M.M.A\\modpack_addons\\45- Stealth Overhaul - xcvb\\gamedata\\scripts\\stealth_mcm.script",
+      "G.A.M.M.A\\modpack_addons\\45- Stealth Overhaul - xcvb\\gamedata\\scripts\\trans_outfit.script",
+      "G.A.M.M.A\\modpack_addons\\45- Stealth Overhaul - xcvb\\gamedata\\scripts\\visual_memory_manager.script",
+      "G.A.M.M.A\\modpack_addons\\45- Stealth Overhaul - xcvb\\gamedata\\scripts\\xr_combat_ignore.script",
+      "G.A.M.M.A\\modpack_addons\\45- Stealth Overhaul - xcvb\\gamedata\\scripts\\xr_danger.script",
+      "G.A.M.M.A\\modpack_addons\\51- Tougher important NPCs and companions - hexef\\gamedata\\scripts\\hxf_tough_important_npcs.script",
+      "G.A.M.M.A\\modpack_addons\\52- Perk-Based Artefacts - Demonized\\gamedata\\scripts\\zz_treasure_manager_pba_less_artys.script",
+      "G.A.M.M.A\\modpack_addons\\54- Lsz AI tweak - IgorNitch\\gamedata\\scripts\\placeholder.script",
+      "G.A.M.M.A\\modpack_addons\\65- Fluid Aim - Skieppy\\gamedata\\scripts\\fluid_aim.script",
+      "G.A.M.M.A\\modpack_addons\\91- Pretty Pistols Pack - Blackgrowl\\gamedata\\scripts\\loadouts_injector.script",
+      "G.A.M.M.A\\modpack_addons\\91- Pretty Pistols Pack - Blackgrowl\\gamedata\\scripts\\ppp_fort17_autoinject.script",
+      "G.A.M.M.A\\modpack_addons\\95- Doom-like weapon inspection - Grokitach\\gamedata\\scripts\\grok_doom_weapons_inspect.script",
+      "G.A.M.M.A\\modpack_addons\\ATHI's Mags Redux Mod Madness 19.1.2025+\\gamedata\\scripts\\actor_stash_patch.script",
+      "G.A.M.M.A\\modpack_addons\\ATHI's Mags Redux Mod Madness 19.1.2025+\\gamedata\\scripts\\magazines_loot.script",
+      "G.A.M.M.A\\modpack_addons\\ATHI's Mags Redux Mod Madness 19.1.2025+\\gamedata\\scripts\\mags_patches.script",
+      "G.A.M.M.A\\modpack_addons\\AlphaLion's Reworked Stash Quest and Map Markers\\gamedata\\scripts\\modxml_AL_MapSpots.script",
+      "G.A.M.M.A\\modpack_addons\\AlphaLion's Reworked Stash Quest and Map Markers\\gamedata\\scripts\\modxml_AL_MapSpots_219.script",
+      "G.A.M.M.A\\modpack_addons\\AlphaLion's Reworked Stash Quest and Map Markers\\gamedata\\scripts\\modxml_AL_MapSpots_43.script",
+      "G.A.M.M.A\\modpack_addons\\AlphaLion's Reworked Stash Quest and Map Markers\\gamedata\\scripts\\modxml_AL_QuestArrow.script",
+      "G.A.M.M.A\\modpack_addons\\AlphaLion's Reworked Stash Quest and Map Markers\\gamedata\\scripts\\modxml_AL_QuestArrow_219.script",
+      "G.A.M.M.A\\modpack_addons\\AlphaLion's Reworked Stash Quest and Map Markers\\gamedata\\scripts\\modxml_AL_QuestArrow_43.script",
+      "G.A.M.M.A\\modpack_addons\\AlphaLion's Reworked Stash Quest and Map Markers\\gamedata\\scripts\\modxml_AL_StashMarkers.script",
+      "G.A.M.M.A\\modpack_addons\\AlphaLion's Reworked Stash Quest and Map Markers\\gamedata\\scripts\\modxml_AL_StashMarkers_219.script",
+      "G.A.M.M.A\\modpack_addons\\AlphaLion's Reworked Stash Quest and Map Markers\\gamedata\\scripts\\modxml_AL_StashMarkers_43.script",
+      "G.A.M.M.A\\modpack_addons\\Anomaly Magazines Redux (need to disable GAMMA unjam reload same key)\\gamedata\\scripts\\a_magazine.script",
+      "G.A.M.M.A\\modpack_addons\\Anomaly Magazines Redux (need to disable GAMMA unjam reload same key)\\gamedata\\scripts\\actor_stash_patch.script",
+      "G.A.M.M.A\\modpack_addons\\Anomaly Magazines Redux (need to disable GAMMA unjam reload same key)\\gamedata\\scripts\\ammo_check_mcm.script",
+      "G.A.M.M.A\\modpack_addons\\Anomaly Magazines Redux (need to disable GAMMA unjam reload same key)\\gamedata\\scripts\\bind_stalker_monkey.script",
+      "G.A.M.M.A\\modpack_addons\\Anomaly Magazines Redux (need to disable GAMMA unjam reload same key)\\gamedata\\scripts\\custom_functor_autoinject.script",
+      "G.A.M.M.A\\modpack_addons\\Anomaly Magazines Redux (need to disable GAMMA unjam reload same key)\\gamedata\\scripts\\ish_mag_bars.script",
+      "G.A.M.M.A\\modpack_addons\\Anomaly Magazines Redux (need to disable GAMMA unjam reload same key)\\gamedata\\scripts\\mag_hud.script",
+      "G.A.M.M.A\\modpack_addons\\Anomaly Magazines Redux (need to disable GAMMA unjam reload same key)\\gamedata\\scripts\\magazine_binder.script",
+      "G.A.M.M.A\\modpack_addons\\Anomaly Magazines Redux (need to disable GAMMA unjam reload same key)\\gamedata\\scripts\\magazines.script",
+      "G.A.M.M.A\\modpack_addons\\Anomaly Magazines Redux (need to disable GAMMA unjam reload same key)\\gamedata\\scripts\\magazines_keybinds.script",
+      "G.A.M.M.A\\modpack_addons\\Anomaly Magazines Redux (need to disable GAMMA unjam reload same key)\\gamedata\\scripts\\magazines_loot.script",
+      "G.A.M.M.A\\modpack_addons\\Anomaly Magazines Redux (need to disable GAMMA unjam reload same key)\\gamedata\\scripts\\magazines_mcm.script",
+      "G.A.M.M.A\\modpack_addons\\Anomaly Magazines Redux (need to disable GAMMA unjam reload same key)\\gamedata\\scripts\\mags_patches.script",
+      "G.A.M.M.A\\modpack_addons\\Anomaly Magazines Redux (need to disable GAMMA unjam reload same key)\\gamedata\\scripts\\rax_icon_layers.script",
+      "G.A.M.M.A\\modpack_addons\\Anomaly Magazines Redux (need to disable GAMMA unjam reload same key)\\gamedata\\scripts\\rax_persistent_highlight.script",
+      "G.A.M.M.A\\modpack_addons\\Anomaly Magazines Redux (need to disable GAMMA unjam reload same key)\\gamedata\\scripts\\rax_stacking_control.script",
+      "G.A.M.M.A\\modpack_addons\\Anomaly Magazines Redux (need to disable GAMMA unjam reload same key)\\gamedata\\scripts\\stack.script",
+      "G.A.M.M.A\\modpack_addons\\Anomaly Magazines Redux (need to disable GAMMA unjam reload same key)\\gamedata\\scripts\\trader_autoinject.script",
+      "G.A.M.M.A\\modpack_addons\\Anomaly Magazines Redux (need to disable GAMMA unjam reload same key)\\gamedata\\scripts\\ui_encyclopedia_autoinject.script",
+      "G.A.M.M.A\\modpack_addons\\Anomaly Magazines Redux (need to disable GAMMA unjam reload same key)\\gamedata\\scripts\\wep_binder.script",
+      "G.A.M.M.A\\modpack_addons\\Anomaly Magazines Redux (need to disable GAMMA unjam reload same key)\\gamedata\\scripts\\yyy_mag_sorting.script",
+      "G.A.M.M.A\\modpack_addons\\Asnen's and Grok's Better Cigarettes Animations\\gamedata\\scripts\\ciga_effects.script",
+      "G.A.M.M.A\\modpack_addons\\Asnen's and Grok's Better Cigarettes Animations\\gamedata\\scripts\\enhanced_animations.script",
+      "G.A.M.M.A\\modpack_addons\\Asnen's and Grok's Better Cigarettes Animations\\gamedata\\scripts\\take_item_anim.script",
+      "G.A.M.M.A\\modpack_addons\\Barnacle's Hostage Dialogue Fix\\gamedata\\scripts\\zz_hostage_dialogue_fix.script",
+      "G.A.M.M.A\\modpack_addons\\DX9 Compatibility Patch\\gamedata\\scripts\\dx_config_loader.script",
+      "G.A.M.M.A\\modpack_addons\\DX9 Compatibility Patch\\gamedata\\scripts\\fakelens.script",
+      "G.A.M.M.A\\modpack_addons\\DX9 Compatibility Patch\\gamedata\\scripts\\item_device.script",
+      "G.A.M.M.A\\modpack_addons\\DX9 Compatibility Patch\\gamedata\\scripts\\scopeRadii.script",
+      "G.A.M.M.A\\modpack_addons\\DX9 Compatibility Patch\\gamedata\\scripts\\z_vanilla_nvgs.script",
+      "G.A.M.M.A\\modpack_addons\\Dark Valley Lamp Remover (better FPS at Bandit Base)\\gamedata\\scripts\\dark_valley_lamp_remover.script",
+      "G.A.M.M.A\\modpack_addons\\Darkasleif's Cars Fixes\\gamedata\\scripts\\LevelChangeCars.script",
+      "G.A.M.M.A\\modpack_addons\\Darkasleif's More Vodka Trades\\gamedata\\scripts\\MoreVodkaTrades.script",
+      "G.A.M.M.A\\modpack_addons\\Darkasleif's Nimble Upgrades Guns\\gamedata\\scripts\\NimbleTrade.script",
+      "G.A.M.M.A\\modpack_addons\\Darkasleif's Stop Selling Documents\\gamedata\\scripts\\dialogs.script",
+      "G.A.M.M.A\\modpack_addons\\Darkasleif's and iTheon's Parts Condition Color Thresholds Changes\\gamedata\\scripts\\ui_item.script",
+      "G.A.M.M.A\\modpack_addons\\Darkasleif's and iTheon's Parts Condition Color Thresholds Changes\\gamedata\\scripts\\utils_xml.script",
+      "G.A.M.M.A\\modpack_addons\\Demonized FDDA New Time Events\\gamedata\\scripts\\demonized_time_events.script",
+      "G.A.M.M.A\\modpack_addons\\Demonized FDDA New Time Events\\gamedata\\scripts\\fdda_time_events.script",
+      "G.A.M.M.A\\modpack_addons\\Demonized More Dangerous Phantoms\\gamedata\\scripts\\more_dangerous_phantoms.script",
+      "G.A.M.M.A\\modpack_addons\\Demonized More Dangerous Phantoms\\gamedata\\scripts\\weapon_cover_tilt_ignore_phantoms.script"
+    ],
+    "config_files": [
+      "G.A.M.M.A\\modpack_addons\\105- Re-sound for BAS snipers and pistols - Rex1534\\gamedata\\configs\\mod_system_synced_sounds.ltx",
+      "G.A.M.M.A\\modpack_addons\\109- MCM Mod Configuration Menu - RavenAscendant\\gamedata\\configs\\text\\rus\\ui_st_mcm.xml",
+      "G.A.M.M.A\\modpack_addons\\110- SortingPlus - RavenAscendant\\gamedata\\configs\\text\\rus\\ui_st_sortingplus.xml",
+      "G.A.M.M.A\\modpack_addons\\127- Toggle Scope - Ishmaeel\\gamedata\\configs\\text\\rus\\ish_toggle_scope.xml",
+      "G.A.M.M.A\\modpack_addons\\132- Companion anti awol - Skieppy\\gamedata\\configs\\text\\rus\\ui_st_companion_anti_awol.xml",
+      "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\configs\\items\\items\\items_upgrades.ltx",
+      "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\configs\\items\\items\\items_upgrades_simple.ltx",
+      "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\configs\\items\\settings\\fetch_list.ltx",
+      "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\configs\\items\\settings\\upgrade_mapping.ltx",
+      "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\configs\\items\\settings\\upgrade_recipes.ltx",
+      "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\configs\\text\\eng\\st_items_upgrades_simple.xml",
+      "G.A.M.M.A\\modpack_addons\\147- Streamlined Upgrades - arti\\gamedata\\configs\\text\\rus\\st_items_upgrades_simple.xml",
+      "G.A.M.M.A\\modpack_addons\\158- ABF - Jurkonov\\gamedata\\configs\\creatures\\actor.ltx",
+      "G.A.M.M.A\\modpack_addons\\158- ABF - Jurkonov\\gamedata\\configs\\creatures\\m_burer.ltx",
+      "G.A.M.M.A\\modpack_addons\\158- ABF - Jurkonov\\gamedata\\configs\\creatures\\m_poltergeist.ltx",
+      "G.A.M.M.A\\modpack_addons\\158- ABF - Jurkonov\\gamedata\\configs\\zones\\zone_burningfuzz.ltx",
+      "G.A.M.M.A\\modpack_addons\\158- ABF - Jurkonov\\gamedata\\configs\\zones\\zone_field_acidic.ltx",
+      "G.A.M.M.A\\modpack_addons\\158- ABF - Jurkonov\\gamedata\\configs\\zones\\zone_field_psychic.ltx",
+      "G.A.M.M.A\\modpack_addons\\158- ABF - Jurkonov\\gamedata\\configs\\zones\\zone_field_thermal.ltx",
+      "G.A.M.M.A\\modpack_addons\\158- ABF - Jurkonov\\gamedata\\configs\\zones\\zone_fireball.ltx",
+      "G.A.M.M.A\\modpack_addons\\158- ABF - Jurkonov\\gamedata\\configs\\zones\\zone_hvatalka.ltx",
+      "G.A.M.M.A\\modpack_addons\\158- ABF - Jurkonov\\gamedata\\configs\\zones\\zone_mine_acidic.ltx",
+      "G.A.M.M.A\\modpack_addons\\158- ABF - Jurkonov\\gamedata\\configs\\zones\\zone_mine_electric.ltx",
+      "G.A.M.M.A\\modpack_addons\\158- ABF - Jurkonov\\gamedata\\configs\\zones\\zone_mine_gravitational.ltx",
+      "G.A.M.M.A\\modpack_addons\\158- ABF - Jurkonov\\gamedata\\configs\\zones\\zone_mine_thermal.ltx",
+      "G.A.M.M.A\\modpack_addons\\158- ABF - Jurkonov\\gamedata\\configs\\zones\\zone_mosquitobald.ltx",
+      "G.A.M.M.A\\modpack_addons\\164- Hunger Thirst Sleep UI 0.71 - xcvb\\gamedata\\configs\\ui\\ui_new_bars.xml",
+      "G.A.M.M.A\\modpack_addons\\164- Hunger Thirst Sleep UI 0.71 - xcvb\\gamedata\\configs\\ui\\ui_new_bars_16.xml",
+      "G.A.M.M.A\\modpack_addons\\170- New mutants icons parts - TDLemon\\gamedata\\configs\\items\\items\\items_monster.ltx",
+      "G.A.M.M.A\\modpack_addons\\179- Better Stats Bar - Demonized\\gamedata\\configs\\text\\rus\\ui_mcm_better_stats_bars.xml",
+      "G.A.M.M.A\\modpack_addons\\192- Cr3pis Iconpack Helmet Less Armors - Cr3pis\\gamedata\\configs\\mod_system_zzzzcrepis_berill.ltx",
+      "G.A.M.M.A\\modpack_addons\\192- Cr3pis Iconpack Helmet Less Armors - Cr3pis\\gamedata\\configs\\mod_system_zzzzcrepis_blackgrowlreplacers.ltx",
+      "G.A.M.M.A\\modpack_addons\\192- Cr3pis Iconpack Helmet Less Armors - Cr3pis\\gamedata\\configs\\mod_system_zzzzcrepis_csky.ltx",
+      "G.A.M.M.A\\modpack_addons\\192- Cr3pis Iconpack Helmet Less Armors - Cr3pis\\gamedata\\configs\\mod_system_zzzzcrepis_exolight.ltx",
+      "G.A.M.M.A\\modpack_addons\\192- Cr3pis Iconpack Helmet Less Armors - Cr3pis\\gamedata\\configs\\mod_system_zzzzcrepis_exoskeleton.ltx",
+      "G.A.M.M.A\\modpack_addons\\192- Cr3pis Iconpack Helmet Less Armors - Cr3pis\\gamedata\\configs\\mod_system_zzzzcrepis_explorer.ltx",
+      "G.A.M.M.A\\modpack_addons\\192- Cr3pis Iconpack Helmet Less Armors - Cr3pis\\gamedata\\configs\\mod_system_zzzzcrepis_helmet.ltx",
+      "G.A.M.M.A\\modpack_addons\\192- Cr3pis Iconpack Helmet Less Armors - Cr3pis\\gamedata\\configs\\mod_system_zzzzcrepis_ibaz.ltx",
+      "G.A.M.M.A\\modpack_addons\\192- Cr3pis Iconpack Helmet Less Armors - Cr3pis\\gamedata\\configs\\mod_system_zzzzcrepis_lcs.ltx",
+      "G.A.M.M.A\\modpack_addons\\192- Cr3pis Iconpack Helmet Less Armors - Cr3pis\\gamedata\\configs\\mod_system_zzzzcrepis_mp7.ltx",
+      "G.A.M.M.A\\modpack_addons\\192- Cr3pis Iconpack Helmet Less Armors - Cr3pis\\gamedata\\configs\\mod_system_zzzzcrepis_nbc.ltx",
+      "G.A.M.M.A\\modpack_addons\\192- Cr3pis Iconpack Helmet Less Armors - Cr3pis\\gamedata\\configs\\mod_system_zzzzcrepis_nosorog.ltx",
+      "G.A.M.M.A\\modpack_addons\\192- Cr3pis Iconpack Helmet Less Armors - Cr3pis\\gamedata\\configs\\mod_system_zzzzcrepis_novice.ltx",
+      "G.A.M.M.A\\modpack_addons\\192- Cr3pis Iconpack Helmet Less Armors - Cr3pis\\gamedata\\configs\\mod_system_zzzzcrepis_protoexo.ltx",
+      "G.A.M.M.A\\modpack_addons\\192- Cr3pis Iconpack Helmet Less Armors - Cr3pis\\gamedata\\configs\\mod_system_zzzzcrepis_ps5.ltx",
+      "G.A.M.M.A\\modpack_addons\\192- Cr3pis Iconpack Helmet Less Armors - Cr3pis\\gamedata\\configs\\mod_system_zzzzcrepis_seva.ltx",
+      "G.A.M.M.A\\modpack_addons\\192- Cr3pis Iconpack Helmet Less Armors - Cr3pis\\gamedata\\configs\\mod_system_zzzzcrepis_skat.ltx",
+      "G.A.M.M.A\\modpack_addons\\192- Cr3pis Iconpack Helmet Less Armors - Cr3pis\\gamedata\\configs\\mod_system_zzzzcrepis_ssp.ltx",
+      "G.A.M.M.A\\modpack_addons\\192- Cr3pis Iconpack Helmet Less Armors - Cr3pis\\gamedata\\configs\\mod_system_zzzzcrepis_sts.ltx",
+      "G.A.M.M.A\\modpack_addons\\192- Cr3pis Iconpack Helmet Less Armors - Cr3pis\\gamedata\\configs\\mod_system_zzzzcrepis_sunrise.ltx",
+      "G.A.M.M.A\\modpack_addons\\192- Cr3pis Iconpack Helmet Less Armors - Cr3pis\\gamedata\\configs\\mod_system_zzzzcrepis_trenchcoat.ltx",
+      "G.A.M.M.A\\modpack_addons\\197- New Storylines (DLTX minimodpack) - Demonized\\gamedata\\configs\\mod_system_storylines.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\icon_override\\ico_magazines.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\icon_override\\icon_override.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\icon_override\\magazines2\\_importer.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\icon_override\\magazines2\\base.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\icon_override\\magazines2\\mag_127x55.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\icon_override\\magazines2\\mag_12x70.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\icon_override\\magazines2\\mag_338.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\icon_override\\magazines2\\mag_545x39.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\icon_override\\magazines2\\mag_556x45.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\icon_override\\magazines2\\mag_762x39.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\icon_override\\magazines2\\mag_762x51.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\icon_override\\magazines2\\mag_762x54.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\icon_override\\magazines2\\mag_9x18.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\icon_override\\magazines2\\mag_9x19.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\icon_override\\magazines2\\mag_9x39.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\icon_override\\magazines2\\mag_oneoffs.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\icon_override\\magazines2\\mag_pistol_a-d.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\icon_override\\magazines2\\mag_pistol_f-z.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\icon_override\\magazines2\\mag_smg_other.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\settings\\npc_mag_loadouts.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\trade\\mod_trade_csky_spore_mags.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\trade\\mod_trade_freedom_mags.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\trade\\mod_trade_isg_light_mags.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\trade\\mod_trade_isg_mags.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\trade\\mod_trade_mercenary_mags.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\_importer.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\base.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_127x55.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_12x70.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_338.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_545x39.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_556x45.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_762x39.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_762x51.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_762x54.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_9x18.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_9x19.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_9x21.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_9x39.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_aug_9x19.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_bas_1143x23.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_bas_20x70.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_bas_300.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_bas_338fed.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_bas_556x45.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_bas_762x39.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_bas_762x51.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_bas_762x54.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_bas_792x33.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_bas_9x18.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_bas_9x19.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_bas_buckshot.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_bas_old.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_kriss_drum.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_oneoffs.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_pistol_a-d.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_pistol_f-z.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_ppp_pistols.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_raptr_drum.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\magazines2\\mag_smg_other.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\items\\weapons\\w_magazines.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_1143x23.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_127x55.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_12x70.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_300.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_357.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_545x39.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_556x45.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_57x28.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_762x25.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_762x39.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_762x51.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_762x54.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_792x33.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_9x18.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_9x19.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_9x21.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_9x39.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_aug_9x19.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_bas_1143x23.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_bas_20x70.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_bas_300.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_bas_338fed.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_bas_556x45.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_bas_762x39.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_bas_762x51.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_bas_762x54.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_bas_792x33.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_bas_9x18.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_bas_9x19.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_bas_buckshot.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_kriss.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\base_ppp.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\basetypes\\importer.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\lookups.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\outfitloadouts\\importer.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\outfitloadouts\\l_combat_backpack.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\outfitloadouts\\l_defaults.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\outfitloadouts\\l_ghillie.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\outfitloadouts\\l_vanilla.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\importer.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_9a91.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_9x18_smg.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_9x19_smg.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_abakan.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_abakan_n.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ace52.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_aek.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak101.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak103.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak104_alfa.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak105_shakal.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak105_sp.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak105_swamp.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak12.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak12_custom.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak12_custom_mono_kit.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak12_m1.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak5c_bas.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak74.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak74_beard.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak74_isg.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak74_n.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak74_pmc.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak74m.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak74m_beard.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak74m_n.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak74u_isg.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak74u_m1_isg.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak74u_n1.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak74u_tac.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ak_alfa_bas.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_akm.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_akm_isg.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_aks74.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_aks74u.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_aksu_isg.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_aksu_m1_isg.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_aps.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_aps_bas.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_ash12.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_aug.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_aug_bas.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_barrett.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_bas_l85.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_bas_scar.ltx",
+      "G.A.M.M.A\\modpack_addons\\207- Mags Redux (Disable G.A.M.M.A. Unjam Reload) - RavenAscendant\\gamedata\\configs\\magazines\\weapons\\w_beretta.ltx"
+    ],
+    "file_count": 701
+  }
+}

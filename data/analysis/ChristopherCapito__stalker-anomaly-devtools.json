@@ -1,0 +1,922 @@
+{
+  "repo": "ChristopherCapito/stalker-anomaly-devtools",
+  "stars": 2,
+  "relevance_score": 78,
+  "analysis": {
+    "callbacks": {
+      "on_game_start": 2,
+      "is_function_blacklisted": 1
+    },
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\devtools_config.script",
+        "name": "load_presets",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_config.script",
+        "name": "save_presets",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_config.script",
+        "name": "save_preset",
+        "params": "name, modules, flamegraph_enabled"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_config.script",
+        "name": "load_preset",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_config.script",
+        "name": "delete_preset",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_config.script",
+        "name": "get_preset_names",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_config.script",
+        "name": "preset_exists",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_config.script",
+        "name": "get_presets_file_path",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_config.script",
+        "name": "get_presets_directory_path",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_config.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_imgui.script",
+        "name": "render_profiler_window",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_imgui.script",
+        "name": "render_logs_window",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_imgui.script",
+        "name": "toggle_profiler",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_imgui.script",
+        "name": "show_profiler",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_imgui.script",
+        "name": "hide_profiler",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_imgui.script",
+        "name": "is_profiler_visible",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_imgui.script",
+        "name": "toggle_logs",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_imgui.script",
+        "name": "show_logs",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_imgui.script",
+        "name": "hide_logs",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_imgui.script",
+        "name": "is_logs_visible",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_imgui.script",
+        "name": "toggle_window",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_imgui.script",
+        "name": "show",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_imgui.script",
+        "name": "hide",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_imgui.script",
+        "name": "is_visible",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_imgui.script",
+        "name": "on_key_press",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_imgui.script",
+        "name": "on_actor_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "register_category",
+        "params": "name, color"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "unregister_category",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "get_categories",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "get_category_color",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "is_category_registered",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "get_entries",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "get_filtered_entries",
+        "params": "search_text, severity_filter, category_filter"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "clear",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "get_stats",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "log",
+        "params": "severity, category, message, data"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "debug_log",
+        "params": "category, message, data"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "info",
+        "params": "category, message, data"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "warn",
+        "params": "category, message, data"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "error_log",
+        "params": "category, message, data"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "get_config",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "set_min_severity",
+        "params": "severity"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "get_min_severity",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "set_category_enabled",
+        "params": "category, enabled"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "is_category_enabled",
+        "params": "category"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "set_all_categories_enabled",
+        "params": "enabled"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "set_enabled",
+        "params": "enabled"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "is_enabled",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "set_paused",
+        "params": "paused"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "is_paused",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "set_echo_to_console",
+        "params": "enabled"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "is_echo_to_console",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "set_write_to_file",
+        "params": "enabled"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "is_write_to_file",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "get_file_path",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "set_file_path",
+        "params": "path"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "set_max_entries",
+        "params": "max"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "get_max_entries",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "format_entry_short",
+        "params": "entry"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "format_entry_full",
+        "params": "entry"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_logging.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "start_timer",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "end_timer",
+        "params": "name, child_time_ms"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "get_stats",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "get_all_stats",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "get_tracked_functions",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "reset_stats",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "reset_all",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "get_safety_stats",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "reset_safety_stats",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "is_module_blacklisted",
+        "params": "module_name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "is_function_blacklisted",
+        "params": "function_name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "get_blacklist_config",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "add_blacklisted_module",
+        "params": "module_name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "add_blacklisted_function",
+        "params": "function_name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "discover_modules",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "register_module",
+        "params": "module_name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "unregister_module",
+        "params": "module_name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "get_registered_modules",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "is_module_registered",
+        "params": "module_name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "wrap_module",
+        "params": "module_name, module_table"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "unwrap_module",
+        "params": "module_name, module_table"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "enable",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "disable",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "is_enabled",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "get_wrapped_modules",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "get_wrapped_function_count",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "is_module_wrapped",
+        "params": "module_name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "rewrap_registered_modules",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "save_preset",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "load_preset",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "delete_preset",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "get_preset_names",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "preset_exists",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "set_enabled",
+        "params": "enabled"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "get_max_samples",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "set_max_samples",
+        "params": "count"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "set_debug",
+        "params": "enabled"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "copy_table",
+        "params": "t"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "format_ms",
+        "params": "ms"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "check_timing_method",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "print_summary",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "export_to_csv",
+        "params": "filepath"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "get_csv_export_path",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "enable_flamegraph",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "disable_flamegraph",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "is_flamegraph_enabled",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "get_flamegraph_sample_count",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "reset_flamegraph",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "export_flamegraph",
+        "params": "filepath"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "get_flamegraph_export_path",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "start_jsonl_stream",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "stop_jsonl_stream",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "is_jsonl_streaming",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "get_jsonl_stream_stats",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "get_jsonl_stream_path",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "reset_jsonl_stream",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler.script",
+        "name": "M.is_enabled",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_export.script",
+        "name": "export_to_csv",
+        "params": "filepath"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_export.script",
+        "name": "get_csv_export_path",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_export.script",
+        "name": "enable_flamegraph",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_export.script",
+        "name": "disable_flamegraph",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_export.script",
+        "name": "is_flamegraph_enabled",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_export.script",
+        "name": "get_flamegraph_sample_count",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_export.script",
+        "name": "reset_flamegraph",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_export.script",
+        "name": "export_flamegraph",
+        "params": "filepath"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_export.script",
+        "name": "get_flamegraph_export_path",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_export.script",
+        "name": "export_callgraph_dot",
+        "params": "filepath, options"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_export.script",
+        "name": "get_callgraph_dot_path",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_export.script",
+        "name": "get_jsonl_stream_path",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_export.script",
+        "name": "start_jsonl_stream",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_export.script",
+        "name": "stop_jsonl_stream",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_export.script",
+        "name": "is_jsonl_streaming",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_export.script",
+        "name": "get_jsonl_stream_stats",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_export.script",
+        "name": "write_jsonl_entry",
+        "params": "func_name, duration_ms, timestamp_ms"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_export.script",
+        "name": "flush_jsonl_buffer",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_export.script",
+        "name": "reset_jsonl_stream",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_state.script",
+        "name": "S.dont_wrap",
+        "params": "fn"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_state.script",
+        "name": "S.is_module_blacklisted",
+        "params": "module_name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_state.script",
+        "name": "S.is_function_blacklisted",
+        "params": "function_name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_state.script",
+        "name": "S.reset_visited_tables",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_state.script",
+        "name": "S.reset_wrapped_class_globals",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_state.script",
+        "name": "S.register_devtools_system_tables",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_stats.script",
+        "name": "track_parent_call",
+        "params": "func_name, parent_name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_stats.script",
+        "name": "start_timer",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_stats.script",
+        "name": "end_timer",
+        "params": "name, child_time_ms"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_stats.script",
+        "name": "get_stats",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_stats.script",
+        "name": "get_all_stats",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_stats.script",
+        "name": "get_tracked_functions",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_stats.script",
+        "name": "reset_stats",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_stats.script",
+        "name": "reset_all",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_stats.script",
+        "name": "get_safety_stats",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_stats.script",
+        "name": "reset_safety_stats",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_wrap.script",
+        "name": "wrap_module",
+        "params": "module_name, module_table"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_wrap.script",
+        "name": "unwrap_module",
+        "params": "module_name, module_table"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_profiler_wrap.script",
+        "name": "rewrap_registered_modules",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_ui_common.script",
+        "name": "U.format_compact",
+        "params": "ms"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_ui_common.script",
+        "name": "U.format_precise",
+        "params": "ms"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_ui_common.script",
+        "name": "U.get_module_color_by_index",
+        "params": "index"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_ui_common.script",
+        "name": "U.sync_module_colors",
+        "params": "wrapped_modules"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_ui_common.script",
+        "name": "U.get_module_color",
+        "params": "func_name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_ui_common.script",
+        "name": "U.get_module_color_by_name",
+        "params": "module_name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_ui_common.script",
+        "name": "U.set_module_color",
+        "params": "module_name, r, g, b"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_ui_common.script",
+        "name": "U.clear_module_color",
+        "params": "module_name"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_ui_common.script",
+        "name": "U.get_custom_module_colors",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_ui_common.script",
+        "name": "U.set_custom_module_colors",
+        "params": "colors"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_ui_common.script",
+        "name": "U.get_timing_color",
+        "params": "ms"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_ui_logs.script",
+        "name": "render_logging_tab",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_ui_logs.script",
+        "name": "update_log_cache",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_ui_logs.script",
+        "name": "render_log_controls",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_ui_logs.script",
+        "name": "render_log_categories",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_ui_logs.script",
+        "name": "render_log_list",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_ui_logs.script",
+        "name": "render_log_entry",
+        "params": "entry"
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_ui_profiler.script",
+        "name": "render_profiler_tab",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_ui_profiler.script",
+        "name": "render_module_browser",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_ui_profiler.script",
+        "name": "render_profiling_controls",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\devtools_ui_profiler.script",
+        "name": "render_stats_table",
+        "params": ""
+      }
+    ],
+    "api_calls": {},
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\devtools_config.script",
+      "gamedata\\scripts\\devtools_imgui.script",
+      "gamedata\\scripts\\devtools_logging.script",
+      "gamedata\\scripts\\devtools_profiler.script",
+      "gamedata\\scripts\\devtools_profiler_export.script",
+      "gamedata\\scripts\\devtools_profiler_state.script",
+      "gamedata\\scripts\\devtools_profiler_stats.script",
+      "gamedata\\scripts\\devtools_profiler_wrap.script",
+      "gamedata\\scripts\\devtools_ui_common.script",
+      "gamedata\\scripts\\devtools_ui_logs.script",
+      "gamedata\\scripts\\devtools_ui_profiler.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\mod_script_devtools_early.ltx"
+    ],
+    "file_count": 11
+  }
+}

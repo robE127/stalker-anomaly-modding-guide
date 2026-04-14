@@ -1,0 +1,113 @@
+{
+  "repo": "AugustSaintFreytag/stalker-natural-steps-and-foley",
+  "stars": 0,
+  "relevance_score": 72,
+  "analysis": {
+    "callbacks": {
+      "actor_on_footstep": 1
+    },
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\z_saint_actor_movement_sounds.script",
+        "name": "tick_sound_index",
+        "params": "kind"
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_actor_movement_sounds.script",
+        "name": "random_sound_index",
+        "params": "kind"
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_actor_movement_sounds.script",
+        "name": "has_sound_for_material",
+        "params": "material"
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_actor_movement_sounds.script",
+        "name": "has_sound_for_gear",
+        "params": "kind"
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_actor_movement_sounds.script",
+        "name": "on_movement",
+        "params": "material_id, power, hud_view, flags"
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_actor_movement_sounds.script",
+        "name": "sound_material_from_id",
+        "params": "material_id"
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_actor_movement_sounds.script",
+        "name": "sound_kind_for_active_gear",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_actor_movement_sounds.script",
+        "name": "active_actor_gear_kind",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_actor_movement_sounds.script",
+        "name": "actor_is_crouching",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_actor_movement_sounds.script",
+        "name": "actor_is_sprinting",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_actor_movement_sounds.script",
+        "name": "play_step_sound",
+        "params": "actor, kind, index"
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_actor_movement_sounds.script",
+        "name": "play_gear_sound",
+        "params": "actor, kind, index"
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_actor_movement_sounds.script",
+        "name": "play_sound",
+        "params": "actor, sound_path, volume"
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_actor_movement_sounds.script",
+        "name": "sound_volume",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_actor_movement_sounds.script",
+        "name": "sound_frequency",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_actor_movement_sounds.script",
+        "name": "get_sound_ref",
+        "params": "sound_file"
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_actor_movement_sounds.script",
+        "name": "log",
+        "params": "message"
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_actor_movement_sounds.script",
+        "name": "on_game_start",
+        "params": ""
+      }
+    ],
+    "api_calls": {
+      "db.actor.active_item": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\z_saint_actor_movement_sounds.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\mod_system_saint_louder_crouched_footsteps.ltx"
+    ],
+    "file_count": 1
+  }
+}

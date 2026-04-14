@@ -1,0 +1,803 @@
+{
+  "repo": "explorerbeer/Not-Enough-NPCs",
+  "stars": 0,
+  "relevance_score": 115,
+  "analysis": {
+    "callbacks": {
+      "on_game_load": 1,
+      "on_xml_read": 1,
+      "actor_on_first_update": 1
+    },
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\dynamic_smart_cover.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_nep.script",
+        "name": "dxml_character_desc_darkscape",
+        "params": "xml_file_name, xml_obj"
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_nep.script",
+        "name": "on_xml_read",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\nep_help_wounded_medic.script",
+        "name": "help_wounded_medic_task_1_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\nep_help_wounded_medic.script",
+        "name": "help_wounded_medic_task_1_has_item",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\nep_utils.script",
+        "name": "actor_has",
+        "params": "sect, needed"
+      },
+      {
+        "file": "gamedata\\scripts\\tiski_spawn.script",
+        "name": "spawn_workbench",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\tiski_spawn.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\tiski_spawn.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_object_data",
+        "params": "sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_object_data",
+        "params": "t,sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_abstract_data",
+        "params": "stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_abstract_data",
+        "params": "t,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_squad_data",
+        "params": "sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_squad_data",
+        "params": "t,sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_weapon_data",
+        "params": "sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_weapon_data",
+        "params": "t,sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_item_data",
+        "params": "sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_item_data",
+        "params": "t,sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_ammo_data",
+        "params": "sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_ammo_data",
+        "params": "t,sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_inv_box_data",
+        "params": "sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_inv_box_data",
+        "params": "t,sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_item_document_data",
+        "params": "sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_item_document_data",
+        "params": "t,sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_item_pda_data",
+        "params": "sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_item_pda_data",
+        "params": "t,sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_actor_data",
+        "params": "sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_actor_data",
+        "params": "t,sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_stalker_data",
+        "params": "sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_stalker_data",
+        "params": "t,sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_monster_data",
+        "params": "sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_monster_data",
+        "params": "t,sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_smart_cover_data",
+        "params": "sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_smart_cover_data",
+        "params": "t,sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "spawn_smart_cover",
+        "params": "anm,sec,pos,lvid,gvid"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_climable_data",
+        "params": "sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_climable_data",
+        "params": "t,sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_heli_data",
+        "params": "sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_heli_data",
+        "params": "t,sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "spawn_heli",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_lamp_data",
+        "params": "sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_lamp_data",
+        "params": "t,sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_physic_data",
+        "params": "sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_physic_data",
+        "params": "t,sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_space_restrictor_data",
+        "params": "sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_space_restrictor_data",
+        "params": "t,sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_anom_zone_data",
+        "params": "sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_anom_zone_data",
+        "params": "t,sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_visual_zone_data",
+        "params": "sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_visual_zone_data",
+        "params": "t,sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_level_changer_data",
+        "params": "sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_level_changer_data",
+        "params": "t,sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "get_item_update_data",
+        "params": "sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "set_item_update_data",
+        "params": "t,sobj"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_abstract_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_abstract_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_graph_point_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_graph_point_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_shape_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_shape_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_visual_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_visual_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_motion_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_motion_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_ph_skeleton_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_ph_skeleton_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_object_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_object_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_object_climable_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_object_climable_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_smart_cover_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_smart_cover_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_se_smart_cover_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_se_smart_cover_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_object_physic_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_object_physic_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_object_hanging_lamp_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_object_hanging_lamp_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_inventory_box_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_inventory_box_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_object_breakable_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_object_breakable_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_helicopter_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_helicopter_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_creature_abstract_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_creature_abstract_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_monster_abstract_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_monster_abstract_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_trader_abstract_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_trader_abstract_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_human_abstract_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_human_abstract_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_se_stalker_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_se_stalker_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_creature_actor_properties_packet",
+        "params": "ret,stpk,upd"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_creature_actor_properties_packet",
+        "params": "ret,stpk,upd"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_se_actor_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_se_actor_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_monster_base_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_monster_base_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_se_monster_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_se_monster_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_monster_zombie_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_monster_zombie_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_space_restrictor_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_space_restrictor_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_se_anomaly_field_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_se_anomaly_field_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_se_respawn_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_se_respawn_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_team_base_zone_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_team_base_zone_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_level_changer_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_level_changer_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_se_level_changer_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_se_level_changer_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_se_respawn_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_se_respawn_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_custom_zone_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_custom_zone_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_anomalous_zone_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_anomalous_zone_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_se_zone_anom_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_se_zone_anom_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_zone_visual_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_zone_visual_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_se_zone_visual_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_se_zone_visual_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_online_offline_group_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_online_offline_group_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_item_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_item_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_cse_alife_item_weapon_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_cse_alife_item_weapon_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "parse_se_sim_faction_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "fill_se_sim_faction_properties_packet",
+        "params": "ret,stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "data_left",
+        "params": "stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "read_chunk",
+        "params": "stpk, length, c_type"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "write_chunk",
+        "params": "stpk, tab, c_type"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "readvu8uN",
+        "params": "stpk,cnt"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "writevu8uN",
+        "params": "stpk,v"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "readvu32stringZ",
+        "params": "stpk"
+      },
+      {
+        "file": "gamedata\\scripts\\utils_stpk.script",
+        "name": "writevu32stringZ",
+        "params": "pk,v"
+      }
+    ],
+    "api_calls": {
+      "db.actor.iterate_inventory": 1,
+      "db.actor.position": 1,
+      "db.actor.level_vertex_id": 1,
+      "db.actor.game_vertex_id": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\dynamic_smart_cover.script",
+      "gamedata\\scripts\\modxml_nep.script",
+      "gamedata\\scripts\\nep_help_wounded_medic.script",
+      "gamedata\\scripts\\nep_utils.script",
+      "gamedata\\scripts\\se_smart_cover_override.script",
+      "gamedata\\scripts\\tiski_spawn.script",
+      "gamedata\\scripts\\utils_stpk.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\gameplay\\character_desc_nep.xml",
+      "gamedata\\configs\\gameplay\\dialogs_nep.xml",
+      "gamedata\\configs\\gameplay\\info_nep_garbage.xml",
+      "gamedata\\configs\\gameplay\\npc_profile_nep.xml",
+      "gamedata\\configs\\items\\settings\\mod_itms_manager_nep.ltx",
+      "gamedata\\configs\\items\\settings\\npc_loadouts_nep.ltx",
+      "gamedata\\configs\\items\\trade\\trade_drug_dealer.ltx",
+      "gamedata\\configs\\items\\trade\\trade_mechanic_digger.ltx",
+      "gamedata\\configs\\misc\\mod_offline_combat_simulator_nep.ltx",
+      "gamedata\\configs\\misc\\mod_stalkers_upgrade_info_nep.ltx",
+      "gamedata\\configs\\misc\\squad_descr\\squad_descr_nep.ltx",
+      "gamedata\\configs\\misc\\task\\tm_nep.ltx",
+      "gamedata\\configs\\misc\\upgrade_infos\\stalker_nep_garbage_mechanic_upgr.ltx",
+      "gamedata\\configs\\mod_system_nep.ltx",
+      "gamedata\\configs\\mod_system_nep_overrides.ltx",
+      "gamedata\\configs\\plugins\\mod_encyclopedia_interactivity_nep.ltx",
+      "gamedata\\configs\\plugins\\mod_encyclopedia_nep.ltx",
+      "gamedata\\configs\\scripts\\darkscape\\smart\\mod_ds2_domik_st_nep.ltx",
+      "gamedata\\configs\\scripts\\darkscape\\stalker_nep_darkscape_medic_logic.ltx",
+      "gamedata\\configs\\scripts\\escape\\smart\\mod_esc_smart_terrain_5_7_nep.ltx",
+      "gamedata\\configs\\scripts\\escape\\stalker_nep_cordon_medic_logic.ltx",
+      "gamedata\\configs\\scripts\\garbage\\smart\\mod_gar_smart_terrain_3_5_nep.ltx",
+      "gamedata\\configs\\scripts\\garbage\\stalker_nep_garbage_mechanic_logic.ltx",
+      "gamedata\\configs\\scripts\\garbage\\stalker_nep_garbage_medic_logic.ltx",
+      "gamedata\\configs\\scripts\\garbage\\tiski_01.ltx",
+      "gamedata\\configs\\scripts\\jupiter\\bandit_nep_jupiter_medic_logic.ltx",
+      "gamedata\\configs\\scripts\\jupiter\\ecolog_nep_jupiter_medic_logic.ltx",
+      "gamedata\\configs\\scripts\\jupiter\\smart\\mod_jup_a12_nep.ltx",
+      "gamedata\\configs\\scripts\\jupiter\\smart\\mod_jup_b41_nep.ltx",
+      "gamedata\\configs\\scripts\\pripyat\\killer_nep_outskirts_medic_logic.ltx",
+      "gamedata\\configs\\scripts\\pripyat\\smart\\mod_pri_a16_nep.ltx",
+      "gamedata\\configs\\scripts\\pripyat\\smart\\mod_pri_a18_smart_terrain_nep.ltx",
+      "gamedata\\configs\\scripts\\pripyat\\stalker_nep_outskirts_medic_logic.ltx",
+      "gamedata\\configs\\scripts\\trucks_cemetery\\bandit_nep_truck_cemetery_medic_logic.ltx",
+      "gamedata\\configs\\scripts\\trucks_cemetery\\smart\\mod_trc_sim_20_nep.ltx",
+      "gamedata\\configs\\scripts\\yantar\\killer_nep_yantar_medic_logic.ltx",
+      "gamedata\\configs\\scripts\\yantar\\smart\\mod_yan_smart_terrain_6_4_nep.ltx",
+      "gamedata\\configs\\scripts\\zaton\\killer_nep_zaton_medic_logic.ltx",
+      "gamedata\\configs\\scripts\\zaton\\smart\\mod_zat_b40_smart_terrain_nep.ltx",
+      "gamedata\\configs\\text\\eng\\st_nep_dialogs.xml",
+      "gamedata\\configs\\text\\eng\\st_nep_encyclopedia.xml",
+      "gamedata\\configs\\text\\eng\\st_nep_npcs.xml",
+      "gamedata\\configs\\text\\eng\\st_nep_task.xml",
+      "gamedata\\configs\\text\\rus\\st_nep_dialogs.xml",
+      "gamedata\\configs\\text\\rus\\st_nep_encyclopedia.xml",
+      "gamedata\\configs\\text\\rus\\st_nep_npcs.xml",
+      "gamedata\\configs\\text\\rus\\st_nep_task.xml",
+      "gamedata\\configs\\ui\\textures_descr\\ui_encyclopedia_nep.xml",
+      "gamedata\\configs\\ui\\textures_descr\\ui_portraits_nep.xml",
+      "gamedata\\configs\\unlocalizers\\unlocalizer_tiski.ltx"
+    ],
+    "file_count": 7
+  }
+}

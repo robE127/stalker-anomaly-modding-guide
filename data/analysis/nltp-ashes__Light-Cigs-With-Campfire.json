@@ -1,0 +1,27 @@
+{
+  "repo": "nltp-ashes/Light-Cigs-With-Campfire",
+  "stars": 0,
+  "relevance_score": 85,
+  "analysis": {
+    "callbacks": {},
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\light_cigs_with_campfire.script",
+        "name": "can_light_cigarette",
+        "params": ""
+      }
+    ],
+    "api_calls": {
+      "db.actor.object": 1,
+      "level.name": 1,
+      "level.iterate_nearest": 1,
+      "db.actor.position": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\light_cigs_with_campfire.script"
+    ],
+    "config_files": [],
+    "file_count": 1
+  }
+}

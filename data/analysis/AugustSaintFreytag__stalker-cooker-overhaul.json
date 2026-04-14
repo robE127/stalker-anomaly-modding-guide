@@ -1,0 +1,72 @@
+{
+  "repo": "AugustSaintFreytag/stalker-cooker-overhaul",
+  "stars": 0,
+  "relevance_score": 90,
+  "analysis": {
+    "callbacks": {
+      "on_xml_read": 1
+    },
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\modxml_encyclopedia_item_texture_descr_saintcookers.script",
+        "name": "on_xml_read",
+        "params": ""
+      }
+    ],
+    "api_calls": {},
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\modxml_encyclopedia_item_texture_descr_saintcookers.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\custom_icon_layers\\groups\\mod_base_groups_saintcookers.ltx",
+      "gamedata\\configs\\items\\settings\\mod_cook_saintcookers.ltx",
+      "gamedata\\configs\\items\\settings\\mod_craft_saintcookers.ltx",
+      "gamedata\\configs\\items\\settings\\mod_death_generic_saintcookers.ltx",
+      "gamedata\\configs\\items\\settings\\mod_mutant_loot_saintcookers.ltx",
+      "gamedata\\configs\\items\\settings\\mod_new_game_loadouts_saintcookers.ltx",
+      "gamedata\\configs\\items\\settings\\mod_parts_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_bandit_basic_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_bandit_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_csky_spore_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_duty_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_ecolog_hermann_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_ecolog_sakharov_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_freedom_ashot_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_freedom_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_generic_barman_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_generic_mechanic_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_generic_medic_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_greh_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_isg_light_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_isg_mission_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_isg_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_mercenary_basic_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_mercenary_meeker_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_military_esc_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_military_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_monolith_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_renegade_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_basic_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_butcher_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_flea_market_night_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_flea_market_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_loris_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_nimble_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_owl_saintcookers.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_sidorovich_saintcookers.ltx",
+      "gamedata\\configs\\mod_system_saintcookers.ltx",
+      "gamedata\\configs\\mod_system_zzz_saintcookers_gamma_compatibility.ltx",
+      "gamedata\\configs\\plugins\\mod_actor_effects_saintcookers.ltx",
+      "gamedata\\configs\\plugins\\mod_encyclopedia_interactivity_saintcookers.ltx",
+      "gamedata\\configs\\plugins\\mod_encyclopedia_saintcookers.ltx",
+      "gamedata\\configs\\plugins\\mod_spawner_blacklist_saintcookers.ltx",
+      "gamedata\\configs\\prefetch\\mod_prefetch_single_big_saintcookers.ltx",
+      "gamedata\\configs\\prefetch\\mod_prefetch_single_saintcookers.ltx",
+      "gamedata\\configs\\prefetch\\mod_prefetch_single_uncut_saintcookers.ltx",
+      "gamedata\\configs\\text\\eng\\ui_st_encyclopedia_items_saintcookers.xml",
+      "gamedata\\configs\\text\\eng\\ui_st_items_saintcookers.xml"
+    ],
+    "file_count": 1
+  }
+}

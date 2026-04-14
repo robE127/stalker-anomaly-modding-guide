@@ -1,0 +1,133 @@
+{
+  "repo": "AugustSaintFreytag/stalker-bhs-changes",
+  "stars": 1,
+  "relevance_score": 109,
+  "analysis": {
+    "callbacks": {},
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\zzzz_player_injuries_item_overrides.script",
+        "name": "init_config",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_player_injuries_item_overrides.script",
+        "name": "patch_medication_items",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_player_injuries_item_overrides.script",
+        "name": "ported_pain_resistance_table",
+        "params": "context, section"
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_player_injuries_item_overrides.script",
+        "name": "ported_limb_restore_table_for_one_limb",
+        "params": "context, section"
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_player_injuries_item_overrides.script",
+        "name": "ported_limb_restore_table_for_all_limbs",
+        "params": "context, section"
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_player_injuries_item_overrides.script",
+        "name": "ported_limb_splint_table",
+        "params": "context, section"
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_player_injuries_item_overrides.script",
+        "name": "ported_limb_broken_restore_table",
+        "params": "context, section"
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_player_injuries_item_overrides.script",
+        "name": "map_from_table_values",
+        "params": "values"
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_player_injuries_item_overrides.script",
+        "name": "map_contains_value",
+        "params": "collection, value"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_saint_bhs_item_stats.script",
+        "name": "apply_compatibility_patches",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_saint_bhs_item_stats.script",
+        "name": "get_bhs_pain_protection",
+        "params": "obj, sec"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_saint_bhs_item_stats.script",
+        "name": "get_bhs_limb_splint",
+        "params": "obj, sec"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_saint_bhs_item_stats.script",
+        "name": "get_bhs_limb_restore",
+        "params": "obj, sec"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_saint_bhs_item_stats.script",
+        "name": "get_bhs_broken_limb_restore",
+        "params": "obj, sec"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_saint_bhs_item_stats.script",
+        "name": "hook_overrides",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_saint_bhs_item_stats.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_bhs_item_description_stats_removal.script",
+        "name": "patch_ui_item",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_bhs_item_description_stats_removal.script",
+        "name": "extracted_format_match",
+        "params": "str"
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_bhs_item_description_stats_removal.script",
+        "name": "split_string_into_collection",
+        "params": "str, sep"
+      }
+    ],
+    "api_calls": {},
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\aaa_descr_override.script",
+      "gamedata\\scripts\\drx_da_main_loadout_mcm.script",
+      "gamedata\\scripts\\z_saint_bhs_item_description_stats_removal.script",
+      "gamedata\\scripts\\zzz_saint_bhs_item_stats.script",
+      "gamedata\\scripts\\zzzz_player_injuries_item_overrides.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\icon_override\\ico_zzz_bhs_changes.ltx",
+      "gamedata\\configs\\items\\items\\mod_animations_settings_othermeds_bhsro.ltx",
+      "gamedata\\configs\\items\\items\\mod_animations_settings_slowermeds_bhsro.ltx",
+      "gamedata\\configs\\items\\items\\mod_animations_settings_z_eftmeds_bhsro.ltx",
+      "gamedata\\configs\\items\\items\\mod_animations_settings_zzz_bhs_changes.ltx",
+      "gamedata\\configs\\items\\settings\\mod_death_generic_items_bhsro.ltx",
+      "gamedata\\configs\\items\\settings\\mod_death_generic_reset_items_bhsro.ltx",
+      "gamedata\\configs\\items\\settings\\mod_dynamic_item_spawn_bhsro.ltx",
+      "gamedata\\configs\\items\\settings\\mod_new_game_loadouts_bhsro.ltx",
+      "gamedata\\configs\\items\\settings\\mod_new_game_loadouts_z_saint_overrides.ltx",
+      "gamedata\\configs\\mod_system_z_saint_bhs_changes.ltx",
+      "gamedata\\configs\\mod_system_zzz_saint_bhs_changes_icons.ltx",
+      "gamedata\\configs\\plugins\\mod_actor_effects_bhs_changes.ltx",
+      "gamedata\\configs\\text\\eng\\zzz_st_saint_bhs_overhaul_descriptions.xml",
+      "gamedata\\configs\\text\\eng\\zzz_st_saint_bhs_overhaul_inventory.xml",
+      "gamedata\\configs\\ui\\textures_descr\\ui_saint_bhs_stats_icons.xml"
+    ],
+    "file_count": 5
+  }
+}

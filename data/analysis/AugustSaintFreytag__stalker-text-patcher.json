@@ -1,0 +1,893 @@
+{
+  "repo": "AugustSaintFreytag/stalker-text-patcher",
+  "stars": 0,
+  "relevance_score": 96,
+  "analysis": {
+    "callbacks": {
+      "on_xml_read": 1
+    },
+    "functions": [
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "charset_error",
+        "params": "index, charset"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "makechar",
+        "params": "c"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL_P",
+        "params": "..."
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL_S",
+        "params": "set"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL_R",
+        "params": "..."
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL_V",
+        "params": "name"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "choice",
+        "params": "a, b"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL.__add",
+        "params": "a, b"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "sequence",
+        "params": "a, b"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL.__mul",
+        "params": "a, b"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL_lookahead",
+        "params": "pt"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL_unm",
+        "params": "pt"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL_sub",
+        "params": "a, b"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL_repeat",
+        "params": "pt, n"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL_Cp",
+        "params": ""
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL_Cc",
+        "params": "..."
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL_Cg",
+        "params": "pt, tag"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL_slash",
+        "params": "pt, aux"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "utf8_offset",
+        "params": "byte"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "utf8_validate",
+        "params": "subject, start, finish"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "utf8_next_int",
+        "params": "subject, i"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "utf8_next_char",
+        "params": "subject, i"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "utf8_split_int",
+        "params": "subject"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "utf8_split_char",
+        "params": "subject"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "utf8_get_int",
+        "params": "subject, i"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "split_generator",
+        "params": "get"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "merge_generator",
+        "params": "char"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "utf8_get_int2",
+        "params": "subject, i"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "utf8_get_char",
+        "params": "subject, i"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "utf8_char",
+        "params": "c"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "binary_validate",
+        "params": "subject, start, finish"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "binary_next_int",
+        "params": "subject, i"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "binary_next_char",
+        "params": "subject, i"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "binary_split_int",
+        "params": "subject"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "binary_split_char",
+        "params": "subject"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "binary_get_int",
+        "params": "subject, i"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "binary_get_char",
+        "params": "subject, i"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "compile",
+        "params": "pt, ccache"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "clear_captures",
+        "params": "ary, ci"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "_match",
+        "params": "dbg, pt, sbj, si, ..."
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL.match",
+        "params": "..."
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL.dmatch",
+        "params": "..."
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "truecompiled",
+        "params": "sbj, si, caps, ci, state"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "falsecompiled",
+        "params": "sbj, si, caps, ci, state"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "eoscompiled",
+        "params": "sbj, si, caps, ci, state"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "onecompiled",
+        "params": "sbj, si, caps, ci, state"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL_ispattern",
+        "params": "pt"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL.type",
+        "params": "pt"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "resetcache",
+        "params": ""
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "byteset_constructor",
+        "params": "upper"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "byterange_new",
+        "params": "low, high"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "set_if_not_yet",
+        "params": "s, dest"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "clean_ab",
+        "params": "a,b"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "byteset_union",
+        "params": "a ,b"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "byteset_difference",
+        "params": "a, b"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "byteset_tostring",
+        "params": "s"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "set_new",
+        "params": "t"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "add_elements",
+        "params": "a, res"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "set_union",
+        "params": "a, b"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "set_difference",
+        "params": "a, b"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "set_tostring",
+        "params": "s"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "isset",
+        "params": "s"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "range_new",
+        "params": "start, finish"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "insert",
+        "params": "caps, sbj, vals, ci, vi"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "eval.C",
+        "params": "caps, sbj, vals, ci, vi"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "lookback",
+        "params": "caps, label, ci"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "eval.Cb",
+        "params": "caps, sbj, vals, ci, vi"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "eval.Cc",
+        "params": "caps, sbj, vals, ci, vi"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "eval.Cf",
+        "params": "caps, sbj, vals, ci, vi"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "eval.Cg",
+        "params": "caps, sbj, vals, ci, vi"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "eval.Clb",
+        "params": "caps, sbj, vals, ci, vi"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "eval.Cp",
+        "params": "caps, sbj, vals, ci, vi"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "eval.Ct",
+        "params": "caps, sbj, vals, ci, vi"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "eval.value",
+        "params": "caps, sbj, vals, ci, vi"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "eval.Cs",
+        "params": "caps, sbj, vals, ci, vi"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "insert_divfunc_results",
+        "params": "acc, val_i, ..."
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "eval.div_function",
+        "params": "caps, sbj, vals, ci, vi"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "eval.div_number",
+        "params": "caps, sbj, vals, ci, vi"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "eval.div_string",
+        "params": "caps, sbj, vals, ci, vi"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "eval.div_table",
+        "params": "caps, sbj, vals, ci, vi"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL.evaluate",
+        "params": "caps, sbj, ci"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "process_booleans",
+        "params": "a, b, opts"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "choice",
+        "params": "a, b"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "lookahead",
+        "params": "pt"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "sequence",
+        "params": "a, b"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "unm",
+        "params": "pt"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LuLPeg",
+        "params": "options"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL.locale",
+        "params": "t"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "escape",
+        "params": "str"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "set_repr",
+        "params": "set"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL_pprint",
+        "params": "pt, offset, prefix"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL.pprint",
+        "params": "pt0"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "LL.cprint",
+        "params": "caps, ci, sbj"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "nop",
+        "params": ""
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "setmode",
+        "params": "t,mode"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "util.weakboth",
+        "params": "t"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "util.weakkey",
+        "params": "t"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "util.weakval",
+        "params": "t"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "util.strip_mt",
+        "params": "t"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "util.passprint",
+        "params": "..."
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "val_to_string",
+        "params": "v, indent"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "val_to_str_",
+        "params": "v, acc, indent, str_indent"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "key_to_str",
+        "params": "k, acc, indent"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "cdata_to_str",
+        "params": "v, acc, indent"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "table_tostring",
+        "params": "tbl, acc, indent"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "util.expose",
+        "params": "v"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "util.map",
+        "params": "ary, func, ..."
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "util.selfmap",
+        "params": "ary, func, ..."
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "map_all",
+        "params": "tbl, func, ..."
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "fold",
+        "params": "ary, func, acc"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "foldr",
+        "params": "ary, func, acc"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "map_fold",
+        "params": "ary, mfunc, ffunc, acc"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "map_foldr",
+        "params": "ary, mfunc, ffunc, acc"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "util.zip",
+        "params": "a1, a2"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "util.zip_all",
+        "params": "t1, t2"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "util.filter",
+        "params": "ary,func"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "id",
+        "params": "..."
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "util.copy",
+        "params": "tbl"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "util.all",
+        "params": "ary, mfunc"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "util.any",
+        "params": "ary, mfunc"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "util.get",
+        "params": "field"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "util.lt",
+        "params": "ref"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "util.compose",
+        "params": "f,g"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "util.extend",
+        "params": "destination, ..."
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "util.setify",
+        "params": "t"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "util.arrayify",
+        "params": "..."
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "_checkstrhelper",
+        "params": "s"
+      },
+      {
+        "file": "bin\\lua\\lulpeg.lua",
+        "name": "util.checkstring",
+        "params": "s, func"
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_ui_text_patcher.script",
+        "name": "on_xml_read",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_ui_text_patcher.script",
+        "name": "process_capitalization_elements",
+        "params": "file_name, xml_obj, patterns"
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_ui_text_patcher.script",
+        "name": "process_menu_elements",
+        "params": "file_name, xml_obj, patterns"
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_ui_text_patcher.script",
+        "name": "process_substitution_elements",
+        "params": "file_name, xml_obj, patterns"
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_ui_text_patcher.script",
+        "name": "for_each_text_element_in_object",
+        "params": "file_name, xml_obj, predicate, callback"
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_ui_text_patcher.script",
+        "name": "with_text_element_from_string_element",
+        "params": "xml_obj, string_element, callback"
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_ui_text_patcher.script",
+        "name": "match_table_for_value",
+        "params": "parent_table, value"
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_ui_text_patcher.script",
+        "name": "file_name_from_scope_name",
+        "params": "scope_name"
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_ui_text_patcher.script",
+        "name": "patterns_contain_id",
+        "params": "patterns, id"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "normalize_name",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "normalize_desc",
+        "params": "desc"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "rewrite_stacked_bullet_points",
+        "params": "desc"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "trim_desc_spacing",
+        "params": "desc"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "rewrite_desc_line_spacing",
+        "params": "desc"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "rewrite_hyphen_lists",
+        "params": "desc"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "strip_color_tags",
+        "params": "str"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "rewrite_desc_bullet_point_lines",
+        "params": "desc"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "rewrite_desc_bullet_point_line",
+        "params": "new_lines, line"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "make_line_leader",
+        "params": "color_tag"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "bullet_color_tag_from_line",
+        "params": "line"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "format_line_colons",
+        "params": "line"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "format_line_component",
+        "params": "line"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "color_line_parentheticals",
+        "params": "line"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "capitalize_line_parenthetical",
+        "params": "line"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "normalize_desc_parentheses",
+        "params": "str"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "rewrite_desc_heading",
+        "params": "desc"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "formatted_desc_heading",
+        "params": "heading"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "get_line_kind",
+        "params": "line"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "capitalize_words_by_length",
+        "params": "str"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "capitalize_words",
+        "params": "str"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "capitalize_word",
+        "params": "str"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "capitalize_first_word",
+        "params": "str"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "trim_string",
+        "params": "str"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "split_string_into_collection",
+        "params": "str, sep"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "map_from_table_values",
+        "params": "collection"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "map_table_keys",
+        "params": "collection"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "hash_value",
+        "params": "string"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "ellipsized_string",
+        "params": "str, max_length"
+      },
+      {
+        "file": "gamedata\\scripts\\saint_utils.script",
+        "name": "log_to_file",
+        "params": "message"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_saint_enhanced_item_stats.script",
+        "name": "prop_formatted_number",
+        "params": "val"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_saint_enhanced_item_stats.script",
+        "name": "prop_formatted_time",
+        "params": "val, skip_instant"
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_item_description_patcher.script",
+        "name": "apply_patches",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_item_name_patcher.script",
+        "name": "apply_patches",
+        "params": ""
+      }
+    ],
+    "api_calls": {
+      "game.translate_string": 9,
+      "ui_item.get_obj_name": 1,
+      "ui_item.get_sec_name": 1,
+      "ui_item.get_obj_desc": 1,
+      "ui_item.get_sec_desc": 1,
+      "db.actor.item_in_slot": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "bin\\lua\\lulpeg.lua",
+      "gamedata\\scripts\\modxml_ui_text_patcher.script",
+      "gamedata\\scripts\\modxml_ui_text_patcher_config.script",
+      "gamedata\\scripts\\saint_utils.script",
+      "gamedata\\scripts\\saint_utils_config.script",
+      "gamedata\\scripts\\z_saint_item_description_patcher.script",
+      "gamedata\\scripts\\z_saint_item_name_patcher.script",
+      "gamedata\\scripts\\zzz_saint_enhanced_item_stats.script",
+      "gamedata\\scripts\\zzzzzz_saint_text_patcher_loader_mcm.script",
+      "test\\test_description_line_detection.lua",
+      "test\\test_description_rewriting.lua",
+      "test\\test_pattern_matching.lua",
+      "test\\test_text_capitalization.lua"
+    ],
+    "config_files": [],
+    "file_count": 13
+  }
+}

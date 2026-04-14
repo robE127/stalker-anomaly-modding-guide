@@ -1,0 +1,401 @@
+{
+  "repo": "AlienProductGames/SCP-Faction-WIP",
+  "stars": 1,
+  "relevance_score": 68,
+  "analysis": {
+    "callbacks": {
+      "on_xml_read": 12,
+      "actor_fndn": 1,
+      "actor_not_fndn": 1,
+      "actor_not_true_fndn": 1,
+      "actor_true_fndn": 1,
+      "npc_fndn": 1,
+      "actor_on_first_update": 1,
+      "on_option_change": 1,
+      "get_squad_section_faction": 1,
+      "is_squad_section_enemy_of_faction": 1,
+      "on_game_start": 1
+    },
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\dialogs_fndn.script",
+        "name": "dialogs.actor_fndn",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "gamedata\\scripts\\dialogs_fndn.script",
+        "name": "dialogs.actor_not_fndn",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "gamedata\\scripts\\dialogs_fndn.script",
+        "name": "dialogs.actor_true_fndn",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "gamedata\\scripts\\dialogs_fndn.script",
+        "name": "dialogs.actor_not_true_fndn",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "gamedata\\scripts\\dialogs_fndn.script",
+        "name": "dialogs.npc_fndn",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "gamedata\\scripts\\dialogs_fndn.script",
+        "name": "dialogs.can_do_task_mysteries_of_the_zone",
+        "params": "a,b"
+      },
+      {
+        "file": "gamedata\\scripts\\fndn_faction.script",
+        "name": "on_option_change",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\fndn_faction.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\fndn_faction.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\fndn_faction_mcm.script",
+        "name": "ui_mm_faction_select.UINewGame.OnFaction_fndn",
+        "params": "self"
+      },
+      {
+        "file": "gamedata\\scripts\\fndn_faction_mcm.script",
+        "name": "ui_mm_faction_select.UINewGame.Main_Controls",
+        "params": "self"
+      },
+      {
+        "file": "gamedata\\scripts\\fndn_faction_mcm.script",
+        "name": "get_config",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\fndn_faction_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\fndn_faction_story_mode_patch.script",
+        "name": "give_task_lttz_ll_finish_fndn",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\fndn_faction_story_mode_patch.script",
+        "name": "give_task_lttz_ms_start_fndn",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\fndn_faction_story_mode_patch.script",
+        "name": "give_task_lttz_ms_report_fndn",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\fndn_faction_story_mode_patch.script",
+        "name": "give_task_lttz_ms_ambush_fndn",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\fndn_faction_story_mode_patch.script",
+        "name": "give_task_lttz_ms_urban_warfare_fndn",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\fndn_faction_story_mode_patch.script",
+        "name": "give_task_lttz_ms_zone_hero_fndn",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\fndn_faction_story_mode_patch.script",
+        "name": "oa_transmission_report_honest_reward_fndn",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_fndn_faction_btn_16_dxml_patch.script",
+        "name": "on_xml_read",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_fndn_faction_btn_dxml_patch.script",
+        "name": "on_xml_read",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_fndn_faction_debug_ui_16_dxml_patch.script",
+        "name": "on_xml_read",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_fndn_faction_debug_ui_dxml_patch.script",
+        "name": "on_xml_read",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_fndn_faction_id_patch_dxml_patch.script",
+        "name": "on_xml_read",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_fndn_faction_starts_dxml_patch.script",
+        "name": "on_xml_read",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_fndn_ll_dialog_patch.script",
+        "name": "on_xml_read",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_fndn_map_spots_16_dxml_patch.script",
+        "name": "on_xml_read",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_fndn_map_spots_dxml_patch.script",
+        "name": "on_xml_read",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_fndn_ms_dialog_patch.script",
+        "name": "on_xml_read",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_fndn_oa_dialog_patch.script",
+        "name": "on_xml_read",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_fndn_zcp_dxml_patch.script",
+        "name": "on_xml_read",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\z_fndn_faction_mod_patches.script",
+        "name": "_G.IsStoryPlayer",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\z_fndn_faction_mod_patches.script",
+        "name": "death_manager.init_drop_settings",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\z_fndn_faction_mod_patches.script",
+        "name": "death_manager.get_comb_coeff",
+        "params": "rank, comm"
+      },
+      {
+        "file": "gamedata\\scripts\\z_fndn_faction_mod_patches.script",
+        "name": "debug_cmd_list.cmd.relations",
+        "params": "me, txt, owner, p"
+      },
+      {
+        "file": "gamedata\\scripts\\z_fndn_faction_mod_patches.script",
+        "name": "dynamic_news_manager.DynamicNewsManager.__init",
+        "params": "self"
+      },
+      {
+        "file": "gamedata\\scripts\\z_fndn_faction_mod_patches.script",
+        "name": "ui_pda_relations_tab.pda_relations_tab.InitControls",
+        "params": "self"
+      },
+      {
+        "file": "gamedata\\scripts\\z_fndn_faction_mod_patches.script",
+        "name": "warfare_names.refresh_strings",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\z_fndn_faction_mod_patches.script",
+        "name": "warfare.get_squad_section_faction",
+        "params": "squad_section"
+      },
+      {
+        "file": "gamedata\\scripts\\z_fndn_faction_mod_patches.script",
+        "name": "warfare.is_squad_section_enemy_of_faction",
+        "params": "squad_section, faction"
+      },
+      {
+        "file": "gamedata\\scripts\\z_fndn_faction_mod_patches.script",
+        "name": "faction_expansions.on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\z_fndn_faction_mod_patches.script",
+        "name": "ui_debug_launcher.UIDebug_FactionSwitch.InitControls",
+        "params": "self"
+      },
+      {
+        "file": "gamedata\\scripts\\z_fndn_faction_mod_patches.script",
+        "name": "utils_xml.get_special_txt",
+        "params": "str"
+      },
+      {
+        "file": "gamedata\\scripts\\z_fndn_faction_mod_patches.script",
+        "name": "is_enemy_to_fndn",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\z_fndn_faction_mod_patches.script",
+        "name": "bribe_2_days_fndn",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "gamedata\\scripts\\z_fndn_faction_mod_patches.script",
+        "name": "bribe_4_days_fndn",
+        "params": "first_speaker, second_speaker"
+      }
+    ],
+    "api_calls": {
+      "ui_mcm.get": 1,
+      "game.translate_string": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\dialogs_fndn.script",
+      "gamedata\\scripts\\fndn_faction.script",
+      "gamedata\\scripts\\fndn_faction_mcm.script",
+      "gamedata\\scripts\\fndn_faction_story_mode_patch.script",
+      "gamedata\\scripts\\modxml_fndn_faction_btn_16_dxml_patch.script",
+      "gamedata\\scripts\\modxml_fndn_faction_btn_dxml_patch.script",
+      "gamedata\\scripts\\modxml_fndn_faction_debug_ui_16_dxml_patch.script",
+      "gamedata\\scripts\\modxml_fndn_faction_debug_ui_dxml_patch.script",
+      "gamedata\\scripts\\modxml_fndn_faction_id_patch_dxml_patch.script",
+      "gamedata\\scripts\\modxml_fndn_faction_starts_dxml_patch.script",
+      "gamedata\\scripts\\modxml_fndn_ll_dialog_patch.script",
+      "gamedata\\scripts\\modxml_fndn_map_spots_16_dxml_patch.script",
+      "gamedata\\scripts\\modxml_fndn_map_spots_dxml_patch.script",
+      "gamedata\\scripts\\modxml_fndn_ms_dialog_patch.script",
+      "gamedata\\scripts\\modxml_fndn_oa_dialog_patch.script",
+      "gamedata\\scripts\\modxml_fndn_zcp_dxml_patch.script",
+      "gamedata\\scripts\\z_fndn_faction_mod_patches.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\ai_tweaks\\mod_sr_light_fndn_faction.ltx",
+      "gamedata\\configs\\ai_tweaks\\mod_xr_combat_ignore_fndn_faction.ltx",
+      "gamedata\\configs\\ai_tweaks\\mod_xr_corpse_detection_fndn_faction.ltx",
+      "gamedata\\configs\\ai_tweaks\\mod_xr_gather_items_fndn_faction.ltx",
+      "gamedata\\configs\\ai_tweaks\\mod_xrs_kill_wounded_fndn_faction.ltx",
+      "gamedata\\configs\\creatures\\m_stalker_foundation.ltx",
+      "gamedata\\configs\\creatures\\mod_game_relations_fndn_faction.ltx",
+      "gamedata\\configs\\creatures\\mod_immunities_fndn_faction.ltx",
+      "gamedata\\configs\\creatures\\stalkers.ltx",
+      "gamedata\\configs\\gameplay\\character_desc_fndn_traders.xml",
+      "gamedata\\configs\\gameplay\\character_desc_general.xml",
+      "gamedata\\configs\\gameplay\\character_desc_general_fndn.xml",
+      "gamedata\\configs\\gameplay\\dialogs_fndn_ll.xml",
+      "gamedata\\configs\\gameplay\\dialogs_fndn_ms.xml",
+      "gamedata\\configs\\gameplay\\dialogs_fndn_oa.xml",
+      "gamedata\\configs\\gameplay\\loadouts\\fndn_base.ltx",
+      "gamedata\\configs\\gameplay\\loadouts\\fndn_tier_1.ltx",
+      "gamedata\\configs\\gameplay\\loadouts\\fndn_tier_2.ltx",
+      "gamedata\\configs\\gameplay\\loadouts\\fndn_tier_3.ltx",
+      "gamedata\\configs\\gameplay\\loadouts\\fndn_tier_4.ltx",
+      "gamedata\\configs\\gameplay\\npc_profile_fndn.xml",
+      "gamedata\\configs\\gameplay\\profiles\\character_desc_fndn_0.xml",
+      "gamedata\\configs\\gameplay\\profiles\\character_desc_fndn_1.xml",
+      "gamedata\\configs\\gameplay\\profiles\\character_desc_fndn_2.xml",
+      "gamedata\\configs\\gameplay\\profiles\\character_desc_fndn_3.xml",
+      "gamedata\\configs\\gameplay\\profiles\\character_desc_fndn_4.xml",
+      "gamedata\\configs\\gameplay\\profiles\\character_desc_fndn_special.xml",
+      "gamedata\\configs\\items\\items\\ea_addon_backpack_fndn.ltx",
+      "gamedata\\configs\\items\\items\\items_anm_backpack_fndn.ltx",
+      "gamedata\\configs\\items\\items\\items_fndn.ltx",
+      "gamedata\\configs\\items\\settings\\mod_death_generic_fndn_faction.ltx",
+      "gamedata\\configs\\items\\settings\\mod_death_outfits_fndn_faction.ltx",
+      "gamedata\\configs\\items\\settings\\mod_fetch_list_fndn_faction.ltx",
+      "gamedata\\configs\\items\\settings\\mod_itms_manager_fndn_faction.ltx",
+      "gamedata\\configs\\items\\settings\\mod_new_game_loadouts_fndn_faction.ltx",
+      "gamedata\\configs\\items\\settings\\npc_loadouts\\mod_npc_loadouts_fndn_faction.ltx",
+      "gamedata\\configs\\items\\settings\\npc_loadouts\\npc_loadouts_fndn.ltx",
+      "gamedata\\configs\\items\\trade\\trade_fndn.ltx",
+      "gamedata\\configs\\items\\trade\\trade_fndn_mechanic.ltx",
+      "gamedata\\configs\\items\\trade\\trade_fndn_medic.ltx",
+      "gamedata\\configs\\misc\\mod_dialog_manager_fndn_faction.ltx",
+      "gamedata\\configs\\misc\\mod_offline_combat_simulator_fndn_faction.ltx",
+      "gamedata\\configs\\misc\\mod_simulation_fndn_faction.ltx",
+      "gamedata\\configs\\misc\\mod_simulation_objects_props_fndn_faction.ltx",
+      "gamedata\\configs\\misc\\mod_smart_profiles_fndn_faction.ltx",
+      "gamedata\\configs\\misc\\mod_smart_terrain_masks_fndn_faction.ltx",
+      "gamedata\\configs\\misc\\mod_surge_manager_fndn_faction.ltx",
+      "gamedata\\configs\\misc\\sound\\mod_script_sound_axr_fndn_faction.ltx",
+      "gamedata\\configs\\misc\\sound\\mod_script_sound_fndn_faction.ltx",
+      "gamedata\\configs\\misc\\sound\\mod_script_sound_story_and_music_fndn_faction.ltx",
+      "gamedata\\configs\\misc\\squad_descr\\squad_descr_fndn.ltx",
+      "gamedata\\configs\\misc\\task\\mod_tm_dynamic_fndn_faction.ltx",
+      "gamedata\\configs\\misc\\task\\mod_tm_lostzone_oa_fndn_faction.ltx",
+      "gamedata\\configs\\misc\\task\\tm_fndn.ltx",
+      "gamedata\\configs\\misc\\task\\tm_fndn_hb.ltx",
+      "gamedata\\configs\\misc\\task\\tm_fndn_ll.ltx",
+      "gamedata\\configs\\misc\\task\\tm_fndn_ms.ltx",
+      "gamedata\\configs\\misc\\task\\tm_fndn_oa.ltx",
+      "gamedata\\configs\\misc\\task\\tm_fndn_simulation_tasks.ltx",
+      "gamedata\\configs\\mod_game_graphs_fndn_faction_mod.ltx",
+      "gamedata\\configs\\mod_system_fndn_faction_misc.ltx",
+      "gamedata\\configs\\mod_system_fndn_faction_npcs.ltx",
+      "gamedata\\configs\\mod_system_fndn_faction_outfits.ltx",
+      "gamedata\\configs\\mod_system_fndn_faction_relations.ltx",
+      "gamedata\\configs\\mod_warfare_options_fndn_faction.ltx",
+      "gamedata\\configs\\plugins\\faction_profile_fndn.ltx",
+      "gamedata\\configs\\plugins\\mod_bounty_squad_fndn_faction.ltx",
+      "gamedata\\configs\\plugins\\mod_dynamic_anomalies_fndn_faction.ltx",
+      "gamedata\\configs\\plugins\\mod_encyclopedia_fndn_faction.ltx",
+      "gamedata\\configs\\plugins\\mod_encyclopedia_interactivity_fndn_faction.ltx",
+      "gamedata\\configs\\plugins\\mod_faction_quick_travel_fndn_faction.ltx",
+      "gamedata\\configs\\plugins\\mod_new_game_money_fndn_faction.ltx",
+      "gamedata\\configs\\plugins\\mod_new_game_start_locations_fndn_faction.ltx",
+      "gamedata\\configs\\plugins\\mod_news_tips_icons_fndn_faction.ltx",
+      "gamedata\\configs\\plugins\\mod_player_icons_fndn_faction.ltx",
+      "gamedata\\configs\\presets\\mod_warfare_default_fndn_faction.ltx",
+      "gamedata\\configs\\presets\\mod_warfare_yoko_fndn_faction.ltx",
+      "gamedata\\configs\\scripts\\agroprom_underground\\mod_kat_gunslinger_cache_room_fndn_faction.ltx",
+      "gamedata\\configs\\scripts\\dead_city\\smart\\mod_cit_killers_fndn_faction.ltx",
+      "gamedata\\configs\\scripts\\escape\\smart\\mod_esc_smart_terrain_3_16_fndn_faction.ltx",
+      "gamedata\\configs\\scripts\\marsh\\smart\\mod_mar_smart_terrain_5_12_fndn_faction.ltx",
+      "gamedata\\configs\\scripts\\marsh\\smart\\mod_mar_smart_terrain_base_fndn_faction.ltx",
+      "gamedata\\configs\\scripts\\military\\smart\\mod_mil_smart_terrain_2_2_fndn_faction.ltx",
+      "gamedata\\configs\\scripts\\military\\smart\\mod_mil_smart_terrain_7_7_fndn_faction.ltx",
+      "gamedata\\configs\\scripts\\pole\\fndn_faction_mechanic.ltx",
+      "gamedata\\configs\\scripts\\pole\\fndn_faction_medic.ltx",
+      "gamedata\\configs\\scripts\\pole\\fndn_faction_trader.ltx",
+      "gamedata\\configs\\scripts\\pole\\smart\\mod_pol_sim_1_fndn_faction.ltx",
+      "gamedata\\configs\\scripts\\pole\\smart\\mod_pol_smart_terrain_1_3_fndn_faction.ltx",
+      "gamedata\\configs\\scripts\\pole\\smart\\mod_pol_smart_terrain_2_1_fndn_faction.ltx",
+      "gamedata\\configs\\scripts\\pole\\smart\\mod_pol_smart_terrain_2_2_fndn_faction.ltx",
+      "gamedata\\configs\\scripts\\pole\\smart\\pol_smart_terrain_mechanic.ltx",
+      "gamedata\\configs\\scripts\\pole\\smart\\pol_smart_terrain_medic.ltx",
+      "gamedata\\configs\\scripts\\pole\\smart\\pol_smart_terrain_sin.ltx",
+      "gamedata\\configs\\scripts\\pole\\smart\\pol_smart_terrain_trader.ltx",
+      "gamedata\\configs\\scripts\\yantar\\smart\\mod_yan_smart_terrain_5_5_fndn_faction.ltx",
+      "gamedata\\configs\\scripts\\yantar\\smart\\mod_yan_smart_terrain_6_4_fndn_faction.ltx",
+      "gamedata\\configs\\text\\eng\\dcommontxt_fndn.xml",
+      "gamedata\\configs\\text\\eng\\dynamic_news_fndn.xml",
+      "gamedata\\configs\\text\\eng\\fndn_options.xml",
+      "gamedata\\configs\\text\\eng\\fndn_patches.xml",
+      "gamedata\\configs\\text\\eng\\game_relations_fndn.xml",
+      "gamedata\\configs\\text\\eng\\st_fndn_faction_outfit.xml",
+      "gamedata\\configs\\text\\eng\\st_fndn_items.xml",
+      "gamedata\\configs\\text\\eng\\st_fndn_jobs.xml",
+      "gamedata\\configs\\text\\eng\\st_fndn_names.xml",
+      "gamedata\\configs\\text\\eng\\st_fndn_storyline_ll.xml",
+      "gamedata\\configs\\text\\eng\\st_fndn_stroyline_ms.xml",
+      "gamedata\\configs\\text\\eng\\st_fndn_stroyline_oa.xml",
+      "gamedata\\configs\\text\\eng\\st_mm_fndn_select.xml",
+      "gamedata\\configs\\text\\eng\\st_warfare_quests_fndn.xml",
+      "gamedata\\configs\\text\\eng\\ui_mcm_fndn_faction.xml",
+      "gamedata\\configs\\text\\eng\\ui_st_encyclopedia_fndn.xml",
+      "gamedata\\configs\\ui\\textures_descr\\ui_mm_faction_fndn.xml",
+      "gamedata\\configs\\ui\\textures_descr\\ui_new_game_fndn.xml",
+      "gamedata\\configs\\ui\\textures_descr\\ui_pda_encyclopedia_fndn.xml",
+      "gamedata\\configs\\unlocalizers\\unlocalizer_fndn_faction.ltx"
+    ],
+    "file_count": 17
+  }
+}

@@ -1,0 +1,480 @@
+{
+  "repo": "nltp-ashes/Nanosuit",
+  "stars": 4,
+  "relevance_score": 85,
+  "analysis": {
+    "callbacks": {
+      "actor_on_update": 11,
+      "on_key_press": 4,
+      "on_before_key_press": 2,
+      "actor_item_to_ruck": 2,
+      "actor_item_to_slot": 2,
+      "actor_on_item_drop": 2,
+      "actor_on_death": 2,
+      "on_option_change": 2,
+      "actor_on_weapon_fired": 2,
+      "on_mouse_wheel": 1,
+      "actor_on_changed_slot": 1,
+      "actor_on_net_destroy": 1,
+      "on_key_release": 1,
+      "actor_item_to_belt": 1,
+      "actor_on_before_death": 1,
+      "actor_on_before_hit": 1,
+      "actor_on_hit_callback": 1,
+      "on_before_hit_after_calcs": 1,
+      "actor_on_jump": 1,
+      "game_object_on_net_destroy": 1,
+      "game_object_on_net_spawn": 1,
+      "on_loading_screen_dismissed": 1,
+      "main_menu_on_init": 1
+    },
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\arm.script",
+        "name": "move_and_center_element",
+        "params": "element, x, y"
+      },
+      {
+        "file": "gamedata\\scripts\\arm.script",
+        "name": "scale_ui",
+        "params": "ele, adjust_x, anchor, anchor_point, parent_width"
+      },
+      {
+        "file": "gamedata\\scripts\\arm.script",
+        "name": "get_stateful_texture",
+        "params": "texture, state, fallback"
+      },
+      {
+        "file": "gamedata\\scripts\\arm.script",
+        "name": "get_stateful_colour",
+        "params": "state"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_core.script",
+        "name": "bind",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_core.script",
+        "name": "get_instance",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_debug.script",
+        "name": "on_key_press_tacmap",
+        "params": "dik"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_debug.script",
+        "name": "on_key_press_status",
+        "params": "dik"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_debug.script",
+        "name": "on_key_press_vap",
+        "params": "dik"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_debug.script",
+        "name": "on_key_press_malfunction",
+        "params": "dik"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_debug.script",
+        "name": "on_key_press_defib",
+        "params": "dik"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_debug.script",
+        "name": "on_key_press_defib_ui",
+        "params": "dik"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_debug.script",
+        "name": "on_key_press_chainable",
+        "params": "dik"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_debug.script",
+        "name": "on_key_press_color",
+        "params": "dik"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_debug.script",
+        "name": "on_key_release",
+        "params": "dik"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_debug.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_mcm.script",
+        "name": "get_config",
+        "params": "category, key"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_mcm.script",
+        "name": "get_constant_color",
+        "params": "short_key, default"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_mcm.script",
+        "name": "get_constant",
+        "params": "short_key, default"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_ui_hud.script",
+        "name": "on_loading_screen_dismissed",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_ui_hud.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_ui_indicators.script",
+        "name": "get_psy_health",
+        "params": "visual"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_utils.script",
+        "name": "dbg_printf",
+        "params": "..."
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_utils.script",
+        "name": "vec_magnitude_xz",
+        "params": "vec"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_utils.script",
+        "name": "vec2_distance_to",
+        "params": "lhs, rhs"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_utils.script",
+        "name": "string_to_float",
+        "params": "str"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_utils.script",
+        "name": "float_to_argb",
+        "params": "clr"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_utils.script",
+        "name": "argb_to_ui",
+        "params": "clr"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_utils.script",
+        "name": "localized_and_genderized_sound_object",
+        "params": "path, filename"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_utils.script",
+        "name": "has_translation",
+        "params": "str"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_utils.script",
+        "name": "get_translation",
+        "params": "str, ..."
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_utils.script",
+        "name": "get_key_translation",
+        "params": "dik"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_utils.script",
+        "name": "string_pad_l",
+        "params": "var, char, length"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_utils.script",
+        "name": "add_pp_effector",
+        "params": "name, id, looped"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_utils.script",
+        "name": "remove_pp_effector",
+        "params": "id"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_utils.script",
+        "name": "has_pp_effector",
+        "params": "id"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_utils.script",
+        "name": "set_pp_effector_factor",
+        "params": "id, factor"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_utils.script",
+        "name": "get_pp_effector_factor",
+        "params": "id"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_utils.script",
+        "name": "get_renderer",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_utils.script",
+        "name": "is_nanosuit",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_utils.script",
+        "name": "add_unique_call",
+        "params": "callback, ..."
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_utils.script",
+        "name": "remove_unique_call",
+        "params": "callback"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_vaporizer.script",
+        "name": "setup_generic_scheme",
+        "params": "npc, ini, scheme, section, stype, temp"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_vaporizer.script",
+        "name": "add_to_binder",
+        "params": "npc, ini, scheme, section, storage, temp"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_vaporizer.script",
+        "name": "configure_actions",
+        "params": "npc, ini, scheme, section, stype, temp"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_vaporizer.script",
+        "name": "disable_generic_scheme",
+        "params": "npc, scheme, stype"
+      },
+      {
+        "file": "gamedata\\scripts\\nanosuit_vaporizer.script",
+        "name": "npc_add_precondition",
+        "params": "action"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_mcm_argb_input.script",
+        "name": "mcm_cache_value",
+        "params": "path, opt, value, v"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_mcm_argb_input.script",
+        "name": "mcm_get_value",
+        "params": "path, opt, v, flags"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_mcm_argb_input.script",
+        "name": "unsquish",
+        "params": "width"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_mcm_argb_input.script",
+        "name": "update_unsquish_ratio",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_mcm_argb_input.script",
+        "name": "play_sfx",
+        "params": "snd"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_mcm_argb_input.script",
+        "name": "play_snd_path",
+        "params": "snd_path"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_mcm_argb_input.script",
+        "name": "init_mcm_argb_control",
+        "params": "anchor, handlers, opts, flags"
+      }
+    ],
+    "api_calls": {
+      "level.object_by_id": 14,
+      "db.actor.item_in_slot": 8,
+      "db.actor.position": 7,
+      "db.actor.alive": 6,
+      "db.actor.activate_slot": 4,
+      "db.actor.set_shader": 4,
+      "game.translate_string": 4,
+      "db.actor.active_slot": 3,
+      "level.add_pp_effector": 3,
+      "level.remove_pp_effector": 3,
+      "db.actor.set_actor_run_coef": 3,
+      "db.actor.set_actor_sprint_koef": 3,
+      "level.enable_input": 3,
+      "game.only_allow_movekeys": 2,
+      "ui_mcm.get": 2,
+      "db.actor.get_shaders": 2,
+      "db.actor.get_actor_jump_speed": 2,
+      "db.actor.set_actor_jump_speed": 2,
+      "db.actor.get_actor_run_coef": 2,
+      "db.actor.get_actor_sprint_koef": 2,
+      "game.set_nv_lumfactor": 2,
+      "level.name": 2,
+      "level.add_cam_effector": 2,
+      "level.get_active_cam": 2,
+      "ui_options.get": 2,
+      "ui_mcm.is_gathering": 2,
+      "ui_mcm.cc": 2,
+      "level.get_target_obj": 1,
+      "level.remove_cam_effector": 1,
+      "db.actor.iterate_belt": 1,
+      "db.actor.move_to_ruck": 1,
+      "game.prefetch_texture": 1,
+      "db.actor.get_movement_speed": 1,
+      "level.disable_input": 1,
+      "db.actor.kill": 1,
+      "ui_auxiliaries.__init": 1,
+      "ui_auxiliaries.__finalize": 1,
+      "ui_auxiliaries.destroy": 1,
+      "ui_auxiliaries.Update": 1,
+      "ui_binoculars.__init": 1,
+      "ui_binoculars.__finalize": 1,
+      "ui_binoculars.destroy": 1,
+      "ui_binoculars.Update": 1,
+      "ui_binoculars.activate": 1,
+      "ui_binoculars.deactivate": 1,
+      "ui_binoculars.get_mode": 1,
+      "ui_binoculars.get_zoom": 1,
+      "ui_binoculars.get_range": 1,
+      "level.get_target_dist": 1,
+      "ui_binoculars.get_coordinates": 1,
+      "ui_defibrillator.__init": 1,
+      "ui_defibrillator.__finalize": 1,
+      "ui_defibrillator.destroy": 1,
+      "ui_defibrillator.Update": 1,
+      "ui_hud.__init": 1,
+      "ui_hud.__finalize": 1,
+      "ui_hud.destroy": 1,
+      "ui_hud.switch_hud": 1,
+      "ui_hud.get_elements_to_move": 1,
+      "ui_hud.on_loading_screen_dismissed": 1,
+      "ui_hud.actor_on_update": 1,
+      "ui_hud.Update": 1,
+      "ui_hud.remove_pda_icon": 1,
+      "ui_indicators.__init": 1,
+      "ui_indicators.destroy": 1,
+      "ui_indicators.Update": 1,
+      "ui_indicators.create_static": 1,
+      "ui_indicators.update_static": 1,
+      "ui_indicators.get_config_override": 1,
+      "ui_indicators.hide_all": 1,
+      "ui_indicators.add_indicator": 1,
+      "ui_indicators.remove_indicator": 1,
+      "ui_indicators.iterate_indicators": 1,
+      "ui_menu.__init": 1,
+      "ui_menu.destroy": 1,
+      "ui_menu.Close": 1,
+      "ui_menu.OnButtonHover": 1,
+      "ui_menu.UpdateIcon": 1,
+      "ui_menu.on_key_press": 1,
+      "ui_menu.calculate_icon_size": 1,
+      "ui_status.__init": 1,
+      "ui_status.__finalize": 1,
+      "ui_status.destroy": 1,
+      "ui_status.Update": 1,
+      "db.actor.active_item": 1,
+      "ui_tacmap.__init": 1,
+      "ui_tacmap.__finalize": 1,
+      "ui_tacmap.destroy": 1,
+      "ui_tacmap.Update": 1,
+      "ui_tacmap.update_icons": 1,
+      "level.iterate_nearest": 1,
+      "ui_tacmap.update_icon": 1,
+      "ui_tacmap.attach_icon": 1,
+      "ui_tacmap.detach_icon": 1,
+      "ui_tacmap.world_to_tacmap": 1,
+      "ui_tacmap.get_heading": 1,
+      "ui_tacmap.get_scale": 1,
+      "ui_tacmap.is_within_bounds": 1,
+      "ui_tacmap.is_enabled": 1,
+      "level.set_pp_effector_factor": 1,
+      "xr_logic.assign_storage_and_bind": 1,
+      "ui_mcm.UI_MCM": 1,
+      "ui_argb_control.xml": 1,
+      "ui_argb_control_texd.xml": 1,
+      "ui_argb_control.dds": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\arm.script",
+      "gamedata\\scripts\\nanosuit_binoculars.script",
+      "gamedata\\scripts\\nanosuit_booster.script",
+      "gamedata\\scripts\\nanosuit_booster_ads.script",
+      "gamedata\\scripts\\nanosuit_booster_cloak.script",
+      "gamedata\\scripts\\nanosuit_booster_melee.script",
+      "gamedata\\scripts\\nanosuit_booster_recoil.script",
+      "gamedata\\scripts\\nanosuit_booster_weight.script",
+      "gamedata\\scripts\\nanosuit_core.script",
+      "gamedata\\scripts\\nanosuit_debug.script",
+      "gamedata\\scripts\\nanosuit_defibrillator.script",
+      "gamedata\\scripts\\nanosuit_energy.script",
+      "gamedata\\scripts\\nanosuit_malfunctor.script",
+      "gamedata\\scripts\\nanosuit_mcm.script",
+      "gamedata\\scripts\\nanosuit_mode.script",
+      "gamedata\\scripts\\nanosuit_mode_armor.script",
+      "gamedata\\scripts\\nanosuit_mode_cloak.script",
+      "gamedata\\scripts\\nanosuit_mode_power.script",
+      "gamedata\\scripts\\nanosuit_mode_speed.script",
+      "gamedata\\scripts\\nanosuit_nanovision.script",
+      "gamedata\\scripts\\nanosuit_nightvision.script",
+      "gamedata\\scripts\\nanosuit_patches.script",
+      "gamedata\\scripts\\nanosuit_sequence.script",
+      "gamedata\\scripts\\nanosuit_sequence_defibrillator.script",
+      "gamedata\\scripts\\nanosuit_sequence_vaporization.script",
+      "gamedata\\scripts\\nanosuit_ui_auxiliaries.script",
+      "gamedata\\scripts\\nanosuit_ui_binoculars.script",
+      "gamedata\\scripts\\nanosuit_ui_defibrillator.script",
+      "gamedata\\scripts\\nanosuit_ui_hud.script",
+      "gamedata\\scripts\\nanosuit_ui_indicators.script",
+      "gamedata\\scripts\\nanosuit_ui_menu.script",
+      "gamedata\\scripts\\nanosuit_ui_status.script",
+      "gamedata\\scripts\\nanosuit_ui_tacmap.script",
+      "gamedata\\scripts\\nanosuit_utils.script",
+      "gamedata\\scripts\\nanosuit_vaporizer.script",
+      "gamedata\\scripts\\ui_mcm_argb_input.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\items\\items\\items_nanosuit.ltx",
+      "gamedata\\configs\\items\\outfits\\o_nanosuit.ltx",
+      "gamedata\\configs\\items\\settings\\mod_death_generic_nanosuit.ltx",
+      "gamedata\\configs\\mod_system_nanosuit.ltx",
+      "gamedata\\configs\\models\\capture\\stalker_nanosuit.ltx",
+      "gamedata\\configs\\text\\eng\\st_nanosuit.xml",
+      "gamedata\\configs\\text\\fra\\st_nanosuit.xml",
+      "gamedata\\configs\\text\\rus\\st_nanosuit.xml",
+      "gamedata\\configs\\ui\\textures_descr\\ui_argb_control_texd.xml",
+      "gamedata\\configs\\ui\\textures_descr\\ui_arm_gui.xml",
+      "gamedata\\configs\\ui\\textures_descr\\ui_nanosuit.xml",
+      "gamedata\\configs\\ui\\ui_argb_control.xml",
+      "gamedata\\configs\\ui\\ui_nanosuit_auxiliaries.xml",
+      "gamedata\\configs\\ui\\ui_nanosuit_binoculars.xml",
+      "gamedata\\configs\\ui\\ui_nanosuit_defibrillator.xml",
+      "gamedata\\configs\\ui\\ui_nanosuit_indicators.xml",
+      "gamedata\\configs\\ui\\ui_nanosuit_status.xml",
+      "gamedata\\configs\\ui\\ui_nanosuit_tacmap.xml",
+      "gamedata\\configs\\ui\\ui_radial_menu.xml",
+      "gamedata\\configs\\ui\\ui_radial_menu_16.xml",
+      "gamedata\\configs\\unlocalizers\\unlocalizer_nanosuit.ltx",
+      "gamedata\\materials\\mod_materials_nanosuit.ltx"
+    ],
+    "file_count": 36
+  }
+}

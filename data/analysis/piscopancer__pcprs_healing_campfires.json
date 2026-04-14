@@ -1,0 +1,70 @@
+{
+  "repo": "piscopancer/pcprs_healing_campfires",
+  "stars": 0,
+  "relevance_score": 93,
+  "analysis": {
+    "callbacks": {
+      "actor_on_update": 1,
+      "on_option_change": 1
+    },
+    "functions": [
+      {
+        "file": "build\\gamedata\\scripts\\pcprs_healing_campfires.script",
+        "name": "__TS__ObjectAssign",
+        "params": "target, ..."
+      },
+      {
+        "file": "build\\gamedata\\scripts\\pcprs_healing_campfires.script",
+        "name": "__TS__ObjectEntries",
+        "params": "obj"
+      },
+      {
+        "file": "build\\gamedata\\scripts\\pcprs_healing_campfires.script",
+        "name": "suitable_campfire_nearby",
+        "params": "distance"
+      },
+      {
+        "file": "build\\gamedata\\scripts\\pcprs_healing_campfires.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "build\\gamedata\\scripts\\pcprs_healing_campfires.script",
+        "name": "on_option_change",
+        "params": ""
+      },
+      {
+        "file": "build\\gamedata\\scripts\\pcprs_healing_campfires.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "build\\gamedata\\scripts\\pcprs_healing_campfires_mcm.script",
+        "name": "__TS__ObjectAssign",
+        "params": "target, ..."
+      },
+      {
+        "file": "build\\gamedata\\scripts\\pcprs_healing_campfires_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      }
+    ],
+    "api_calls": {
+      "ui_mcm.get": 6,
+      "db.actor.position": 1,
+      "db.actor.change_health": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "build\\gamedata\\scripts\\pcprs_healing_campfires.script",
+      "build\\gamedata\\scripts\\pcprs_healing_campfires_mcm.script"
+    ],
+    "config_files": [
+      "build\\gamedata\\configs\\text\\eng\\ui_pcprs_healing_campfires.xml",
+      "build\\gamedata\\configs\\text\\eng\\ui_pcprs_healing_campfires_mcm.xml",
+      "build\\gamedata\\configs\\text\\rus\\ui_pcprs_healing_campfires.xml",
+      "build\\gamedata\\configs\\text\\rus\\ui_pcprs_healing_campfires_mcm.xml"
+    ],
+    "file_count": 2
+  }
+}

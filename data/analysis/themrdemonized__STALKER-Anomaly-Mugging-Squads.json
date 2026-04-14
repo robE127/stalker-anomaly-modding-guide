@@ -1,0 +1,367 @@
+{
+  "repo": "themrdemonized/STALKER-Anomaly-Mugging-Squads",
+  "stars": 2,
+  "relevance_score": 75,
+  "analysis": {
+    "callbacks": {
+      "actor_on_first_update": 1,
+      "actor_on_update": 1,
+      "load_state": 1,
+      "npc_on_before_hit": 1,
+      "on_option_change": 1,
+      "save_state": 1,
+      "server_entity_on_unregister": 1,
+      "squad_on_update": 1
+    },
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "initializeGizmos",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "reset",
+        "params": "gizmosArr, force"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "toggleDebugMode",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "load_defaults",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "load_settings",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "addToActiveSquads",
+        "params": "squad"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "setSquadStage",
+        "params": "squad, num"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "invalidateSquad",
+        "params": "squad"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "setSquadAsEnemy",
+        "params": "squad"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "getFactions",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "isFactionsEnemies",
+        "params": "f1, f2"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "getSafeLevels",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "getSafeSmarts",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "getFactionSquads",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "getDangerRanks",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "getDangerReputations",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "trySpawn",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "attack",
+        "params": "state, rush"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "updateTalk",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "forceTalk",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "spawnTimer",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "isSquadCommanderVisible",
+        "params": "squad"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "addMoreMembersToSquad",
+        "params": "squad, num"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "parseCondition",
+        "params": "npc, condString"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "isValidActiveSquad",
+        "params": "activeSquadId, activeSquadValue"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "stateTimer",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "server_entity_on_unregister",
+        "params": "se_obj, typ"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "squad_on_update",
+        "params": "squad"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "npc_on_before_hit",
+        "params": "npc, shit, bone_id, flags"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "setup_generic_scheme",
+        "params": "npc, ini, scheme, section, stype, temp"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "add_to_binder",
+        "params": "npc, ini, scheme, section, storage, temp"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "configure_actions",
+        "params": "npc, ini, scheme, section, stype, temp"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "disable_generic_scheme",
+        "params": "npc, scheme, stype"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "npc_add_precondition",
+        "params": "action"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "getRandomTranslatedText",
+        "params": "st, faction, defaultSt"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "relocateEverythingFromActor",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "chooseRandomItemsFromActor",
+        "params": "npc, amount"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "relocateChosenItemsFromActor",
+        "params": "npc, items"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "relocateRandomMoneyFromActor",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "defaultMuggingOption",
+        "params": "squad, npc, actor"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "allItemsMuggingOption",
+        "params": "squad, npc, actor"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "moneyMuggingOption",
+        "params": "squad, npc, actor"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "someItemsMuggingOption",
+        "params": "squad, npc, actor"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "convertToNewFaction",
+        "params": "squad, npc, actor"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "factionConvertionOption",
+        "params": "squad, npc, actor"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "dialogs.demonized_mugging_squads_prepare_dialog_info",
+        "params": "a, b"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "dialogs.demonized_mugging_squads_text_stop_right_there",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "dialogs.demonized_mugging_squads_text_who_are_you",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "dialogs.demonized_mugging_squads_text_give_me_stuff",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "dialogs.demonized_mugging_squads_text_here_is_my_stuff",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "dialogs.demonized_mugging_squads_give_my_stuff",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "dialogs.demonized_mugging_squads_text_thank_you_and_gtfo",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "dialogs.demonized_mugging_squads_text_ok",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "dialogs.demonized_mugging_squads_text_fuck_you_and_start_fight",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "dialogs.demonized_mugging_squads_break_dialog",
+        "params": "a, b"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "dialogs.demonized_mugging_squads_fuck_you_and_start_fight",
+        "params": "a, b"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads.script",
+        "name": "pickMuggingOption",
+        "params": "squad, npc, actor"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_mugging_squads_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      }
+    ],
+    "api_calls": {
+      "level.object_by_id": 11,
+      "db.actor.position": 9,
+      "game.get_game_time": 4,
+      "level.vertex_position": 3,
+      "level.name": 2,
+      "db.actor.direction": 2,
+      "db.actor.object": 2,
+      "ui_mcm.get": 1,
+      "db.actor.is_talking": 1,
+      "db.actor.run_talk_dialog": 1,
+      "db.actor.character_reputation": 1,
+      "game.world2ui": 1,
+      "db.actor.see": 1,
+      "xr_logic.parse_condlist": 1,
+      "db.actor.alive": 1,
+      "level.vertex_in_direction": 1,
+      "xr_logic.assign_storage_and_bind": 1,
+      "xr_logic.subscribe_action_for_events": 1,
+      "ui_item.get_sec_name": 1,
+      "game.translate_string": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\demonized_mugging_squads.script",
+      "gamedata\\scripts\\demonized_mugging_squads_mcm.script",
+      "gamedata\\scripts\\demonized_mugging_squads_options.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\gameplay\\dialogs_demonized_mugging_squads.xml",
+      "gamedata\\configs\\misc\\sound\\script_sound_demonized_mugging_squads.ltx",
+      "gamedata\\configs\\mod_system_demonized_mugging_squads.ltx",
+      "gamedata\\configs\\text\\eng\\ui_st_demonized_mugging_squads.xml",
+      "gamedata\\configs\\text\\eng\\ui_st_demonized_mugging_squads_dialogs.xml",
+      "gamedata\\configs\\text\\rus\\ui_st_demonized_mugging_squads.xml",
+      "gamedata\\configs\\text\\rus\\ui_st_demonized_mugging_squads_dialogs.xml"
+    ],
+    "file_count": 3
+  }
+}

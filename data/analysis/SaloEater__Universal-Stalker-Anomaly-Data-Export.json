@@ -1,0 +1,431 @@
+{
+  "repo": "SaloEater/Universal-Stalker-Anomaly-Data-Export",
+  "stars": 6,
+  "relevance_score": 74,
+  "analysis": {
+    "callbacks": {},
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_all",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.change_headers_mode",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "get_stat_value",
+        "params": "obj, section, stat_type, type"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "get_real_stat_value_display",
+        "params": "upgrade_section, value, stat_type, type"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "get_outfit_stat_value",
+        "params": "obj, section, type"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "get_artefact_stat_value",
+        "params": "obj, section, type"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "get_booster_stat_value",
+        "params": "obj, section, type"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "get_weapon_stat_value",
+        "params": "obj, section, type"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "to_percent_string",
+        "params": "value"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "to_percent_floor",
+        "params": "value"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "to_percent_round",
+        "params": "value"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "to_percent_stash",
+        "params": "value"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "floor_with_precision",
+        "params": "value"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "decimal_to_percent",
+        "params": "value"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "write_file",
+        "params": "file, text, ..."
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "get_outfit_repair_label",
+        "params": "repair_type"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "string.trim",
+        "params": "s"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "string.capitalize",
+        "params": "s"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "string.sanitize",
+        "params": "s"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "csv_quote",
+        "params": "v"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "write_csv_table",
+        "params": "file, args, quote"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "write_csv",
+        "params": "file, ..."
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "write_csv_header",
+        "params": "file, ..."
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "translate",
+        "params": "name, default, context"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "translate_with_context",
+        "params": "name, context"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_translations",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "translate_headers",
+        "params": "headers"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_outfits",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "file_exists",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "get_local_val",
+        "params": "path, script_name, str_to_find"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "getEatableSleepiness",
+        "params": "section"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "getEatableThirstiness",
+        "params": "section"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "getEatableRadiation",
+        "params": "section"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "getSatietyPercent",
+        "params": "flat_satiety"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "getEatableSatiety",
+        "params": "section"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "getEatablesUsedInCooking",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "getEatableAlcohol",
+        "params": "section"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_eatable",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "build_bhs_summary",
+        "params": "t_name, sec"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "export_recipes",
+        "params": "craft_index"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "export_medicine_recipes",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "export_artefacts_recipes",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_medicine",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "get_perk_artifacts_list",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_artefacts",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_artefact_recipes",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_belt_attachments",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "is_blacklisted_ammo",
+        "params": "section"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "get_weapon_caliber",
+        "params": "ammo_class"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "armor_to_class",
+        "params": "val"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "get_weapon_br_stats",
+        "params": "ammo_class"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "get_weapon_repair_label",
+        "params": "repair_type"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "is_weapon_modification",
+        "params": "section"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_weapons",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "get_heavy_attack_damage",
+        "params": "obj, sec"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "prop_damage",
+        "params": "obj, sec, name"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_melee",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "is_multiplayer_item",
+        "params": "section"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_explosives",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "get_game_difficulty_multiplier",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "get_ammo_br_stat",
+        "params": "ammo_section"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "normalize_mutant_ammo_mod",
+        "params": "mod"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "sanitize_ammo_name",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "sanitize_value",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_ammo",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_disassemble_table",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_outfit_exchange",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_mutant_parts_prices",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_mutant_profiles",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "get_weapon_kind",
+        "params": "kind"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_weapon_drop_sources",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_item_list",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_stash_drop_rates",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_toolkit_map_rates",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_upgrades",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_item_icons",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_item_drop_locations",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_npc_armor_profiles",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_weapon_addons",
+        "params": "_, txt, x"
+      },
+      {
+        "file": "gamedata\\scripts\\universal_anomaly_data_export.script",
+        "name": "debug_cmd_list.cmd.export_weapon_addon_map",
+        "params": "_, txt, x"
+      }
+    ],
+    "api_calls": {
+      "level.object_by_id": 5,
+      "db.actor.position": 4,
+      "db.actor.level_vertex_id": 4,
+      "db.actor.game_vertex_id": 4,
+      "game.translate_string": 2,
+      "ui_debug_launcher.inject": 1,
+      "db.actor.cast_Actor": 1,
+      "ui_inventory.start": 1,
+      "ui_wpn_params.read_float": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\universal_anomaly_data_export.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\text\\eng\\data_export.xml",
+      "gamedata\\configs\\text\\rus\\data_export.xml",
+      "gamedata\\configs\\unlocalizers\\unlocalizer_universal_anomaly_data_sheet.ltx"
+    ],
+    "file_count": 1
+  }
+}

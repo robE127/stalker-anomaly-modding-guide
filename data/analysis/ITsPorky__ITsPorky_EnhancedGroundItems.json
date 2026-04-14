@@ -1,0 +1,137 @@
+{
+  "repo": "ITsPorky/ITsPorky_EnhancedGroundItems",
+  "stars": 2,
+  "relevance_score": 108,
+  "analysis": {
+    "callbacks": {
+      "GUI_on_hide": 1,
+      "GUI_on_show": 1,
+      "actor_on_first_update": 1,
+      "actor_on_net_destroy": 1,
+      "on_key_press": 1,
+      "on_option_change": 1
+    },
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\enhanced_ground_items.script",
+        "name": "toggle_show_items",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_ground_items.script",
+        "name": "hud_active",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_ground_items.script",
+        "name": "hud_remove",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_ground_items.script",
+        "name": "hud_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_ground_items.script",
+        "name": "object_by_id",
+        "params": "id"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_ground_items.script",
+        "name": "in_actor_inv",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_ground_items.script",
+        "name": "in_npc_inv",
+        "params": "npc, obj"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_ground_items.script",
+        "name": "vector_distance",
+        "params": "pos1, pos2"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_ground_items.script",
+        "name": "on_key_press",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_ground_items.script",
+        "name": "on_show_hide",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_ground_items.script",
+        "name": "actor_on_net_destroy",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_ground_items.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_ground_items.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_ground_items_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_ground_items_mcm.script",
+        "name": "on_option_change",
+        "params": "mcm"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_enhanced_ground_items_info.script",
+        "name": "object_by_id",
+        "params": "id"
+      }
+    ],
+    "api_calls": {
+      "ui_mcm.get": 7,
+      "game.translate_string": 4,
+      "level.object_by_id": 2,
+      "db.actor.position": 2,
+      "ui_item.get_obj_name": 2,
+      "ui_mcm.get_mod_key": 2,
+      "db.actor.id": 1,
+      "ui_enhanced_ground_items.__init": 1,
+      "ui_enhanced_ground_items.__finalize": 1,
+      "ui_enhanced_ground_items.RemoveUIAndCleanUp": 1,
+      "ui_enhanced_ground_items.Update": 1,
+      "ui_enhanced_ground_items.UpdateObject": 1,
+      "ui_enhanced_ground_items.UpdateUI": 1,
+      "ui_enhanced_ground_items_info.UIItemInfo": 1,
+      "level.get_target_obj": 1,
+      "game.world2ui": 1,
+      "ui_enhanced_ground_items.ValidateItem": 1,
+      "ui_enhanced_ground_items.IsItem": 1,
+      "ui_enhanced_ground_items.GetUIMark": 1,
+      "ui_enhanced_ground_items.GetUIItemName": 1,
+      "ui_enhanced_ground_items.ScreenPosValid": 1,
+      "ui_enhanced_ground_items.ApplyScreenRatio": 1,
+      "ui_mcm.simple_press": 1,
+      "ui_mcm.double_tap": 1,
+      "ui_item.get_sec_name": 1,
+      "ui_item.get_obj_desc": 1,
+      "ui_item.get_sec_desc": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\enhanced_ground_items.script",
+      "gamedata\\scripts\\enhanced_ground_items_mcm.script",
+      "gamedata\\scripts\\ui_enhanced_ground_items_info.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\text\\eng\\ui_enhanced_ground_items_mcm.xml",
+      "gamedata\\configs\\ui\\ui_enhanced_ground_items.xml"
+    ],
+    "file_count": 3
+  }
+}

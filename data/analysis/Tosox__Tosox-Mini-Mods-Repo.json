@@ -1,0 +1,539 @@
+{
+  "repo": "Tosox/Tosox-Mini-Mods-Repo",
+  "stars": 0,
+  "relevance_score": 72,
+  "analysis": {
+    "callbacks": {
+      "actor_on_first_update": 3,
+      "load_state": 2,
+      "save_state": 2,
+      "on_option_change": 2,
+      "on_key_hold": 1,
+      "on_key_press": 1,
+      "on_key_release": 1,
+      "on_xml_read": 1,
+      "ActorMenu_on_item_before_move": 1,
+      "on_specific_character_dialog_list": 1,
+      "actor_on_item_drop": 1,
+      "actor_on_item_take": 1,
+      "npc_on_item_before_pickup": 1,
+      "set_companion_squad_combat_mode": 1,
+      "monster_on_death_callback": 1,
+      "monster_on_net_destroy": 1,
+      "monster_on_net_spawn": 1
+    },
+    "functions": [
+      {
+        "file": "500 Weight Slider\\gamedata\\scripts\\ui_options_500_weight_mcm.script",
+        "name": "find_child",
+        "params": "list, id"
+      },
+      {
+        "file": "500 Weight Slider\\gamedata\\scripts\\ui_options_500_weight_mcm.script",
+        "name": "follow_path",
+        "params": "root_list, ids"
+      },
+      {
+        "file": "Adjustable Faction Patch Loot Chance\\gamedata\\scripts\\z_adjustable_faction_patch_loot_chance_mcm.script",
+        "name": "get_mcm_config",
+        "params": "key"
+      },
+      {
+        "file": "Adjustable Faction Patch Loot Chance\\gamedata\\scripts\\z_adjustable_faction_patch_loot_chance_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "Auto Equip Gear\\gamedata\\scripts\\zzz_auto_equip_gear.script",
+        "name": "IsBinoc",
+        "params": "o, c"
+      },
+      {
+        "file": "Auto Equip Gear\\gamedata\\scripts\\zzz_auto_equip_gear.script",
+        "name": "IsTorch",
+        "params": "o, c"
+      },
+      {
+        "file": "Auto Equip Gear\\gamedata\\scripts\\zzz_auto_equip_gear.script",
+        "name": "IsPDA",
+        "params": "o, c"
+      },
+      {
+        "file": "Auto Equip Gear\\gamedata\\scripts\\zzz_auto_equip_gear.script",
+        "name": "patch_function",
+        "params": "target_table, function_name"
+      },
+      {
+        "file": "Auto Equip Gear\\gamedata\\scripts\\zzz_auto_equip_gear.script",
+        "name": "equip_gear",
+        "params": ""
+      },
+      {
+        "file": "Auto Equip Gear\\gamedata\\scripts\\zzz_auto_equip_gear.script",
+        "name": "empty_slots",
+        "params": ""
+      },
+      {
+        "file": "Auto Equip Gear\\gamedata\\scripts\\zzz_auto_equip_gear.script",
+        "name": "save_equipped_slots",
+        "params": ""
+      },
+      {
+        "file": "Auto Equip Gear\\gamedata\\scripts\\zzz_auto_equip_gear.script",
+        "name": "restore_equipped_slots",
+        "params": ""
+      },
+      {
+        "file": "Auto Equip Gear\\gamedata\\scripts\\zzz_auto_equip_gear.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "Auto Equip Gear\\gamedata\\scripts\\zzz_auto_equip_gear.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "Auto Equip Gear\\gamedata\\scripts\\zzz_auto_equip_gear.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "Backpack Workshop\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "add_functor",
+        "params": "name, cond_name, func_name, cond_action, func_action, override_bags"
+      },
+      {
+        "file": "Backpack Workshop\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "remove_functor",
+        "params": "name"
+      },
+      {
+        "file": "Backpack Workshop\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "override_functor",
+        "params": "slot, cond_name, func_name, cond_action, func_action, override_bags"
+      },
+      {
+        "file": "Backpack Workshop\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "remove_override",
+        "params": "slot"
+      },
+      {
+        "file": "Backpack Workshop\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "get_functor_at_slot",
+        "params": "slot"
+      },
+      {
+        "file": "Backpack Workshop\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "get_functor_by_name",
+        "params": "name"
+      },
+      {
+        "file": "Backpack Workshop\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "print_properties",
+        "params": ""
+      },
+      {
+        "file": "Backpack Workshop\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "print_custom_functor",
+        "params": ""
+      },
+      {
+        "file": "Backpack Workshop\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "print_custom_functor_names",
+        "params": ""
+      },
+      {
+        "file": "Backpack Workshop\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "Backpack Workshop\\gamedata\\scripts\\tsx_backpack_workshop.script",
+        "name": "is_valid_backpack",
+        "params": "obj, bag, mode"
+      },
+      {
+        "file": "Backpack Workshop\\gamedata\\scripts\\tsx_backpack_workshop.script",
+        "name": "get_functor_string",
+        "params": "obj, bag, mode"
+      },
+      {
+        "file": "Backpack Workshop\\gamedata\\scripts\\tsx_backpack_workshop.script",
+        "name": "open_workshop",
+        "params": "obj, bag, mode"
+      },
+      {
+        "file": "Backpack Workshop\\gamedata\\scripts\\tsx_backpack_workshop.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "Configurable Sleep Preconditions\\gamedata\\scripts\\z_configurable_sleep_preconditions_mcm.script",
+        "name": "get_mcm_config",
+        "params": "key"
+      },
+      {
+        "file": "Configurable Sleep Preconditions\\gamedata\\scripts\\z_configurable_sleep_preconditions_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "Custom Freecam Hotkey\\gamedata\\scripts\\z_custom_freecam_hotkey_mcm.script",
+        "name": "get_dik_key_name",
+        "params": "value"
+      },
+      {
+        "file": "Custom Freecam Hotkey\\gamedata\\scripts\\z_custom_freecam_hotkey_mcm.script",
+        "name": "on_option_change",
+        "params": ""
+      },
+      {
+        "file": "Custom Freecam Hotkey\\gamedata\\scripts\\z_custom_freecam_hotkey_mcm.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "Custom Freecam Hotkey\\gamedata\\scripts\\z_custom_freecam_hotkey_mcm.script",
+        "name": "get_mcm_config",
+        "params": "key"
+      },
+      {
+        "file": "Custom Freecam Hotkey\\gamedata\\scripts\\z_custom_freecam_hotkey_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "Darkscape Vehicle Spawner\\gamedata\\scripts\\darkscape_vehicle_spawner.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "Darkscape Vehicle Spawner\\gamedata\\scripts\\darkscape_vehicle_spawner.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "Darkscape Vehicle Spawner\\gamedata\\scripts\\darkscape_vehicle_spawner.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "Darkscape Vehicle Spawner\\gamedata\\scripts\\darkscape_vehicle_spawner.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "Disassembling Outfits gives Patches\\gamedata\\scripts\\z_disassembling_outfits_gives_patches_mcm.script",
+        "name": "get_mcm_config",
+        "params": "key"
+      },
+      {
+        "file": "Disassembling Outfits gives Patches\\gamedata\\scripts\\z_disassembling_outfits_gives_patches_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "Drop from Inventory Hotkey\\gamedata\\scripts\\z_drop_from_inv_hotkey_mcm.script",
+        "name": "on_key_press",
+        "params": "key"
+      },
+      {
+        "file": "Drop from Inventory Hotkey\\gamedata\\scripts\\z_drop_from_inv_hotkey_mcm.script",
+        "name": "on_key_hold",
+        "params": "key"
+      },
+      {
+        "file": "Drop from Inventory Hotkey\\gamedata\\scripts\\z_drop_from_inv_hotkey_mcm.script",
+        "name": "on_key_release",
+        "params": "key"
+      },
+      {
+        "file": "Drop from Inventory Hotkey\\gamedata\\scripts\\z_drop_from_inv_hotkey_mcm.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "Drop from Inventory Hotkey\\gamedata\\scripts\\z_drop_from_inv_hotkey_mcm.script",
+        "name": "get_mcm_config",
+        "params": "key"
+      },
+      {
+        "file": "Drop from Inventory Hotkey\\gamedata\\scripts\\z_drop_from_inv_hotkey_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "Dynamic BaS Label Remover\\gamedata\\scripts\\modxml_dyn_bas_label_remover.script",
+        "name": "on_xml_read",
+        "params": ""
+      },
+      {
+        "file": "Keep Task Items on Move All\\gamedata\\scripts\\z_keep_task_items_on_move.script",
+        "name": "is_task_item",
+        "params": "obj"
+      },
+      {
+        "file": "Keep Task Items on Move All\\gamedata\\scripts\\z_keep_task_items_on_move.script",
+        "name": "ActorMenu_on_item_before_move",
+        "params": "flags, npc_id, obj, mode, bag"
+      },
+      {
+        "file": "Keep Task Items on Move All\\gamedata\\scripts\\z_keep_task_items_on_move.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "Mysteries of the Zone Unlocker\\gamedata\\scripts\\modxml_mysteries_of_the_zone_unlocker.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "NPC Wounded Animation Fix\\gamedata\\scripts\\z_npc_wounded_animation_fix_mcm.script",
+        "name": "get_mcm_config",
+        "params": "key"
+      },
+      {
+        "file": "NPC Wounded Animation Fix\\gamedata\\scripts\\z_npc_wounded_animation_fix_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "Protect dropped Weapons\\gamedata\\scripts\\z_protect_dropped_weapons_mcm.script",
+        "name": "protect_weapon",
+        "params": "wep_id"
+      },
+      {
+        "file": "Protect dropped Weapons\\gamedata\\scripts\\z_protect_dropped_weapons_mcm.script",
+        "name": "actor_on_item_drop",
+        "params": "item"
+      },
+      {
+        "file": "Protect dropped Weapons\\gamedata\\scripts\\z_protect_dropped_weapons_mcm.script",
+        "name": "npc_on_item_before_pickup",
+        "params": "npc, item, flags"
+      },
+      {
+        "file": "Protect dropped Weapons\\gamedata\\scripts\\z_protect_dropped_weapons_mcm.script",
+        "name": "actor_on_item_take",
+        "params": "item"
+      },
+      {
+        "file": "Protect dropped Weapons\\gamedata\\scripts\\z_protect_dropped_weapons_mcm.script",
+        "name": "on_option_change",
+        "params": ""
+      },
+      {
+        "file": "Protect dropped Weapons\\gamedata\\scripts\\z_protect_dropped_weapons_mcm.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "Protect dropped Weapons\\gamedata\\scripts\\z_protect_dropped_weapons_mcm.script",
+        "name": "get_mcm_config",
+        "params": "key"
+      },
+      {
+        "file": "Protect dropped Weapons\\gamedata\\scripts\\z_protect_dropped_weapons_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "Re-enable Backpack Degradation\\gamedata\\scripts\\ui_options_backpack_degradation_mcm.script",
+        "name": "find_child",
+        "params": "list, id"
+      },
+      {
+        "file": "Re-enable Backpack Degradation\\gamedata\\scripts\\ui_options_backpack_degradation_mcm.script",
+        "name": "follow_path",
+        "params": "root_list, ids"
+      },
+      {
+        "file": "Singustromo's Adjacent Stash Rewards\\gamedata\\scripts\\treasure_manager_monkey_map_links.script",
+        "name": "treasure_manager.get_random_stash",
+        "params": "no_spot, hint, spawn_local, inv_box"
+      },
+      {
+        "file": "Singustromo's Adjacent Stash Rewards\\gamedata\\scripts\\treasure_manager_monkey_map_links.script",
+        "name": "treasure_manager.box_in_same_map",
+        "params": "id"
+      },
+      {
+        "file": "Singustromo's Adjacent Stash Rewards\\gamedata\\scripts\\treasure_manager_monkey_map_links.script",
+        "name": "is_on_nearby_level",
+        "params": "se_obj_1, se_obj_2"
+      },
+      {
+        "file": "Singustromo's Adjacent Stash Rewards\\gamedata\\scripts\\treasure_manager_monkey_map_links.script",
+        "name": "get_obj_level",
+        "params": "se_obj"
+      },
+      {
+        "file": "Singustromo's Adjacent Stash Rewards\\gamedata\\scripts\\treasure_manager_monkey_map_links.script",
+        "name": "is_table_empty",
+        "params": "tbl"
+      },
+      {
+        "file": "Singustromo's Adjacent Stash Rewards\\gamedata\\scripts\\treasure_manager_monkey_map_links.script",
+        "name": "level_directly_connected",
+        "params": "section_1, section_2"
+      },
+      {
+        "file": "Singustromo's Companion Wheel - Hold Fire Cycle\\gamedata\\scripts\\axr_companions_monkey_cmdwheel_hold_fire.script",
+        "name": "parent.cycle_companions_combat_mode",
+        "params": "force_mode, no_msg"
+      },
+      {
+        "file": "Singustromo's Companion Wheel - Hold Fire Cycle\\gamedata\\scripts\\axr_companions_monkey_cmdwheel_hold_fire.script",
+        "name": "parent.set_companion_squad_combat_mode",
+        "params": "mode,npc,squad"
+      },
+      {
+        "file": "Singustromo's Companion Wheel - Hold Fire Cycle\\gamedata\\scripts\\axr_companions_monkey_cmdwheel_hold_fire.script",
+        "name": "get_next_combat_state",
+        "params": ""
+      },
+      {
+        "file": "TBs Angry Chimera Growls Fix\\gamedata\\scripts\\TB_Angry_Chimera_Growls.script",
+        "name": "get_random_elem",
+        "params": "t"
+      },
+      {
+        "file": "TBs Angry Chimera Growls Fix\\gamedata\\scripts\\TB_Angry_Chimera_Growls.script",
+        "name": "get_growl_sound",
+        "params": "mutant"
+      },
+      {
+        "file": "TBs Angry Chimera Growls Fix\\gamedata\\scripts\\TB_Angry_Chimera_Growls.script",
+        "name": "play_mutant_growls",
+        "params": ""
+      },
+      {
+        "file": "TBs Angry Chimera Growls Fix\\gamedata\\scripts\\TB_Angry_Chimera_Growls.script",
+        "name": "is_valid_mutant",
+        "params": "obj"
+      },
+      {
+        "file": "TBs Angry Chimera Growls Fix\\gamedata\\scripts\\TB_Angry_Chimera_Growls.script",
+        "name": "monster_on_net_spawn",
+        "params": "obj, se_obj"
+      },
+      {
+        "file": "TBs Angry Chimera Growls Fix\\gamedata\\scripts\\TB_Angry_Chimera_Growls.script",
+        "name": "monster_on_net_destroy",
+        "params": "obj"
+      },
+      {
+        "file": "TBs Angry Chimera Growls Fix\\gamedata\\scripts\\TB_Angry_Chimera_Growls.script",
+        "name": "monster_on_death_callback",
+        "params": "obj, who"
+      },
+      {
+        "file": "TBs Angry Chimera Growls Fix\\gamedata\\scripts\\TB_Angry_Chimera_Growls.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "TBs Angry Chimera Growls Fix\\gamedata\\scripts\\TB_Angry_Chimera_Growls.script",
+        "name": "on_game_start",
+        "params": ""
+      }
+    ],
+    "api_calls": {
+      "game.translate_string": 14,
+      "db.actor.move_to_slot": 11,
+      "ui_mcm.get": 7,
+      "level.object_by_id": 5,
+      "db.actor.iterate_inventory": 4,
+      "ui_inventory.UIInventory": 4,
+      "ui_options.init_opt_base": 2,
+      "db.actor.item_in_slot": 2,
+      "db.actor.move_to_ruck": 1,
+      "db.actor.iterate_belt": 1,
+      "db.actor.move_to_belt": 1,
+      "ui_workshop.get_workshop_ui": 1,
+      "axr_keybind.unbind": 1,
+      "axr_keybind.bind": 1,
+      "xr_logic.pick_section_from_condlist": 1,
+      "ui_item.get_sec_name": 1,
+      "db.actor.object": 1,
+      "game.get_game_time": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "500 Weight Slider\\gamedata\\scripts\\ui_options_500_weight_mcm.script",
+      "Adjustable Faction Patch Loot Chance\\gamedata\\scripts\\z_adjustable_faction_patch_loot_chance_mcm.script",
+      "Arena Loadout contains Knife\\gamedata\\scripts\\z_arena_loadout_contains_knife.script",
+      "Auto Equip Gear\\gamedata\\scripts\\zzz_auto_equip_gear.script",
+      "Backpack Workshop\\gamedata\\scripts\\custom_functor_autoinject.script",
+      "Backpack Workshop\\gamedata\\scripts\\tsx_backpack_workshop.script",
+      "Configurable Sleep Preconditions\\gamedata\\scripts\\z_configurable_sleep_preconditions_mcm.script",
+      "Custom Freecam Hotkey\\gamedata\\scripts\\z_custom_freecam_hotkey_mcm.script",
+      "Darkscape Vehicle Spawner\\gamedata\\scripts\\darkscape_vehicle_spawner.script",
+      "Disassembling Outfits gives Patches\\gamedata\\scripts\\z_disassembling_outfits_gives_patches_mcm.script",
+      "Drop from Inventory Hotkey\\gamedata\\scripts\\z_drop_from_inv_hotkey_mcm.script",
+      "Dynamic BaS Label Remover\\gamedata\\scripts\\modxml_dyn_bas_label_remover.script",
+      "Dynamic News Heard Melee Fix\\gamedata\\scripts\\z_dyn_news_heard_melee_fix.script",
+      "Dynamic News Task Gossip Fix\\gamedata\\scripts\\z_dyn_news_task_gossip_fix.script",
+      "Great_Day's No Weapon Drop from Damage\\gamedata\\scripts\\z_no_weapon_drop_from_damage.script",
+      "Keep Favorites on Quick Release\\gamedata\\scripts\\z_qrs_keep_favs.script",
+      "Keep Task Items on Move All\\gamedata\\scripts\\z_keep_task_items_on_move.script",
+      "Keep Torn Patches\\gamedata\\scripts\\z_keep_torn_patches.script",
+      "Mutant Corpses don't Decay\\gamedata\\scripts\\z_mutant_corpses_dont_decay.script",
+      "Mysteries of the Zone Unlocker\\gamedata\\scripts\\modxml_mysteries_of_the_zone_unlocker.script",
+      "NPC Wounded Animation Fix\\gamedata\\scripts\\z_npc_wounded_animation_fix_mcm.script",
+      "New No Drug Limit\\gamedata\\scripts\\z_no_drug_limit.script",
+      "No Harmonicas at Campfires\\gamedata\\scripts\\z_no_harmonicas.script",
+      "Protect dropped Weapons\\gamedata\\scripts\\z_protect_dropped_weapons_mcm.script",
+      "Quick Load loads Last Save\\gamedata\\scripts\\z_quick_load_fix.script",
+      "Re-enable Backpack Degradation\\gamedata\\scripts\\ui_options_backpack_degradation_mcm.script",
+      "Re-enable Backpack Degradation\\gamedata\\scripts\\z_backpack_degradation.script",
+      "Repaired Starter Gear\\gamedata\\scripts\\z_repaired_starter_gear.script",
+      "ShoC Poltergeists\\gamedata\\scripts\\shoc_poltergeists.script",
+      "Singustromo's Adjacent Stash Rewards\\gamedata\\scripts\\treasure_manager_monkey_map_links.script",
+      "Singustromo's Companion Wheel - Hold Fire Cycle\\gamedata\\scripts\\axr_companions_monkey_cmdwheel_hold_fire.script",
+      "Stop Addon Log Spam\\gamedata\\scripts\\zzz_stop_addon_log_spam.script",
+      "Surge Crow Killer Fix\\gamedata\\scripts\\z_surge_crow_killer_fix.script",
+      "TBs Angry Chimera Growls Fix\\gamedata\\scripts\\TB_Angry_Chimera_Growls.script",
+      "TBs Angry Chimera Growls Fix\\gamedata\\scripts\\TB_Angry_Lurker_Growls.script",
+      "Take Weapons from Prisoner Dialog Fix\\gamedata\\scripts\\z_take_weapons_from_prisoner_dialog_fix.script",
+      "Talk to Everyone\\gamedata\\scripts\\z_talk_to_everyone.script",
+      "Task Marker for Delivery Tasks Fix\\gamedata\\scripts\\z_task_marker_delivery_fix.script",
+      "Vintar0's Companions don't blow Disguises - Enhanced\\gamedata\\scripts\\z_companions_dont_blow_disguises.script",
+      "Vintar0's Higher Wound Percent\\gamedata\\scripts\\z_higher_wound_percent.script"
+    ],
+    "config_files": [
+      "Adjustable Faction Patch Loot Chance\\gamedata\\configs\\text\\eng\\ui_mcm_tmmr_ajustable_patch_chance.xml",
+      "Adjustable Faction Patch Loot Chance\\gamedata\\configs\\text\\rus\\ui_mcm_tmmr_ajustable_patch_chance.xml",
+      "Backpack Workshop\\gamedata\\configs\\text\\eng\\st_backpack_workshop.xml",
+      "Backpack Workshop\\gamedata\\configs\\text\\rus\\st_backpack_workshop.xml",
+      "Bolts Trigger Gravitational Anomalies\\gamedata\\configs\\mod_system_bolts_trigger_gravis.ltx",
+      "Configurable Sleep Preconditions\\gamedata\\configs\\text\\eng\\ui_mcm_tmmr_conf_sleep_conds.xml",
+      "Configurable Sleep Preconditions\\gamedata\\configs\\text\\rus\\ui_mcm_tmmr_conf_sleep_conds.xml",
+      "Custom Freecam Hotkey\\gamedata\\configs\\text\\eng\\ui_mcm_tmmr_custom_freecam_hotkey.xml",
+      "Custom Freecam Hotkey\\gamedata\\configs\\text\\rus\\ui_mcm_tmmr_custom_freecam_hotkey.xml",
+      "Disassembling Outfits gives Patches\\gamedata\\configs\\text\\eng\\ui_mcm_tmmr_outfits_gives_patches.xml",
+      "Disassembling Outfits gives Patches\\gamedata\\configs\\text\\rus\\ui_mcm_tmmr_outfits_gives_patches.xml",
+      "Disassembling Outfits gives Patches\\gamedata\\configs\\unlocalizers\\unlocalizers_disassembling_outfits_patches.ltx",
+      "Drop from Inventory Hotkey\\gamedata\\configs\\text\\eng\\ui_mcm_tmmr_drop_from_inv_hotkey.xml",
+      "Drop from Inventory Hotkey\\gamedata\\configs\\text\\rus\\ui_mcm_tmmr_drop_from_inv_hotkey.xml",
+      "Great_Day's No Weapon Drop from Damage\\gamedata\\configs\\unlocalizers\\unlocalizer_no_weapon_drop_drom_damage.ltx",
+      "Keep Favorites on Quick Release\\gamedata\\configs\\unlocalizers\\unlocalizer_keep_favs_qrs.ltx",
+      "Keep Torn Patches\\gamedata\\configs\\unlocalizers\\unlocalizer_keep_torn_patches.ltx",
+      "Mutant Corpses don't Decay\\gamedata\\configs\\unlocalizers\\unlocalizer_mutant_corpses_dont_decay.ltx",
+      "NPC Wounded Animation Fix\\gamedata\\configs\\text\\eng\\ui_mcm_tmmr_npc_wounded_anim_fix.xml",
+      "NPC Wounded Animation Fix\\gamedata\\configs\\text\\rus\\ui_mcm_tmmr_npc_wounded_anim_fix.xml",
+      "NPCs cannot see through Foliage\\gamedata\\materials\\mod_materials_npcs_cannot_see_through_foliage.ltx",
+      "New No Drug Limit\\gamedata\\configs\\unlocalizers\\unlocalizer_no_drug_limit.ltx",
+      "No Harmonicas at Campfires\\gamedata\\configs\\unlocalizers\\unlocalizer_no_harmonicas.ltx",
+      "Protect dropped Weapons\\gamedata\\configs\\text\\eng\\ui_mcm_tmmr_deny_weapon_pickup_for_npcs.xml",
+      "Protect dropped Weapons\\gamedata\\configs\\text\\rus\\ui_mcm_tmmr_deny_weapon_pickup_for_npcs.xml",
+      "Quick Load loads Last Save\\gamedata\\configs\\unlocalizers\\unlocalizer_quick_load_fix.ltx",
+      "Re-enable Backpack Degradation\\gamedata\\configs\\mod_system_reenable_backpack_degradation.ltx",
+      "Singustromo's Companion Wheel - Hold Fire Cycle\\gamedata\\configs\\unlocalizers\\companion_wheel_holdfire_cycle.ltx",
+      "Vintar0's Companions don't blow Disguises - Enhanced\\gamedata\\configs\\unlocalizers\\unlocalizer_companions_dont_blow_disguises.ltx",
+      "Vintar0's Higher Wound Percent\\gamedata\\configs\\unlocalizers\\unlocalizer_higher_wound_percent.ltx"
+    ],
+    "file_count": 40
+  }
+}

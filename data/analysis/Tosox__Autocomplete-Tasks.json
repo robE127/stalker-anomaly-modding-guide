@@ -1,0 +1,117 @@
+{
+  "repo": "Tosox/Autocomplete-Tasks",
+  "stars": 0,
+  "relevance_score": 88,
+  "analysis": {
+    "callbacks": {
+      "actor_on_first_update": 1
+    },
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\autocomplete_tasks_mcm.script",
+        "name": "get_config",
+        "params": "module, key"
+      },
+      {
+        "file": "gamedata\\scripts\\autocomplete_tasks_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\autocomplete_tasks_utils.script",
+        "name": "dbg_printf",
+        "params": "..."
+      },
+      {
+        "file": "gamedata\\scripts\\autocomplete_tasks_utils.script",
+        "name": "has_pda",
+        "params": "who"
+      },
+      {
+        "file": "gamedata\\scripts\\autocomplete_tasks_utils.script",
+        "name": "get_generic_sell_discount",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\autocomplete_tasks_utils.script",
+        "name": "get_base_cost",
+        "params": "itm"
+      },
+      {
+        "file": "gamedata\\scripts\\autocomplete_tasks_utils.script",
+        "name": "stop_talk_squad",
+        "params": "squad"
+      },
+      {
+        "file": "gamedata\\scripts\\z_autocomplete_tasks_core.script",
+        "name": "do_autocompletion",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\z_autocomplete_tasks_core.script",
+        "name": "should_complete_by_task_functor",
+        "params": "task_functor_name"
+      },
+      {
+        "file": "gamedata\\scripts\\z_autocomplete_tasks_core.script",
+        "name": "send_confirmation_message",
+        "params": "tid, sender_id"
+      },
+      {
+        "file": "gamedata\\scripts\\z_autocomplete_tasks_core.script",
+        "name": "is_listed",
+        "params": "list, tid"
+      },
+      {
+        "file": "gamedata\\scripts\\z_autocomplete_tasks_core.script",
+        "name": "post_completion_cleanup",
+        "params": "task_functor_name, task_id"
+      },
+      {
+        "file": "gamedata\\scripts\\z_autocomplete_tasks_core.script",
+        "name": "normalize_complete_stage",
+        "params": "task_functor_name, stage"
+      },
+      {
+        "file": "gamedata\\scripts\\z_autocomplete_tasks_core.script",
+        "name": "calculate_task_compensation",
+        "params": "reward_table"
+      },
+      {
+        "file": "gamedata\\scripts\\z_autocomplete_tasks_core.script",
+        "name": "should_autocomplete",
+        "params": "tid, stage"
+      },
+      {
+        "file": "gamedata\\scripts\\z_autocomplete_tasks_core.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\z_autocomplete_tasks_core.script",
+        "name": "on_game_start",
+        "params": ""
+      }
+    ],
+    "api_calls": {
+      "game.translate_string": 2,
+      "ui_mcm.get": 1,
+      "xr_logic.pick_section_from_condlist": 1,
+      "db.actor.stop_talk": 1,
+      "db.actor.give_game_news": 1,
+      "level.object_by_id": 1,
+      "xr_logic.restore_scheme_and_logic": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\autocomplete_tasks_mcm.script",
+      "gamedata\\scripts\\autocomplete_tasks_utils.script",
+      "gamedata\\scripts\\z_autocomplete_tasks_core.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\text\\eng\\ui_mcm_autocomplete_tasks.xml",
+      "gamedata\\configs\\text\\rus\\ui_mcm_autocomplete_tasks.xml"
+    ],
+    "file_count": 3
+  }
+}

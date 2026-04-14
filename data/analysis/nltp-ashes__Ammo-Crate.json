@@ -1,0 +1,268 @@
+{
+  "repo": "nltp-ashes/Ammo-Crate",
+  "stars": 0,
+  "relevance_score": 75,
+  "analysis": {
+    "callbacks": {
+      "save_state": 2,
+      "ActorMenu_on_item_after_move": 1,
+      "ActorMenu_on_item_before_move": 1,
+      "ActorMenu_on_item_drag_drop": 1,
+      "GUI_on_hide": 1,
+      "load_state": 1,
+      "on_game_load": 1,
+      "trader_on_restock": 1
+    },
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\ammo_crate_binder.script",
+        "name": "bind",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_binder.script",
+        "name": "menu_open",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_binder.script",
+        "name": "func_open_crate",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_binder.script",
+        "name": "open_fake_stash",
+        "params": "fake_stash_id,crate_id"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_binder.script",
+        "name": "close_ammo_crate",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_binder.script",
+        "name": "check_move",
+        "params": "flags, npc_id, obj, mode, bag"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_binder.script",
+        "name": "move_item",
+        "params": "crate_id, item"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_binder.script",
+        "name": "move_item_drag_drop",
+        "params": "dragged_item, dropped_on_item, slot_from, slot_to"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_binder.script",
+        "name": "update_crate_weight",
+        "params": "npc_id, obj, mode, bag"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_binder.script",
+        "name": "calculate_crate_full_weight",
+        "params": "ammo_crate_id"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_binder.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_binder.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_binder.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_core.script",
+        "name": "spawn_ammo_crate_in_trader",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_core.script",
+        "name": "spawn_ammo_crate_in_corpse",
+        "params": "npc, npc_comm"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_core.script",
+        "name": "on_game_load",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_core.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_mcm.script",
+        "name": "get_config",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_mcm.script",
+        "name": "set_config",
+        "params": "key,value"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_removal.script",
+        "name": "remove_ammo_crates",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_removal.script",
+        "name": "spawn_ammo_in_inv",
+        "params": "crate_se_obj, parent_se_obj"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_removal.script",
+        "name": "spawn_ammo_in_world",
+        "params": "crate_se_obj"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_removal.script",
+        "name": "save_state",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_removal.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_utils.script",
+        "name": "dbg_printf",
+        "params": "..."
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_utils.script",
+        "name": "table_contains",
+        "params": "tab, val"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_utils.script",
+        "name": "table_random_id",
+        "params": "tab"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_utils.script",
+        "name": "round_number",
+        "params": "num"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_utils.script",
+        "name": "has_translation",
+        "params": "str"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_utils.script",
+        "name": "get_translation",
+        "params": "str, ..."
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_utils.script",
+        "name": "get_distance",
+        "params": "vec_a, vec_b"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_utils.script",
+        "name": "find_object_by_id",
+        "params": "id"
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_utils.script",
+        "name": "server_objects_iter",
+        "params": "func, ..."
+      },
+      {
+        "file": "gamedata\\scripts\\ammo_crate_utils.script",
+        "name": "get_real_community",
+        "params": "npc, default"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "trade_manager.update",
+        "params": "npc, force_refresh"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "timed_update",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "update",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "get_faction_goodwill",
+        "params": "faction"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "get_trader_type",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "supply_level",
+        "params": "npc, as_number"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "merge_tables",
+        "params": "tables"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "get_real_community",
+        "params": "npc, default"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "spawn_items",
+        "params": "npc, to_spawn, check_existing"
+      }
+    ],
+    "api_calls": {
+      "game.translate_string": 2,
+      "db.actor.position": 1,
+      "level.vertex_id": 1,
+      "db.actor.game_vertex_id": 1,
+      "ui_instance.GetPartner": 1,
+      "ui_instance.Action_Move": 1,
+      "ui_mcm.get": 1,
+      "ui_mcm.set": 1,
+      "level.object_by_id": 1,
+      "game.CTime": 1,
+      "game.get_game_time": 1,
+      "xr_logic.parse_condlist": 1,
+      "xr_logic.pick_section_from_condlist": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\ammo_crate_binder.script",
+      "gamedata\\scripts\\ammo_crate_core.script",
+      "gamedata\\scripts\\ammo_crate_mcm.script",
+      "gamedata\\scripts\\ammo_crate_removal.script",
+      "gamedata\\scripts\\ammo_crate_utils.script",
+      "gamedata\\scripts\\trader_autoinject.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\items\\items\\items_ammo_crate.ltx",
+      "gamedata\\configs\\text\\eng\\st_ammo_crate.xml"
+    ],
+    "file_count": 6
+  }
+}

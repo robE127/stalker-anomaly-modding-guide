@@ -1,0 +1,185 @@
+{
+  "repo": "tedthepraimortis/Teds-GAMMA-Loadout-Overhaul",
+  "stars": 1,
+  "relevance_score": 83,
+  "analysis": {
+    "callbacks": {
+      "actor_on_first_update": 2,
+      "actor_on_hud_animation_end": 1,
+      "actor_on_item_drop": 1,
+      "actor_on_update": 1,
+      "load_state": 1,
+      "on_key_press": 1,
+      "on_key_release": 1,
+      "on_option_change": 1,
+      "save_state": 1
+    },
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\grok_remove_knife_ammo_on_start.script",
+        "name": "remove_knife_ammo_1",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\grok_remove_knife_ammo_on_start.script",
+        "name": "remove_knife_ammo_2",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\grok_remove_knife_ammo_on_start.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\grok_remove_knife_ammo_on_start.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zz_glowstick_mcm.script",
+        "name": "actor_on_hud_animation_end",
+        "params": "item, section, motion, state, slot"
+      },
+      {
+        "file": "gamedata\\scripts\\zz_glowstick_mcm.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zz_glowstick_mcm.script",
+        "name": "spawn_glowstick",
+        "params": "id, throw"
+      },
+      {
+        "file": "gamedata\\scripts\\zz_glowstick_mcm.script",
+        "name": "actor_on_item_drop",
+        "params": "itm"
+      },
+      {
+        "file": "gamedata\\scripts\\zz_glowstick_mcm.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zz_glowstick_mcm.script",
+        "name": "equip_next",
+        "params": "section"
+      },
+      {
+        "file": "gamedata\\scripts\\zz_glowstick_mcm.script",
+        "name": "_draw_detector",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zz_glowstick_mcm.script",
+        "name": "try_draw_on_take",
+        "params": "id"
+      },
+      {
+        "file": "gamedata\\scripts\\zz_glowstick_mcm.script",
+        "name": "on_key_press",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\zz_glowstick_mcm.script",
+        "name": "on_key_release",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\zz_glowstick_mcm.script",
+        "name": "save_state",
+        "params": "MDATA"
+      },
+      {
+        "file": "gamedata\\scripts\\zz_glowstick_mcm.script",
+        "name": "load_state",
+        "params": "MDATA"
+      },
+      {
+        "file": "gamedata\\scripts\\zz_glowstick_mcm.script",
+        "name": "init",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\zz_glowstick_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zz_glowstick_mcm.script",
+        "name": "on_option_change",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zz_glowstick_mcm.script",
+        "name": "level_environment.get_light_flicker",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zz_glowstick_mcm.script",
+        "name": "spawn_glowosticks",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\zz_glowstick_mcm.script",
+        "name": "spawn_glowostick",
+        "params": "npc, npc_rank, npc_comm"
+      },
+      {
+        "file": "gamedata\\scripts\\zz_glowstick_mcm.script",
+        "name": "trader_autoinject.update",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\zz_glowstick_mcm.script",
+        "name": "death_manager.spawn_cosmetics",
+        "params": "npc, npc_id, npc_comm, npc_rank, visual, rand_condition"
+      }
+    ],
+    "api_calls": {
+      "ui_mcm.get": 10,
+      "level.object_by_id": 3,
+      "db.actor.show_detector": 3,
+      "db.actor.object": 2,
+      "game.only_allow_movekeys": 2,
+      "game.play_hud_motion": 1,
+      "game.hud_motion_allowed": 1,
+      "game.only_movekeys_allowed": 1,
+      "level.add_cam_effector": 1,
+      "game.play_hud_anm": 1,
+      "game.get_motion_length": 1,
+      "game.world2ui": 1,
+      "level.iterate_nearest": 1,
+      "db.actor.position": 1,
+      "level.present": 1,
+      "level.name": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\grok_remove_knife_ammo_on_start.script",
+      "gamedata\\scripts\\zz_glowstick_mcm.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\gameplay\\dialogs_escape.xml",
+      "gamedata\\configs\\items\\settings\\new_game_loadouts.ltx",
+      "gamedata\\configs\\items\\settings\\npc_loadouts\\npc_loadouts__name.ltx",
+      "gamedata\\configs\\items\\settings\\npc_loadouts\\npc_loadouts_army.ltx",
+      "gamedata\\configs\\items\\settings\\npc_loadouts\\npc_loadouts_bandit.ltx",
+      "gamedata\\configs\\items\\settings\\npc_loadouts\\npc_loadouts_csky.ltx",
+      "gamedata\\configs\\items\\settings\\npc_loadouts\\npc_loadouts_dolg.ltx",
+      "gamedata\\configs\\items\\settings\\npc_loadouts\\npc_loadouts_ecolog.ltx",
+      "gamedata\\configs\\items\\settings\\npc_loadouts\\npc_loadouts_freedom.ltx",
+      "gamedata\\configs\\items\\settings\\npc_loadouts\\npc_loadouts_greh.ltx",
+      "gamedata\\configs\\items\\settings\\npc_loadouts\\npc_loadouts_isg.ltx",
+      "gamedata\\configs\\items\\settings\\npc_loadouts\\npc_loadouts_killer.ltx",
+      "gamedata\\configs\\items\\settings\\npc_loadouts\\npc_loadouts_monolith.ltx",
+      "gamedata\\configs\\items\\settings\\npc_loadouts\\npc_loadouts_renegade.ltx",
+      "gamedata\\configs\\items\\settings\\npc_loadouts\\npc_loadouts_stalker.ltx",
+      "gamedata\\configs\\items\\settings\\npc_loadouts\\npc_loadouts_zombied.ltx",
+      "gamedata\\configs\\plugins\\new_game_start_locations.ltx",
+      "gamedata\\configs\\text\\eng\\ui_st_faction_starts.xml",
+      "gamedata\\configs\\text\\rus\\ui_st_faction_starts.xml"
+    ],
+    "file_count": 2
+  }
+}

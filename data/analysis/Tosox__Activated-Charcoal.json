@@ -1,0 +1,200 @@
+{
+  "repo": "Tosox/Activated-Charcoal",
+  "stars": 0,
+  "relevance_score": 88,
+  "analysis": {
+    "callbacks": {
+      "trader_on_restock": 1,
+      "load_state": 1,
+      "save_state": 1
+    },
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\drug_charcoal.script",
+        "name": "add_recipe",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\drug_charcoal.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\drug_charcoal_mcm.script",
+        "name": "get_config",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\drug_charcoal_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\new_game_loadout_injector_mcm.script",
+        "name": "add_item",
+        "params": "item_table"
+      },
+      {
+        "file": "gamedata\\scripts\\new_game_loadout_injector_mcm.script",
+        "name": "remove_item",
+        "params": "section"
+      },
+      {
+        "file": "gamedata\\scripts\\new_game_loadout_injector_mcm.script",
+        "name": "remove_existing_item",
+        "params": "section"
+      },
+      {
+        "file": "gamedata\\scripts\\new_game_loadout_injector_mcm.script",
+        "name": "ui_mm_faction_select.UINewGame.LoadLoadout",
+        "params": "self, rand"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "trader_autoinject.update",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "trade_manager.update",
+        "params": "npc, force_refresh"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "timed_update",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "update",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "get_faction_goodwill",
+        "params": "faction"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "get_trader_type",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "supply_level",
+        "params": "npc, as_number"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "merge_tables",
+        "params": "tables"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "get_real_community",
+        "params": "npc, default"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "spawn_items",
+        "params": "npc, to_spawn, check_existing"
+      },
+      {
+        "file": "gamedata\\scripts\\workshop_autoinject.script",
+        "name": "print_dbg",
+        "params": "text, ..."
+      },
+      {
+        "file": "gamedata\\scripts\\workshop_autoinject.script",
+        "name": "add_new_recipe",
+        "params": "index, sec, recipe_string"
+      },
+      {
+        "file": "gamedata\\scripts\\workshop_autoinject.script",
+        "name": "clear_existing_recipes",
+        "params": "sec"
+      },
+      {
+        "file": "gamedata\\scripts\\workshop_autoinject.script",
+        "name": "add_override_recipe",
+        "params": "sec, recipe_string, index"
+      },
+      {
+        "file": "gamedata\\scripts\\workshop_autoinject.script",
+        "name": "remove_existing_recipes",
+        "params": "sec"
+      },
+      {
+        "file": "gamedata\\scripts\\workshop_autoinject.script",
+        "name": "add_section",
+        "params": "id, name"
+      },
+      {
+        "file": "gamedata\\scripts\\workshop_autoinject.script",
+        "name": "item_recipe.func_recipe",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\workshop_autoinject.script",
+        "name": "add_recipe",
+        "params": "recipes, ind, t, ach, id"
+      },
+      {
+        "file": "gamedata\\scripts\\workshop_autoinject.script",
+        "name": "add_recipe_ui",
+        "params": "recipes, section, toolkit, t, ach, id"
+      },
+      {
+        "file": "gamedata\\scripts\\workshop_autoinject.script",
+        "name": "load_state",
+        "params": "mdata"
+      },
+      {
+        "file": "gamedata\\scripts\\workshop_autoinject.script",
+        "name": "on_game_start",
+        "params": ""
+      }
+    ],
+    "api_calls": {
+      "game.translate_string": 2,
+      "ui_mcm.get": 1,
+      "game.CTime": 1,
+      "db.actor.position": 1,
+      "game.get_game_time": 1,
+      "xr_logic.parse_condlist": 1,
+      "xr_logic.pick_section_from_condlist": 1,
+      "ui_pda_encyclopedia_tab.is_unlocked_note": 1,
+      "ui_workshop.list_element": 1
+    },
+    "ini_read_types": [
+      "section_exist"
+    ],
+    "script_files": [
+      "gamedata\\scripts\\drug_charcoal.script",
+      "gamedata\\scripts\\drug_charcoal_mcm.script",
+      "gamedata\\scripts\\new_game_loadout_injector_mcm.script",
+      "gamedata\\scripts\\trader_autoinject.script",
+      "gamedata\\scripts\\workshop_autoinject.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\items\\items\\ea_addon_drug_charcoal.ltx",
+      "gamedata\\configs\\items\\items\\items_anm_drug_charcoal.ltx",
+      "gamedata\\configs\\items\\items\\items_drug_charcoal.ltx",
+      "gamedata\\configs\\items\\settings\\mod_dynamic_item_spawn_drug_charcoal.ltx",
+      "gamedata\\configs\\items\\settings\\mod_item_rewards_drug_charcoal.ltx",
+      "gamedata\\configs\\items\\settings\\mod_treasure_manager_drug_charcoal.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_csky_spore_drug_charcoal.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_ecolog_spirit_drug_charcoal.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_generic_barman_drug_charcoal.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_generic_mechanic_drug_charcoal.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_butcher_drug_charcoal.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_nimble_drug_charcoal.ltx",
+      "gamedata\\configs\\plugins\\mod_actor_effects_drug_charcoal.ltx",
+      "gamedata\\configs\\text\\eng\\st_drug_charcoal.xml",
+      "gamedata\\configs\\text\\eng\\ui_mcm_drug_charcoal.xml",
+      "gamedata\\configs\\text\\rus\\st_drug_charcoal.xml",
+      "gamedata\\configs\\text\\rus\\ui_mcm_drug_charcoal.xml"
+    ],
+    "file_count": 5
+  }
+}

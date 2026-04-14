@@ -1,0 +1,496 @@
+{
+  "repo": "AugustSaintFreytag/stalker-egui-dynahud-bhs-bhsro",
+  "stars": 0,
+  "relevance_score": 90,
+  "analysis": {
+    "callbacks": {
+      "actor_on_first_update": 3,
+      "actor_on_update": 3,
+      "actor_on_before_hit": 3,
+      "on_option_change": 2,
+      "actor_on_before_death": 2,
+      "actor_on_hit_callback": 2,
+      "actor_on_item_before_use": 1,
+      "monster_on_actor_use_callback": 1,
+      "on_game_load": 1,
+      "on_key_release": 1,
+      "ActorMenu_on_item_focus_lost": 1,
+      "ActorMenu_on_item_focus_receive": 1,
+      "ActorMenu_on_mode_changed": 1,
+      "actor_on_footstep": 1,
+      "actor_on_item_use": 1,
+      "actor_on_sleep": 1,
+      "actor_on_weapon_zoom_in": 1,
+      "actor_on_weapon_zoom_out": 1,
+      "load_state": 1,
+      "on_key_press": 1,
+      "save_state": 1
+    },
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "on_game_load",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "on_key_release",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "loadsettings",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "activate",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "anim_prepare",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "use_item",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "monster_on_actor_use",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "start_anim",
+        "params": "anim_section_hud"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "anim_manager_item",
+        "params": "anim_section_hud"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "anim_manager_monster",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "actor_effects.play_item_fx",
+        "params": "item"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "actor_effects.use_weapon",
+        "params": "f"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "itms_manager.actor_on_item_before_use",
+        "params": "obj, flags"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "ui_mutant_loot.start",
+        "params": "obj, for_bug1, for_bug2"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "call_my_slot_back",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "blood_fx",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "eat_my_obj",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "stop_my_item_anim",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "stop_my_monster_anim",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "def_use_end",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "mask_hud_switcher",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "ea_restore_actor",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "hide_det",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "recalc_actor_campos",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "skip_functor",
+        "params": "item"
+      },
+      {
+        "file": "gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "get_game_factor",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "get_outfit_ap_res",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "get_protection",
+        "params": "shit, bone_id, k_ap"
+      },
+      {
+        "file": "gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "perk_based_artefacts.actor_on_before_hit",
+        "params": "s_hit, bone_id, flags"
+      },
+      {
+        "file": "gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "perk_based_artefacts.actor_on_hit_callback",
+        "params": "obj, amount, local_direction, who, bone_index"
+      },
+      {
+        "file": "gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "perk_based_artefacts.actor_on_before_death",
+        "params": "whoID, flags"
+      },
+      {
+        "file": "gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "PBA_a_obh",
+        "params": "shit, bone_id, flags"
+      },
+      {
+        "file": "gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "PBA_a_ohc",
+        "params": "obj, amount, local_direction, who, bone_index"
+      },
+      {
+        "file": "gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "PBA_a_obd",
+        "params": "whoID, flags"
+      },
+      {
+        "file": "gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "shit_booster",
+        "params": "shit, bone_id, k_ap"
+      },
+      {
+        "file": "gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "elemental_damage",
+        "params": "draftman_sec, shit, bone_id, flags"
+      },
+      {
+        "file": "gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "psi_damage",
+        "params": "draftman_sec, shit, bone_id, flags"
+      },
+      {
+        "file": "gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "actor_on_hit",
+        "params": "s_hit, bone_id, flags"
+      },
+      {
+        "file": "gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\grok_progressive_rad_damages.script",
+        "name": "actor_on_hit",
+        "params": "shit"
+      },
+      {
+        "file": "gamedata\\scripts\\grok_progressive_rad_damages.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\grok_progressive_rad_damages.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "on_option_change",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "get_regen_value",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "get_perm_health",
+        "params": "sec"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "change_regen_value",
+        "params": "value"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "get_temp_health",
+        "params": "sec, limb"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "trace_this",
+        "params": "to_trace1"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "r",
+        "params": "val"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "get_body_state",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "shaking_hands",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "shaking_hands_remove",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "limp_speed_slow",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "legs_limp",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "torso_penalty",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "bhs_concussion",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "set_stage_two",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "actor_on_hit",
+        "params": "hit, bone_id"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "update_hud",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "on_key_press",
+        "params": "dik"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.is_actor_not_healthy",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.is_actor_injured",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.is_actor_injured_irradiated",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.heal_actor_injury_radiation",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.heal_actor_injury",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "rank_part",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "ArtiHeal",
+        "params": "healpower"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "manage_boosters",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "on_game_start",
+        "params": ""
+      }
+    ],
+    "api_calls": {
+      "level.add_cam_effector": 9,
+      "db.actor.item_in_slot": 8,
+      "level.add_pp_effector": 8,
+      "ui_options.get": 6,
+      "game.only_allow_movekeys": 5,
+      "db.actor.cast_Actor": 4,
+      "db.actor.set_health_ex": 4,
+      "level.remove_pp_effector": 4,
+      "db.actor.change_health": 4,
+      "ui_mcm.get": 3,
+      "db.actor.active_slot": 3,
+      "db.actor.object": 3,
+      "db.actor.activate_slot": 2,
+      "db.actor.active_detector": 2,
+      "level.enable_input": 2,
+      "ui_mutant_loot.start": 2,
+      "db.actor.eat": 2,
+      "level.set_pp_effector_factor": 2,
+      "db.actor.id": 2,
+      "db.actor.money": 2,
+      "db.actor.restore_weapon": 1,
+      "db.actor.active_item": 1,
+      "level.disable_input": 1,
+      "game.play_hud_motion": 1,
+      "game.play_hud_anm": 1,
+      "game.translate_string": 1,
+      "db.actor.hide_weapon": 1,
+      "db.actor.actor_look_at_point": 1,
+      "level.object_by_id": 1,
+      "db.actor.get_actor_run_coef": 1,
+      "db.actor.get_actor_runback_coef": 1,
+      "db.actor.get_actor_sprint_koef": 1,
+      "level.remove_cam_effector": 1,
+      "db.actor.character_name": 1,
+      "db.actor.get_movement_speed": 1,
+      "game.get_game_time": 1,
+      "db.actor.give_game_news": 1,
+      "db.actor.character_icon": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\enhanced_animations.script",
+      "gamedata\\scripts\\grok_actor_damage_balancer.script",
+      "gamedata\\scripts\\grok_progressive_rad_damages.script",
+      "gamedata\\scripts\\zzz_player_injuries.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\items\\trade\\mod_trade_bandit_basic_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_bandit_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_csky_spore_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_duty_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_ecolog_hermann_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_ecolog_sakharov_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_freedom_ashot_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_freedom_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_generic_barman_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_generic_mechanic_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_generic_medic_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_greh_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_isg_light_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_isg_mission_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_isg_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_mercenary_basic_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_mercenary_meeker_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_military_esc_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_military_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_monolith_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_renegade_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_basic_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_butcher_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_flea_market_night_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_flea_market_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_loris_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_nimble_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_owl_saintbhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_sidorovich_saintbhsro.ltx"
+    ],
+    "file_count": 4
+  }
+}

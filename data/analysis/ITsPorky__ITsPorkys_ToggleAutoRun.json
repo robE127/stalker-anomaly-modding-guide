@@ -1,0 +1,78 @@
+{
+  "repo": "ITsPorky/ITsPorkys_ToggleAutoRun",
+  "stars": 0,
+  "relevance_score": 108,
+  "analysis": {
+    "callbacks": {
+      "actor_on_update": 1,
+      "on_key_hold": 1,
+      "on_key_press": 1,
+      "on_option_change": 1
+    },
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\porky_toggle_auto_run.script",
+        "name": "check_for_movement_input",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\porky_toggle_auto_run.script",
+        "name": "toggle_auto_run",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\porky_toggle_auto_run.script",
+        "name": "toggle_auto_sprint",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\porky_toggle_auto_run.script",
+        "name": "on_key_press",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\porky_toggle_auto_run.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\porky_toggle_auto_run.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\porky_toggle_auto_run_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\porky_toggle_auto_run_mcm.script",
+        "name": "on_option_change",
+        "params": "mcm"
+      },
+      {
+        "file": "gamedata\\scripts\\porky_toggle_auto_run_mcm.script",
+        "name": "on_game_start",
+        "params": ""
+      }
+    ],
+    "api_calls": {
+      "ui_mcm.get": 7,
+      "ui_mcm.get_mod_key": 6,
+      "level.hold_action": 3,
+      "ui_mcm.simple_press": 2,
+      "ui_mcm.double_tap": 2,
+      "ui_mcm.key_hold": 2
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\porky_toggle_auto_run.script",
+      "gamedata\\scripts\\porky_toggle_auto_run_mcm.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\text\\eng\\ui_porky_toggle_auto_run.xml",
+      "gamedata\\configs\\text\\rus\\ui_porky_toggle_auto_run.xml"
+    ],
+    "file_count": 2
+  }
+}

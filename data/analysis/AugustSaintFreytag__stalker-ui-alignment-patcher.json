@@ -1,0 +1,76 @@
+{
+  "repo": "AugustSaintFreytag/stalker-ui-alignment-patcher",
+  "stars": 1,
+  "relevance_score": 96,
+  "analysis": {
+    "callbacks": {
+      "on_xml_read": 1
+    },
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\modxml_ui_alignment_patcher.script",
+        "name": "on_xml_read",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_ui_alignment_patcher.script",
+        "name": "patch_xml_file",
+        "params": "file_name, xml_obj"
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_ui_alignment_patcher.script",
+        "name": "patch_custom_values",
+        "params": "file_name, xml_obj"
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_ui_alignment_patcher.script",
+        "name": "patch_text_element",
+        "params": "xml_obj, text_element_object"
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_ui_alignment_patcher.script",
+        "name": "tag_from_element",
+        "params": "element"
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_ui_alignment_patcher.script",
+        "name": "file_name_from_scope_name",
+        "params": "scope_name"
+      },
+      {
+        "file": "gamedata\\scripts\\modxml_ui_alignment_patcher.script",
+        "name": "debug_description_for_table",
+        "params": "tbl"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_itm_details.script",
+        "name": "menu_details",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_itm_details.script",
+        "name": "func_details",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_itm_details.script",
+        "name": "start",
+        "params": "obj"
+      }
+    ],
+    "api_calls": {
+      "game.translate_string": 15,
+      "ui_itm_details.start": 1,
+      "ui_item.get_sec_name": 1,
+      "ui_item.get_obj_desc": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\modxml_ui_alignment_patcher.script",
+      "gamedata\\scripts\\modxml_ui_alignment_patcher_config.script",
+      "gamedata\\scripts\\ui_itm_details.script"
+    ],
+    "config_files": [],
+    "file_count": 3
+  }
+}

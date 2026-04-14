@@ -1,0 +1,144 @@
+{
+  "repo": "Tosox/Enjoy-Cigarettes",
+  "stars": 0,
+  "relevance_score": 73,
+  "analysis": {
+    "callbacks": {
+      "actor_on_first_update": 1,
+      "on_option_change": 1
+    },
+    "functions": [
+      {
+        "file": "00. Main Files\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "add_functor",
+        "params": "name, cond_name, func_name, cond_action, func_action, override_bags"
+      },
+      {
+        "file": "00. Main Files\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "remove_functor",
+        "params": "name"
+      },
+      {
+        "file": "00. Main Files\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "override_functor",
+        "params": "slot, cond_name, func_name, cond_action, func_action, override_bags"
+      },
+      {
+        "file": "00. Main Files\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "remove_override",
+        "params": "slot"
+      },
+      {
+        "file": "00. Main Files\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "get_functor_at_slot",
+        "params": "slot"
+      },
+      {
+        "file": "00. Main Files\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "get_functor_by_name",
+        "params": "name"
+      },
+      {
+        "file": "00. Main Files\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "print_properties",
+        "params": ""
+      },
+      {
+        "file": "00. Main Files\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "print_custom_functor",
+        "params": ""
+      },
+      {
+        "file": "00. Main Files\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "print_custom_functor_names",
+        "params": ""
+      },
+      {
+        "file": "00. Main Files\\gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "00. Main Files\\gamedata\\scripts\\tsx_enjoy_cigs_mcm.script",
+        "name": "get_config",
+        "params": "key"
+      },
+      {
+        "file": "00. Main Files\\gamedata\\scripts\\tsx_enjoy_cigs_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "00. Main Files\\gamedata\\scripts\\zzzz_tsx_enjoy_cigs.script",
+        "name": "is_cigarette",
+        "params": "obj_name"
+      },
+      {
+        "file": "00. Main Files\\gamedata\\scripts\\zzzz_tsx_enjoy_cigs.script",
+        "name": "has_asnens_long_anim",
+        "params": ""
+      },
+      {
+        "file": "00. Main Files\\gamedata\\scripts\\zzzz_tsx_enjoy_cigs.script",
+        "name": "patched_create_time_event",
+        "params": "orig_func, ev_id, act_id, timer, f, ..."
+      },
+      {
+        "file": "00. Main Files\\gamedata\\scripts\\zzzz_tsx_enjoy_cigs.script",
+        "name": "is_valid_cigarette",
+        "params": "obj, bag, mode"
+      },
+      {
+        "file": "00. Main Files\\gamedata\\scripts\\zzzz_tsx_enjoy_cigs.script",
+        "name": "get_functor_name",
+        "params": "obj, bag, mode"
+      },
+      {
+        "file": "00. Main Files\\gamedata\\scripts\\zzzz_tsx_enjoy_cigs.script",
+        "name": "enjoy_cigarette",
+        "params": "obj, bag, mode"
+      },
+      {
+        "file": "00. Main Files\\gamedata\\scripts\\zzzz_tsx_enjoy_cigs.script",
+        "name": "on_option_change",
+        "params": ""
+      },
+      {
+        "file": "00. Main Files\\gamedata\\scripts\\zzzz_tsx_enjoy_cigs.script",
+        "name": "on_game_start",
+        "params": ""
+      }
+    ],
+    "api_calls": {
+      "ui_inventory.UIInventory": 4,
+      "ui_mcm.get": 1,
+      "ui_mcm.get_mod_key": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "00. Main Files\\gamedata\\scripts\\custom_functor_autoinject.script",
+      "00. Main Files\\gamedata\\scripts\\tsx_enjoy_cigs_mcm.script",
+      "00. Main Files\\gamedata\\scripts\\zzzz_tsx_enjoy_cigs.script"
+    ],
+    "config_files": [
+      "00. Main Files\\gamedata\\configs\\items\\items\\items_anm_enjoy_cigs.ltx",
+      "00. Main Files\\gamedata\\configs\\items\\items\\mod_animations_settings_enjoy_cigs.ltx",
+      "00. Main Files\\gamedata\\configs\\items\\items\\mod_anims_cigga_smoke_enjoy_cigs.ltx",
+      "00. Main Files\\gamedata\\configs\\items\\settings\\enjoy_cigs_cfg.ltx",
+      "00. Main Files\\gamedata\\configs\\text\\eng\\st_enjoy_cigs.xml",
+      "00. Main Files\\gamedata\\configs\\text\\eng\\ui_mcm_enjoy_cigs.xml",
+      "00. Main Files\\gamedata\\configs\\text\\rus\\st_enjoy_cigs.xml",
+      "00. Main Files\\gamedata\\configs\\text\\rus\\ui_mcm_enjoy_cigs.xml",
+      "01. Alternate Animation\\gamedata\\configs\\items\\items\\items_anm_enjoy_cigs.ltx",
+      "01. Alternate Animation\\gamedata\\configs\\items\\items\\mod_animations_settings_enjoy_cigs.ltx",
+      "01. Alternate Animation\\gamedata\\configs\\items\\items\\mod_anims_cigga_smoke_enjoy_cigs.ltx",
+      "02. AVO Integration\\gamedata\\configs\\items\\items\\items_anm_enjoy_cigs_avo.ltx",
+      "02. AVO Integration\\gamedata\\configs\\items\\items\\mod_animations_settings_enjoy_cigs_avo.ltx",
+      "02. AVO Integration\\gamedata\\configs\\items\\items\\mod_anims_cigga_smoke_enjoy_cigs_avo.ltx",
+      "02. AVO Integration\\gamedata\\configs\\items\\settings\\enjoy_cigs_cfg.ltx",
+      "fomod\\ModuleConfig.xml",
+      "fomod\\info.xml"
+    ],
+    "file_count": 3
+  }
+}

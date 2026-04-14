@@ -1,0 +1,49 @@
+{
+  "repo": "AugustSaintFreytag/stalker-geiger-sounds",
+  "stars": 0,
+  "relevance_score": 72,
+  "analysis": {
+    "callbacks": {},
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\z_saint_geiger_counter_sound_playback.script",
+        "name": "arszi_radiation.play_random_geiger_sound",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_geiger_counter_sound_playback.script",
+        "name": "index_selection_range_from_median_index",
+        "params": "input"
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_geiger_counter_sound_playback.script",
+        "name": "median_index_from_power_fraction",
+        "params": "r"
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_geiger_counter_sound_playback.script",
+        "name": "arszi_radiation.load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_geiger_counter_sound_playback.script",
+        "name": "arszi_radiation.dosimeterVolumeUp",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\z_saint_geiger_counter_sound_playback.script",
+        "name": "arszi_radiation.dosimeterVolumeDown",
+        "params": ""
+      }
+    ],
+    "api_calls": {},
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\z_saint_geiger_counter_sound_playback.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\misc\\mod_postprocess_disable_geiger_noise.ltx"
+    ],
+    "file_count": 1
+  }
+}

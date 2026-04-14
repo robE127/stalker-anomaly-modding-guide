@@ -1,0 +1,477 @@
+{
+  "repo": "explorerbeer/tactical_compass",
+  "stars": 1,
+  "relevance_score": 76,
+  "analysis": {
+    "callbacks": {
+      "actor_on_first_update": 5,
+      "actor_on_net_destroy": 5,
+      "on_key_press": 4,
+      "on_option_change": 3,
+      "actor_on_before_death": 3,
+      "GUI_on_hide": 2,
+      "GUI_on_show": 2,
+      "on_console_execute": 2,
+      "actor_on_update": 2,
+      "save_state": 2,
+      "on_key_hold": 1,
+      "actor_map_location_added": 1,
+      "load_state": 1
+    },
+    "functions": [
+      {
+        "file": "deprecated\\scripts\\compass.script",
+        "name": "activate_compass",
+        "params": ""
+      },
+      {
+        "file": "deprecated\\scripts\\compass.script",
+        "name": "deactivate_compass",
+        "params": ""
+      },
+      {
+        "file": "deprecated\\scripts\\compass.script",
+        "name": "update_compass",
+        "params": ""
+      },
+      {
+        "file": "deprecated\\scripts\\compass.script",
+        "name": "on_option_change",
+        "params": ""
+      },
+      {
+        "file": "deprecated\\scripts\\compass.script",
+        "name": "on_console_execute",
+        "params": "name"
+      },
+      {
+        "file": "deprecated\\scripts\\compass.script",
+        "name": "actor_on_net_destroy",
+        "params": ""
+      },
+      {
+        "file": "deprecated\\scripts\\compass.script",
+        "name": "update_compass_hud",
+        "params": ""
+      },
+      {
+        "file": "deprecated\\scripts\\compass.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "deprecated\\scripts\\compass.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "deprecated\\scripts\\compass_mcm.script",
+        "name": "get_config",
+        "params": "key"
+      },
+      {
+        "file": "deprecated\\scripts\\compass_mcm.script",
+        "name": "on_option_change",
+        "params": "mcm"
+      },
+      {
+        "file": "deprecated\\scripts\\compass_mcm.script",
+        "name": "on_key_hold",
+        "params": "key"
+      },
+      {
+        "file": "deprecated\\scripts\\compass_mcm.script",
+        "name": "on_key_press",
+        "params": "key"
+      },
+      {
+        "file": "deprecated\\scripts\\compass_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "deprecated\\scripts\\compass_mcm.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "deprecated\\scripts\\compass_mcm.script",
+        "name": "toggle_compass",
+        "params": ""
+      },
+      {
+        "file": "deprecated\\scripts\\marker.script",
+        "name": "activate_markers",
+        "params": ""
+      },
+      {
+        "file": "deprecated\\scripts\\marker.script",
+        "name": "deactivate_markers",
+        "params": ""
+      },
+      {
+        "file": "deprecated\\scripts\\marker.script",
+        "name": "update_markers",
+        "params": ""
+      },
+      {
+        "file": "deprecated\\scripts\\marker.script",
+        "name": "marker_task_actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "deprecated\\scripts\\marker.script",
+        "name": "get_markers",
+        "params": ""
+      },
+      {
+        "file": "deprecated\\scripts\\marker.script",
+        "name": "on_option_change",
+        "params": ""
+      },
+      {
+        "file": "deprecated\\scripts\\marker.script",
+        "name": "on_console_execute",
+        "params": "name"
+      },
+      {
+        "file": "deprecated\\scripts\\marker.script",
+        "name": "actor_on_net_destroy",
+        "params": ""
+      },
+      {
+        "file": "deprecated\\scripts\\marker.script",
+        "name": "update_marker_hud",
+        "params": ""
+      },
+      {
+        "file": "deprecated\\scripts\\marker.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "deprecated\\scripts\\marker.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "deprecated\\scripts\\utils_compass.script",
+        "name": "lerp",
+        "params": "a, b, t"
+      },
+      {
+        "file": "deprecated\\scripts\\utils_compass.script",
+        "name": "is_warfare_category",
+        "params": "category, faction_table"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\axr_main.script",
+        "name": "check_on_launch",
+        "params": ""
+      },
+      {
+        "file": "main\\gamedata\\scripts\\axr_main.script",
+        "name": "callback_add",
+        "params": "name"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\axr_main.script",
+        "name": "callback_set",
+        "params": "name,func_or_userdata"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\axr_main.script",
+        "name": "callback_unset",
+        "params": "name,func_or_userdata"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\axr_main.script",
+        "name": "make_callback",
+        "params": "name,..."
+      },
+      {
+        "file": "main\\gamedata\\scripts\\axr_main.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "main\\gamedata\\scripts\\axr_main.script",
+        "name": "main_menu_on_init",
+        "params": "menu"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\axr_main.script",
+        "name": "main_menu_on_quit",
+        "params": "menu"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\axr_main.script",
+        "name": "actor_on_weapon_zoom_in",
+        "params": ""
+      },
+      {
+        "file": "main\\gamedata\\scripts\\axr_main.script",
+        "name": "actor_on_weapon_zoom_out",
+        "params": ""
+      },
+      {
+        "file": "main\\gamedata\\scripts\\axr_main.script",
+        "name": "server_entity_on_register",
+        "params": "se_obj,type_name"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\axr_main.script",
+        "name": "server_entity_on_unregister",
+        "params": "se_obj,type_name"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\bind_stalker.script",
+        "name": "init",
+        "params": "obj"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\bind_stalker.script",
+        "name": "actor_init",
+        "params": "npc"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\compass.script",
+        "name": "activate_compass",
+        "params": ""
+      },
+      {
+        "file": "main\\gamedata\\scripts\\compass.script",
+        "name": "deactivate_compass",
+        "params": ""
+      },
+      {
+        "file": "main\\gamedata\\scripts\\compass.script",
+        "name": "compass_toggle",
+        "params": "key"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\compass.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "main\\gamedata\\scripts\\compass_mcm.script",
+        "name": "get_config",
+        "params": "key"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\compass_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "main\\gamedata\\scripts\\compass_utils.script",
+        "name": "calc_angle",
+        "params": ""
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers.script",
+        "name": "activate_markers",
+        "params": ""
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers.script",
+        "name": "deactivate_markers",
+        "params": ""
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers.script",
+        "name": "collect_markers",
+        "params": ""
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers.script",
+        "name": "map_location_added",
+        "params": "binder, spot_type, id"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers.script",
+        "name": "on_check_spot_existing",
+        "params": ""
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers.script",
+        "name": "clear_marker",
+        "params": "id"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers.script",
+        "name": "remove_old_marker",
+        "params": "id, spot_type"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers.script",
+        "name": "markers_toggle",
+        "params": "key"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers_utils.script",
+        "name": "define_distance_to_marker",
+        "params": "marker_type"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers_utils.script",
+        "name": "define_marker_y",
+        "params": "pos_state, marker_type"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers_utils.script",
+        "name": "get_world_coordinates",
+        "params": "id"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers_utils.script",
+        "name": "get_screen_coordinates",
+        "params": "id"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers_utils.script",
+        "name": "calc_position",
+        "params": "world_pos, actor_pos, actor_dir, prev_marker_x"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers_utils.script",
+        "name": "lerp",
+        "params": "a, b, t"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers_utils.script",
+        "name": "calc_distance_to_target",
+        "params": "target_world_pos, actor_pos"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers_utils.script",
+        "name": "is_looking_at_target",
+        "params": "marker_x"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers_utils.script",
+        "name": "set_distance_text",
+        "params": "marker, marker_x, distance_to_target, is_distance, is_always_visible, marker_alpha"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers_utils.script",
+        "name": "calc_alpha",
+        "params": "is_always_visible, distance_to_npc, max_distance"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers_utils.script",
+        "name": "draw_arrow",
+        "params": "actor_pos, marker_world_pos, marker, marker_alpha, marker_type"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers_utils.script",
+        "name": "init_arrow_texture",
+        "params": "marker, texture"
+      },
+      {
+        "file": "main\\gamedata\\scripts\\markers_utils.script",
+        "name": "actor_map_location_added",
+        "params": "binder, spot_item, id"
+      },
+      {
+        "file": "optional\\legacy\\gamedata\\scripts\\compass.script",
+        "name": "activate_compass",
+        "params": ""
+      },
+      {
+        "file": "optional\\legacy\\gamedata\\scripts\\compass.script",
+        "name": "deactivate_compass",
+        "params": ""
+      },
+      {
+        "file": "optional\\legacy\\gamedata\\scripts\\compass.script",
+        "name": "compass_toggle",
+        "params": "key"
+      },
+      {
+        "file": "optional\\legacy\\gamedata\\scripts\\compass.script",
+        "name": "on_game_start",
+        "params": ""
+      }
+    ],
+    "api_calls": {
+      "ui_options.get": 5,
+      "ui_mcm.get": 5,
+      "level.object_by_id": 4,
+      "level.map_has_object_spot": 4,
+      "ui_mcm.get_mod_key": 2,
+      "game.world2ui": 2,
+      "db.actor.is_active_task": 2,
+      "db.actor.active_item": 2,
+      "level.enable_input": 2,
+      "game.actor_weapon_lowered": 2,
+      "game.actor_lower_weapon": 2,
+      "level.get_game_difficulty": 2,
+      "ui_mcm.key_hold": 1,
+      "ui_mcm.simple_press": 1,
+      "ui_mcm.double_tap": 1,
+      "ui_options.set": 1,
+      "level.show_indicators": 1,
+      "level.show_weapon": 1,
+      "db.actor.alive": 1,
+      "db.actor.set_character_icon": 1,
+      "game.get_game_time": 1,
+      "xr_logic.pstor_save_all": 1,
+      "xr_logic.pstor_load_all": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "deprecated\\scripts\\compass.script",
+      "deprecated\\scripts\\compass_mcm.script",
+      "deprecated\\scripts\\marker.script",
+      "deprecated\\scripts\\utils_compass.script",
+      "main\\gamedata\\scripts\\axr_main.script",
+      "main\\gamedata\\scripts\\bind_stalker.script",
+      "main\\gamedata\\scripts\\compass.script",
+      "main\\gamedata\\scripts\\compass_mcm.script",
+      "main\\gamedata\\scripts\\compass_utils.script",
+      "main\\gamedata\\scripts\\markers.script",
+      "main\\gamedata\\scripts\\markers_definitions.script",
+      "main\\gamedata\\scripts\\markers_utils.script",
+      "main\\gamedata\\scripts\\tc_variables.script",
+      "optional\\legacy\\gamedata\\scripts\\compass.script",
+      "optional\\legacy\\gamedata\\scripts\\tc_variables.script"
+    ],
+    "config_files": [
+      "deprecated\\configs\\text\\eng\\line_compass.xml",
+      "deprecated\\configs\\text\\rus\\line_compass.xml",
+      "deprecated\\configs\\ui\\tactic_compass.xml",
+      "deprecated\\configs\\ui\\tactic_compass_16.xml",
+      "deprecated\\configs\\ui\\tactic_marker.xml",
+      "deprecated\\configs\\ui\\tactic_marker_16.xml",
+      "main\\gamedata\\configs\\text\\eng\\mcm_compass.xml",
+      "main\\gamedata\\configs\\text\\rus\\mcm_compass.xml",
+      "main\\gamedata\\configs\\ui\\textures_descr\\ui_tactic_compass_descr.xml",
+      "main\\gamedata\\configs\\ui\\textures_descr\\ui_tc_markers_descr.xml",
+      "main\\gamedata\\configs\\ui\\ui_compass.xml",
+      "main\\gamedata\\configs\\ui\\ui_compass_16.xml",
+      "main\\gamedata\\configs\\ui\\ui_markers.xml",
+      "main\\gamedata\\configs\\ui\\ui_markers_16.xml",
+      "optional\\legacy\\gamedata\\configs\\ui\\ui_compass_16.xml",
+      "optional\\vanilla_icons\\gamedata\\configs\\ui\\ui_markers.xml",
+      "optional\\vanilla_icons\\gamedata\\configs\\ui\\ui_markers_16.xml"
+    ],
+    "file_count": 15
+  }
+}

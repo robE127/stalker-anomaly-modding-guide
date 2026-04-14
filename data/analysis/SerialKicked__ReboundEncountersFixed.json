@@ -1,0 +1,2679 @@
+{
+  "repo": "SerialKicked/ReboundEncountersFixed",
+  "stars": 0,
+  "relevance_score": 89,
+  "analysis": {
+    "callbacks": {
+      "actor_on_first_update": 4,
+      "actor_on_weapon_fired": 2,
+      "npc_on_update": 2,
+      "save_state": 2,
+      "on_key_release": 2,
+      "on_molotov_destroy": 2,
+      "on_molotov_fused_update": 2,
+      "actor_on_hud_animation_play": 2,
+      "actor_on_update": 2,
+      "on_key_press": 2,
+      "on_enemy_eval": 2,
+      "monster_on_before_hit": 1,
+      "npc_on_before_hit": 1,
+      "npc_on_death_callback": 1,
+      "npc_on_net_destroy": 1,
+      "on_aoe_before_destroy": 1,
+      "on_aoe_before_explode": 1,
+      "on_aoe_before_hit": 1,
+      "on_aoe_destroy": 1,
+      "on_aoe_explode": 1,
+      "on_aoe_hit": 1,
+      "on_aoe_init": 1,
+      "on_aoe_update": 1,
+      "on_projectile_before_bounce": 1,
+      "on_projectile_before_destroy": 1,
+      "on_projectile_before_hit": 1,
+      "on_projectile_before_homing": 1,
+      "on_projectile_bounce": 1,
+      "on_projectile_destroy": 1,
+      "on_projectile_hit": 1,
+      "on_projectile_init": 1,
+      "on_projectile_update": 1,
+      "on_key_hold": 1,
+      "on_molotov_init": 1,
+      "actor_on_before_death": 1,
+      "actor_on_item_drop": 1,
+      "actor_on_net_destroy": 1,
+      "GUI_on_hide": 1,
+      "GUI_on_show": 1,
+      "actor_on_footstep": 1,
+      "actor_on_sleep": 1,
+      "anomaly_on_before_activate": 1,
+      "load_state": 1,
+      "monster_on_death_callback": 1,
+      "monster_on_hit_callback": 1,
+      "monster_on_loot_init": 1,
+      "npc_on_hit_callback": 1,
+      "on_before_level_changing": 1,
+      "on_option_change": 1,
+      "server_entity_on_unregister": 1,
+      "trader_on_restock": 1,
+      "main_menu_on_keyboard": 1,
+      "on_game_load": 1,
+      "on_localization_change": 1
+    },
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "add_functor",
+        "params": "name, cond_name, func_name, cond_action, func_action, override_bags"
+      },
+      {
+        "file": "gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "remove_functor",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "override_functor",
+        "params": "slot, cond_name, func_name, cond_action, func_action, override_bags"
+      },
+      {
+        "file": "gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "remove_override",
+        "params": "slot"
+      },
+      {
+        "file": "gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "get_functor_at_slot",
+        "params": "slot"
+      },
+      {
+        "file": "gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "get_functor_by_name",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "print_properties",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "print_custom_functor",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "print_custom_functor_names",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\custom_functor_autoinject.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_aoe.script",
+        "name": "not_passable",
+        "params": "geometry_ray_instance"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_aoe.script",
+        "name": "refresh_health",
+        "params": "npc, who"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_aoe.script",
+        "name": "get_actor_protection",
+        "params": "hit_type_id, outfit_k, helmet_k, artefact_k, booster_k"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_aoe.script",
+        "name": "hit_actor",
+        "params": "hit_power, hit_type"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_aoe.script",
+        "name": "can_panic",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_aoe.script",
+        "name": "test_AOE",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_aoe.script",
+        "name": "get_projectile_weapon_params",
+        "params": "wpn"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_aoe.script",
+        "name": "try_fire_projectile_weapon",
+        "params": "obj, wpn, pos, dir"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_aoe.script",
+        "name": "actor_on_weapon_fired",
+        "params": "obj, wpn, ammo_elapsed, grenade_elapsed, ammo_type, grenade_type"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_aoe.script",
+        "name": "add_to_npc_tracking",
+        "params": "npc, wpn, enemy"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_aoe.script",
+        "name": "remove_from_npc_tracking",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_aoe.script",
+        "name": "npc_on_update",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_aoe.script",
+        "name": "npc_on_death_callback",
+        "params": "npc, who"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_aoe.script",
+        "name": "npc_on_net_destroy",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_aoe.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_aoe.script",
+        "name": "load_state",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_aoe.script",
+        "name": "remove_last_hit",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_aoe.script",
+        "name": "npc_on_before_hit",
+        "params": "npc, s_hit, bone_id, flags"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_aoe.script",
+        "name": "monster_on_before_hit",
+        "params": "monster, s_hit, bone_id, flags"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_aoe.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_crafter.script",
+        "name": "is_degradable",
+        "params": "sec, obj"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_crafter.script",
+        "name": "add_craft_recipe",
+        "params": "craft_recipe_table, args"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_crafter.script",
+        "name": "remove_craft_recipe",
+        "params": "craft_recipe_table"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_crafter.script",
+        "name": "remove_all_recipes_for_tool",
+        "params": "tool"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_crafter.script",
+        "name": "expand_craft",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_crafter.script",
+        "name": "add_craft_menu",
+        "params": "recipe_table"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_crafter.script",
+        "name": "remove_craft_menu",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_crafter.script",
+        "name": "refresh_craft_menu",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_crafter.script",
+        "name": "on_key_hold",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_crafter.script",
+        "name": "on_key_release",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_crafter.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_geometry_ray.script",
+        "name": "lshift",
+        "params": "x, by"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_geometry_ray.script",
+        "name": "test",
+        "params": "x, mask"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_geometry_ray.script",
+        "name": "similar",
+        "params": "float1, float2, epsilon"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_geometry_ray.script",
+        "name": "vec_similar",
+        "params": "vec1, vec2, epsilon"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_geometry_ray.script",
+        "name": "lerp",
+        "params": "a, b, f"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_geometry_ray.script",
+        "name": "get_surface_normal",
+        "params": "pos, dir"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_binder.script",
+        "name": "isMolotov",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_binder.script",
+        "name": "print_molotovs",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_binder.script",
+        "name": "bind",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_binder.script",
+        "name": "actor_is_seen_by_npcs",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_binder.script",
+        "name": "actor_on_weapon_fired",
+        "params": "obj, wpn, ammo_elapsed, grenade_elapsed, ammo_type, grenade_type"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_binder.script",
+        "name": "distance_to_xz_sqr",
+        "params": "a, b"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_binder.script",
+        "name": "npc_see",
+        "params": "npc, obj"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_binder.script",
+        "name": "is_moving_to_npc",
+        "params": "obj_binder, npc"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_binder.script",
+        "name": "npc_can_panic",
+        "params": "obj_binder, npc"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_binder.script",
+        "name": "add_panicked_npc",
+        "params": "id, obj_binder"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_binder.script",
+        "name": "remove_panicked_npc",
+        "params": "id, force"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_binder.script",
+        "name": "clear_panicked_npcs",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_binder.script",
+        "name": "npc_check_approaching_molotov",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_binder.script",
+        "name": "switch_npc_check_approaching_molotov",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_binder.script",
+        "name": "give_molotov",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_binder.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_effects.script",
+        "name": "start_light",
+        "params": "args"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_effects.script",
+        "name": "start_molotov_light",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_effects.script",
+        "name": "actor_on_hud_animation_play",
+        "params": "anm_table, item"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_effects.script",
+        "name": "on_key_press",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_effects.script",
+        "name": "on_molotov_fused_update",
+        "params": "binder"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_effects.script",
+        "name": "on_molotov_destroy",
+        "params": "binder"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_effects.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_loadouts.script",
+        "name": "parse_loadout_item",
+        "params": "item"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_loadouts.script",
+        "name": "concat_loadout_item",
+        "params": "t"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_sounds.script",
+        "name": "play_current_sound",
+        "params": "anim_name, item"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_sounds.script",
+        "name": "stop_current_sound",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_sounds.script",
+        "name": "actor_on_hud_animation_play",
+        "params": "anm_table, item"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_sounds.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_traders.script",
+        "name": "max_supply_level_items",
+        "params": "trader_table"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_traders.script",
+        "name": "molotov_spawn",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_molotov_traders.script",
+        "name": "trader_autoinject.update",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_stalker_aoe_panic.script",
+        "name": "can_panic",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_stalker_aoe_panic.script",
+        "name": "npc_init_aoe_tables",
+        "params": "obj_id"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_stalker_aoe_panic.script",
+        "name": "npc_update_panic_state",
+        "params": "obj_id"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_stalker_aoe_panic.script",
+        "name": "npc_add_aoe_panic",
+        "params": "obj_id, AOE_class, time, danger_dir, danger_pos"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_stalker_aoe_panic.script",
+        "name": "npc_remove_aoe_panic",
+        "params": "obj_id, AOE_class, force"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_stalker_aoe_panic.script",
+        "name": "npc_remove_aoe_panic_deferred",
+        "params": "obj_id, AOE_class"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_stalker_aoe_panic.script",
+        "name": "setup_generic_scheme",
+        "params": "npc,ini,scheme,section,stype,temp"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_stalker_aoe_panic.script",
+        "name": "add_to_binder",
+        "params": "npc,ini,scheme,section,storage,temp"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_stalker_aoe_panic.script",
+        "name": "configure_actions",
+        "params": "npc,ini,scheme,section,stype,temp"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_stalker_aoe_panic.script",
+        "name": "disable_generic_scheme",
+        "params": "npc,scheme,stype"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_stalker_aoe_panic.script",
+        "name": "npc_add_precondition",
+        "params": "action"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_stalker_aoe_panic.script",
+        "name": "on_enemy_eval",
+        "params": "obj, enemy, flags"
+      },
+      {
+        "file": "gamedata\\scripts\\demonized_stalker_aoe_panic.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\flamethrowers_trader.script",
+        "name": "flamethrowers_stock",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\flamethrowers_trader.script",
+        "name": "trader_autoinject.update",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\new_game_loadout_injector_mcm.script",
+        "name": "add_item",
+        "params": "item_table"
+      },
+      {
+        "file": "gamedata\\scripts\\new_game_loadout_injector_mcm.script",
+        "name": "remove_item",
+        "params": "section"
+      },
+      {
+        "file": "gamedata\\scripts\\new_game_loadout_injector_mcm.script",
+        "name": "remove_existing_item",
+        "params": "section"
+      },
+      {
+        "file": "gamedata\\scripts\\new_game_loadout_injector_mcm.script",
+        "name": "ui_mm_faction_select.UINewGame.LoadLoadout",
+        "params": "self, rand"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "fetch_values",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "collect_squads_to_spawn",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "count_active_boss_mutants",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "try_to_spawn",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "find_random_boss",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "find_random_non_boss",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "spawn_mutants",
+        "params": "boss_pool, non_boss_pool, occupied_smarts"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "half_max_squad_size",
+        "params": "max_squad_size"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "add_squad_members",
+        "params": "squad, max_squad_size, smart_id"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "delete_mutants",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "server_entity_on_unregister",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "save_respawn_smarts",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "get_list_from_ltx",
+        "params": "file_name, section_name"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "check_ltx_contains_value",
+        "params": "filename, section, target_value"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "collect_passive_squad_sections",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "populate_squads_available_this_rank",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "collect_squad_sections",
+        "params": "squad_tag"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "table_is_empty",
+        "params": "t"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "se_obj_outside_spawn_radius",
+        "params": "se_obj, radius"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "is_day",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "get_se_obj_level_name",
+        "params": "se_obj"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "pr",
+        "params": "..."
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "on_before_level_changing",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "surge_started",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "special_event_started",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "check_actor_in_safe_zone",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "is_actor_safe",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "notify_boss_mutant_status",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "clear_vanilla_mutant_targets",
+        "params": "player_safe"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "toggle_predator_targeting",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "actor_sleeping",
+        "params": "hud_name"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "assign_random_smart_target",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "send_random_rumor",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "count_available_smart_terrains",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "reset_spawn_delay",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "capitalizeFirstLetter",
+        "params": "str"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "monster_on_death_callback",
+        "params": "npc, who"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "monster_on_loot_init",
+        "params": "victim, loot_table"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "retarget_passive_fauna",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "release_distant_passive_fauna",
+        "params": "distance"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "init_ray_table",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "table_contains",
+        "params": "tbl, value"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "is_npc_attacked",
+        "params": "npc, timeThreshold"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "add_attacked_npc_id",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "remove_attacked_npc_id",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "npc_on_hit_callback",
+        "params": "npc, amount, local_direction, who, bone_index"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "monster_on_hit_callback",
+        "params": "npc, amount, local_direction, who, bone_index"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "print_npc_clsid",
+        "params": "monster"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "read_ltx_section",
+        "params": "filename,section,field"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "retarget_blood_moon_squads",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "set_blood_moon_squad_target",
+        "params": "squad"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "retarget_vanilla_mutants",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "count_non_respawn_squads",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "game_timer",
+        "params": "state, id"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "cooldown_timer",
+        "params": "state, id, duration_minutes"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "set_vanilla_mutant_squad_target",
+        "params": "squad"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "get_random_smart_terrain_object",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "anomaly_on_before_activate",
+        "params": "zone, obj, flags"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "get_spawnable_squads_report",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "get_current_game_values",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "get_active_spawns_report",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "get_rank_description",
+        "params": "player_rank"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "get_rank_value",
+        "params": "player_rank"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "get_phrase_keys",
+        "params": "phrase_root"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "shuffle_table",
+        "params": "tbl"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "shuffle_smart_ids",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "calculate_opposite_position",
+        "params": "position1, position2"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "rest",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "run_to",
+        "params": "obj, pos"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "on_enemy_eval",
+        "params": "npc, enemy, flags"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "force_rush_to_target",
+        "params": "npc, enemy, flags"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "add_safe_zone_indicator",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "set_safe_zone_status",
+        "params": "status"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "get_safe_zone_status",
+        "params": "visual"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "get_nearest_smart_from_mutant_commander",
+        "params": "squad"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "get_nearest_smart_from_actor",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "get_all_smart_terrain_ids_current_level",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "print_passive_fauna_data",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "spawn_passive_squads_near_actor",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "FindWitness",
+        "params": "victim, who, same_as_victim, same_as_who, not_in_combat, can_see"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "FindFriendlyWitness",
+        "params": "victim, who, same_as_victim, same_as_who, not_in_combat, can_see"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "FindRandomStalker",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "send_tip",
+        "params": "msg, sender, showtime"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "check_player_safety",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "check_sheltered_status_changed",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "calculate_smart_distances",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "get_sorted_smart_ids",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "ease_in_out",
+        "params": "t"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "get_dynamic_weights",
+        "params": "player_rank_value"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "choose_threat_level",
+        "params": "max_threat_level, player_rank_value"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "spawn_random_mutants_outside_safe_zone",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "is_smart_in_fov",
+        "params": "position"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "is_current_map_exempt",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "is_actor_near_lighted_campfire",
+        "params": "radius"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "count_squads_in_radius",
+        "params": "squad_type, position, radius"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "spawn_mutant_squad_on_eligible_smart",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "spawn_mutant_squad_on_eligible_smart",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "on_key_press",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "remove_safe_zone_indicator",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "actor_on_sleep",
+        "params": "hours"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "actor_on_footstep",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters_mcm.script",
+        "name": "get_config",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\rebound_encounters_mcm.script",
+        "name": "collect_installed_respawn_mutants",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "trader_autoinject.update",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "trade_manager.update",
+        "params": "npc, force_refresh"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "timed_update",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "update",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "get_faction_goodwill",
+        "params": "faction"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "get_trader_type",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "supply_level",
+        "params": "npc, as_number"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "merge_tables",
+        "params": "tables"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "get_real_community",
+        "params": "npc, default"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "spawn_items",
+        "params": "npc, to_spawn, check_existing"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "prepare",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "inject",
+        "params": "key, v"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "get_info",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "set_npc_companion",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "kill_npc",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "force_trade_rf",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "release_obj",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "can_see_actor",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "go_trade",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "list_npc_items",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "set_relation_npc_npc",
+        "params": "npc_1, npc_2, relation"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "set_relation",
+        "params": "relation"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "set_goodwill_npc_npc",
+        "params": "npc_1, npc_2, goodwill"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "set_goodwill",
+        "params": "goodwill"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "set_goodwill_squad_npc",
+        "params": "npc_1, npc_2, goodwill"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "set_goodwill_squad",
+        "params": "goodwill"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "iterate_weapon",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "reload_textures",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "toggle_debug_hud",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "toggle_debug_hud_map",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "record_position",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "toggle_respawn",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "check_respawn",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "reload_wpn_hud",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "spawn_basic_equipment",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "start_itm_weapon_editor",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "start_itm_outfit_editor",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "start_itm_artfact_editor",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "start_weather_editor",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "start_lighting_editor",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "start_wpn_hud_editor",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "start_workshop",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "menu_cond_inc",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "func_cond_inc",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "menu_cond_dec",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "func_cond_dec",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "menu_release",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "func_release",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "start_debug_main",
+        "params": "owner"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "get_spawn_table",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "start_item_spawner",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "get_obj_spawn_table",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "start_obj_spawner",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "start_executer",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "start_faction_changer",
+        "params": "for_target"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "resume",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "start_ui",
+        "params": "ui, xml, owner"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "show_owner",
+        "params": "ui, owner, mode"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "send_output",
+        "params": "txt,..."
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "stalker_check",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "npc_check",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "exec",
+        "params": "func,..."
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "print_dbg",
+        "params": "..."
+      },
+      {
+        "file": "gamedata\\scripts\\ui_debug_launcher.script",
+        "name": "go_trade_all",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_rebound_encounters_patches.script",
+        "name": "get_item_prop_table",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_rebound_encounters_patches.script",
+        "name": "loot_mutant_new",
+        "params": "section, clsid, loot_table, npc, dont_create, victim"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_rebound_encounters_patches.script",
+        "name": "GetNewMonsterDescription",
+        "params": "obj,index,sec,cls"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_actor_enemy_to_faction",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_npc_enemy_to_faction",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "toolkit_task_done",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "drugkit_task_done",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_actor_from_faction",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_warfare",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "check_npc_trader",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "check_npc_mechanic",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "check_npc_medic",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "check_npc_barman",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "if_actor_great",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "if_actor_powerful",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "if_actor_not_powerful",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "in_debt",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "if_hip_veteran",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "request_to_hip_task",
+        "params": "actor"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_has_active_item",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_has_target_obj",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "drx_sl_is_enemy",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "random_chance",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "check_task_stage",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_bounty",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "npc_not_actor",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "dist_to_task_target_anomaly_le",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "has_task_target_anomaly",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_has_companion_slot",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "check_nearest_smart_dist_le",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "check_smart_dist_le",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "has_task",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "has_task_on_stage",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "has_task_not_completed",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "has_completed_task_prerequisites",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "has_given_task",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "dist_to_lvid_ge",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "dist_to_job_point_le",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "cond_scheme_camper",
+        "params": "enemy, npc, actor"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "cond_scheme_cover",
+        "params": "enemy, npc, actor"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "cond_scheme_monolith",
+        "params": "enemy, npc, actor"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "sim_avail",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "dist_to_obj_on_job_le",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "dist_to_job_point_ge",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "check_enemy_name",
+        "params": "enemy , npc , p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_enemy_fighting_actor",
+        "params": "enemy,npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_enemy_actor",
+        "params": "enemy, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_enemy_actor_or_companion",
+        "params": "enemy,npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "fighting_dist_ge",
+        "params": "enemy, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "fighting_dist_le",
+        "params": "enemy, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "enemy_in_zone",
+        "params": "enemy, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_enemy_community",
+        "params": "enemy,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "enemy_group",
+        "params": "enemy, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_enemy_same_group",
+        "params": "actor,npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "see_pure_enemy",
+        "params": "actor,npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "pure_enemy_dist_le",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_enemy_on_job",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "enemy_smart",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "has_pure_enemy",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "pure_enemy_mem_time_le",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "black_screen",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "check_npc_name",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "check_squad_name",
+        "params": "actor , npc , p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_playing_sound",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_alive",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "see_npc",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_see_npc",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "npc_in_actor_frustum",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_wounded",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "dist_to_actor_le",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "dist_to_actor_ge",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "obj_in_zone",
+        "params": "actor, zone, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "check_npc_from_gulag_in_zone",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "one_obj_in_zone",
+        "params": "actor, zone, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "story_obj_in_zone_by_name",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_inside_me",
+        "params": "actor,zone,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_in_zone",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_inside_zone",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_near_smart",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_out_zone",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "npc_in_zone",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "health_le",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_health_le",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "heli_health_le",
+        "params": "actor, obj, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "heli_see_npc",
+        "params": "actor, obj, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "heli_see_actor",
+        "params": "actor, obj"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "gulag_state",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "npc_community",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "npc_rank",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "npc_profile",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "hitted_by",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "hitted_on_bone",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "best_pistol",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "deadly_hit",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "killed_by",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_alive_all",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_alive_one",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_alive",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_dead_all",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_dead_one",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_dead",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "story_object_exist",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "check_fighting",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_has_item",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_has_item_amount",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "npc_has_item",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_has_item_count",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "signal",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "counter_greater",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "counter_equal",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "odd_time_interval",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "_kamp_talk",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "_used",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "check_smart_alarm_status",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "has_enemy",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "has_actor_enemy",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "see_enemy",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "has_enemy_in_current_loopholes_fov",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "talking",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "npc_talking",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "see_actor",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_enemy",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_friend",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_neutral",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_true_enemy",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_true_friend",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_true_neutral",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_factions_enemies",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_factions_neutrals",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_factions_friends",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_faction_enemy_to_actor",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_faction_friend_to_actor",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_faction_neutral_to_actor",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_squad_friend_to_actor",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_squad_enemy_to_actor",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_squad_neutral_to_actor",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_actor_enemy_to_faction",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "fighting_actor",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "hit_by_actor",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "killed_by_actor",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_has_weapon",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_is_safemode",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_active_detector",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "heavy_wounded",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "time_period",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_rain",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_heavy_rain",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_day",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_dark_night",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_night",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_jup_a12_mercs_time",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "zat_b7_is_night",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "zat_b7_is_late_attack_time",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "mob_has_enemy",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "mob_was_hit",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_on_level",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "npc_on_level",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "treasure_exist",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "cover_attack",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "squad_in_zone",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "squad_has_enemy",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "squad_in_zone_all",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "squads_in_zone_b41",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "squads_in_zone_yan_smart_terrain_6_4",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "target_squad_name",
+        "params": "actor, obj, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "target_smart_name",
+        "params": "actor, smart, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "squad_exist",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "squad_name_exist",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_squad_commander",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "squad_npc_count_ge",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "surge_complete",
+        "params": ""
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "surge_started",
+        "params": ""
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "surge_kill_all",
+        "params": ""
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "signal_rocket_flying",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "quest_npc_enemy_actor",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "animpoint_reached",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "npc_stay_offline",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "distance_to_obj_ge",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "distance_to_obj_le",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "in_dest_smart_cover",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "active_item",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_nomove_nowpn",
+        "params": ""
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "jup_b16_is_zone_active",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "check_bloodsucker_state",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "dist_to_story_obj_ge",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "dist_to_story_obj_le",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_has_nimble_weapon",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_has_active_nimble_weapon",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "jup_b202_inventory_box_empty",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "jup_b46_actor_has_active_science_detector",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_in_danger",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "object_exist",
+        "params": "actor , npc , p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "squad_curr_action",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_monster_snork",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_monster_dog",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_monster_psy_dog",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_monster_polter",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_monster_tushkano",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_monster_burer",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_monster_controller",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_monster_flesh",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_monster_boar",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "dead_body_searching",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "jup_b47_npc_online",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "anomaly_has_artefact",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "zat_b29_anomaly_has_af",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "jup_b221_who_will_start",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "pas_b400_actor_far_forward",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "pas_b400_actor_far_backward",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "pri_a28_actor_is_far",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "check_enemy_smart",
+        "params": "actor , npc , p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "zat_b103_actor_has_needed_food",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "zat_b29_rivals_dialog_precond",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "polter_ignore_actor",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "burer_gravi_attack",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "burer_anti_aim",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "jup_b202_actor_treasure_not_in_steal",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "jup_b25_senya_spawn_condition",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "jup_b25_flint_gone_condition",
+        "params": "actor, npc"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "check_deimos_phase",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_in_surge_cover",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "is_door_blocked_by_npc",
+        "params": "actor, obj"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "has_active_tutorial",
+        "params": ""
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "upgrade_hint_kardan",
+        "params": "actor, npc, p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "psi_storm_complete",
+        "params": ""
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "npc_surrendered",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "npc_surrendered_any",
+        "params": "actor,npc,p"
+      },
+      {
+        "file": "GAMMA_FIX\\xr_conditions.script",
+        "name": "actor_class",
+        "params": "actor,npc,p"
+      }
+    ],
+    "api_calls": {
+      "level.object_by_id": 37,
+      "db.actor.position": 33,
+      "level.name": 23,
+      "game.translate_string": 20,
+      "level.get_time_hours": 15,
+      "game.get_game_time": 11,
+      "db.actor.character_rank": 9,
+      "level.vertex_position": 7,
+      "db.actor.game_vertex_id": 7,
+      "level.iterate_nearest": 6,
+      "db.actor.active_item": 6,
+      "ui_item.get_sec_name": 5,
+      "db.actor.level_vertex_id": 5,
+      "ui_inventory.UIInventory": 4,
+      "db.actor.id": 4,
+      "ui_options.set": 4,
+      "db.actor.alive": 4,
+      "level.get_target_dist": 3,
+      "level.get_target_obj": 3,
+      "level.present": 3,
+      "db.actor.active_detector": 3,
+      "axr_beh.am_i_reached": 3,
+      "level.get_bounding_volume": 3,
+      "db.actor.object": 2,
+      "level.get_time_minutes": 2,
+      "xr_logic.parse_condlist": 2,
+      "xr_logic.pick_section_from_condlist": 2,
+      "ui_options.get": 2,
+      "level.vertex_id": 2,
+      "db.actor.see": 2,
+      "db.actor.community_goodwill": 2,
+      "level.rain_factor": 2,
+      "level.get_start_time": 2,
+      "level.vertex_in_direction": 1,
+      "xr_logic.assign_storage_and_bind": 1,
+      "xr_logic.subscribe_action_for_events": 1,
+      "level.get_game_difficulty": 1,
+      "db.actor.give_money": 1,
+      "db.actor.character_name": 1,
+      "game.world2ui": 1,
+      "ui_mcm.get": 1,
+      "game.CTime": 1,
+      "db.actor.make_item_active": 1,
+      "db.actor.iterate_inventory": 1,
+      "ui_map_debug_ex.deactivate_feature": 1,
+      "ui_map_debug_ex.activate_feature": 1,
+      "ui_debug_item.start_weapon": 1,
+      "ui_debug_item.start_outfit": 1,
+      "ui_debug_item.start_artfact": 1,
+      "ui_debug_weather.start": 1,
+      "ui_debug_lighting.start": 1,
+      "ui_debug_wpn_hud.start": 1,
+      "ui_workshop.get_workshop_ui": 1,
+      "level.spawn_item": 1,
+      "xr_logic.set_new_scheme_and_logic": 1,
+      "xr_logic.restore_scheme_and_logic": 1,
+      "game.time": 1,
+      "game.actor_weapon_lowered": 1,
+      "db.actor.is_talking": 1,
+      "game.has_active_tutorial": 1,
+      "db.actor.direction": 1,
+      "level.patrol_path_exists": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "GAMMA_FIX\\xr_conditions.script",
+      "gamedata\\scripts\\custom_functor_autoinject.script",
+      "gamedata\\scripts\\demonized_aoe.script",
+      "gamedata\\scripts\\demonized_crafter.script",
+      "gamedata\\scripts\\demonized_crafter_molotov.script",
+      "gamedata\\scripts\\demonized_geometry_ray.script",
+      "gamedata\\scripts\\demonized_molotov_binder.script",
+      "gamedata\\scripts\\demonized_molotov_effects.script",
+      "gamedata\\scripts\\demonized_molotov_loadouts.script",
+      "gamedata\\scripts\\demonized_molotov_new_game_loadouts_mcm.script",
+      "gamedata\\scripts\\demonized_molotov_sounds.script",
+      "gamedata\\scripts\\demonized_molotov_traders.script",
+      "gamedata\\scripts\\demonized_stalker_aoe_panic.script",
+      "gamedata\\scripts\\flamethrowers_trader.script",
+      "gamedata\\scripts\\new_game_loadout_injector_mcm.script",
+      "gamedata\\scripts\\rebound_encounters.script",
+      "gamedata\\scripts\\rebound_encounters_mcm.script",
+      "gamedata\\scripts\\trader_autoinject.script",
+      "gamedata\\scripts\\ui_debug_launcher.script",
+      "gamedata\\scripts\\zzz_rebound_encounters_patches.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\creatures\\m_mizgir.ltx",
+      "gamedata\\configs\\creatures\\monsters.ltx",
+      "gamedata\\configs\\creatures\\stalkers.ltx",
+      "gamedata\\configs\\items\\items\\items_monster.ltx",
+      "gamedata\\configs\\items\\settings\\mod_mutant_loot_rebound_encounters.ltx",
+      "gamedata\\configs\\items\\weapons\\m_molotov.ltx",
+      "gamedata\\configs\\items\\weapons\\w_ammo_flame.ltx",
+      "gamedata\\configs\\items\\weapons\\w_flamers.ltx",
+      "gamedata\\configs\\misc\\squad_descr\\squad_descr_respawn_vanilla.ltx",
+      "gamedata\\configs\\mod_system_respawn_mutant_configs.ltx",
+      "gamedata\\configs\\mod_system_zzzzz_unified_mutant_parts.ltx",
+      "gamedata\\configs\\plugins\\mod_faction_profile_rebound_encounters.ltx",
+      "gamedata\\configs\\plugins\\rebound_encounters.ltx",
+      "gamedata\\configs\\text\\eng\\rebound_encounters_dynamic_news_helper_strings.xml",
+      "gamedata\\configs\\text\\eng\\rebound_encounters_mcm.xml",
+      "gamedata\\configs\\text\\eng\\rebound_encounters_strings.xml",
+      "gamedata\\configs\\text\\eng\\st_demonized_crafter.xml",
+      "gamedata\\configs\\text\\eng\\st_items_flamerthrowers.xml",
+      "gamedata\\configs\\text\\eng\\st_items_molotov.xml",
+      "gamedata\\configs\\text\\eng\\st_items_mutant_parts.xml",
+      "gamedata\\configs\\text\\rus\\st_demonized_crafter.xml",
+      "gamedata\\configs\\text\\rus\\st_items_molotov.xml",
+      "gamedata\\configs\\text\\rus\\st_items_mutant_parts.xml",
+      "gamedata\\configs\\ui\\textures_descr\\ui_rebound_encounters_mcm.xml"
+    ],
+    "file_count": 20
+  }
+}

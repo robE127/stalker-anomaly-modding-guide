@@ -1,0 +1,1526 @@
+{
+  "repo": "Mirrowel/Mirrowels-BHS-Edits",
+  "stars": 4,
+  "relevance_score": 96,
+  "analysis": {
+    "callbacks": {
+      "actor_on_update": 12,
+      "actor_on_first_update": 11,
+      "actor_on_before_hit": 9,
+      "on_option_change": 8,
+      "actor_on_before_death": 7,
+      "actor_on_item_use": 7,
+      "actor_on_weapon_zoom_in": 7,
+      "actor_on_weapon_zoom_out": 7,
+      "actor_on_hit_callback": 6,
+      "actor_on_sleep": 6,
+      "on_key_press": 6,
+      "ActorMenu_on_item_focus_lost": 5,
+      "ActorMenu_on_item_focus_receive": 5,
+      "ActorMenu_on_mode_changed": 5,
+      "actor_on_footstep": 5,
+      "load_state": 5,
+      "save_state": 5,
+      "on_key_release": 2,
+      "actor_on_item_before_use": 1,
+      "monster_on_actor_use_callback": 1,
+      "on_game_load": 1,
+      "actor_item_to_belt": 1,
+      "actor_item_to_ruck": 1,
+      "actor_on_net_destroy": 1
+    },
+    "functions": [
+      {
+        "file": "Compats\\Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "get_game_factor",
+        "params": "key"
+      },
+      {
+        "file": "Compats\\Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "get_outfit_ap_res",
+        "params": "obj"
+      },
+      {
+        "file": "Compats\\Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "get_protection",
+        "params": "shit,bone_id,k_ap"
+      },
+      {
+        "file": "Compats\\Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "shit_booster",
+        "params": "shit, bone_id, k_ap"
+      },
+      {
+        "file": "Compats\\Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "elemental_damage",
+        "params": "draftman_sec, shit, bone_id, flags"
+      },
+      {
+        "file": "Compats\\Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "psi_damage",
+        "params": "draftman_sec, shit, bone_id, flags"
+      },
+      {
+        "file": "Compats\\Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "actor_on_before_hit",
+        "params": "shit,bone_id, flags"
+      },
+      {
+        "file": "Compats\\Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "Compats\\BHSRO Detailed description compat\\gamedata\\scripts\\aaa_descr_override.script",
+        "name": "pr",
+        "params": "..."
+      },
+      {
+        "file": "Compats\\BHSRO Detailed description compat\\gamedata\\scripts\\aaa_descr_override.script",
+        "name": "ui_item.get_obj_desc",
+        "params": "obj"
+      },
+      {
+        "file": "Compats\\BHSRO Detailed description compat\\gamedata\\scripts\\aaa_descr_override.script",
+        "name": "ui_item.build_desc_footer",
+        "params": "obj, sec, str"
+      },
+      {
+        "file": "Compats\\BHSRO Detailed description compat\\gamedata\\scripts\\aaa_descr_override.script",
+        "name": "get_local_val",
+        "params": "path, script_name, str_to_find"
+      },
+      {
+        "file": "Compats\\BHSRO Detailed description compat\\gamedata\\scripts\\aaa_descr_override.script",
+        "name": "file_exists",
+        "params": "name"
+      },
+      {
+        "file": "Compats\\BHSRO Detailed description compat\\gamedata\\scripts\\aaa_descr_override.script",
+        "name": "bhs_descr_str",
+        "params": "obj, obj_sec"
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "on_option_change",
+        "params": ""
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "get_regen_value",
+        "params": ""
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "get_perm_health",
+        "params": "sec"
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "change_regen_value",
+        "params": "value"
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "get_temp_health",
+        "params": "sec, limb"
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "trace_this",
+        "params": "to_trace1"
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "r",
+        "params": "val"
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "get_body_state",
+        "params": ""
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "shaking_hands",
+        "params": ""
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "shaking_hands_remove",
+        "params": ""
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "limp_speed_slow",
+        "params": ""
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "legs_limp",
+        "params": ""
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "torso_penalty",
+        "params": ""
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "bhs_concussion",
+        "params": ""
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "set_stage_two",
+        "params": ""
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "actor_on_before_hit",
+        "params": "shit, bone_id"
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "worst_possible_fix",
+        "params": ""
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "on_key_press",
+        "params": "dik"
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.is_actor_not_healthy",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.is_actor_injured",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.is_actor_injured_irradiated",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.heal_actor_injury_radiation",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.heal_actor_injury",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "rank_part",
+        "params": "name"
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "ArtiHeal",
+        "params": "healpower"
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "manage_boosters",
+        "params": ""
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "on_option_change",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "get_regen_value",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "get_perm_health",
+        "params": "sec"
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "change_regen_value",
+        "params": "value"
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "get_temp_health",
+        "params": "sec, limb"
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "trace_this",
+        "params": "to_trace1"
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "r",
+        "params": "val"
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "get_body_state",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "shaking_hands",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "shaking_hands_remove",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "limp_speed_slow",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "legs_limp",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "torso_penalty",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "bhs_concussion",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "set_stage_two",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "actor_on_before_hit",
+        "params": "shit, bone_id"
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "worst_possible_fix",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "on_key_press",
+        "params": "dik"
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.is_actor_not_healthy",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.is_actor_injured",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.is_actor_injured_irradiated",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.heal_actor_injury_radiation",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.heal_actor_injury",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "rank_part",
+        "params": "name"
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "ArtiHeal",
+        "params": "healpower"
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "manage_boosters",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "on_option_change",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "get_regen_value",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "get_perm_health",
+        "params": "sec"
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "change_regen_value",
+        "params": "value"
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "get_temp_health",
+        "params": "sec, limb"
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "trace_this",
+        "params": "to_trace1"
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "r",
+        "params": "val"
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "get_body_state",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "shaking_hands",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "shaking_hands_remove",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "limp_speed_slow",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "legs_limp",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "torso_penalty",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "bhs_concussion",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "set_stage_two",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "actor_on_before_hit",
+        "params": "shit, bone_id"
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "worst_possible_fix",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "on_key_press",
+        "params": "dik"
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.is_actor_not_healthy",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.is_actor_injured",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.is_actor_injured_irradiated",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.heal_actor_injury_radiation",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.heal_actor_injury",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "rank_part",
+        "params": "name"
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "ArtiHeal",
+        "params": "healpower"
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "manage_boosters",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "on_option_change",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "get_regen_value",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "get_perm_health",
+        "params": "sec"
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "change_regen_value",
+        "params": "value"
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "get_temp_health",
+        "params": "sec, limb"
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "trace_this",
+        "params": "to_trace1"
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "r",
+        "params": "val"
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "get_body_state",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "shaking_hands",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "shaking_hands_remove",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "limp_speed_slow",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "legs_limp",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "torso_penalty",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "bhs_concussion",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "set_stage_two",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "actor_on_before_hit",
+        "params": "shit, bone_id"
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "worst_possible_fix",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "on_key_press",
+        "params": "dik"
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.is_actor_not_healthy",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.is_actor_injured",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.is_actor_injured_irradiated",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.heal_actor_injury_radiation",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.heal_actor_injury",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "rank_part",
+        "params": "name"
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "ArtiHeal",
+        "params": "healpower"
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "manage_boosters",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "Compats\\FDDA animations MCM unlocker\\gamedata\\scripts\\enhanced_animations_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "Compats\\New Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "get_game_factor",
+        "params": "key"
+      },
+      {
+        "file": "Compats\\New Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "get_outfit_ap_res",
+        "params": "obj"
+      },
+      {
+        "file": "Compats\\New Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "get_protection",
+        "params": "shit,bone_id,k_ap"
+      },
+      {
+        "file": "Compats\\New Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "perk_based_artefacts.actor_on_before_hit",
+        "params": "s_hit, bone_id, flags"
+      },
+      {
+        "file": "Compats\\New Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "perk_based_artefacts.actor_on_hit_callback",
+        "params": "obj, amount, local_direction, who, bone_index"
+      },
+      {
+        "file": "Compats\\New Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "perk_based_artefacts.actor_on_before_death",
+        "params": "whoID, flags"
+      },
+      {
+        "file": "Compats\\New Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "PBA_a_obh",
+        "params": "shit, bone_id, flags"
+      },
+      {
+        "file": "Compats\\New Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "PBA_a_ohc",
+        "params": "obj, amount, local_direction, who, bone_index"
+      },
+      {
+        "file": "Compats\\New Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "PBA_a_obd",
+        "params": "whoID, flags"
+      },
+      {
+        "file": "Compats\\New Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "shit_booster",
+        "params": "shit, bone_id, k_ap"
+      },
+      {
+        "file": "Compats\\New Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "elemental_damage",
+        "params": "draftman_sec, shit, bone_id, flags"
+      },
+      {
+        "file": "Compats\\New Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "psi_damage",
+        "params": "draftman_sec, shit, bone_id, flags"
+      },
+      {
+        "file": "Compats\\New Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "actor_on_before_hit",
+        "params": "shit,bone_id, flags"
+      },
+      {
+        "file": "Compats\\New Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "Compats\\New Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Radiation Effects Overhaul(GAMMA)\\gamedata\\scripts\\grok_progressive_rad_damages.script",
+        "name": "actor_on_before_hit",
+        "params": "shit"
+      },
+      {
+        "file": "Compats\\Radiation Effects Overhaul(GAMMA)\\gamedata\\scripts\\grok_progressive_rad_damages.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "Compats\\Radiation Effects Overhaul(GAMMA)\\gamedata\\scripts\\grok_progressive_rad_damages.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\aaa_descr_override.script",
+        "name": "pr",
+        "params": "..."
+      },
+      {
+        "file": "gamedata\\scripts\\aaa_descr_override.script",
+        "name": "ui_item.build_desc_footer",
+        "params": "obj, sec, str"
+      },
+      {
+        "file": "gamedata\\scripts\\aaa_descr_override.script",
+        "name": "get_local_val",
+        "params": "path, script_name, str_to_find"
+      },
+      {
+        "file": "gamedata\\scripts\\aaa_descr_override.script",
+        "name": "file_exists",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\aaa_descr_override.script",
+        "name": "bhs_descr_str",
+        "params": "obj, obj_sec"
+      },
+      {
+        "file": "gamedata\\scripts\\eftmeds_util.script",
+        "name": "values",
+        "params": "t"
+      },
+      {
+        "file": "gamedata\\scripts\\eftmeds_util.script",
+        "name": "delete_addon_items",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\eftmeds_util.script",
+        "name": "on_option_change",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\eftmeds_util.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\eftmeds_util.script",
+        "name": "death_manager.spawn_cosmetics",
+        "params": "npc, npc_id, npc_comm, npc_rank, visual, rand_condition"
+      },
+      {
+        "file": "gamedata\\scripts\\eftmeds_util.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "on_game_load",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "on_key_release",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "loadsettings",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "activate",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "anim_prepare",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "use_item",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "monster_on_actor_use",
+        "params": "obj"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "start_anim",
+        "params": "anim_section_hud"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "anim_manager_item",
+        "params": "anim_section_hud"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "anim_manager_monster",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "actor_effects.play_item_fx",
+        "params": "item"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "actor_effects.use_weapon",
+        "params": "f"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "itms_manager.actor_on_item_before_use",
+        "params": "obj,flags"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "ui_mutant_loot.start",
+        "params": "obj, for_bug1, for_bug2"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "call_my_slot_back",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "blood_fx",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "eat_my_obj",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "stop_my_item_anim",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "stop_my_monster_anim",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "def_use_end",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "mask_hud_switcher",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "ea_restore_actor",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "hide_det",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "recalc_actor_campos",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations.script",
+        "name": "skip_functor",
+        "params": "item"
+      },
+      {
+        "file": "gamedata\\scripts\\enhanced_animations_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\gamma_artihealing_ilrathCXV.script",
+        "name": "check_chain_status",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\gamma_artihealing_ilrathCXV.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\gamma_artihealing_ilrathCXV.script",
+        "name": "artihealing_calculations",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\gamma_artihealing_ilrathCXV.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\limb_healing_campfire_ilrathCXV.script",
+        "name": "get_nearby_lit_campfire",
+        "params": "dist"
+      },
+      {
+        "file": "gamedata\\scripts\\limb_healing_campfire_ilrathCXV.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\limb_healing_campfire_ilrathCXV.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\psy_damage_eftmeds.script",
+        "name": "arszi_psy.actor_on_before_hit",
+        "params": "s_hit"
+      },
+      {
+        "file": "gamedata\\scripts\\psy_damage_eftmeds.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\psy_damage_eftmeds.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\weapon_sway_mcm.script",
+        "name": "get_config",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\weapon_sway_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\wpn_sway_enable.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\wpn_sway_enable.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\wpn_sway_enable.script",
+        "name": "actor_on_weapon_zoom_in",
+        "params": "wpn"
+      },
+      {
+        "file": "gamedata\\scripts\\wpn_sway_enable.script",
+        "name": "actor_on_weapon_zoom_out",
+        "params": "wpn"
+      },
+      {
+        "file": "gamedata\\scripts\\wpn_sway_enable.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\wpn_sway_enable.script",
+        "name": "change_sway",
+        "params": "value"
+      },
+      {
+        "file": "gamedata\\scripts\\wpn_sway_enable.script",
+        "name": "restore_sway",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_weapon_sway.script",
+        "name": "weapon_sway",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_weapon_sway.script",
+        "name": "weapon_sway_remove",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_weapon_sway.script",
+        "name": "on_key_press",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_weapon_sway.script",
+        "name": "breath_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_weapon_sway.script",
+        "name": "on_key_release",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_weapon_sway.script",
+        "name": "breath_snd_hold",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_weapon_sway.script",
+        "name": "breath_snd_release",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_weapon_sway.script",
+        "name": "get_body_state_power",
+        "params": "wpn, scope"
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_weapon_sway.script",
+        "name": "wpn_mounted",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_weapon_sway.script",
+        "name": "get_weight_power",
+        "params": "wpn_sec"
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_weapon_sway.script",
+        "name": "get_body_state",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_weapon_sway.script",
+        "name": "ray_pick_dir",
+        "params": "add_x, add_y, add_z, range"
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_weapon_sway.script",
+        "name": "normal_ray_pick",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_weapon_sway.script",
+        "name": "get_rp_diff",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_weapon_sway.script",
+        "name": "r",
+        "params": "val"
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_weapon_sway.script",
+        "name": "actor_on_weapon_zoom_in",
+        "params": "wpn"
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_weapon_sway.script",
+        "name": "actor_on_weapon_zoom_out",
+        "params": "wpn"
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_weapon_sway.script",
+        "name": "main_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_weapon_sway.script",
+        "name": "on_option_change",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzzz_weapon_sway.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "save_state",
+        "params": "m_data"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "load_state",
+        "params": "m_data"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "on_option_change",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "actor_on_first_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "trace_this",
+        "params": "to_trace1"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "r",
+        "params": "val"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "get_body_state",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "shaking_hands",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "shaking_hands_remove",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "limp_speed_slow",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "legs_limp",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "torso_penalty",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "bhs_concussion",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "set_stage_two",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "actor_on_before_hit",
+        "params": "shit, bone_id"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "worst_possible_fix",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "on_key_press",
+        "params": "dik"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.is_actor_not_healthy",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.is_actor_injured",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.is_actor_injured_irradiated",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.heal_actor_injury_radiation",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "dialogs.heal_actor_injury",
+        "params": "first_speaker, second_speaker"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "rank_part",
+        "params": "name"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "ArtiHeal",
+        "params": "healpower"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "manage_boosters",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "actor_on_update",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries.script",
+        "name": "on_game_start",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries_mcm.script",
+        "name": "get_config",
+        "params": "key"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries_mcm.script",
+        "name": "set_config",
+        "params": "key, value"
+      },
+      {
+        "file": "gamedata\\scripts\\zzz_player_injuries_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      }
+    ],
+    "api_calls": {
+      "level.add_cam_effector": 36,
+      "level.add_pp_effector": 33,
+      "db.actor.id": 30,
+      "db.actor.item_in_slot": 27,
+      "level.remove_pp_effector": 20,
+      "db.actor.change_health": 20,
+      "ui_options.get": 17,
+      "db.actor.give_game_news": 15,
+      "db.actor.character_icon": 15,
+      "db.actor.cast_Actor": 10,
+      "db.actor.get_movement_speed": 10,
+      "level.set_pp_effector_factor": 10,
+      "db.actor.get_current_outfit": 10,
+      "db.actor.money": 10,
+      "db.actor.set_health_ex": 9,
+      "db.actor.active_slot": 7,
+      "level.remove_cam_effector": 6,
+      "game.get_game_time": 6,
+      "db.actor.get_actor_run_coef": 5,
+      "db.actor.get_actor_runback_coef": 5,
+      "db.actor.get_actor_sprint_koef": 5,
+      "db.actor.character_name": 5,
+      "ui_mcm.get": 5,
+      "game.only_allow_movekeys": 5,
+      "db.actor.active_item": 3,
+      "db.actor.object": 3,
+      "level.check_cam_effector": 3,
+      "level.set_cam_effector_factor": 3,
+      "level.object_by_id": 2,
+      "ui_item.build_desc_footer": 2,
+      "ui_mcm.set": 2,
+      "db.actor.activate_slot": 2,
+      "db.actor.active_detector": 2,
+      "level.enable_input": 2,
+      "ui_mutant_loot.start": 2,
+      "db.actor.eat": 2,
+      "ui_item.get_obj_desc": 1,
+      "ui_item.item_description": 1,
+      "level.present": 1,
+      "db.actor.restore_weapon": 1,
+      "level.disable_input": 1,
+      "game.play_hud_motion": 1,
+      "game.play_hud_anm": 1,
+      "game.translate_string": 1,
+      "db.actor.hide_weapon": 1,
+      "db.actor.actor_look_at_point": 1,
+      "db.actor.character_community": 1,
+      "level.name": 1,
+      "level.get_time_hours": 1,
+      "db.actor.iterate_belt": 1,
+      "db.actor.position": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "Compats\\Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+      "Compats\\BHSRO Detailed description compat\\gamedata\\scripts\\aaa_descr_override.script",
+      "Compats\\BHSRO GIRTH Compat\\gamedata\\scripts\\zzz_player_injuries.script",
+      "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+      "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+      "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\scripts\\zzz_player_injuries.script",
+      "Compats\\FDDA animations MCM unlocker\\gamedata\\scripts\\enhanced_animations_mcm.script",
+      "Compats\\New Actor Damage Balancer(GAMMA)\\gamedata\\scripts\\grok_actor_damage_balancer.script",
+      "Compats\\Radiation Effects Overhaul(GAMMA)\\gamedata\\scripts\\grok_progressive_rad_damages.script",
+      "gamedata\\scripts\\aaa_descr_override.script",
+      "gamedata\\scripts\\eftmeds_util.script",
+      "gamedata\\scripts\\enhanced_animations.script",
+      "gamedata\\scripts\\enhanced_animations_mcm.script",
+      "gamedata\\scripts\\gamma_artihealing_ilrathCXV.script",
+      "gamedata\\scripts\\limb_healing_campfire_ilrathCXV.script",
+      "gamedata\\scripts\\psy_damage_eftmeds.script",
+      "gamedata\\scripts\\weapon_sway_mcm.script",
+      "gamedata\\scripts\\wpn_sway_enable.script",
+      "gamedata\\scripts\\zzz_player_injuries.script",
+      "gamedata\\scripts\\zzz_player_injuries_mcm.script",
+      "gamedata\\scripts\\zzzz_weapon_sway.script"
+    ],
+    "config_files": [
+      "Compats\\BHSRO Enhanced GUI compat\\gamedata\\configs\\ui\\textures_descr\\ui_hud.xml",
+      "Compats\\BHSRO Enhanced GUI compat\\gamedata\\configs\\ui\\ui_custom_msgs.xml",
+      "Compats\\BHSRO GIRTH Compat\\gamedata\\configs\\ui\\ui_body_health.xml",
+      "Compats\\BHSRO GIRTH Compat\\gamedata\\configs\\ui\\ui_custom_msgs.xml",
+      "Compats\\BHSRO No old ammo + Enhanced GUI compat\\gamedata\\configs\\ui\\textures_descr\\ui_hud.xml",
+      "Compats\\BSHRO No old ammo compat\\gamedata\\configs\\ui\\textures_descr\\ui_hud.xml",
+      "Compats\\Dynahud\\BHSRO Nav's masks compat for Dynahud gamma\\gamedata\\configs\\ui\\ui_custom_msgs.xml",
+      "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\configs\\ui\\textures_descr\\dynahud.xml",
+      "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\configs\\ui\\textures_descr\\ui_bhs_med.xml",
+      "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\configs\\ui\\ui_body_health.xml",
+      "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\configs\\ui\\ui_body_health_med.xml",
+      "Compats\\Dynahud\\Better inventory BHS texture\\gamedata\\configs\\ui\\ui_custom_msgs.xml",
+      "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\configs\\ui\\textures_descr\\dynahud.xml",
+      "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\configs\\ui\\textures_descr\\ui_bhs_med.xml",
+      "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\configs\\ui\\ui_body_health.xml",
+      "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\configs\\ui\\ui_body_health_med.xml",
+      "Compats\\Dynahud\\Russian inventory BHS texture\\gamedata\\configs\\ui\\ui_custom_msgs.xml",
+      "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\configs\\ui\\textures_descr\\dynahud.xml",
+      "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\configs\\ui\\textures_descr\\ui_bhs_med.xml",
+      "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\configs\\ui\\ui_body_health.xml",
+      "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\configs\\ui\\ui_body_health_med.xml",
+      "Compats\\Dynahud\\original inventory BHS texture\\gamedata\\configs\\ui\\ui_custom_msgs.xml",
+      "Compats\\Nav's masks\\gamedata\\configs\\ui\\ui_custom_msgs.xml",
+      "gamedata\\configs\\icon_override\\ico_bhsro.ltx",
+      "gamedata\\configs\\items\\items\\ea_addon_exo.ltx",
+      "gamedata\\configs\\items\\items\\items_anm_exo.ltx",
+      "gamedata\\configs\\items\\items\\mod_animations_settings_othermeds_bhsro.ltx",
+      "gamedata\\configs\\items\\items\\mod_animations_settings_slowermeds_bhsro.ltx",
+      "gamedata\\configs\\items\\items\\mod_animations_settings_z_eftmeds_bhsro.ltx",
+      "gamedata\\configs\\items\\settings\\mod_craft_eftmeds_bhsro.ltx",
+      "gamedata\\configs\\items\\settings\\mod_dynamic_item_spawn_bhsro.ltx",
+      "gamedata\\configs\\items\\settings\\mod_item_rewards_bhsro.ltx",
+      "gamedata\\configs\\items\\settings\\mod_new_game_loadouts_bhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_bandit_bhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_ecolog_hermann_bhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_ecolog_sakharov_bhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_generic_medic_bhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_greh_bhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_isg_bhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_military_bhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_military_esc_bhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_monolith_bhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_renegade_bhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_basic_bhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_butcher_bhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_cashier_bhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_flea_market_bhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_flea_market_night_bhsro.ltx",
+      "gamedata\\configs\\items\\trade\\mod_trade_stalker_sidorovich_bhsro.ltx",
+      "gamedata\\configs\\mod_system_anims_bints_bhsro.ltx",
+      "gamedata\\configs\\mod_system_anims_injectors_bhsro.ltx",
+      "gamedata\\configs\\mod_system_anims_injectors_stims_bhsro.ltx",
+      "gamedata\\configs\\mod_system_anims_medkits_bhsro.ltx",
+      "gamedata\\configs\\mod_system_eftmeds_bhsro.ltx",
+      "gamedata\\configs\\mod_system_z_drugs_balance_bhsro.ltx",
+      "gamedata\\configs\\text\\eng\\st_bhs_medicine_text.xml",
+      "gamedata\\configs\\text\\eng\\st_descr_override.xml",
+      "gamedata\\configs\\text\\eng\\ui_st_body_health_system.xml",
+      "gamedata\\configs\\text\\eng\\ui_st_weapon_sway.xml",
+      "gamedata\\configs\\text\\eng\\z_st_items_medical.xml",
+      "gamedata\\configs\\text\\eng\\zz_st_items_medical.xml",
+      "gamedata\\configs\\text\\rus\\st_bhs_medicine_text.xml",
+      "gamedata\\configs\\text\\rus\\st_descr_override.xml",
+      "gamedata\\configs\\text\\rus\\ui_st_body_health_system.xml",
+      "gamedata\\configs\\text\\rus\\ui_st_weapon_sway.xml",
+      "gamedata\\configs\\text\\rus\\z_st_items_medical.xml",
+      "gamedata\\configs\\text\\rus\\zz_st_items_medical.xml",
+      "gamedata\\configs\\text\\spa\\st_bhs_medicine_text.xml",
+      "gamedata\\configs\\text\\spa\\st_descr_override.xml",
+      "gamedata\\configs\\text\\spa\\ui_st_body_health_system.xml",
+      "gamedata\\configs\\text\\spa\\ui_st_weapon_sway.xml",
+      "gamedata\\configs\\text\\spa\\z_st_items_medical.xml",
+      "gamedata\\configs\\text\\spa\\zz_st_items_medical.xml",
+      "gamedata\\configs\\ui\\textures_descr\\ui_hud.xml",
+      "gamedata\\configs\\ui\\ui_body_health.xml",
+      "gamedata\\configs\\ui\\ui_custom_msgs.xml"
+    ],
+    "file_count": 21
+  }
+}

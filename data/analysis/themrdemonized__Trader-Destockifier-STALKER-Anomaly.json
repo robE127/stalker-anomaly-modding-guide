@@ -1,0 +1,104 @@
+{
+  "repo": "themrdemonized/Trader-Destockifier-STALKER-Anomaly",
+  "stars": 2,
+  "relevance_score": 68,
+  "analysis": {
+    "callbacks": {
+      "trader_on_restock": 1,
+      "GUI_on_show": 1,
+      "actor_on_first_update": 1,
+      "on_option_change": 1
+    },
+    "functions": [
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "trader_autoinject.update",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "trade_manager.update",
+        "params": "npc, force_refresh"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "timed_update",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "update",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "get_faction_goodwill",
+        "params": "faction"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "get_trader_type",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "supply_level",
+        "params": "npc, as_number"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "merge_tables",
+        "params": "tables"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "get_real_community",
+        "params": "npc, default"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_autoinject.script",
+        "name": "spawn_items",
+        "params": "npc, to_spawn, check_existing"
+      },
+      {
+        "file": "gamedata\\scripts\\trader_destockifier_mcm.script",
+        "name": "on_mcm_load",
+        "params": ""
+      },
+      {
+        "file": "gamedata\\scripts\\zz_trader_destockifier.script",
+        "name": "destockify",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\zz_trader_destockifier.script",
+        "name": "trader_autoinject.update",
+        "params": "npc"
+      },
+      {
+        "file": "gamedata\\scripts\\zz_trader_destockifier.script",
+        "name": "on_game_start",
+        "params": ""
+      }
+    ],
+    "api_calls": {
+      "game.CTime": 1,
+      "db.actor.position": 1,
+      "game.get_game_time": 1,
+      "xr_logic.parse_condlist": 1,
+      "xr_logic.pick_section_from_condlist": 1,
+      "ui_mcm.get": 1
+    },
+    "ini_read_types": [],
+    "script_files": [
+      "gamedata\\scripts\\trader_autoinject.script",
+      "gamedata\\scripts\\trader_destockifier_mcm.script",
+      "gamedata\\scripts\\zz_trader_destockifier.script"
+    ],
+    "config_files": [
+      "gamedata\\configs\\text\\eng\\ui_mcm_trader_destockifier.xml",
+      "gamedata\\configs\\text\\rus\\ui_mcm_trader_destockifier.xml"
+    ],
+    "file_count": 3
+  }
+}
