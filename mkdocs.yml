@@ -21,6 +21,7 @@ theme:
     - content.code.copy
     - content.code.annotate
     - toc.follow
+    - navigation.footer
 
 markdown_extensions:
   - admonition

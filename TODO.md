@@ -14,7 +14,7 @@ _Nothing currently in progress._
 
 ### Fixes & quick wins
 - [ ] Fix callback registration contradiction between `docs/scripting/callbacks.md` and `docs/scripting/script-lifecycle.md` — callbacks.md says registering the same function twice is harmless; script-lifecycle.md says it causes double-firing. Resolve against axr_main.script ground truth.
-- [ ] Enable next/prev page navigation — add `navigation.footer` to the `features` list in `mkdocs.yml` (one-line change).
+- [x] Enable next/prev page navigation — add `navigation.footer` to the `features` list in `mkdocs.yml` (one-line change).
 
 ### Core conceptual gaps (new pages / sections)
 - [ ] **What is a game_object?** — New page or prominent section. Fundamental type referenced everywhere; explain the client-side object, its base methods (`id()`, `name()`, `section()`, `position()`, `alive()`), and how it differs from a server entity.
