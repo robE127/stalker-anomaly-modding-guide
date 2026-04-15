@@ -47,6 +47,7 @@ nav:
     - Environment Setup: getting-started/environment-setup.md
     - Gamedata Structure: getting-started/gamedata-structure.md
     - Your First Mod: getting-started/first-mod.md
+    - Packaging & Publishing: getting-started/packaging.md
 
   - Scripting:
     - scripting/index.md

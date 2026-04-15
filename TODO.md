@@ -33,7 +33,7 @@ _Nothing currently in progress._
 - [x] **Motivation and methodology** — Add an About or Methodology page (or expand home page) explaining why this guide exists, how content was derived (base game source + 50-repo analysis), and its scope and limitations.
 - [x] **Credits and cross-links to anomaly-modding-book** — TheParaziT's anomaly-modding-book is the main existing community reference (`data/clones/TheParaziT__anomaly-modding-book/`). Add attribution, link to it, and note where the two guides complement each other.
 - [ ] **Contribution guide** — Add `CONTRIBUTING.md` or a docs page explaining how to submit corrections, additions, and how the scanner tools can be re-run to refresh the data.
-- [ ] **Packaging for MO2/BAIN** — New page in Getting Started. How to structure a mod folder for MO2 compatibility, what a BAIN-compatible archive looks like, and optionally a basic FOMOD installer.
+- [x] **Packaging for MO2/BAIN** — New page in Getting Started. How to structure a mod folder for MO2 compatibility, what a BAIN-compatible archive looks like, and optionally a basic FOMOD installer.
 
 ### Advanced topics (new pages)
 - [ ] **Sounds & Particles from Script** — `sound_object`, playing sounds at world positions, attaching sounds to objects, `start_particles` / `stop_particles`, common particle file paths.
