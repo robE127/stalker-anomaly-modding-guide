@@ -16,7 +16,7 @@
         <link rel="prev" href="../script-lifecycle/">
       
       
-        <link rel="next" href="../save-load/">
+        <link rel="next" href="../debugging/">
       
       
         
@@ -449,6 +449,8 @@
       
         
       
+        
+      
     
     
     
@@ -589,6 +591,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/packaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packaging & Publishing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -609,6 +639,16 @@
       
         
           
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
         
       
         
@@ -691,6 +731,118 @@
     
   
     Lua in Anomaly
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lua-scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua Scope & Globals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../game-object/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is a game_object?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../db-storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is db.storage?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../object-binders/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Binders
   
 
     
@@ -799,10 +951,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-three-functions" class="md-nav__link">
+  <a href="#the-callback-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The three functions
+        The callback API
       
     </span>
   </a>
@@ -879,6 +1031,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debugging & Logging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1891,10 +2071,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-three-functions" class="md-nav__link">
+  <a href="#the-callback-api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The three functions
+        The callback API
       
     </span>
   </a>
@@ -1987,7 +2167,7 @@
 <h1 id="the-callback-system">The Callback System<a class="headerlink" href="#the-callback-system" title="Permanent link">&para;</a></h1>
 <p>The callback system is how Anomaly scripts communicate with the engine and with each other. Almost everything you'll ever do in a mod is triggered by a callback.</p>
 <hr />
-<h2 id="the-three-functions">The three functions<a class="headerlink" href="#the-three-functions" title="Permanent link">&para;</a></h2>
+<h2 id="the-callback-api">The callback API<a class="headerlink" href="#the-callback-api" title="Permanent link">&para;</a></h2>
 <div class="language-lua highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="nv">name</span><span class="p">,</span><span class="w"> </span><span class="nv">fn</span><span class="p">)</span><span class="w">    </span><span class="c1">-- Subscribe to an event</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nf">UnregisterScriptCallback</span><span class="p">(</span><span class="nv">name</span><span class="p">,</span><span class="w"> </span><span class="nv">fn</span><span class="p">)</span><span class="w">  </span><span class="c1">-- Unsubscribe</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nf">AddScriptCallback</span><span class="p">(</span><span class="nv">name</span><span class="p">)</span><span class="w">             </span><span class="c1">-- Declare a new event (for mod authors)</span>
@@ -1995,14 +2175,15 @@
 </span></code></pre></div>
 <hr />
 <h2 id="how-registration-works">How registration works<a class="headerlink" href="#how-registration-works" title="Permanent link">&para;</a></h2>
-<p>Internally, callbacks are stored in a table where the <strong>function itself is the key</strong>:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">-- Conceptually (from axr_main.script):</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nv">intercepts</span><span class="p">[</span><span class="s2">&quot;on_game_load&quot;</span><span class="p">][</span><span class="nv">your_function</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<p>Internally, callbacks are stored in a table where the <strong>function itself is the key</strong> (from <code>axr_main.script</code>):</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">intercepts</span><span class="p">[</span><span class="s2">&quot;on_game_load&quot;</span><span class="p">][</span><span class="nv">your_function</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 </span></code></pre></div>
 <p>This means:
-- Registering the same function twice is harmless (it's just setting a key to <code>true</code> again)
-- You must pass the <strong>exact same function reference</strong> to unregister
+- Registering the same function twice is harmless — the second call just sets the same key to <code>true</code> again, no duplicate entry is created
+- You must pass the <strong>exact same function reference</strong> to unregister — this is why anonymous functions can never be unregistered
 - Order of execution among registered functions is not guaranteed</p>
+<p><strong>The intercepts table persists for the entire process lifetime</strong> — it is never automatically reset between game sessions. If you load a save, return to main menu, and load another save without quitting, the table from the first session is still in memory. This is why <code>on_game_end</code> unregistration matters: not because double-registration causes double-firing (it doesn't), but because callbacks that aren't unregistered remain active across session boundaries and can fire while your module's state is in an indeterminate condition — reset local variables, a nil <code>db.actor</code>, or stale flags from the previous session.</p>
+<p>Unregistering in <code>on_game_end</code> is also used in advanced mods to <strong>replace or intercept base game callbacks</strong>: unregister the original function, then re-register a patched version that adds behaviour before or after the original call.</p>
 <hr />
 <h2 id="the-canonical-pattern">The canonical pattern<a class="headerlink" href="#the-canonical-pattern" title="Permanent link">&para;</a></h2>
 <p>Every mod that registers callbacks should follow this structure:</p>
@@ -2140,6 +2321,46 @@ Always assign your callback to a named local variable first.</p>
       
         <footer class="md-footer">
   
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../script-lifecycle/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Script Lifecycle">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Script Lifecycle
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../debugging/" class="md-footer__link md-footer__link--next" aria-label="Next: Debugging &amp; Logging">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Debugging & Logging
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
@@ -2165,7 +2386,7 @@ Always assign your callback to a named local variable first.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "toc.follow", "navigation.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>

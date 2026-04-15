@@ -479,10 +479,32 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#where-to-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where to start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-is-stalker-anomaly" class="md-nav__link">
     <span class="md-ellipsis">
       
         What is S.T.A.L.K.E.R. Anomaly?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-guide-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why this guide exists
       
     </span>
   </a>
@@ -519,6 +541,8 @@
       
         
           
+        
+      
         
       
         
@@ -667,6 +691,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting-started/packaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packaging & Publishing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -685,6 +737,16 @@
       
         
           
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
         
       
         
@@ -786,6 +848,118 @@
   
   
     <li class="md-nav__item">
+      <a href="scripting/lua-scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua Scope & Globals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="scripting/game-object/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is a game_object?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="scripting/db-storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is db.storage?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="scripting/object-binders/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Binders
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="scripting/script-lifecycle/" class="md-nav__link">
         
   
@@ -822,6 +996,34 @@
     
   
     The Callback System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="scripting/debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debugging & Logging
   
 
     
@@ -1853,10 +2055,32 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#where-to-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where to start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-is-stalker-anomaly" class="md-nav__link">
     <span class="md-ellipsis">
       
         What is S.T.A.L.K.E.R. Anomaly?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-this-guide-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why this guide exists
       
     </span>
   </a>
@@ -1892,32 +2116,70 @@
 
 
 <h1 id="stalker-anomaly-modding-guide">S.T.A.L.K.E.R. Anomaly Modding Guide<a class="headerlink" href="#stalker-anomaly-modding-guide" title="Permanent link">&para;</a></h1>
-<p>A practical, code-first guide to scripting mods for <strong>S.T.A.L.K.E.R. Anomaly</strong>.</p>
-<p>This guide is aimed at developers who have programming experience but have never modded Anomaly before. It documents the Lua scripting API, the callback system, config file formats, and common modding patterns — all derived from reading the base game's scripts and studying hundreds of community mods.</p>
+<p>A practical, code-first reference for scripting and configuring mods for <strong>S.T.A.L.K.E.R. Anomaly</strong>.</p>
+<p>Written for developers with programming experience who are new to Anomaly modding. No prior X-Ray engine or Lua knowledge assumed.</p>
 <hr />
 <h2 id="what-this-guide-covers">What this guide covers<a class="headerlink" href="#what-this-guide-covers" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong><a href="getting-started/">Getting Started</a></strong> — Setting up your environment, understanding the folder layout, writing your first mod</li>
-<li><strong><a href="scripting/">Scripting</a></strong> — How Lua works in Anomaly, the module system, and the callback architecture</li>
-<li><strong><a href="api-reference/">API Reference</a></strong> — The engine-exposed globals: <code>db.actor</code>, <code>level</code>, <code>game</code>, <code>alife</code>, <code>xr_logic</code>, and more</li>
-<li><strong><a href="config-formats/">Config Formats</a></strong> — LTX, XML, DXML, and DLTX: how game data is defined and how mods override it</li>
-<li><strong><a href="systems/">Systems</a></strong> — Deep dives into MCM, localization, items, NPCs, and UI scripting</li>
-<li><strong><a href="callbacks-reference/">Callbacks Reference</a></strong> — Every known callback with signatures and usage examples</li>
+<li><strong><a href="getting-started/">Getting Started</a></strong> — Environment setup, gamedata folder layout, writing your first mod</li>
+<li><strong><a href="scripting/">Scripting</a></strong> — Lua in Anomaly, scope, the callback system, game_object, db.storage, object binders, save/load, debugging</li>
+<li><strong><a href="api-reference/">API Reference</a></strong> — Engine-exposed globals: <code>db.actor</code>, <code>level</code>, <code>game</code>, <code>alife</code>, <code>xr_logic</code>, UI functions</li>
+<li><strong><a href="config-formats/">Config Formats</a></strong> — LTX, XML, DXML, and DLTX: how game data is defined and patched</li>
+<li><strong><a href="systems/">Systems</a></strong> — MCM, localization, items, NPCs, and UI scripting</li>
+<li><strong><a href="callbacks-reference/">Callbacks Reference</a></strong> — Every known callback with signatures</li>
 <li><strong><a href="examples/">Examples</a></strong> — Complete worked mods you can run and modify</li>
 </ul>
 <hr />
+<h2 id="where-to-start">Where to start<a class="headerlink" href="#where-to-start" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">I want to write a script mod</label><label for="__tabbed_1_2">I want to edit configs or items</label><label for="__tabbed_1_3">I want to modify the UI or dialogs</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ol>
+<li><a href="getting-started/environment-setup/">Environment Setup</a> — editor, file associations, unpacking base scripts</li>
+<li><a href="scripting/lua-in-anomaly/">Lua in Anomaly</a> — how Lua works in the X-Ray engine</li>
+<li><a href="scripting/script-lifecycle/">Script Lifecycle</a> — when your code runs and what's available when</li>
+<li><a href="scripting/callbacks/">The Callback System</a> — how to hook into engine events</li>
+<li><a href="getting-started/first-mod/">Your First Mod</a> — build and test a working addon</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<ol>
+<li><a href="getting-started/gamedata-structure/">Gamedata Structure</a> — where configs live and how file priority works</li>
+<li><a href="config-formats/ltx/">LTX Format</a> — the primary config format</li>
+<li><a href="config-formats/dltx/">DLTX (LTX Patching)</a> — mod-compatible config overrides</li>
+<li><a href="systems/items/">Items &amp; Inventory</a> — item config structure and callbacks</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<ol>
+<li><a href="config-formats/xml/">XML Configs</a> — UI layout and dialog XML structure</li>
+<li><a href="config-formats/dxml/">DXML (XML Patching)</a> — patching XML without replacing files</li>
+<li><a href="systems/ui-scripting/">UI Scripting</a> — writing Lua-backed UI screens</li>
+<li><a href="systems/localization/">Localization</a> — adding and translating text strings</li>
+</ol>
+</div>
+</div>
+</div>
+<hr />
 <h2 id="what-is-stalker-anomaly">What is S.T.A.L.K.E.R. Anomaly?<a class="headerlink" href="#what-is-stalker-anomaly" title="Permanent link">&para;</a></h2>
-<p>Anomaly is a standalone mod for <em>S.T.A.L.K.E.R.: Call of Pripyat</em> built on the <strong>Open X-Ray engine</strong> — an open-source continuation of GSC Game World's original engine. It ships with all the original game maps, a heavily reworked progression system, and an extensive Lua scripting layer that exposes most of the engine to modders.</p>
-<p>Mods for Anomaly are called <strong>addons</strong>. An addon is a folder containing files that override or extend the base game's <code>gamedata/</code> directory. No compilation step is required for script mods — you write Lua (saved as <code>.script</code> files), drop them in the right folder, and the engine loads them automatically.</p>
+<p>Anomaly is a free standalone mod for <em>S.T.A.L.K.E.R.: Call of Pripyat</em> built on the <strong>Open X-Ray engine</strong> — an open-source continuation of GSC Game World's original engine. It ships with all the original game maps, a heavily reworked progression system, and an extensive Lua scripting layer that exposes most of the engine to modders.</p>
+<p>Mods for Anomaly are called <strong>addons</strong>. An addon is a folder containing files that override or extend the base game's <code>gamedata/</code> directory. No compilation step is required for script mods — write Lua (saved as <code>.script</code> files), drop it in the right folder, and the engine loads it automatically.</p>
+<hr />
+<h2 id="why-this-guide-exists">Why this guide exists<a class="headerlink" href="#why-this-guide-exists" title="Permanent link">&para;</a></h2>
+<p>This guide was built out of a direct personal frustration: wanting to start modding Anomaly and not being able to find the information to do so in a form that suited my learning style.</p>
+<p>The closest thing I could find was TheParaziT's <a href="https://github.com/TheParaziT/anomaly-modding-book">anomaly-modding-book</a> — the most ambitious attempt at a comprehensive reference the community has produced, and worth reading. But many of its pages are incomplete, and after going through it the foundational picture still wasn't there: which systems exist, how they connect, what the actual API surface looks like, what callbacks fire and when. That information exists in the community, but it's scattered across forum posts, Discord threads, and mod source code with no single place that lays it out clearly.</p>
+<p>This guide is an attempt to be that place. It's written by someone learning Anomaly modding alongside writing it, using the base game source and a systematic analysis of real mods as the ground truth rather than community hearsay.</p>
+<p>I've been using mods in games for a long time — Anomaly in particular — and always wanted to give something back to the community. This felt like somewhere I could actually contribute. The other thing that made this feel possible now, when it wasn't before, is the AI and LLM tooling available today. The task of building a guide like this is exactly what these tools are well-suited for: aggregating large amounts of information scattered across hundreds of repositories, forum posts, and source files; finding the patterns and understanding the relationships between systems; and presenting it in a form that's digestible to someone encountering it for the first time. This guide was built with that tooling at the center of the process.</p>
 <hr />
 <h2 id="how-this-guide-was-made">How this guide was made<a class="headerlink" href="#how-this-guide-was-made" title="Permanent link">&para;</a></h2>
 <p>The API documentation and callback reference were derived by:</p>
 <ol>
-<li>Scanning GitHub for public Anomaly addon repositories</li>
-<li>Shallow-cloning the top 50 and extracting every <code>RegisterScriptCallback</code> call, function signature, and engine API usage pattern</li>
-<li>Cross-referencing against the unpacked base game scripts (<code>Tosox/STALKER-Anomaly-gamedata</code>)</li>
+<li><strong>Scanning GitHub</strong> for public Anomaly addon repositories — 214 repos scored by relevance</li>
+<li><strong>Analysing the top 50</strong> — every <code>RegisterScriptCallback</code> call, engine API usage, and function signature extracted and counted across the dataset</li>
+<li><strong>Cross-referencing against the base game</strong> — all documented behaviour verified against the unpacked base game scripts (<code>Tosox/STALKER-Anomaly-gamedata</code>, the authoritative Anomaly 1.5.2 source)</li>
 </ol>
-<p>The scanner and analyzer tools are included in this repository under <code>scanner/</code> and can be re-run to expand the dataset.</p>
+<p>This means the guide reflects what real mods actually use, not just what the API theoretically exposes. The scanner and analyser tools live in <code>scanner/</code> and can be re-run to refresh the dataset as the mod ecosystem evolves.</p>
+<p><strong>Scope and limitations:</strong> The current release of Anomaly is 1.5.3, but the primary source used for this guide (<code>Tosox/STALKER-Anomaly-gamedata</code>) is 1.5.2. We made our best effort with what was available — most scripting API, callback names, and config formats are stable across patch releases, but some details may be outdated for 1.5.3. If something contradicts what you see in-game, the game wins. Details may also differ for derived modpacks (GAMMA, EFP, etc.). Engine-internal C++ behaviour is documented by observed effect, not by reading source.</p>
 
 
 
@@ -1948,6 +2210,30 @@
       
         <footer class="md-footer">
   
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+        
+          
+          <a href="getting-started/" class="md-footer__link md-footer__link--next" aria-label="Next: Getting Started">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Getting Started
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
@@ -1973,7 +2259,7 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "toc.follow", "navigation.footer"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="assets/javascripts/bundle.79ae519e.min.js"></script>

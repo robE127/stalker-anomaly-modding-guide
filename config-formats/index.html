@@ -449,6 +449,8 @@
       
         
       
+        
+      
     
     
     
@@ -589,6 +591,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/packaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packaging & Publishing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -607,6 +637,16 @@
       
         
           
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
         
       
         
@@ -708,6 +748,118 @@
   
   
     <li class="md-nav__item">
+      <a href="../scripting/lua-scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua Scope & Globals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting/game-object/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is a game_object?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting/db-storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is db.storage?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting/object-binders/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Binders
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../scripting/script-lifecycle/" class="md-nav__link">
         
   
@@ -744,6 +896,34 @@
     
   
     The Callback System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting/debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debugging & Logging
   
 
     
@@ -1778,6 +1958,56 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#when-configs-are-loaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When configs are loaded
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="When configs are loaded">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ltx-loaded-once-at-engine-startup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LTX — loaded once at engine startup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xml-loaded-on-demand-per-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XML — loaded on demand, per file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#pages-in-this-section" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1832,6 +2062,49 @@
 </tr>
 </tbody>
 </table>
+<h2 id="when-configs-are-loaded">When configs are loaded<a class="headerlink" href="#when-configs-are-loaded" title="Permanent link">&para;</a></h2>
+<p>LTX and XML have very different loading models, and knowing this prevents a whole class of subtle bugs.</p>
+<h3 id="ltx-loaded-once-at-engine-startup">LTX — loaded once at engine startup<a class="headerlink" href="#ltx-loaded-once-at-engine-startup" title="Permanent link">&para;</a></h3>
+<p>All <code>.ltx</code> files under <code>configs/</code> are parsed and merged into one large in-memory config database (<code>system.ltx</code>) when the engine starts. By the time your first script runs, every LTX value is already in memory.</p>
+<p>DLTX patches are applied during this same merge pass — before any script sees the data. This means DLTX changes are indistinguishable from base game values once the engine is running.</p>
+<p><strong>Consequence:</strong> If you change an LTX file (or a DLTX patch) while the game is running, nothing updates. You must restart the game for LTX changes to take effect.</p>
+<h3 id="xml-loaded-on-demand-per-file">XML — loaded on demand, per file<a class="headerlink" href="#xml-loaded-on-demand-per-file" title="Permanent link">&para;</a></h3>
+<p>XML files are <strong>not</strong> pre-loaded at startup. The engine reads each XML file the first time something requests it — a UI screen opening, a dialog starting, a localization string being looked up. The parsed result may be cached, but the initial read is deferred.</p>
+<p>DXML patches are applied at read time via the <code>on_xml_read</code> callback, which fires each time an XML file is loaded. This means DXML runs inside an active game session and can be triggered multiple times across a session.</p>
+<p><strong>Consequence:</strong> XML (and DXML) changes take effect the next time the relevant file is loaded, which may not require a full restart — opening and closing an affected UI screen is sometimes sufficient during development.</p>
+<h3 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>LTX / DLTX</th>
+<th>XML / DXML</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>When loaded</td>
+<td>Engine startup — once</td>
+<td>On demand — each time the file is needed</td>
+</tr>
+<tr>
+<td>When patches apply</td>
+<td>During startup merge</td>
+<td>When the XML file is read (<code>on_xml_read</code>)</td>
+</tr>
+<tr>
+<td>See changes without restart</td>
+<td>No</td>
+<td>Sometimes (re-open the UI that uses the file)</td>
+</tr>
+<tr>
+<td>Read from script</td>
+<td><code>ini_sys:r_string_ex(...)</code> etc.</td>
+<td>N/A — use DXML to modify; read via UI classes</td>
+</tr>
+</tbody>
+</table>
+<hr />
 <h2 id="pages-in-this-section">Pages in this section<a class="headerlink" href="#pages-in-this-section" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><a href="ltx/">LTX Format</a></strong> — Syntax, sections, inheritance, and how the engine reads it</li>
@@ -1869,6 +2142,46 @@
       
         <footer class="md-footer">
   
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../api-reference/ui/" class="md-footer__link md-footer__link--prev" aria-label="Previous: UI Functions">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                UI Functions
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="ltx/" class="md-footer__link md-footer__link--next" aria-label="Next: LTX Format">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                LTX Format
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
@@ -1894,7 +2207,7 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "toc.follow", "navigation.footer"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>

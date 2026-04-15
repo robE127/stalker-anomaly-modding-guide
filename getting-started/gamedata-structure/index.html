@@ -451,6 +451,8 @@
       
         
       
+        
+      
     
     
     
@@ -633,6 +635,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="scripts/">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-base-game-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key base game scripts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -733,6 +752,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../packaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packaging & Publishing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -751,6 +798,16 @@
       
         
           
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
         
       
         
@@ -852,6 +909,118 @@
   
   
     <li class="md-nav__item">
+      <a href="../../scripting/lua-scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua Scope & Globals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/game-object/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is a game_object?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/db-storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is db.storage?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/object-binders/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Binders
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../scripting/script-lifecycle/" class="md-nav__link">
         
   
@@ -888,6 +1057,34 @@
     
   
     The Callback System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debugging & Logging
   
 
     
@@ -1938,6 +2135,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="scripts/">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-base-game-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key base game scripts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2048,63 +2262,134 @@
 </span></code></pre></div>
 <hr />
 <h2 id="scripts">scripts/<a class="headerlink" href="#scripts" title="Permanent link">&para;</a></h2>
-<p>This is where all Lua code lives. Every <code>.script</code> file in this folder is loaded by the engine at startup.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>gamedata/scripts/
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├── _g.script              Global environment setup — runs first
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>├── axr_main.script        Addon framework — manages callbacks and mod loading
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>├── bind_actor.script      Hooks the player actor to the scripting system
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>├── bind_stalker.script    Hooks NPCs to the scripting system
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>├── ui_mcm.script          Mod Configuration Menu system
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>├── utils.script           General utility functions available to all mods
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>├── db.script              Central storage for game object references
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>└── ...                    ~400 more base game scripts
-</span></code></pre></div>
+<p>This is where all Lua code lives. Every <code>.script</code> file in this folder is loaded by the engine at startup, in alphabetical order by filename.</p>
 <div class="admonition note">
 <p class="admonition-title">File extension</p>
 <p>Despite the <code>.script</code> extension, these are standard Lua files. VS Code will treat them as Lua if you set up the file association from <a href="../environment-setup/">Environment Setup</a>.</p>
 </div>
 <p><strong>Your scripts go here.</strong> Name them with a unique prefix to avoid collisions with other mods:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>gamedata/scripts/my_mod_main.script
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>gamedata/scripts/my_mod_utils.script
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>gamedata/scripts/my_mod_main.script
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>gamedata/scripts/my_mod_utils.script
 </span></code></pre></div>
+<h3 id="key-base-game-scripts">Key base game scripts<a class="headerlink" href="#key-base-game-scripts" title="Permanent link">&para;</a></h3>
+<p>A selection of the most important base game scripts and their roles. These are the files to read when you want to understand how a system works.</p>
+<table>
+<thead>
+<tr>
+<th>Script</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_g.script</code></td>
+<td>Runs first. Sets up the global environment: <code>RegisterScriptCallback</code>, <code>printf</code>, <code>IsWeapon</code>, <code>alife_create</code>, and ~300 other globals used everywhere.</td>
+</tr>
+<tr>
+<td><code>axr_main.script</code></td>
+<td>The addon framework. Owns the <code>intercepts</code> callback table. All <code>RegisterScriptCallback</code> calls route through here.</td>
+</tr>
+<tr>
+<td><code>db.script</code></td>
+<td>The central object registry. Defines <code>db.actor</code>, <code>db.storage</code>, <code>db.OnlineStalkers</code>, and the <code>add_obj</code>/<code>del_obj</code> lifecycle helpers.</td>
+</tr>
+<tr>
+<td><code>bind_stalker.script</code></td>
+<td>The actor (player) binder. Drives <code>actor_on_first_update</code>, <code>actor_on_update</code>, save/load, and all actor-level callbacks.</td>
+</tr>
+<tr>
+<td><code>bind_stalker_ext.script</code></td>
+<td>Actor callback dispatchers for item pickup/drop/use, outfit changes, hit events.</td>
+</tr>
+<tr>
+<td><code>bind_monster.script</code></td>
+<td>The generic NPC and monster binder. Handles NPC spawn, death, hit, and AI scheme setup.</td>
+</tr>
+<tr>
+<td><code>xr_logic.script</code></td>
+<td>The condition-list evaluator. Parses <code>{+info}</code>, <code>=func</code>, <code>%effect%</code> condlist syntax and drives NPC behaviour switching.</td>
+</tr>
+<tr>
+<td><code>xr_conditions.script</code></td>
+<td>Built-in condlist conditions (<code>+info_portion</code>, <code>=actor_in_zone</code>, etc.).</td>
+</tr>
+<tr>
+<td><code>xr_effects.script</code></td>
+<td>Built-in condlist effects (<code>%give_item%</code>, <code>%teleport_actor%</code>, etc.).</td>
+</tr>
+<tr>
+<td><code>axr_task_manager.script</code></td>
+<td>Quest/task system — creating, updating, and completing tasks.</td>
+</tr>
+<tr>
+<td><code>ui_mcm.script</code></td>
+<td>Mod Configuration Menu. Handles <code>on_mcm_load</code>, option storage, <code>ui_mcm.get</code>.</td>
+</tr>
+<tr>
+<td><code>utils_item.script</code></td>
+<td>Item utility functions — spawn helpers, section lookups, inventory tools.</td>
+</tr>
+<tr>
+<td><code>utils_ui.script</code></td>
+<td>UI utility functions — HUD messages, screen coordinates, icon helpers.</td>
+</tr>
+<tr>
+<td><code>utils_data.script</code></td>
+<td>Data serialization helpers — reading/writing typed values for save files.</td>
+</tr>
+<tr>
+<td><code>game_relations.script</code></td>
+<td>Faction relation system — getting and setting NPC/faction goodwill.</td>
+</tr>
+<tr>
+<td><code>news_manager.script</code></td>
+<td>In-game notification system — tips, task updates, item relocation messages.</td>
+</tr>
+<tr>
+<td><code>class_registrator.script</code></td>
+<td>Wires binder classes to entity types. Edited only when adding entirely new entity types.</td>
+</tr>
+</tbody>
+</table>
+<p>For a deeper look at how scripts interact at startup, see <a href="../../scripting/script-lifecycle/">Script Lifecycle</a>.</p>
 <hr />
 <h2 id="configs">configs/<a class="headerlink" href="#configs" title="Permanent link">&para;</a></h2>
 <p>All game data that isn't code is here. Broken into subfolders by category:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>configs/
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├── ai_tweaks/       AI behaviour adjustments
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>├── creatures/       NPC and monster definitions (stats, immunities, visuals)
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>├── environment/     Weather, sky, and lighting definitions
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>├── gameplay/        Task definitions, dialog trees, character profiles, faction data
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>├── items/
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>│   ├── items/       Consumables, ammo, attachments, artefacts
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>│   ├── outfits/     Armour and suits
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>│   ├── settings/    Global item system settings
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>│   ├── trade/       Trader inventories
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>│   └── weapons/     Weapon definitions
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>├── misc/            Sound settings, anomaly zones, HUD elements, and more
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>├── models/          Model visual properties
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>├── scripts/         Per-script configuration files read at runtime
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>├── text/
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>│   ├── eng/         English localization strings (XML)
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>│   └── rus/         Russian localization strings (XML)
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>└── ui/              UI layout definitions (XML)
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>configs/
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>├── ai_tweaks/       AI behaviour adjustments
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>├── creatures/       NPC and monster definitions (stats, immunities, visuals)
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>├── environment/     Weather, sky, and lighting definitions
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>├── gameplay/        Task definitions, dialog trees, character profiles, faction data
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>├── items/
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>│   ├── items/       Consumables, ammo, attachments, artefacts
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>│   ├── outfits/     Armour and suits
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>│   ├── settings/    Global item system settings
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>│   ├── trade/       Trader inventories
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>│   └── weapons/     Weapon definitions
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>├── misc/            Sound settings, anomaly zones, HUD elements, and more
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>├── models/          Model visual properties
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>├── scripts/         Per-script configuration files read at runtime
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>├── text/
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>│   ├── eng/         English localization strings (XML)
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>│   └── rus/         Russian localization strings (XML)
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>└── ui/              UI layout definitions (XML)
 </span></code></pre></div>
 <h3 id="configsitemsweapons-example">configs/items/weapons/ — example<a class="headerlink" href="#configsitemsweapons-example" title="Permanent link">&para;</a></h3>
 <p>Each weapon is defined in a <code>.ltx</code> file that specifies its stats, sounds, model paths, and more:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>configs/items/weapons/
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>├── w_pistols.ltx
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>├── w_rifles.ltx
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>├── w_shotguns.ltx
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>├── w_smgs.ltx
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>└── ...
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>configs/items/weapons/
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├── w_pistols.ltx
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>├── w_rifles.ltx
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>├── w_shotguns.ltx
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>├── w_smgs.ltx
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>└── ...
 </span></code></pre></div>
 <h3 id="configstexteng-example">configs/text/eng/ — example<a class="headerlink" href="#configstexteng-example" title="Permanent link">&para;</a></h3>
 <p>Localization strings are XML files containing key/value pairs:</p>
-<div class="language-xml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">&lt;string_table&gt;</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;my_mod_message&quot;</span><span class="nt">&gt;</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">        </span><span class="nt">&lt;text&gt;</span>Hello<span class="w"> </span>from<span class="w"> </span>my<span class="w"> </span>mod!<span class="nt">&lt;/text&gt;</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="nt">&lt;/string&gt;</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="nt">&lt;/string_table&gt;</span>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">&lt;string_table&gt;</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;my_mod_message&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">        </span><span class="nt">&lt;text&gt;</span>Hello<span class="w"> </span>from<span class="w"> </span>my<span class="w"> </span>mod!<span class="nt">&lt;/text&gt;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="nt">&lt;/string&gt;</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nt">&lt;/string_table&gt;</span>
 </span></code></pre></div>
 <p>Reference by key in code: <code>game.translate_string("my_mod_message")</code></p>
 <hr />
@@ -2146,17 +2431,17 @@
 <hr />
 <h2 id="your-addons-folder-structure">Your addon's folder structure<a class="headerlink" href="#your-addons-folder-structure" title="Permanent link">&para;</a></h2>
 <p>A well-structured addon mirrors the <code>gamedata/</code> layout exactly:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>my_addon/
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>└── gamedata/
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    ├── scripts/
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    │   └── my_addon_main.script
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    ├── configs/
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    │   ├── scripts/
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    │   │   └── my_addon_settings.ltx
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    │   └── text/
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    │       └── eng/
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    │           └── my_addon_strings.xml
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    └── ...
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>my_addon/
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>└── gamedata/
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    ├── scripts/
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    │   └── my_addon_main.script
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    ├── configs/
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    │   ├── scripts/
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    │   │   └── my_addon_settings.ltx
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    │   └── text/
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    │       └── eng/
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    │           └── my_addon_strings.xml
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    └── ...
 </span></code></pre></div>
 <p>When installing, the contents of your <code>gamedata/</code> folder are merged into the game's <code>gamedata/</code>. Files at the same path override the base game version.</p>
 
@@ -2189,6 +2474,46 @@
       
         <footer class="md-footer">
   
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../environment-setup/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Environment Setup">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Environment Setup
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../first-mod/" class="md-footer__link md-footer__link--next" aria-label="Next: Your First Mod">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Your First Mod
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
@@ -2214,7 +2539,7 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "toc.follow", "navigation.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
