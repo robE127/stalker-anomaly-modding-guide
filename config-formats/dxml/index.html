@@ -657,6 +657,8 @@
       
         
       
+        
+      
     
     
     
@@ -952,6 +954,34 @@
     
   
     Save & Load State
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/engine-internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engine Internals
   
 
     
@@ -1660,6 +1690,28 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caching
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#execution-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Execution order
+      
+    </span>
+  </a>
   
 </li>
       
@@ -2471,6 +2523,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caching
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#execution-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Execution order
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#tips-and-gotchas" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2505,7 +2579,20 @@
 <p>Without DXML, modifying an XML file means copying it and editing the copy. If two mods copy the same file, only one survives — the last one loaded wins. DXML solves this: multiple mods can each apply targeted changes to the same XML file and they all take effect.</p>
 <p>DXML works through the <code>on_xml_read</code> callback, which fires each time the engine reads an XML file. Your handler receives a DOM-like object representing the parsed document and can modify it in place before the engine uses it.</p>
 <h3 id="how-it-works-internally">How it works internally<a class="headerlink" href="#how-it-works-internally" title="Permanent link">&para;</a></h3>
-<p>When the engine loads an XML file, the C++ code calls a Lua function (<code>_G.COnXmlRead</code>) with the filename and the raw XML string. The DXML Lua library (<code>dxml_core.script</code>) parses this string into a DOM-like table structure, fires all registered <code>on_xml_read</code> callbacks so mods can modify it, then converts it back to an XML string and returns it to the engine. The engine parses the modified string as if it were the original file.</p>
+<div class="admonition info">
+<p class="admonition-title">Source: modded exes</p>
+<p>DXML itself is a modded exes feature — it does not exist in the vanilla Anomaly engine. The implementation details below are derived from the <a href="https://github.com/themrdemonized/xray-monolith">xray-monolith</a> C++ source code and <code>dxml_core.script</code>.</p>
+</div>
+<p>The data flow from disk to engine:</p>
+<ol>
+<li><strong>C++ loads the file</strong> — <code>CXml::Load()</code> in <code>src/xrXMLParser/xrXMLParser.cpp</code> reads the XML file from disk and recursively processes all <code>#include</code> directives, producing a single assembled XML string.</li>
+<li><strong>C++ does an initial parse</strong> — The assembled string is parsed by TinyXML into a document tree.</li>
+<li><strong>C++ calls into Lua</strong> — <code>XMLLuaCallback()</code> (defined in <code>src/xrGame/ScriptXMLInit.cpp</code>) calls the Lua function <code>_G.COnXmlRead(filename, raw_xml_string)</code> with the filename and the fully-assembled XML string (with <code>#include</code>s already resolved, BOM stripped).</li>
+<li><strong>Lua parses again</strong> — <code>dxml_core.script</code> parses the raw string into a DOM-like table using SLAXML (a pure-Lua XML parser), wraps it in the <code>xml_object</code> API, and dispatches to all registered <code>on_xml_read</code> callbacks.</li>
+<li><strong>Lua serializes back</strong> — After all callbacks run, the modified DOM is serialized back to an XML string and returned to C++.</li>
+<li><strong>C++ re-parses</strong> — <code>CXml::LoadFromString()</code> clears the initial TinyXML tree and re-parses the returned string. The engine then uses this final tree.</li>
+</ol>
+<p>This means every XML file load involves <strong>three parses</strong> when DXML is active (TinyXML, SLAXML, TinyXML again). The initial C++ parse is effectively wasted — it exists as a fallback if the Lua callback doesn't exist or returns the string unchanged.</p>
 <hr />
 <h2 id="file-naming-convention">File naming convention<a class="headerlink" href="#file-naming-convention" title="Permanent link">&para;</a></h2>
 <p>DXML scripts should follow the naming convention:</p>
@@ -2537,7 +2624,7 @@
 <p>Note the double-bracket raw string literal (<code>[[...]]</code>) — on Windows these paths use backslashes.</p>
 <div class="admonition warning">
 <p class="admonition-title">Translation and character_desc restrictions</p>
-<p>DXML will not process translation strings from folders other than <code>eng/</code> and <code>rus/</code>. The file <code>gameplay\character_desc_general.xml</code> also cannot be patched through <code>on_xml_read</code> — use the special callbacks <a href="#patching-npc-character-data"><code>on_specific_character_init</code></a> and <a href="#patching-npc-dialog-lists"><code>on_specific_character_dialog_list</code></a> instead.</p>
+<p>DXML will not process translation strings from folders other than <code>eng/</code> and <code>rus/</code> — other locales are skipped because the SLAXML parser has not been tested with their character encodings. The file <code>gameplay\character_desc_general.xml</code> is also skipped because it contains data for all generic NPCs and is too large for the pure-Lua parser to handle efficiently. Use the dedicated callbacks <a href="#patching-npc-character-data"><code>on_specific_character_init</code></a> and <a href="#patching-npc-dialog-lists"><code>on_specific_character_dialog_list</code></a> instead.</p>
 </div>
 <hr />
 <h2 id="querying-elements">Querying elements<a class="headerlink" href="#querying-elements" title="Permanent link">&para;</a></h2>
@@ -2745,7 +2832,8 @@
 <p>The button won't do anything yet — you also need to initialise it in the Lua class that owns <code>ui_inventory.xml</code>.</p>
 <hr />
 <h2 id="patching-npc-character-data">Patching NPC character data<a class="headerlink" href="#patching-npc-character-data" title="Permanent link">&para;</a></h2>
-<p>The file <code>gameplay\character_desc_general.xml</code> cannot be patched through <code>on_xml_read</code>. Instead, use the <code>on_specific_character_init</code> callback to modify NPC properties:</p>
+<p>The file <code>gameplay\character_desc_general.xml</code> cannot be patched through <code>on_xml_read</code>. Instead, the modded exes provide two dedicated callbacks that fire from C++ (<code>CSpecificCharacter::load_shared()</code> in <code>src/xrServerEntities/specific_character.cpp</code>) when each individual character is loaded. These use the standard script callback system, not the DXML dispatch.</p>
+<p>Use the <code>on_specific_character_init</code> callback to modify NPC properties:</p>
 <div class="language-lua highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kr">function</span><span class="w"> </span><span class="nf">on_game_start</span><span class="p">()</span>
 </span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;on_specific_character_init&quot;</span><span class="p">,</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="nv">character_id</span><span class="p">,</span><span class="w"> </span><span class="nv">data</span><span class="p">)</span>
 </span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">        </span><span class="kr">if</span><span class="w"> </span><span class="nv">character_id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;sim_default_csky_0_default_0&quot;</span><span class="w"> </span><span class="kr">then</span>
@@ -2982,15 +3070,37 @@
 </tbody>
 </table>
 <hr />
+<h2 id="caching">Caching<a class="headerlink" href="#caching" title="Permanent link">&para;</a></h2>
+<p>The <code>on_xml_read</code> callback receives an optional third argument — a <code>flags</code> table:</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">on_xml_read</span><span class="p">(</span><span class="nv">xml_file_name</span><span class="p">,</span><span class="w"> </span><span class="nv">xml_obj</span><span class="p">,</span><span class="w"> </span><span class="nv">flags</span><span class="p">)</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">xml_file_name</span><span class="w"> </span><span class="o">~=</span><span class="w"> </span><span class="s">[[ui\ui_inventory.xml]]</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">    </span><span class="c1">-- modify xml_obj...</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">    </span><span class="nv">flags</span><span class="p">.</span><span class="py">cache</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w">  </span><span class="c1">-- cache the result for this file</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="kr">end</span>
+</span></code></pre></div>
+<p>When any callback sets <code>flags.cache = true</code>, the final serialized XML string is cached in memory. On subsequent loads of the same file, <strong>no callbacks fire</strong> — the cached string is returned directly to C++.</p>
+<div class="admonition warning">
+<p class="admonition-title">Cache has no invalidation</p>
+<p>Once cached, the result persists for the entire game session. There is no API to clear individual entries. Only use caching for files whose DXML modifications are deterministic and don't depend on game state.</p>
+</div>
+<p>By default, <code>flags.cache</code> is <code>false</code> — XML files are re-parsed and all callbacks re-fired on every load. This is correct for most mods.</p>
+<hr />
+<h2 id="execution-order">Execution order<a class="headerlink" href="#execution-order" title="Permanent link">&para;</a></h2>
+<p>All registered <code>on_xml_read</code> handlers fire in registration order. Each handler's modifications are visible to subsequent handlers.</p>
+<p><strong>For <code>modxml_*.script</code> files</strong>, <code>dxml_core.script</code> scans for all scripts matching the <code>modxml_*</code> prefix, sorts them alphabetically, and calls each script's <code>on_xml_read</code> registration function in that sorted order. This means <code>modxml_aaa_mod.script</code> runs before <code>modxml_zzz_mod.script</code>.</p>
+<p>Callbacks registered from other scripts (e.g., in <code>on_game_start</code>) fire after all <code>modxml_*</code> callbacks.</p>
+<p>The <code>on_xml_read</code> callback uses a <strong>separate dispatch system</strong> from normal script callbacks. <code>dxml_core.script</code> monkey-patches <code>RegisterScriptCallback</code> so that <code>"on_xml_read"</code> registrations go into a dedicated <code>xmlCallbacks</code> array rather than the standard <code>axr_main</code> intercepts table. Duplicate function references are silently ignored.</p>
+<hr />
 <h2 id="tips-and-gotchas">Tips and gotchas<a class="headerlink" href="#tips-and-gotchas" title="Permanent link">&para;</a></h2>
 <p><strong>Backslash paths on Windows.</strong> File paths use backslashes: <code>[[ui\ui_inventory.xml]]</code>. The double-bracket raw string avoids escaping.</p>
+<p><strong><code>#include</code> is pre-processed.</strong> By the time your callback fires, all <code>#include</code> directives in the original XML file have already been resolved by the C++ loader. You see the fully assembled document. However, <code>insertFromXMLString</code> also supports <code>#include</code> directives in the strings you insert.</p>
 <p><strong><code>#parent.kids</code> vs a fixed index.</strong> Using <code>#parent.kids</code> always appends after existing children. A fixed index like <code>0</code> inserts before everything else.</p>
 <p><strong><code>query</code> returns a table, not a single element.</strong> Always index with <code>[1]</code> and check <code>#res &gt; 0</code> before using the result.</p>
 <p><strong>Check for duplicates before inserting.</strong> If two mods both insert the same element, you'll get duplicates. Check with <code>query</code> first:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1">-- Don&#39;t insert if it already exists</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="kr">if</span><span class="w"> </span><span class="nf">is_not_empty</span><span class="p">(</span><span class="nv">xml_obj</span><span class="p">:</span><span class="nf">query</span><span class="p">(</span><span class="s2">&quot;menu_main btn[name=btn_mcm]&quot;</span><span class="p">))</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1">-- Don&#39;t insert if it already exists</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="kr">if</span><span class="w"> </span><span class="nf">is_not_empty</span><span class="p">(</span><span class="nv">xml_obj</span><span class="p">:</span><span class="nf">query</span><span class="p">(</span><span class="s2">&quot;menu_main btn[name=btn_mcm]&quot;</span><span class="p">))</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
 </span></code></pre></div>
-<p><strong>Multiple mods, same file.</strong> All registered <code>on_xml_read</code> handlers fire in registration order. Each handler's modifications are visible to subsequent handlers. The order is determined by <code>on_game_start</code> registration order, which is alphabetical by script filename — hence the <code>modxml_</code> naming convention.</p>
+<p><strong>Error handling is silent.</strong> If SLAXML fails to parse the XML (e.g., the raw string is malformed), the original unmodified string is returned to C++ and your modifications are silently dropped. Check the log for parse errors if your changes aren't taking effect.</p>
 <div class="admonition warning">
 <p class="admonition-title">DXML requires the modded exes</p>
 <p>DXML is <strong>not</strong> part of vanilla Anomaly. Like DLTX, it is included in the community <strong>modded exes</strong> maintained by themrdemonized (<a href="https://github.com/themrdemonized/xray-monolith">xray-monolith</a>). The <code>on_xml_read</code> callback does not exist in vanilla Anomaly's script engine — it is added by the modded exes. List them as a hard dependency in your README if your mod uses DXML.</p>

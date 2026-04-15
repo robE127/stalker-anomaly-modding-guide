@@ -659,6 +659,8 @@
       
         
       
+        
+      
     
     
     
@@ -1196,6 +1198,34 @@
     
   
     Save & Load State
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../engine-internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engine Internals
   
 
     
@@ -2614,16 +2644,20 @@ Calling <code>:alive()</code> directly on a <code>game_object</code> is fine in 
 </span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="kr">end</span>
 </span></code></pre></div>
 <details class="info">
-<summary>Why references go stale — engine details</summary>
-<p>In the engine's C++ code, <code>game_object</code> in Lua is a wrapper (<code>CScriptGameObject</code>) that holds a pointer to the underlying C++ entity (<code>CGameObject</code>). When an object goes offline (because the player moved away, or the object was destroyed), the engine calls <code>net_Destroy()</code>, which:</p>
+<summary>Why references go stale — engine details (modded exes source)</summary>
+<p>Based on the <a href="https://github.com/themrdemonized/xray-monolith">xray-monolith</a> C++ source (the community modded exes — vanilla engine internals cannot be verified): <code>game_object</code> in Lua is a wrapper (<code>CScriptGameObject</code>) that holds a pointer to the underlying C++ entity (<code>CGameObject</code>). When an object goes offline (because the player moved away, or the object was destroyed), the engine calls <code>net_Destroy()</code>, which:</p>
 <ol>
 <li>Calls the object binder's <code>net_destroy()</code> method (your Lua cleanup code runs here)</li>
 <li><strong>Deletes</strong> the Lua wrapper object (<code>CScriptGameObject</code>)</li>
 <li>Sets <code>m_spawned = false</code> on the C++ object</li>
 </ol>
-<p>After this, any Lua reference you held to that <code>game_object</code> now points to freed memory. The engine provides a <code>game_object:is_valid()</code> method that checks whether the back-reference between the wrapper and the C++ object is still intact — but the safest pattern is to never store the reference at all.</p>
+<p>After this, any Lua reference you held to that <code>game_object</code> now points to freed memory. The modded exes provide a <code>game_object:is_valid()</code> method that checks whether the back-reference between the wrapper and the C++ object is still intact — but the safest pattern is to never store the reference at all.</p>
 </details>
 <h3 id="checking-validity-with-is_valid">Checking validity with <code>is_valid()</code><a class="headerlink" href="#checking-validity-with-is_valid" title="Permanent link">&para;</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Requires the modded exes</p>
+<p><code>is_valid()</code> is added by the <a href="https://github.com/themrdemonized/xray-monolith">modded exes</a> and is not available in vanilla Anomaly.</p>
+</div>
 <p>If you must hold a <code>game_object</code> reference temporarily (e.g. within a single complex operation), you can check whether it's still valid:</p>
 <div class="language-lua highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kr">if</span><span class="w"> </span><span class="nv">obj</span><span class="p">:</span><span class="nf">is_valid</span><span class="p">()</span><span class="w"> </span><span class="kr">then</span>
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="c1">-- safe to use</span>
