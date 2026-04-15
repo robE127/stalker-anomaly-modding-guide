@@ -51,11 +51,13 @@ nav:
   - Scripting:
     - scripting/index.md
     - Lua in Anomaly: scripting/lua-in-anomaly.md
+    - Lua Scope & Globals: scripting/lua-scope.md
     - What is a game_object?: scripting/game-object.md
     - What is db.storage?: scripting/db-storage.md
     - Object Binders: scripting/object-binders.md
     - Script Lifecycle: scripting/script-lifecycle.md
     - The Callback System: scripting/callbacks.md
+    - Debugging & Logging: scripting/debugging.md
     - Save & Load State: scripting/save-load.md
 
   - API Reference:
