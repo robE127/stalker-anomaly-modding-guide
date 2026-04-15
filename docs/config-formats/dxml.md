@@ -239,4 +239,5 @@ end
 
 **Multiple mods, same file.** All registered `on_xml_read` handlers fire in registration order. If your mod and another both patch the same element, both patches apply — but the order they run in is determined by `on_game_start` registration order, which is alphabetical by filename. Name your file accordingly if order matters.
 
-**DXML is built into Anomaly 1.5.2.** No external dependency is needed.
+!!! warning "DXML requires the modded exes"
+    DXML is **not** part of vanilla Anomaly. Like DLTX, it is included in the community **modded exes** maintained by themrdemonized ([xray-monolith](https://github.com/themrdemonized/xray-monolith)). The `on_xml_read` callback does not exist in vanilla Anomaly's script engine — it is added by the modded exes. List them as a hard dependency in your README if your mod uses DXML.

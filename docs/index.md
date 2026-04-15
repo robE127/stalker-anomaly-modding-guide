@@ -71,4 +71,4 @@ The API documentation and callback reference were derived by:
 
 This means the guide reflects what real mods actually use, not just what the API theoretically exposes. The scanner and analyser tools live in `scanner/` and can be re-run to refresh the dataset as the mod ecosystem evolves.
 
-**Scope and limitations:** This guide covers Anomaly 1.5.2. Some details may differ for older versions or derived modpacks (GAMMA, EFP, etc.). Engine-internal C++ behaviour is documented by observed effect, not by reading source — if something contradicts what you see in-game, the game wins.
+**Scope and limitations:** The current release of Anomaly is 1.5.3, but the primary source used for this guide (`Tosox/STALKER-Anomaly-gamedata`) is 1.5.2. We made our best effort with what was available — most scripting API, callback names, and config formats are stable across patch releases, but some details may be outdated for 1.5.3. If something contradicts what you see in-game, the game wins. Details may also differ for derived modpacks (GAMMA, EFP, etc.). Engine-internal C++ behaviour is documented by observed effect, not by reading source.

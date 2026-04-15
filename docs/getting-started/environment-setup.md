@@ -17,7 +17,20 @@ Anomaly is a free standalone mod — you don't need to own any S.T.A.L.K.E.R. ga
 
 ---
 
-## 2. Set Up VS Code
+## 2. Install the modded exes
+
+The community **modded exes** maintained by themrdemonized ([xray-monolith](https://github.com/themrdemonized/xray-monolith)) replace Anomaly's vanilla engine binaries with a version that includes stability fixes, DLTX (LTX patching), DXML (XML patching), and other improvements. They are a hard dependency for the majority of modern Anomaly mods and are effectively the standard engine for the community.
+
+1. Download `STALKER-Anomaly-modded-exes.zip` from the [xray-monolith releases page](https://github.com/themrdemonized/xray-monolith/releases)
+2. Back up your existing `bin/` folder
+3. Unpack the archive on top of your Anomaly installation — it replaces files in `bin/`
+
+!!! note
+    If you are only writing mods that use vanilla scripting with no DLTX or DXML, you can skip this step. But since most mods you'll encounter and most tooling assumes the modded exes are present, installing them early saves friction.
+
+---
+
+## 3. Set Up VS Code
 
 VS Code is the recommended editor. It has extensions for every file type you'll encounter.
 

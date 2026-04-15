@@ -178,4 +178,5 @@ Some modpacks use a numeric prefix convention like `mod_system_zzzzzz_<name>.ltx
 | Update resilience | Must re-diff on game updates | Only patched keys affected |
 | Works without DLTX installed | Yes | No (DLTX must be present) |
 
-DLTX is bundled with Anomaly 1.5.2 and all major modpacks. For standalone distribution, note the dependency.
+!!! warning "DLTX requires the modded exes"
+    DLTX is **not** part of vanilla Anomaly. It is included in the community **modded exes** maintained by themrdemonized ([xray-monolith](https://github.com/themrdemonized/xray-monolith)), which replace the vanilla engine binaries. Most active mods and all major modpacks (GAMMA, EFP, etc.) require these exes — if you're targeting a general audience, list them as a hard dependency in your README.
