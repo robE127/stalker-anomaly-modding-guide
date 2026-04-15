@@ -40,13 +40,22 @@ The actual guide lives in `docs/` and is published via MkDocs Material to GitHub
 When writing or improving guide content, always prefer sources in this priority order:
 
 ### 1. Base game scripts (highest authority)
+
+**Primary — fully unpacked Anomaly installation (local):**
+```
+data/clones/Anomaly-<version>-Full/tools/_unpacked/scripts/
+data/clones/Anomaly-<version>-Full/tools/_unpacked/configs/
+```
+The most recently unpacked version of Anomaly in `data/clones/` is the definitive ground truth for all API signatures, callback names, config field names, and engine behaviour. **Always grep here first.** Check `data/clones/` for a folder matching `Anomaly-*-Full/` and use the highest version present. Note: unlike the Tosox clone, there is no `gamedata/` prefix — scripts and configs sit directly under `_unpacked/`.
+
+**Fallback — Tosox Anomaly 1.5.2 (GitHub clone):**
 ```
 data/clones/Tosox__STALKER-Anomaly-gamedata/gamedata/scripts/
 data/clones/Tosox__STALKER-Anomaly-gamedata/gamedata/configs/
 ```
-This is a full shallow clone of the Anomaly 1.5.2 base game. It is the ground truth for all API signatures, callback names, config field names, and engine behaviour. When documenting any function or system, grep here first.
+Use this only if no unpacked Anomaly installation is present locally. It is an older version and should not be preferred over a local unpacked installation.
 
-Key files to know:
+Key files to know (same paths in both sources):
 - `_g.script` — global environment, helper functions, `alife_create`, `IsWeapon`, etc.
 - `axr_main.script` — the complete callback registration table (authoritative callback list)
 - `xr_logic.script` — condition list evaluator and NPC behaviour system

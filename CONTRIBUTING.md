@@ -72,6 +72,21 @@ python -m mkdocs serve       # serve at http://localhost:8000
 
 > **Note:** Live reload does not work reliably on Windows. Kill the server process and restart it manually to pick up changes (`Ctrl+C` or `Stop-Process` in PowerShell, then `python -m mkdocs serve` again).
 
+### Set up the base game source data
+
+The guide's primary source of truth is a fully-unpacked copy of Anomaly placed in `data/clones/`. This is required to verify any API or config claims before writing or editing guide content.
+
+1. Download the latest Anomaly release from [ModDB](https://www.moddb.com/mods/stalker-anomaly)
+2. Extract the Anomaly folder into `data/clones/`, naming it to reflect the version, e.g.:
+   ```
+   data/clones/Anomaly-1.5.3-Full/
+   ```
+3. In `data/clones/Anomaly-1.5.3-Full/tools/`, run `db_unpacker_all.bat` to fully unpack all game data (scripts, configs, textures, sounds — this takes a few minutes)
+
+The unpacked data will appear at `data/clones/Anomaly-1.5.3-Full/tools/_unpacked/`. Scripts and configs land directly under `_unpacked/` — there is no `gamedata/` prefix, unlike the Tosox GitHub clone. Everything in `data/clones/` is gitignored.
+
+Once this is present, it takes priority over the Tosox 1.5.2 clone as the ground-truth source for all script and config lookups. See `CLAUDE.md` for the full source priority order.
+
 ### Adding a new page
 
 1. Create the `.md` file in the appropriate `docs/` subfolder.
