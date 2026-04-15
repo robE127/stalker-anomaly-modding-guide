@@ -13,6 +13,31 @@ An addon called `hello_anomaly` that:
 
 ---
 
+## Why gamedata/ is your workspace
+
+Unlike many game engines, Anomaly has no separate "project" or "workspace" folder concept. The engine loads all game assets directly from `gamedata/` and its subfolders — scripts, configs, meshes, textures, sounds, shaders, and more all live under this single tree. There is no build step, no compilation, and no packaging required during development.
+
+When you install a mod (manually or via MO2), its `gamedata/` folder is **merged** into the game's `gamedata/`. A file at `gamedata/scripts/my_mod.script` in your mod lands alongside base game scripts. A file at `gamedata/meshes/actors/stalker/my_model.ogf` replaces or adds to the base game meshes. A file at `gamedata/textures/ui/my_icon.dds` adds a new texture. The engine treats your files identically to its own.
+
+This means the folder structure of your mod always mirrors the game's `gamedata/` layout — whatever you're modding:
+
+```
+my_mod/
+└── gamedata/
+    ├── scripts/        ← Lua code
+    ├── configs/        ← LTX and XML config changes
+    ├── meshes/         ← 3D models
+    ├── textures/       ← DDS textures
+    ├── sounds/         ← Audio files
+    └── shaders/        ← Renderer shaders
+```
+
+**MO2 maps each enabled mod's `gamedata/` into a virtual file system**, so your files appear at the right paths without ever touching the real installation directory. This is why MO2's mod folder structure mirrors the game's `gamedata/` layout exactly — it's the same layout by design.
+
+The practical implication: you develop directly against the `gamedata/` structure, then ship the same folder as your release package.
+
+---
+
 ## Step 1: Create the addon folder structure
 
 Create this folder layout anywhere on your machine (outside the game folder):

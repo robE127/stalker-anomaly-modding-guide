@@ -4,6 +4,16 @@ This is the S.T.A.L.K.E.R. Anomaly Modding Guide project. Before writing or edit
 
 ---
 
+## Working with the project owner
+
+The project owner has a **software engineering background but is not an Anomaly modding expert** — quite the opposite; this guide is being built partly to fill their own knowledge gaps. When they question something, they are applying engineering reasoning to test whether your logic is sound, not correcting you from domain expertise.
+
+**Do not immediately concede and make changes when questioned.** If you wrote something for a good reason, explain that reason and have a discussion. The owner's questions are prompts to verify your reasoning, not instructions to reverse course. Only change course if the discussion reveals your original reasoning was actually wrong — and say so explicitly when that happens.
+
+This applies equally in reverse: if the owner suggests something that conflicts with what the base game source shows, push back with evidence.
+
+---
+
 ## What this project is
 
 This project has two distinct parts that work together toward one goal.

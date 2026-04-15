@@ -22,12 +22,12 @@ _Nothing currently in progress._
 - [x] **Lua Scope & Globals** — New page. Explain `local` vs global, module scope, why globals are dangerous in Anomaly's shared namespace, upvalues and closures, and how to safely share state between scripts.
 - [x] **Debugging & Logging** — New page. Reading the log file, `printf` vs `log`, `DEV_DEBUG`, `pcall` patterns, common silent failure modes, and how to diagnose callback errors.
 - [x] **Expand pcall coverage** — Either in the Debugging page or back-linked from `lua-in-anomaly.md`. More depth on error handling patterns, nested pcall, and recovering gracefully.
-- [ ] **When are configs loaded?** — Add to `config-formats/` section. Explain that LTX is loaded at engine startup (merged into system.ltx), XML is loaded on demand per-file, and how DXML/DLTX timing works.
-- [ ] **List base game scripts with load order** — Expand `docs/getting-started/gamedata-structure.md` with a table of notable scripts and their roles; cross-reference load order in `docs/scripting/script-lifecycle.md`.
+- [x] **When are configs loaded?** — Add to `config-formats/` section. Explain that LTX is loaded at engine startup (merged into system.ltx), XML is loaded on demand per-file, and how DXML/DLTX timing works.
+- [x] **List base game scripts with load order** — Expand `docs/getting-started/gamedata-structure.md` with a table of notable scripts and their roles; cross-reference load order in `docs/scripting/script-lifecycle.md`.
 - [x] **Object Binders** — New page. How to subclass `object_binder`, the binder lifecycle (`net_spawn`, `net_destroy`, `update`, `save_state`, `load_state`), and when to use a binder vs a global callback.
 
 ### Getting started improvements
-- [ ] **Scripts folder as workspace** — Clarify in getting-started why mods are placed in `gamedata/scripts/` directly rather than a separate workspace folder, and how MO2 mod folder structure maps to this.
+- [x] **Scripts folder as workspace** — Clarify in getting-started why mods are placed in `gamedata/scripts/` directly rather than a separate workspace folder, and how MO2 mod folder structure maps to this.
 
 ### Content & community
 - [ ] **Motivation and methodology** — Add an About or Methodology page (or expand home page) explaining why this guide exists, how content was derived (base game source + 50-repo analysis), and its scope and limitations.

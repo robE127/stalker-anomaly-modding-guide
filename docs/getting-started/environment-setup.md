@@ -49,9 +49,12 @@ Anomaly uses non-standard extensions for standard formats. Add this to your VS C
 
 This gives you Lua syntax highlighting and autocomplete in `.script` files and INI highlighting in `.ltx` files.
 
-### Open the scripts folder as a workspace
+### Open gamedata/ as a workspace
 
-For the best experience, open the `gamedata/scripts/` folder (from your Anomaly installation, after unpacking — see below) as a VS Code workspace. This lets the Lua language server resolve cross-file references.
+For the best experience, open the `gamedata/` folder (from your Anomaly installation, after unpacking — see below) as a VS Code workspace. This gives you visibility across scripts and configs together — essential even for pure script work, since you'll frequently need to look up section names and properties in LTX files alongside your code.
+
+!!! tip
+    If the Lua language server feels slow, VS Code's `files.exclude` and `search.exclude` settings can tell it to skip binary asset folders like `textures/`, `meshes/`, and `sounds/`. This keeps indexing fast without losing access to scripts and configs.
 
 ---
 
@@ -95,8 +98,8 @@ For developing and testing addons, **Mod Organizer 2 (MO2)** with the Anomaly pl
 However, for simple script development, you can also work directly:
 
 1. Create a folder for your addon anywhere on your machine
-2. Mirror the `gamedata/` structure inside it (e.g. `my_addon/gamedata/scripts/my_script.script`)
-3. Copy your files into the game's `gamedata/` folder to test, remove them when done
+2. Mirror the `gamedata/` structure inside it — scripts go in `gamedata/scripts/`, configs in `gamedata/configs/`, textures in `gamedata/textures/`, and so on
+3. Copy your `gamedata/` folder into the game's installation directory to test, remove it when done
 
 Most modders graduate to MO2 quickly once they have more than one addon to manage.
 

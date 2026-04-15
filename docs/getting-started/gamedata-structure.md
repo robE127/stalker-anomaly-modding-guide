@@ -38,19 +38,7 @@ gamedata/
 
 ## scripts/
 
-This is where all Lua code lives. Every `.script` file in this folder is loaded by the engine at startup.
-
-```
-gamedata/scripts/
-├── _g.script              Global environment setup — runs first
-├── axr_main.script        Addon framework — manages callbacks and mod loading
-├── bind_actor.script      Hooks the player actor to the scripting system
-├── bind_stalker.script    Hooks NPCs to the scripting system
-├── ui_mcm.script          Mod Configuration Menu system
-├── utils.script           General utility functions available to all mods
-├── db.script              Central storage for game object references
-└── ...                    ~400 more base game scripts
-```
+This is where all Lua code lives. Every `.script` file in this folder is loaded by the engine at startup, in alphabetical order by filename.
 
 !!! note "File extension"
     Despite the `.script` extension, these are standard Lua files. VS Code will treat them as Lua if you set up the file association from [Environment Setup](environment-setup.md).
@@ -61,6 +49,32 @@ gamedata/scripts/
 gamedata/scripts/my_mod_main.script
 gamedata/scripts/my_mod_utils.script
 ```
+
+### Key base game scripts
+
+A selection of the most important base game scripts and their roles. These are the files to read when you want to understand how a system works.
+
+| Script | Role |
+|--------|------|
+| `_g.script` | Runs first. Sets up the global environment: `RegisterScriptCallback`, `printf`, `IsWeapon`, `alife_create`, and ~300 other globals used everywhere. |
+| `axr_main.script` | The addon framework. Owns the `intercepts` callback table. All `RegisterScriptCallback` calls route through here. |
+| `db.script` | The central object registry. Defines `db.actor`, `db.storage`, `db.OnlineStalkers`, and the `add_obj`/`del_obj` lifecycle helpers. |
+| `bind_stalker.script` | The actor (player) binder. Drives `actor_on_first_update`, `actor_on_update`, save/load, and all actor-level callbacks. |
+| `bind_stalker_ext.script` | Actor callback dispatchers for item pickup/drop/use, outfit changes, hit events. |
+| `bind_monster.script` | The generic NPC and monster binder. Handles NPC spawn, death, hit, and AI scheme setup. |
+| `xr_logic.script` | The condition-list evaluator. Parses `{+info}`, `=func`, `%effect%` condlist syntax and drives NPC behaviour switching. |
+| `xr_conditions.script` | Built-in condlist conditions (`+info_portion`, `=actor_in_zone`, etc.). |
+| `xr_effects.script` | Built-in condlist effects (`%give_item%`, `%teleport_actor%`, etc.). |
+| `axr_task_manager.script` | Quest/task system — creating, updating, and completing tasks. |
+| `ui_mcm.script` | Mod Configuration Menu. Handles `on_mcm_load`, option storage, `ui_mcm.get`. |
+| `utils_item.script` | Item utility functions — spawn helpers, section lookups, inventory tools. |
+| `utils_ui.script` | UI utility functions — HUD messages, screen coordinates, icon helpers. |
+| `utils_data.script` | Data serialization helpers — reading/writing typed values for save files. |
+| `game_relations.script` | Faction relation system — getting and setting NPC/faction goodwill. |
+| `news_manager.script` | In-game notification system — tips, task updates, item relocation messages. |
+| `class_registrator.script` | Wires binder classes to entity types. Edited only when adding entirely new entity types. |
+
+For a deeper look at how scripts interact at startup, see [Script Lifecycle](../scripting/script-lifecycle.md).
 
 ---
 
