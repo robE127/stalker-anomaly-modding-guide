@@ -32,7 +32,7 @@ _Nothing currently in progress._
 ### Content & community
 - [x] **Motivation and methodology** — Add an About or Methodology page (or expand home page) explaining why this guide exists, how content was derived (base game source + 50-repo analysis), and its scope and limitations.
 - [x] **Credits and cross-links to anomaly-modding-book** — TheParaziT's anomaly-modding-book is the main existing community reference (`data/clones/TheParaziT__anomaly-modding-book/`). Add attribution, link to it, and note where the two guides complement each other.
-- [ ] **Contribution guide** — Add `CONTRIBUTING.md` or a docs page explaining how to submit corrections, additions, and how the scanner tools can be re-run to refresh the data.
+- [x] **Contribution guide** — Add `CONTRIBUTING.md` or a docs page explaining how to submit corrections, additions, and how the scanner tools can be re-run to refresh the data.
 - [x] **Packaging for MO2/BAIN** — New page in Getting Started. How to structure a mod folder for MO2 compatibility, what a BAIN-compatible archive looks like, and optionally a basic FOMOD installer.
 
 ### Advanced topics (new pages)
@@ -62,7 +62,7 @@ Concrete tasks to open from this source:
 - [ ] **Add See Also sections** — Add structured "See Also" footers to pages with clear relationships (e.g. alife.md → npcs.md, mcm.md → examples/mcm-options.md).
 
 ### Meta
-- [ ] **Commit CLAUDE.md** — Rules file is written; commit it along with this TODO.
+- [x] **Commit CLAUDE.md** — Rules file is written; commit it along with this TODO.
 
 ---
 
