@@ -230,9 +230,9 @@ if IsStalker(obj, c) or IsMonster(obj, c) then
 end
 ```
 
-### Don't use `game_object` across frames by reference
+### Don't store `game_object` references across frames
 
-`game_object` handles are valid only within the current callback invocation (or the current frame for update callbacks). Store the **ID** between frames, not the object itself:
+`game_object` handles can become stale at any time. Store the **ID** and look up a fresh handle when you need it.
 
 ```lua
 -- BAD: storing a game_object reference between frames
@@ -248,6 +248,27 @@ local function actor_on_update()
     end
 end
 ```
+
+??? info "Why references go stale — engine details"
+    In the engine's C++ code, `game_object` in Lua is a wrapper (`CScriptGameObject`) that holds a pointer to the underlying C++ entity (`CGameObject`). When an object goes offline (because the player moved away, or the object was destroyed), the engine calls `net_Destroy()`, which:
+
+    1. Calls the object binder's `net_destroy()` method (your Lua cleanup code runs here)
+    2. **Deletes** the Lua wrapper object (`CScriptGameObject`)
+    3. Sets `m_spawned = false` on the C++ object
+
+    After this, any Lua reference you held to that `game_object` now points to freed memory. The engine provides a `game_object:is_valid()` method that checks whether the back-reference between the wrapper and the C++ object is still intact — but the safest pattern is to never store the reference at all.
+
+### Checking validity with `is_valid()`
+
+If you must hold a `game_object` reference temporarily (e.g. within a single complex operation), you can check whether it's still valid:
+
+```lua
+if obj:is_valid() then
+    -- safe to use
+end
+```
+
+`is_valid()` returns `false` if the underlying C++ object has been destroyed or if the Lua wrapper has been detached. It is not a substitute for storing IDs — it's a safety net for edge cases where you're holding a reference briefly and need to guard against mid-operation destruction.
 
 ---
 

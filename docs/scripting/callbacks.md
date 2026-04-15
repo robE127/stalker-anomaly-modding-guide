@@ -34,6 +34,83 @@ Unregistering in `on_game_end` is also used in advanced mods to **replace or int
 
 ---
 
+## Two callback systems
+
+Anomaly actually has **two separate callback systems** that serve different purposes. Understanding this distinction helps you pick the right one.
+
+### Script callbacks (Lua-side dispatch)
+
+`RegisterScriptCallback` / `SendScriptCallback` is a **purely Lua-side** system, implemented in `axr_main.script` and `dynamic_callbacks.lua`. The engine doesn't know about it. Base game scripts and mods manually call `SendScriptCallback(...)` at the right moments, and all registered handlers are invoked.
+
+This is the system you use for most modding: `on_game_load`, `on_key_press`, `npc_on_death_callback`, etc. These are the callbacks listed in the [Callbacks Reference](../callbacks-reference/index.md).
+
+### Object callbacks (engine-side dispatch)
+
+`game_object:set_callback(type, fn)` is an **engine-side** callback system. You register a Lua function on a specific `game_object`, and the C++ engine calls it directly when the event fires on that object. These are per-object, not global.
+
+**In practice, `set_callback` is used exclusively inside [object binders](object-binders.md).** The binder's `net_spawn` registers callbacks on `self.object`, and `net_destroy` clears them. Across the entire base game and all community mods we analysed, no mod uses `set_callback` outside of a binder context. If you need to react to events like death, hit, or item pickup, use `RegisterScriptCallback` — the base game's binders already relay these engine events into the script callback system via `callbacks_gameobject.script`.
+
+```lua
+-- Typical usage: inside an object binder
+function my_binder:net_spawn(se_abstract)
+    object_binder.net_spawn(self, se_abstract)
+    self.object:set_callback(callback.hit, self.hit_callback, self)
+    return true
+end
+
+function my_binder:hit_callback(obj, amount, direction, who, bone_id)
+    -- handle hit on this specific object
+end
+
+function my_binder:net_destroy()
+    self.object:set_callback(callback.hit, nil)  -- clear
+    object_binder.net_destroy(self)
+end
+```
+
+The `callback.*` enum values are defined in the engine. Some are vanilla, some were added by the modded exes:
+
+| Callback type | Vanilla | Description |
+|--------------|---------|-------------|
+| `callback.trade_start` | Yes | Trade session opened |
+| `callback.trade_stop` | Yes | Trade session closed |
+| `callback.trade_sell_buy_item` | Yes | Item bought/sold |
+| `callback.zone_enter` | Yes | Object entered a zone |
+| `callback.zone_exit` | Yes | Object left a zone |
+| `callback.death` | Yes | Entity died |
+| `callback.hit` | Yes | Entity took damage |
+| `callback.sound` | Yes | Sound event |
+| `callback.use_object` | Yes | Object used/interacted |
+| `callback.on_item_take` | Yes | Item picked up |
+| `callback.on_item_drop` | Yes | Item dropped |
+| `callback.patrol_path_in_point` | Yes | NPC reached patrol point |
+| `callback.script_animation` | Yes | Script animation completed |
+| `callback.helicopter_on_point` | Yes | Heli reached point |
+| `callback.helicopter_on_hit` | Yes | Heli took damage |
+| `callback.weapon_no_ammo` | Yes | No ammo available |
+| `callback.key_press` | **Modded** | Key pressed (actor only) |
+| `callback.key_release` | **Modded** | Key released (actor only) |
+| `callback.key_hold` | **Modded** | Key held (actor only) |
+| `callback.mouse_move` | **Modded** | Mouse moved |
+| `callback.mouse_wheel` | **Modded** | Mouse scrolled |
+| `callback.item_to_belt` | **Modded** | Item moved to belt |
+| `callback.item_to_slot` | **Modded** | Item moved to slot |
+| `callback.item_to_ruck` | **Modded** | Item moved to backpack |
+| `callback.weapon_zoom_in` | **Modded** | Weapon aimed down sights |
+| `callback.weapon_zoom_out` | **Modded** | Weapon lowered from aim |
+| `callback.weapon_jammed` | **Modded** | Weapon jammed |
+| `callback.weapon_fired` | **Modded** | Weapon fired |
+| `callback.weapon_magazine_empty` | **Modded** | Magazine emptied |
+| `callback.actor_before_death` | **Modded** | Before actor death (can be intercepted) |
+| `callback.on_foot_step` | **Modded** | Footstep sound |
+| `callback.weapon_lowered` | **Modded** | Weapon lowered stance |
+| `callback.weapon_raised` | **Modded** | Weapon raised stance |
+| `callback.hud_animation_end` | **Modded** | HUD animation completed |
+
+For mod work, use `RegisterScriptCallback`. The only reason to use `set_callback` directly is if you're writing a custom object binder and need to handle engine events on that specific object — and even then, most events you'd care about already have corresponding script callbacks that the base game binders relay for you.
+
+---
+
 ## The canonical pattern
 
 Every mod that registers callbacks should follow this structure:

@@ -35,7 +35,7 @@ gamedata/
       mod_my_mod_creatures.ltx     ← patches creature values
 ```
 
-The `mod_` prefix is what tells DLTX to treat the file as a patch rather than a standalone definition.
+The `mod_` prefix is what tells DLTX to treat the file as a patch rather than a standalone definition. Internally, the engine scans for files matching `mod_<basename>_*.ltx` in the same folder as the base file and loads them as patches.
 
 ---
 
@@ -64,21 +64,47 @@ Prefix the key name with `!` to remove it from the section:
 !fire_distance      ; remove the fire distance override (reverts to parent)
 ```
 
+Internally, the engine replaces the value with a `DLTX_DELETE` marker. During merge, any key marked for deletion is excluded from the final output.
+
 ---
 
 ## Deleting a section
 
-Use `![section_name]` to remove an entire section:
+Use `!![section_name]` to remove an entire section:
 
 ```ltx
-![my_old_item]      ; completely removes this section
+!![my_old_item]      ; completely removes this section
 ```
+
+---
+
+## Overriding a section
+
+The `![section]` prefix replaces the entire section from the base file with the content you provide. Unlike a normal patch (which merges individual keys), an override discards all base values and starts fresh:
+
+```ltx
+; Replace the entire section — base values are discarded
+![my_item]
+key1 = new_value
+key2 = new_value
+```
+
+If you want override behaviour but need the section to be created when it doesn't already exist, use `@[section]` (safe override):
+
+```ltx
+; Override if exists, create if it doesn't
+@[my_item]
+key1 = new_value
+key2 = new_value
+```
+
+A normal `![section]` on a section that doesn't exist in the base file is a no-op — the engine logs a warning. `@[section]` avoids that problem.
 
 ---
 
 ## Adding new sections
 
-You can define entirely new sections in a DLTX file — just write them without the `!` prefix. These follow normal LTX rules including inheritance:
+You can define entirely new sections in a DLTX file — just write them without a prefix. These follow normal LTX rules including inheritance:
 
 ```ltx
 ; New item that inherits from an existing base
@@ -86,6 +112,66 @@ You can define entirely new sections in a DLTX file — just write them without 
 inv_name    = st_my_mod_special_vodka
 cost        = 1500
 eat_health  = 0.2
+```
+
+---
+
+## Modifying comma-separated lists
+
+Many LTX values are comma-separated lists (e.g. loot tables, immunities, weapon modes). DLTX supports appending to and removing from these lists without replacing the entire value.
+
+### Append items to a list
+
+Prefix the key with `>` to append items:
+
+```ltx
+[stalker_immunities]
+>burn_immunity = my_mod_burn_resist
+```
+
+If the base value is `item1, item2`, the result is `item1, item2, my_mod_burn_resist`.
+
+You can append multiple items at once:
+
+```ltx
+[my_loot_table]
+>supplies = medkit, bandage, vodka
+```
+
+### Remove items from a list
+
+Prefix the key with `<` to remove items:
+
+```ltx
+[my_loot_table]
+<supplies = vodka, cigarettes
+```
+
+If the base value is `medkit, bandage, vodka, cigarettes`, the result is `medkit, bandage`.
+
+### Combining list operations
+
+Multiple `>` and `<` operations on the same key apply in file order:
+
+```ltx
+[my_loot_table]
+<supplies = old_item         ; remove old_item first
+>supplies = new_item         ; then append new_item
+```
+
+!!! note
+    List modification is order-sensitive. Removals and additions are applied sequentially in the order they appear across all DLTX files (alphabetical by filename).
+
+---
+
+## Removing a parent from inheritance
+
+If a section inherits from multiple parents and you want to remove one, use `!parent_name` in the inheritance list:
+
+```ltx
+; If [my_weapon]:base_weapon, rifle_base originally
+; Remove rifle_base from the parent list
+[my_weapon]:!rifle_base
 ```
 
 ---
@@ -124,6 +210,14 @@ snd_shoot = my_mod\akm_shoot
 cost = 50
 ```
 
+### Add items to a loot table
+
+```ltx
+; mod_my_mod_loot.ltx — add custom items to existing loot lists
+[stalker_outfit_loot]
+>items = my_mod_patches, my_mod_toolkit
+```
+
 ### New item inheriting from existing base
 
 ```ltx
@@ -145,9 +239,16 @@ inv_grid_height = 1
 
 ---
 
-## Load order
+## Load order and merge algorithm
 
-DLTX files are loaded in alphabetical order within each folder. If two DLTX files patch the same key in the same section, the last one alphabetically wins.
+DLTX files are loaded in alphabetical order within each folder. The merge algorithm works in stages:
+
+1. **Discovery.** The engine scans for `mod_<basename>_*.ltx` files in the same directory as each base LTX file.
+2. **Parsing.** Each DLTX file is parsed. Mod files are assigned a negative depth value (-200), making them higher priority than the base file (depth 0).
+3. **Sort and filter.** Items are sorted by key name (alphabetical), then by depth (ascending), then by insertion index (descending). For duplicate keys at the same depth, the last-loaded file wins.
+4. **Merge.** Override items replace base items with matching keys. `DLTX_DELETE` markers remove keys. New keys from overrides are added.
+5. **Inheritance.** Parent sections are resolved with recursion detection.
+6. **List modification.** `>` and `<` operations are applied in insertion order.
 
 To control load order, use a naming prefix:
 
@@ -156,15 +257,56 @@ mod_aaa_my_early_patch.ltx      ← loads first
 mod_zzz_my_late_patch.ltx       ← loads last, overrides earlier patches
 ```
 
-Some modpacks use a numeric prefix convention like `mod_system_zzzzzz_<name>.ltx` to force late loading.
+Some modpacks use a naming convention like `mod_system_zzzzzz_<name>.ltx` to force late loading.
+
+!!! note "Section names are case-insensitive"
+    The engine converts all section names to lowercase during parsing. `[WPN_AK74]` and `[wpn_ak74]` are the same section.
+
+---
+
+## Debugging DLTX
+
+The modded exes provide console variables for diagnosing DLTX issues:
+
+| Console variable | Effect |
+|-----------------|--------|
+| `print_dltx_warnings 1` | Logs warnings for: cache hits, malformed lines, override sections without a matching base section, and duplicate sections |
+| `dltx_use_cache 0` | Disables the DLTX parse cache (useful if you suspect stale data; re-enable for normal play) |
+
+You can also use these Lua functions on any `ini_file` object to trace where a config value came from:
+
+```lua
+local ini = system_ini()
+-- Which file defined this specific line?
+local source_file = ini:dltx_get_filename_of_line("wpn_ak74", "rpm")
+-- Is this line from a DLTX override or the base file?
+local is_override = ini:dltx_is_override("wpn_ak74", "rpm")
+-- Print all override info for a section
+ini:dltx_print("wpn_ak74")
+```
+
+---
+
+## Syntax summary
+
+| Syntax | Effect |
+|--------|--------|
+| `[section]` | Patch section — merge keys into existing section, or create new |
+| `![section]` | Override section — discard base values, replace with these |
+| `@[section]` | Safe override — like `![]` but creates the section if it doesn't exist |
+| `!![section]` | Delete section entirely |
+| `key = value` | Set or replace a key |
+| `!key` | Delete a key |
+| `>key = item1, item2` | Append items to a comma-separated list |
+| `<key = item1, item2` | Remove items from a comma-separated list |
+| `[child]:!parent` | Remove a parent from the inheritance chain |
 
 ---
 
 ## Limitations
 
-- **Can't reorder list values.** If a field is `a, b, c` and you write `c, b, a`, you replace the whole list. You can't insert into the middle of a comma-separated list.
-- **Can't merge multi-value fields.** Writing a new value for a list key replaces the entire list, not appends to it.
-- **Inheritance is static.** You can change a child section's own values, but you can't change which parent it inherits from after the fact.
+- **Can't reorder list values.** If a field is `a, b, c` and you want `c, b, a`, you must replace the whole value. The `>` and `<` operators only append and remove — they don't reorder.
+- **Inheritance is static.** You can change a child section's own values and remove parents with `!parent`, but you can't add new parents after the fact.
 - **No conditionals.** DLTX has no if/else logic — all patches are always applied.
 
 ---
