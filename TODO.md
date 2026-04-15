@@ -17,14 +17,14 @@ _Nothing currently in progress._
 - [x] Enable next/prev page navigation — add `navigation.footer` to the `features` list in `mkdocs.yml` (one-line change).
 
 ### Core conceptual gaps (new pages / sections)
-- [ ] **What is a game_object?** — New page or prominent section. Fundamental type referenced everywhere; explain the client-side object, its base methods (`id()`, `name()`, `section()`, `position()`, `alive()`), and how it differs from a server entity.
-- [ ] **What is db.storage?** — Currently mentioned in NPCs page without explanation. Add a dedicated section covering its structure, lifecycle, and safe access patterns.
+- [x] **What is a game_object?** — New page or prominent section. Fundamental type referenced everywhere; explain the client-side object, its base methods (`id()`, `name()`, `section()`, `position()`, `alive()`), and how it differs from a server entity.
+- [x] **What is db.storage?** — Currently mentioned in NPCs page without explanation. Add a dedicated section covering its structure, lifecycle, and safe access patterns.
 - [ ] **Lua Scope & Globals** — New page. Explain `local` vs global, module scope, why globals are dangerous in Anomaly's shared namespace, upvalues and closures, and how to safely share state between scripts.
 - [ ] **Debugging & Logging** — New page. Reading the log file, `printf` vs `log`, `DEV_DEBUG`, `pcall` patterns, common silent failure modes, and how to diagnose callback errors.
 - [ ] **Expand pcall coverage** — Either in the Debugging page or back-linked from `lua-in-anomaly.md`. More depth on error handling patterns, nested pcall, and recovering gracefully.
 - [ ] **When are configs loaded?** — Add to `config-formats/` section. Explain that LTX is loaded at engine startup (merged into system.ltx), XML is loaded on demand per-file, and how DXML/DLTX timing works.
 - [ ] **List base game scripts with load order** — Expand `docs/getting-started/gamedata-structure.md` with a table of notable scripts and their roles; cross-reference load order in `docs/scripting/script-lifecycle.md`.
-- [ ] **Object Binders** — New page. How to subclass `object_binder`, the binder lifecycle (`net_spawn`, `net_destroy`, `update`, `save_state`, `load_state`), and when to use a binder vs a global callback.
+- [x] **Object Binders** — New page. How to subclass `object_binder`, the binder lifecycle (`net_spawn`, `net_destroy`, `update`, `save_state`, `load_state`), and when to use a binder vs a global callback.
 
 ### Getting started improvements
 - [ ] **Scripts folder as workspace** — Clarify in getting-started why mods are placed in `gamedata/scripts/` directly rather than a separate workspace folder, and how MO2 mod folder structure maps to this.
