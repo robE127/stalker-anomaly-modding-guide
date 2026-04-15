@@ -30,8 +30,8 @@ _Nothing currently in progress._
 - [x] **Scripts folder as workspace** — Clarify in getting-started why mods are placed in `gamedata/scripts/` directly rather than a separate workspace folder, and how MO2 mod folder structure maps to this.
 
 ### Content & community
-- [ ] **Motivation and methodology** — Add an About or Methodology page (or expand home page) explaining why this guide exists, how content was derived (base game source + 50-repo analysis), and its scope and limitations.
-- [ ] **Credits and cross-links to anomaly-modding-book** — TheParaziT's anomaly-modding-book is the main existing community reference (`data/clones/TheParaziT__anomaly-modding-book/`). Add attribution, link to it, and note where the two guides complement each other.
+- [x] **Motivation and methodology** — Add an About or Methodology page (or expand home page) explaining why this guide exists, how content was derived (base game source + 50-repo analysis), and its scope and limitations.
+- [x] **Credits and cross-links to anomaly-modding-book** — TheParaziT's anomaly-modding-book is the main existing community reference (`data/clones/TheParaziT__anomaly-modding-book/`). Add attribution, link to it, and note where the two guides complement each other.
 - [ ] **Contribution guide** — Add `CONTRIBUTING.md` or a docs page explaining how to submit corrections, additions, and how the scanner tools can be re-run to refresh the data.
 - [ ] **Packaging for MO2/BAIN** — New page in Getting Started. How to structure a mod folder for MO2 compatibility, what a BAIN-compatible archive looks like, and optionally a basic FOMOD installer.
 
@@ -44,7 +44,7 @@ _Nothing currently in progress._
 ### Polish
 - [ ] **API reference completeness audit** — Is the `game_object` member list exhaustive? Are all listed methods confirmed present in vanilla 1.5.2? Document what "character section" means. Verify against `lua_help.script`.
 - [ ] **Buy Me a Coffee link** — Add a sponsor/support link to the home page.
-- [ ] **Polish home page** (`docs/index.md`) — Better orientation, scope statement, quick-start path for different reader types (scripter, config modder, etc.).
+- [x] **Polish home page** (`docs/index.md`) — Better orientation, scope statement, quick-start path for different reader types (scripter, config modder, etc.).
 - [ ] **Audit and fix all internal cross-links** — Many pages reference other pages without a proper Markdown link. Do a pass and wire them all up.
 - [ ] **Add See Also sections** — Add structured "See Also" footers to pages with clear relationships (e.g. alife.md → npcs.md, mcm.md → examples/mcm-options.md).
 
