@@ -77,7 +77,27 @@ Particularly useful clones for real-world patterns:
 
 Always prefer higher-scored repos from `repos.json` when choosing which GitHub sources to consult.
 
-### 3. External sources (use only when local data is insufficient)
+### 3. xray-monolith (engine internals)
+The modded exes are open-source C++: **https://github.com/themrdemonized/xray-monolith**
+
+Use this when you need to understand how the engine actually works rather than just what it exposes to Lua. Particularly useful for:
+- Verifying exactly which C++ functions are bound to the Lua API (`luabind` / `script_register` calls in the source)
+- Understanding how DLTX and DXML are implemented — merge algorithm, load order, edge cases
+- Understanding which callbacks are added by the modded exes vs present in vanilla Anomaly
+- Engine behaviours (object lifetime, save serialisation, etc.) that are otherwise only documentable by observation
+
+This repo is not cloned locally. Fetch files directly from GitHub using raw URLs:
+`https://raw.githubusercontent.com/themrdemonized/xray-monolith/master/<path>`
+
+Or browse the tree: `https://github.com/themrdemonized/xray-monolith/tree/master`
+
+Key areas to look in:
+- `src/xrScripts/` or similar — Lua binding registration
+- Search for `luabind::` or `export_` prefix functions to find what's exposed to scripts
+- DLTX implementation: search for `dltx` or `mod_` prefix handling
+- DXML implementation: search for `on_xml_read` or `xml_document`
+
+### 4. External sources (use only when local data is insufficient)
 Web search and the Anomaly modding community (AP-PRO forums, ModDB, Discord) may fill gaps not covered by the local data. Always verify against the base game scripts before publishing.
 
 ---

@@ -41,6 +41,19 @@ _Nothing currently in progress._
 - [ ] **Improve navmesh explanation** — Expand the navmesh section in `docs/api-reference/level.md` with more context on what level vertices are, when to use `level_vertex_id` vs `game_vertex_id`, and practical pathfinding patterns.
 - [ ] **Full Mini-Quest Example** — A complete worked example tying together: NPC dialog → info portion flag → item delivery → save/load → reward. Longer than the current examples but demonstrates how real quest mods are structured.
 
+### xray-monolith as a source
+The [xray-monolith repo](https://github.com/themrdemonized/xray-monolith) (themrdemonized's modded exes, C++ source) is a viable ground-truth source for documenting engine internals. Useful for:
+- **DLTX/DXML implementation** — the actual patch/merge logic, load order semantics, edge cases
+- **Lua bindings** — exactly what C++ functions are exposed to Lua (fills gaps in API reference where we only have observed behaviour)
+- **Modded-exes callbacks** — which callbacks (`on_xml_read`, etc.) are injected by the modded exes vs present in vanilla, and how
+- **Engine internals** — why object references go stale, how the save system serialises, engine-level limits
+
+Concrete tasks to open from this source:
+- [ ] **Fetch and index xray-monolith Lua binding headers** — find the `script_register` / `luabind` calls in C++ source and produce a verified Lua API surface. Prioritise `game_object`, `level`, and `alife` bindings.
+- [ ] **Document DLTX internals** — how the merge algorithm works, what "last alphabetically wins" actually means at the C++ level, any undocumented behaviour.
+- [ ] **Document DXML internals** — how `on_xml_read` is hooked, when it fires relative to file caching, any ordering guarantees.
+- [ ] **Engine internals page** — new page in a `engine/` or `advanced/` section covering object lifetimes, save serialisation, and other behaviours currently documented only by observation.
+
 ### Polish
 - [ ] **API reference completeness audit** — Is the `game_object` member list exhaustive? Are all listed methods confirmed present in vanilla 1.5.2? Document what "character section" means. Verify against `lua_help.script`.
 - [ ] **Buy Me a Coffee link** — Add a sponsor/support link to the home page.
