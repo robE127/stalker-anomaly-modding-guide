@@ -13,6 +13,12 @@ Requirements:
 
 Optional:
     Copy .env.example to .env and set GITHUB_TOKEN for higher rate limits.
+
+Manual overrides:
+    Add repos to scanner/manual_repos.json to always include them with a
+    perfect relevance score (9999), regardless of keyword search results.
+    Useful for engine source, reference implementations, and other high-value
+    repos that wouldn't be discovered by Anomaly-mod keyword search.
 """
 
 import argparse
@@ -30,6 +36,8 @@ load_dotenv()
 
 GITHUB_API = "https://api.github.com"
 OUTPUT_DIR = Path(__file__).parent.parent / "data"
+MANUAL_REPOS_PATH = Path(__file__).parent / "manual_repos.json"
+MANUAL_SCORE = 9999
 
 # ---------------------------------------------------------------------------
 # Search queries — each tuple is (query_string, boost_score)
@@ -246,7 +254,7 @@ def deduplicate(repos: list[dict]) -> list[dict]:
     return unique
 
 
-def normalize_repo(repo: dict, score: int) -> dict:
+def normalize_repo(repo: dict, score: int, manual_override: bool = False) -> dict:
     """Extract only the fields we care about from a raw GitHub API response."""
     return {
         "id": repo["id"],
@@ -261,10 +269,59 @@ def normalize_repo(repo: dict, score: int) -> dict:
         "pushed_at": repo.get("pushed_at") or "",
         "created_at": repo.get("created_at") or "",
         "relevance_score": score,
+        "manual_override": manual_override,
         # Details filled in later if --no-details is not set
         "has_gamedata": None,
         "top_level_dirs": [],
     }
+
+
+def load_manual_overrides(session: requests.Session, fetch_details: bool) -> list[dict]:
+    """Load manual_repos.json and fetch GitHub metadata for each listed repo."""
+    if not MANUAL_REPOS_PATH.exists():
+        return []
+
+    with open(MANUAL_REPOS_PATH, encoding="utf-8") as f:
+        config = json.load(f)
+
+    overrides = []
+    entries = config.get("repos", [])
+    if not entries:
+        return []
+
+    print(f"\n=== Manual overrides: {len(entries)} repos from {MANUAL_REPOS_PATH.name} ===")
+    for entry in entries:
+        full_name = entry.get("full_name", "").strip()
+        note = entry.get("note", "")
+        if not full_name:
+            print(f"  [skip] Entry missing full_name: {entry}")
+            continue
+
+        url = f"{GITHUB_API}/repos/{full_name}"
+        try:
+            resp = session.get(url, timeout=15)
+            if resp.status_code == 404:
+                print(f"  [not found] {full_name} — skipping")
+                continue
+            resp.raise_for_status()
+            repo = resp.json()
+        except Exception as e:
+            print(f"  [error] Could not fetch {full_name}: {e}")
+            continue
+
+        normalized = normalize_repo(repo, MANUAL_SCORE, manual_override=True)
+        if note:
+            normalized["manual_note"] = note
+
+        if fetch_details:
+            details = get_repo_details(session, full_name)
+            normalized.update(details)
+
+        overrides.append(normalized)
+        print(f"  [ok] {full_name}  (score={MANUAL_SCORE})")
+        time.sleep(0.5)
+
+    return overrides
 
 
 def main():
@@ -333,11 +390,22 @@ def main():
         # Re-sort after score adjustments
         results.sort(key=lambda r: r["relevance_score"], reverse=True)
 
+    # --- Phase 4: Merge manual overrides ---
+    overrides = load_manual_overrides(session, fetch_details=not args.no_details)
+    if overrides:
+        # Remove any naturally-discovered entries that conflict with an override
+        override_names = {r["full_name"].lower() for r in overrides}
+        results = [r for r in results if r["full_name"].lower() not in override_names]
+        results = overrides + results
+        results.sort(key=lambda r: r["relevance_score"], reverse=True)
+        print(f"\nAfter merging {len(overrides)} manual override(s): {len(results)} repos total")
+
     # --- Save ---
     output = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "total_repos": len(results),
         "min_score_filter": args.min_score,
+        "manual_overrides": len(overrides),
         "repos": results,
     }
     with open(output_path, "w", encoding="utf-8") as f:
@@ -348,7 +416,9 @@ def main():
     print(f"\nTop 20 by relevance score:")
     for repo in results[:20]:
         gamedata = "[gamedata]" if repo.get("has_gamedata") else ""
-        print(f"  {repo['relevance_score']:3d}  {repo['full_name']:50s}  *{repo['stars']:<5d}  {gamedata}")
+        manual = "[manual]" if repo.get("manual_override") else ""
+        score_str = "9999" if repo["relevance_score"] == MANUAL_SCORE else str(repo["relevance_score"])
+        print(f"  {score_str:>5}  {repo['full_name']:50s}  *{repo['stars']:<5d}  {gamedata}{manual}")
 
 
 if __name__ == "__main__":

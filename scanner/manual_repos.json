@@ -1,0 +1,17 @@
+{
+  "_comment": "Repos listed here are always included in repos.json with a perfect relevance score (9999), regardless of how scanner.py scored them. Use this for high-value sources that keyword search wouldn't reliably discover — engine source, reference implementations, etc. The scanner fetches their GitHub metadata automatically; you only need the full_name.",
+  "repos": [
+    {
+      "full_name": "themrdemonized/xray-monolith",
+      "note": "Modded exes (C++ source) — DLTX, DXML, Lua bindings, engine internals. Not an Anomaly addon so won't be found by keyword search."
+    },
+    {
+      "full_name": "Tosox/STALKER-Anomaly-gamedata",
+      "note": "Unpacked Anomaly 1.5.2 base game scripts and configs. Primary ground-truth source for the guide."
+    },
+    {
+      "full_name": "TheParaziT/anomaly-modding-book",
+      "note": "Existing community modding reference. Credited in the guide."
+    }
+  ]
+}

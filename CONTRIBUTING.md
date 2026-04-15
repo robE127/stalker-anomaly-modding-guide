@@ -136,6 +136,21 @@ python report.py --analysis   # include callback and API frequency counts
 python report.py --top 100    # show top 100 repos
 ```
 
+### Adding a repo manually
+
+`scanner/manual_repos.json` lists repos that are always included in `repos.json` with a perfect relevance score (9999), regardless of what keyword search finds. This is for high-value sources that wouldn't be discovered by Anomaly-mod keyword search — engine source repos, reference implementations, etc.
+
+To add a repo, append an entry to the `repos` array:
+
+```json
+{
+  "full_name": "owner/repo-name",
+  "note": "Why this repo is valuable to the guide"
+}
+```
+
+The scanner fetches GitHub metadata automatically on the next run. No other changes are needed.
+
 ### Notes on data/clones/
 
 `data/clones/` is gitignored — it contains full repo clones and can be several gigabytes. Do not commit it. The base game scripts at `data/clones/Tosox__STALKER-Anomaly-gamedata/` are the single most important clone; if you re-run the analyser, make sure that repo is still present.
