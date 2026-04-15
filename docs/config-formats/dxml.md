@@ -12,7 +12,19 @@ DXML works through the `on_xml_read` callback, which fires each time the engine 
 
 ### How it works internally
 
-When the engine loads an XML file, the C++ code calls a Lua function (`_G.COnXmlRead`) with the filename and the raw XML string. The DXML Lua library (`dxml_core.script`) parses this string into a DOM-like table structure, fires all registered `on_xml_read` callbacks so mods can modify it, then converts it back to an XML string and returns it to the engine. The engine parses the modified string as if it were the original file.
+!!! info "Source: modded exes"
+    DXML itself is a modded exes feature — it does not exist in the vanilla Anomaly engine. The implementation details below are derived from the [xray-monolith](https://github.com/themrdemonized/xray-monolith) C++ source code and `dxml_core.script`.
+
+The data flow from disk to engine:
+
+1. **C++ loads the file** — `CXml::Load()` in `src/xrXMLParser/xrXMLParser.cpp` reads the XML file from disk and recursively processes all `#include` directives, producing a single assembled XML string.
+2. **C++ does an initial parse** — The assembled string is parsed by TinyXML into a document tree.
+3. **C++ calls into Lua** — `XMLLuaCallback()` (defined in `src/xrGame/ScriptXMLInit.cpp`) calls the Lua function `_G.COnXmlRead(filename, raw_xml_string)` with the filename and the fully-assembled XML string (with `#include`s already resolved, BOM stripped).
+4. **Lua parses again** — `dxml_core.script` parses the raw string into a DOM-like table using SLAXML (a pure-Lua XML parser), wraps it in the `xml_object` API, and dispatches to all registered `on_xml_read` callbacks.
+5. **Lua serializes back** — After all callbacks run, the modified DOM is serialized back to an XML string and returned to C++.
+6. **C++ re-parses** — `CXml::LoadFromString()` clears the initial TinyXML tree and re-parses the returned string. The engine then uses this final tree.
+
+This means every XML file load involves **three parses** when DXML is active (TinyXML, SLAXML, TinyXML again). The initial C++ parse is effectively wasted — it exists as a fallback if the Lua callback doesn't exist or returns the string unchanged.
 
 ---
 
@@ -58,7 +70,7 @@ end
 Note the double-bracket raw string literal (`[[...]]`) — on Windows these paths use backslashes.
 
 !!! warning "Translation and character_desc restrictions"
-    DXML will not process translation strings from folders other than `eng/` and `rus/`. The file `gameplay\character_desc_general.xml` also cannot be patched through `on_xml_read` — use the special callbacks [`on_specific_character_init`](#patching-npc-character-data) and [`on_specific_character_dialog_list`](#patching-npc-dialog-lists) instead.
+    DXML will not process translation strings from folders other than `eng/` and `rus/` — other locales are skipped because the SLAXML parser has not been tested with their character encodings. The file `gameplay\character_desc_general.xml` is also skipped because it contains data for all generic NPCs and is too large for the pure-Lua parser to handle efficiently. Use the dedicated callbacks [`on_specific_character_init`](#patching-npc-character-data) and [`on_specific_character_dialog_list`](#patching-npc-dialog-lists) instead.
 
 ---
 
@@ -273,7 +285,9 @@ The button won't do anything yet — you also need to initialise it in the Lua c
 
 ## Patching NPC character data
 
-The file `gameplay\character_desc_general.xml` cannot be patched through `on_xml_read`. Instead, use the `on_specific_character_init` callback to modify NPC properties:
+The file `gameplay\character_desc_general.xml` cannot be patched through `on_xml_read`. Instead, the modded exes provide two dedicated callbacks that fire from C++ (`CSpecificCharacter::load_shared()` in `src/xrServerEntities/specific_character.cpp`) when each individual character is loaded. These use the standard script callback system, not the DXML dispatch.
+
+Use the `on_specific_character_init` callback to modify NPC properties:
 
 ```lua
 function on_game_start()
@@ -409,9 +423,44 @@ end
 
 ---
 
+## Caching
+
+The `on_xml_read` callback receives an optional third argument — a `flags` table:
+
+```lua
+local function on_xml_read(xml_file_name, xml_obj, flags)
+    if xml_file_name ~= [[ui\ui_inventory.xml]] then return end
+    -- modify xml_obj...
+    flags.cache = true  -- cache the result for this file
+end
+```
+
+When any callback sets `flags.cache = true`, the final serialized XML string is cached in memory. On subsequent loads of the same file, **no callbacks fire** — the cached string is returned directly to C++.
+
+!!! warning "Cache has no invalidation"
+    Once cached, the result persists for the entire game session. There is no API to clear individual entries. Only use caching for files whose DXML modifications are deterministic and don't depend on game state.
+
+By default, `flags.cache` is `false` — XML files are re-parsed and all callbacks re-fired on every load. This is correct for most mods.
+
+---
+
+## Execution order
+
+All registered `on_xml_read` handlers fire in registration order. Each handler's modifications are visible to subsequent handlers.
+
+**For `modxml_*.script` files**, `dxml_core.script` scans for all scripts matching the `modxml_*` prefix, sorts them alphabetically, and calls each script's `on_xml_read` registration function in that sorted order. This means `modxml_aaa_mod.script` runs before `modxml_zzz_mod.script`.
+
+Callbacks registered from other scripts (e.g., in `on_game_start`) fire after all `modxml_*` callbacks.
+
+The `on_xml_read` callback uses a **separate dispatch system** from normal script callbacks. `dxml_core.script` monkey-patches `RegisterScriptCallback` so that `"on_xml_read"` registrations go into a dedicated `xmlCallbacks` array rather than the standard `axr_main` intercepts table. Duplicate function references are silently ignored.
+
+---
+
 ## Tips and gotchas
 
 **Backslash paths on Windows.** File paths use backslashes: `[[ui\ui_inventory.xml]]`. The double-bracket raw string avoids escaping.
+
+**`#include` is pre-processed.** By the time your callback fires, all `#include` directives in the original XML file have already been resolved by the C++ loader. You see the fully assembled document. However, `insertFromXMLString` also supports `#include` directives in the strings you insert.
 
 **`#parent.kids` vs a fixed index.** Using `#parent.kids` always appends after existing children. A fixed index like `0` inserts before everything else.
 
@@ -424,7 +473,7 @@ end
 if is_not_empty(xml_obj:query("menu_main btn[name=btn_mcm]")) then return end
 ```
 
-**Multiple mods, same file.** All registered `on_xml_read` handlers fire in registration order. Each handler's modifications are visible to subsequent handlers. The order is determined by `on_game_start` registration order, which is alphabetical by script filename — hence the `modxml_` naming convention.
+**Error handling is silent.** If SLAXML fails to parse the XML (e.g., the raw string is malformed), the original unmodified string is returned to C++ and your modifications are silently dropped. Check the log for parse errors if your changes aren't taking effect.
 
 !!! warning "DXML requires the modded exes"
     DXML is **not** part of vanilla Anomaly. Like DLTX, it is included in the community **modded exes** maintained by themrdemonized ([xray-monolith](https://github.com/themrdemonized/xray-monolith)). The `on_xml_read` callback does not exist in vanilla Anomaly's script engine — it is added by the modded exes. List them as a hard dependency in your README if your mod uses DXML.

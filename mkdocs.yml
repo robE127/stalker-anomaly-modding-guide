@@ -60,6 +60,7 @@ nav:
     - The Callback System: scripting/callbacks.md
     - Debugging & Logging: scripting/debugging.md
     - Save & Load State: scripting/save-load.md
+    - Engine Internals: scripting/engine-internals.md
 
   - API Reference:
     - api-reference/index.md

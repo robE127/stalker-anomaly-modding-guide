@@ -49,10 +49,10 @@ The [xray-monolith repo](https://github.com/themrdemonized/xray-monolith) (themr
 - **Engine internals** — why object references go stale, how the save system serialises, engine-level limits
 
 Concrete tasks to open from this source:
-- [ ] **Fetch and index xray-monolith Lua binding headers** — find the `script_register` / `luabind` calls in C++ source and produce a verified Lua API surface. Prioritise `game_object`, `level`, and `alife` bindings.
-- [ ] **Document DLTX internals** — how the merge algorithm works, what "last alphabetically wins" actually means at the C++ level, any undocumented behaviour.
-- [ ] **Document DXML internals** — how `on_xml_read` is hooked, when it fires relative to file caching, any ordering guarantees.
-- [ ] **Engine internals page** — new page in a `engine/` or `advanced/` section covering object lifetimes, save serialisation, and other behaviours currently documented only by observation.
+- [x] **Fetch and index xray-monolith Lua binding headers** — find the `script_register` / `luabind` calls in C++ source and produce a verified Lua API surface. Prioritise `game_object`, `level`, and `alife` bindings.
+- [x] **Document DLTX internals** — how the merge algorithm works, what "last alphabetically wins" actually means at the C++ level, any undocumented behaviour.
+- [x] **Document DXML internals** — how `on_xml_read` is hooked, when it fires relative to file caching, any ordering guarantees.
+- [x] **Engine internals page** — new page in a `engine/` or `advanced/` section covering object lifetimes, save serialisation, and other behaviours currently documented only by observation.
 
 ### Polish
 - [ ] **API reference completeness audit** — Is the `game_object` member list exhaustive? Are all listed methods confirmed present in vanilla 1.5.2? Document what "character section" means. Verify against `lua_help.script`.

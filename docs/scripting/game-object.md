@@ -249,16 +249,19 @@ local function actor_on_update()
 end
 ```
 
-??? info "Why references go stale — engine details"
-    In the engine's C++ code, `game_object` in Lua is a wrapper (`CScriptGameObject`) that holds a pointer to the underlying C++ entity (`CGameObject`). When an object goes offline (because the player moved away, or the object was destroyed), the engine calls `net_Destroy()`, which:
+??? info "Why references go stale — engine details (modded exes source)"
+    Based on the [xray-monolith](https://github.com/themrdemonized/xray-monolith) C++ source (the community modded exes — vanilla engine internals cannot be verified): `game_object` in Lua is a wrapper (`CScriptGameObject`) that holds a pointer to the underlying C++ entity (`CGameObject`). When an object goes offline (because the player moved away, or the object was destroyed), the engine calls `net_Destroy()`, which:
 
     1. Calls the object binder's `net_destroy()` method (your Lua cleanup code runs here)
     2. **Deletes** the Lua wrapper object (`CScriptGameObject`)
     3. Sets `m_spawned = false` on the C++ object
 
-    After this, any Lua reference you held to that `game_object` now points to freed memory. The engine provides a `game_object:is_valid()` method that checks whether the back-reference between the wrapper and the C++ object is still intact — but the safest pattern is to never store the reference at all.
+    After this, any Lua reference you held to that `game_object` now points to freed memory. The modded exes provide a `game_object:is_valid()` method that checks whether the back-reference between the wrapper and the C++ object is still intact — but the safest pattern is to never store the reference at all.
 
 ### Checking validity with `is_valid()`
+
+!!! note "Requires the modded exes"
+    `is_valid()` is added by the [modded exes](https://github.com/themrdemonized/xray-monolith) and is not available in vanilla Anomaly.
 
 If you must hold a `game_object` reference temporarily (e.g. within a single complex operation), you can check whether it's still valid:
 

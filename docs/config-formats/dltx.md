@@ -241,20 +241,75 @@ inv_grid_height = 1
 
 ## Load order and merge algorithm
 
-DLTX files are loaded in alphabetical order within each folder. The merge algorithm works in stages:
+This section describes how DLTX actually works inside the engine, based on the C++ source in `CInifile` ([xray-monolith](https://github.com/themrdemonized/xray-monolith) `src/xrCore/Xr_ini.cpp`).
 
-1. **Discovery.** The engine scans for `mod_<basename>_*.ltx` files in the same directory as each base LTX file.
-2. **Parsing.** Each DLTX file is parsed. Mod files are assigned a negative depth value (-200), making them higher priority than the base file (depth 0).
-3. **Sort and filter.** Items are sorted by key name (alphabetical), then by depth (ascending), then by insertion index (descending). For duplicate keys at the same depth, the last-loaded file wins.
-4. **Merge.** Override items replace base items with matching keys. `DLTX_DELETE` markers remove keys. New keys from overrides are added.
-5. **Inheritance.** Parent sections are resolved with recursion detection.
-6. **List modification.** `>` and `<` operations are applied in insertion order.
+!!! info "Source: modded exes"
+    DLTX itself is a modded exes feature — it does not exist in the vanilla Anomaly engine. The implementation details below are derived from the xray-monolith C++ source code.
 
-To control load order, use a naming prefix:
+### Discovery
+
+When the engine finishes reading a base LTX file, it scans the same directory for files matching `mod_<basename>_*.ltx`. For example, when loading `weapons.ltx`, it looks for `mod_weapons_*.ltx`.
+
+**Disambiguation.** If the directory also contains a file like `weapons_upgrades.ltx`, a mod file named `mod_weapons_upgrades_fix.ltx` could match either base file. The engine resolves this by checking all `<basename>_*.ltx` files in the directory and skipping any mod file whose name also matches a longer base filename. In practice, this means `mod_weapons_upgrades_fix.ltx` is assigned to `weapons_upgrades.ltx`, not to `weapons.ltx`.
+
+The matched mod files are returned from a sorted set (`FS_FileSet`), so they are iterated in **ascending alphabetical order by filename**.
+
+### Depth priority
+
+Each key-value pair (called an "item" internally) carries a **depth** value that determines its priority. Lower depth = higher priority.
+
+| Source | Depth |
+|--------|-------|
+| Base file | `0` |
+| File `#include`d by base | `+1`, `+2`, ... (incrementing per include level) |
+| 1st mod file (alphabetically) | `-200` |
+| 2nd mod file | `-400` |
+| 3rd mod file | `-600` |
+| File `#include`d by a mod | mod's depth `+1`, `+2`, ... |
+
+The depth decreases by 200 for each subsequent mod file. This means **later alphabetical mod files have stronger priority** — `mod_zzz.ltx` always overrides `mod_aaa.ltx`.
+
+Files `#include`d by a base file get depth `+1`, `+2`, etc. — always higher (weaker) than any mod file. Files included by a mod file get that mod's depth `+1`, which is still far more negative than base depth, so mod includes always beat base includes.
+
+### Sort and merge
+
+Within each section, items are sorted by:
+
+1. Key name (alphabetical)
+2. Depth (ascending — lower wins)
+3. Insertion index (descending — later insertion wins at same depth)
+
+A deduplication pass then keeps only the first item for each key — the one with the lowest depth. This is how mod values replace base values.
+
+### Section operations at the C++ level
+
+- **`[section]` (normal):** Items go into the `BaseData` map. If two base files define the same section name, the engine calls `Debug.fatal()` and crashes — you must use `![section]` for overrides.
+- **`![section]` (override):** Items go into the `OverrideData` map. Multiple overrides for the same section are merged together. During the merge pass, override items replace base items with matching keys.
+- **`@[section]` (safe override):** Same as `![section]`, but if no base section exists for this name, an empty base section is created automatically. Use this when your mod might load before the base file that defines the section.
+- **`!![section]` (delete):** The section name is added to a `SectionsToDelete` set. After all merges complete, these sections are erased from the final resolved data.
+
+### Key operations at the C++ level
+
+- **`!key`:** The value is replaced with the literal string `"DLTX_DELETE"`. During merge, any key with this marker is added to a `DeletedItems` set and excluded from the output. If the deletion appears in a mod file merging against a base file, the key is removed. If it appears in a parent-inheritance merge, the parent's value is preserved instead.
+- **`>key = items`:** The item is stored in a separate `OverrideModifyListData` map. During evaluation, the existing value is split by comma, the new items are appended, and the list is rejoined.
+- **`<key = items`:** Same storage as `>`, but during evaluation, matching items are removed from the comma-separated list using `std::remove_if`.
+
+List operations on a key that was deleted via `!key` are silently skipped — the key is not recreated.
+
+### Inheritance resolution
+
+Parent sections are resolved recursively. The engine detects cyclical inheritance (A inherits B which inherits A) and calls `Debug.fatal()` if found. The `[section]:!parent` syntax removes a parent from the inheritance chain during the merge pass.
+
+!!! warning "Override inheriting from override"
+    If a section inherits from a parent that was itself defined as an override (not a base section), the engine prints a warning and creates a fallback empty base section for backwards compatibility. This works but is not recommended.
+
+### Controlling load order
+
+To control which mod file wins, use naming prefixes:
 
 ```
-mod_aaa_my_early_patch.ltx      ← loads first
-mod_zzz_my_late_patch.ltx       ← loads last, overrides earlier patches
+mod_aaa_my_early_patch.ltx      ← loads first (depth -200)
+mod_zzz_my_late_patch.ltx       ← loads last (depth -400), overrides earlier patches
 ```
 
 Some modpacks use a naming convention like `mod_system_zzzzzz_<name>.ltx` to force late loading.
@@ -264,25 +319,48 @@ Some modpacks use a naming convention like `mod_system_zzzzzz_<name>.ltx` to for
 
 ---
 
+## Caching
+
+The engine caches the fully-resolved result of each LTX file (after all DLTX merges) in memory. On subsequent loads of the same file, the cached result is returned immediately — no file I/O or parsing occurs. Caching is enabled by default and is thread-safe.
+
+The cache persists for the entire game session. If you modify a DLTX file while the game is running, the changes won't take effect until the cache is invalidated (see below) or the game is restarted.
+
+Lua scripts can force a full reload of the config system at runtime via `reload_system_ini()`, which invalidates the cache for `system.ltx` and recreates the global `pSettings` object.
+
+---
+
 ## Debugging DLTX
 
-The modded exes provide console variables for diagnosing DLTX issues:
+The modded exes provide console commands for diagnosing DLTX issues:
 
-| Console variable | Effect |
+| Console command | Effect |
 |-----------------|--------|
-| `print_dltx_warnings 1` | Logs warnings for: cache hits, malformed lines, override sections without a matching base section, and duplicate sections |
-| `dltx_use_cache 0` | Disables the DLTX parse cache (useful if you suspect stale data; re-enable for normal play) |
+| `print_dltx_warnings 1` | Enables diagnostic logging: malformed lines, override sections without a matching base section, disambiguation decisions, section deletions. Off by default. |
+| `dltx_use_cache 0` | Disables the DLTX parse cache and immediately clears all cached data. Useful if you suspect stale data during development. Re-enable for normal play (`dltx_use_cache 1`). |
 
-You can also use these Lua functions on any `ini_file` object to trace where a config value came from:
+### Lua debugging API
+
+These methods are available on any `ini_file` object (including `system_ini()`):
 
 ```lua
 local ini = system_ini()
--- Which file defined this specific line?
+
+-- Which file defined this specific key?
 local source_file = ini:dltx_get_filename_of_line("wpn_ak74", "rpm")
--- Is this line from a DLTX override or the base file?
+-- Returns nil if the section or key doesn't exist
+
+-- Is this key from a DLTX mod file or the base file?
 local is_override = ini:dltx_is_override("wpn_ak74", "rpm")
--- Print all override info for a section
+-- Returns true if the source filename starts with "mod_"
+
+-- Print all key-value pairs in a section with their source files
 ini:dltx_print("wpn_ak74")
+-- Output per line: "key = value -> filename"
+-- Pass nil to print ALL sections (very verbose)
+
+-- Get full introspection data for a section
+local section_data = ini:dltx_get_section("wpn_ak74")
+-- Returns a Lua table: { key_name = { name, value, filename }, ... }
 ```
 
 ---
