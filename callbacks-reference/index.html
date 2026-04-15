@@ -2097,6 +2097,10 @@
 
 <h1 id="callbacks-reference">Callbacks Reference<a class="headerlink" href="#callbacks-reference" title="Permanent link">&para;</a></h1>
 <p>Every callback registered in <code>axr_main.script</code> — the authoritative source. Signatures are taken directly from the source comments. Frequency counts are from analysis of 50 community mod repositories.</p>
+<div class="admonition note">
+<p class="admonition-title">Some callbacks require the modded exes</p>
+<p>Callbacks whose names begin with <code>actor_on_before_</code>, <code>actor_on_weapon_before_</code>, <code>actor_on_item_before_</code>, <code>npc_on_before_</code>, <code>monster_on_before_</code>, <code>bullet_on_hit</code>, and <code>npc_shot_dispersion</code> are dispatched from C++ engine hooks added by the <a href="https://github.com/themrdemonized/xray-monolith">modded exes</a>. They exist in the base game's Lua scripts but will never fire without the modded engine binaries installed. If your mod uses any of these, list the modded exes as a dependency.</p>
+</div>
 <p>Register any callback with:
 <div class="language-lua highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;callback_name&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">your_function</span><span class="p">)</span>
 </span></code></pre></div></p>
@@ -2235,7 +2239,19 @@
 <td><code>on_before_key_press</code></td>
 <td>15</td>
 <td><code>(key: number, bind: number, is_down: boolean, flags: table)</code></td>
-<td>Fires before <code>on_key_press</code>. Set <code>flags.ret = true</code> to suppress the keypress entirely.</td>
+<td>Fires before <code>on_key_press</code>. Set <code>flags.ret_value = false</code> to suppress the keypress.</td>
+</tr>
+<tr>
+<td><code>on_before_key_release</code></td>
+<td>—</td>
+<td><code>(key: number, bind: number, is_down: boolean, flags: table)</code></td>
+<td>Fires before <code>on_key_release</code>. Set <code>flags.ret_value = false</code> to suppress.</td>
+</tr>
+<tr>
+<td><code>on_before_key_hold</code></td>
+<td>—</td>
+<td><code>(key: number, bind: number, is_down: boolean, flags: table)</code></td>
+<td>Fires before <code>on_key_hold</code>. Set <code>flags.ret_value = false</code> to suppress.</td>
 </tr>
 <tr>
 <td><code>on_console_execute</code></td>
@@ -2264,14 +2280,14 @@
 <tr>
 <td><code>on_before_save_input</code></td>
 <td>—</td>
-<td><code>(number, number, flags: table)</code></td>
-<td>Before a quicksave/autosave input.</td>
+<td><code>(flags: table, number, string)</code></td>
+<td>Before a quicksave input. Set <code>flags.ret = true</code> to cancel.</td>
 </tr>
 <tr>
 <td><code>on_before_load_input</code></td>
 <td>—</td>
-<td><code>(number, number, flags: table)</code></td>
-<td>Before a quickload input.</td>
+<td><code>(key: number, bind: number, flags: table)</code></td>
+<td>Before a quickload input. Set <code>flags.ret = true</code> to cancel.</td>
 </tr>
 </tbody>
 </table>
@@ -2321,13 +2337,13 @@
 <td><code>actor_on_item_before_use</code></td>
 <td>—</td>
 <td><code>(obj: game_object, flags: table)</code></td>
-<td>Before item use. Set <code>flags.ret = true</code> to cancel.</td>
+<td>Before item use. Set <code>flags.ret_value = false</code> to cancel.</td>
 </tr>
 <tr>
 <td><code>actor_on_item_before_pickup</code></td>
 <td>—</td>
 <td><code>(obj: game_object, flags: table)</code></td>
-<td>Before picking up an item. Set <code>flags.ret = true</code> to cancel pickup.</td>
+<td>Before picking up an item. Set <code>flags.ret_value = false</code> to cancel pickup.</td>
 </tr>
 <tr>
 <td><code>actor_item_to_belt</code></td>
@@ -2370,8 +2386,8 @@
 <tr>
 <td><code>actor_on_before_hit</code></td>
 <td>32</td>
-<td><code>(obj: game_object, shit: SHit, bone_id: number, flags: table)</code></td>
-<td>Actor is about to take damage. Modify <code>shit.power</code> to change damage amount.</td>
+<td><code>(shit: SHit, bone_id: number, flags: table)</code></td>
+<td>Actor is about to take damage. Modify <code>shit.power</code> to change damage. Set <code>flags.ret_value = false</code> to cancel the hit entirely.</td>
 </tr>
 <tr>
 <td><code>actor_on_hit_callback</code></td>
@@ -2382,8 +2398,8 @@
 <tr>
 <td><code>actor_on_before_death</code></td>
 <td>29</td>
-<td><code>(shit: SHit, bone_id: number)</code></td>
-<td>Actor is about to die.</td>
+<td><code>(who_id: number, flags: table)</code></td>
+<td>Actor is about to die. Set <code>flags.ret_value = false</code> to prevent death.</td>
 </tr>
 <tr>
 <td><code>actor_on_feeling_anomaly</code></td>
@@ -2415,7 +2431,7 @@
 <td><code>actor_on_weapon_before_fire</code></td>
 <td>—</td>
 <td><code>(flags: table)</code></td>
-<td>Before a shot is fired. Set <code>flags.ret = true</code> to cancel.</td>
+<td>Before a shot is fired. Set <code>flags.ret_value = false</code> to cancel.</td>
 </tr>
 <tr>
 <td><code>actor_on_weapon_jammed</code></td>
@@ -2458,6 +2474,12 @@
 <td>20</td>
 <td><code>(wpn: game_object)</code></td>
 <td>Stopped aiming.</td>
+</tr>
+<tr>
+<td><code>actor_on_before_throwable_select</code></td>
+<td>—</td>
+<td><code>(t: table)</code></td>
+<td>Before the engine selects the next throwable (grenade/bolt). <code>t.item</code> is the selected <code>game_object</code>; replace it to override the selection.</td>
 </tr>
 <tr>
 <td><code>actor_on_hud_animation_play</code></td>
@@ -2611,7 +2633,7 @@
 <td><code>npc_on_before_hit</code></td>
 <td>23</td>
 <td><code>(npc: game_object, shit: SHit, bone_id: number, flags: table)</code></td>
-<td>NPC is about to be hit. Modify <code>shit.power</code> to change damage.</td>
+<td>NPC is about to be hit. Modify <code>shit.power</code> to change damage. Set <code>flags.ret_value = false</code> to cancel.</td>
 </tr>
 <tr>
 <td><code>npc_on_hit_callback</code></td>
@@ -2710,6 +2732,12 @@
 <td>NPC choosing which weapon to use.</td>
 </tr>
 <tr>
+<td><code>npc_shot_dispersion</code></td>
+<td>—</td>
+<td><code>(npc: game_object, wpn: game_object, body_state: number, move_type: number, t: table)</code></td>
+<td>NPC weapon accuracy calculation. Modify <code>t.dispersion</code> to change the shot spread.</td>
+</tr>
+<tr>
 <td><code>se_stalker_on_spawn</code></td>
 <td>—</td>
 <td><code>(server_object)</code></td>
@@ -2739,7 +2767,7 @@
 <td><code>monster_on_before_hit</code></td>
 <td>—</td>
 <td><code>(monster: game_object, shit: SHit, bone_id: number, flags: table)</code></td>
-<td>Monster about to take damage.</td>
+<td>Monster about to take damage. Set <code>flags.ret_value = false</code> to cancel.</td>
 </tr>
 <tr>
 <td><code>monster_on_hit_callback</code></td>
@@ -2866,8 +2894,8 @@
 <tr>
 <td><code>on_try_respawn</code></td>
 <td>—</td>
-<td><code>(squad: server_object, flags: table)</code></td>
-<td>Squad about to respawn. Set <code>flags.ret = true</code> to cancel.</td>
+<td><code>(smart: server_object, flags: table)</code></td>
+<td>Smart terrain about to respawn a squad. Set <code>flags.disabled = true</code> to cancel.</td>
 </tr>
 <tr>
 <td><code>server_entity_on_register</code></td>
@@ -3053,13 +3081,19 @@
 <td><code>on_before_surge</code></td>
 <td>—</td>
 <td><code>(flags: table)</code></td>
-<td>Emission/surge about to start. Set <code>flags.ret = true</code> to cancel.</td>
+<td>Emission/surge about to start. Set <code>flags.allow = false</code> to cancel.</td>
 </tr>
 <tr>
 <td><code>on_before_psi_storm</code></td>
 <td>—</td>
 <td><code>(flags: table)</code></td>
-<td>Psi storm about to start. Set <code>flags.ret = true</code> to cancel.</td>
+<td>Psi storm about to start. Set <code>flags.allow = false</code> to cancel.</td>
+</tr>
+<tr>
+<td><code>bullet_on_hit</code></td>
+<td>—</td>
+<td><code>(section: string, obj: game_object, pos: vector, dir: vector, material: string, speed: number, wpn_id: number)</code></td>
+<td>A bullet hit something. <code>section</code> is the ammo section, <code>obj</code> is the hit object, <code>wpn_id</code> is the weapon's object ID.</td>
 </tr>
 <tr>
 <td><code>on_enemy_eval</code></td>

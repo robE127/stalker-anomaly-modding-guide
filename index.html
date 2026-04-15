@@ -2176,10 +2176,10 @@
 <ol>
 <li><strong>Scanning GitHub</strong> for public Anomaly addon repositories — 214 repos scored by relevance</li>
 <li><strong>Analysing the top 50</strong> — every <code>RegisterScriptCallback</code> call, engine API usage, and function signature extracted and counted across the dataset</li>
-<li><strong>Cross-referencing against the base game</strong> — all documented behaviour verified against the unpacked base game scripts (<code>Tosox/STALKER-Anomaly-gamedata</code>, the authoritative Anomaly 1.5.2 source)</li>
+<li><strong>Cross-referencing against the base game</strong> — all documented behaviour verified against a fully-unpacked copy of Anomaly 1.5.3 (the current release)</li>
 </ol>
 <p>This means the guide reflects what real mods actually use, not just what the API theoretically exposes. The scanner and analyser tools live in <code>scanner/</code> and can be re-run to refresh the dataset as the mod ecosystem evolves.</p>
-<p><strong>Scope and limitations:</strong> The current release of Anomaly is 1.5.3, but the primary source used for this guide (<code>Tosox/STALKER-Anomaly-gamedata</code>) is 1.5.2. We made our best effort with what was available — most scripting API, callback names, and config formats are stable across patch releases, but some details may be outdated for 1.5.3. If something contradicts what you see in-game, the game wins. Details may also differ for derived modpacks (GAMMA, EFP, etc.). Engine-internal C++ behaviour is documented by observed effect, not by reading source.</p>
+<p><strong>Scope and limitations:</strong> This guide targets Anomaly 1.5.3. Some details may differ for derived modpacks (GAMMA, EFP, etc.). Engine-internal C++ behaviour is documented by observed effect, not by reading source — if something contradicts what you see in-game, the game wins.</p>
 
 
 

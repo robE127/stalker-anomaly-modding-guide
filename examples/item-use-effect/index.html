@@ -2188,6 +2188,10 @@
 
 <h1 id="example-item-use-effect">Example: Item Use Effect<a class="headerlink" href="#example-item-use-effect" title="Permanent link">&para;</a></h1>
 <p>A complete mod that triggers a custom effect when the player uses a specific item. Demonstrates the item use callback, reading item config properties, applying effects, and blocking use under certain conditions.</p>
+<div class="admonition note">
+<p class="admonition-title">Requires the modded exes</p>
+<p>This example uses <code>actor_on_item_before_use</code>, which is dispatched from an engine hook added by the <a href="https://github.com/themrdemonized/xray-monolith">modded exes</a>. The <code>actor_on_item_use</code> callback works without them.</p>
+</div>
 <hr />
 <h2 id="what-this-builds">What this builds<a class="headerlink" href="#what-this-builds" title="Permanent link">&para;</a></h2>
 <ul>

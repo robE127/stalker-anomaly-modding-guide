@@ -973,6 +973,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#two-callback-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two callback systems
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Two callback systems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#script-callbacks-lua-side-dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script callbacks (Lua-side dispatch)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-callbacks-engine-side-dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object callbacks (engine-side dispatch)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-canonical-pattern" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2093,6 +2132,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#two-callback-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two callback systems
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Two callback systems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#script-callbacks-lua-side-dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script callbacks (Lua-side dispatch)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#object-callbacks-engine-side-dispatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object callbacks (engine-side dispatch)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-canonical-pattern" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2185,112 +2263,324 @@
 <p><strong>The intercepts table persists for the entire process lifetime</strong> — it is never automatically reset between game sessions. If you load a save, return to main menu, and load another save without quitting, the table from the first session is still in memory. This is why <code>on_game_end</code> unregistration matters: not because double-registration causes double-firing (it doesn't), but because callbacks that aren't unregistered remain active across session boundaries and can fire while your module's state is in an indeterminate condition — reset local variables, a nil <code>db.actor</code>, or stale flags from the previous session.</p>
 <p>Unregistering in <code>on_game_end</code> is also used in advanced mods to <strong>replace or intercept base game callbacks</strong>: unregister the original function, then re-register a patched version that adds behaviour before or after the original call.</p>
 <hr />
+<h2 id="two-callback-systems">Two callback systems<a class="headerlink" href="#two-callback-systems" title="Permanent link">&para;</a></h2>
+<p>Anomaly actually has <strong>two separate callback systems</strong> that serve different purposes. Understanding this distinction helps you pick the right one.</p>
+<h3 id="script-callbacks-lua-side-dispatch">Script callbacks (Lua-side dispatch)<a class="headerlink" href="#script-callbacks-lua-side-dispatch" title="Permanent link">&para;</a></h3>
+<p><code>RegisterScriptCallback</code> / <code>SendScriptCallback</code> is a <strong>purely Lua-side</strong> system, implemented in <code>axr_main.script</code> and <code>dynamic_callbacks.lua</code>. The engine doesn't know about it. Base game scripts and mods manually call <code>SendScriptCallback(...)</code> at the right moments, and all registered handlers are invoked.</p>
+<p>This is the system you use for most modding: <code>on_game_load</code>, <code>on_key_press</code>, <code>npc_on_death_callback</code>, etc. These are the callbacks listed in the <a href="../../callbacks-reference/">Callbacks Reference</a>.</p>
+<h3 id="object-callbacks-engine-side-dispatch">Object callbacks (engine-side dispatch)<a class="headerlink" href="#object-callbacks-engine-side-dispatch" title="Permanent link">&para;</a></h3>
+<p><code>game_object:set_callback(type, fn)</code> is an <strong>engine-side</strong> callback system. You register a Lua function on a specific <code>game_object</code>, and the C++ engine calls it directly when the event fires on that object. These are per-object, not global.</p>
+<p><strong>In practice, <code>set_callback</code> is used exclusively inside <a href="../object-binders/">object binders</a>.</strong> The binder's <code>net_spawn</code> registers callbacks on <code>self.object</code>, and <code>net_destroy</code> clears them. Across the entire base game and all community mods we analysed, no mod uses <code>set_callback</code> outside of a binder context. If you need to react to events like death, hit, or item pickup, use <code>RegisterScriptCallback</code> — the base game's binders already relay these engine events into the script callback system via <code>callbacks_gameobject.script</code>.</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">-- Typical usage: inside an object binder</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">net_spawn</span><span class="p">(</span><span class="nv">se_abstract</span><span class="p">)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nv">object_binder</span><span class="p">.</span><span class="nf">net_spawn</span><span class="p">(</span><span class="nv">self</span><span class="p">,</span><span class="w"> </span><span class="nv">se_abstract</span><span class="p">)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">hit</span><span class="p">,</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">hit_callback</span><span class="p">,</span><span class="w"> </span><span class="nv">self</span><span class="p">)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="kr">end</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">hit_callback</span><span class="p">(</span><span class="nv">obj</span><span class="p">,</span><span class="w"> </span><span class="nv">amount</span><span class="p">,</span><span class="w"> </span><span class="nv">direction</span><span class="p">,</span><span class="w"> </span><span class="nv">who</span><span class="p">,</span><span class="w"> </span><span class="nv">bone_id</span><span class="p">)</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="c1">-- handle hit on this specific object</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="kr">end</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">net_destroy</span><span class="p">()</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">hit</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span><span class="w">  </span><span class="c1">-- clear</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="nv">object_binder</span><span class="p">.</span><span class="nf">net_destroy</span><span class="p">(</span><span class="nv">self</span><span class="p">)</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="kr">end</span>
+</span></code></pre></div>
+<p>The <code>callback.*</code> enum values are defined in the engine. Some are vanilla, some were added by the modded exes:</p>
+<table>
+<thead>
+<tr>
+<th>Callback type</th>
+<th>Vanilla</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>callback.trade_start</code></td>
+<td>Yes</td>
+<td>Trade session opened</td>
+</tr>
+<tr>
+<td><code>callback.trade_stop</code></td>
+<td>Yes</td>
+<td>Trade session closed</td>
+</tr>
+<tr>
+<td><code>callback.trade_sell_buy_item</code></td>
+<td>Yes</td>
+<td>Item bought/sold</td>
+</tr>
+<tr>
+<td><code>callback.zone_enter</code></td>
+<td>Yes</td>
+<td>Object entered a zone</td>
+</tr>
+<tr>
+<td><code>callback.zone_exit</code></td>
+<td>Yes</td>
+<td>Object left a zone</td>
+</tr>
+<tr>
+<td><code>callback.death</code></td>
+<td>Yes</td>
+<td>Entity died</td>
+</tr>
+<tr>
+<td><code>callback.hit</code></td>
+<td>Yes</td>
+<td>Entity took damage</td>
+</tr>
+<tr>
+<td><code>callback.sound</code></td>
+<td>Yes</td>
+<td>Sound event</td>
+</tr>
+<tr>
+<td><code>callback.use_object</code></td>
+<td>Yes</td>
+<td>Object used/interacted</td>
+</tr>
+<tr>
+<td><code>callback.on_item_take</code></td>
+<td>Yes</td>
+<td>Item picked up</td>
+</tr>
+<tr>
+<td><code>callback.on_item_drop</code></td>
+<td>Yes</td>
+<td>Item dropped</td>
+</tr>
+<tr>
+<td><code>callback.patrol_path_in_point</code></td>
+<td>Yes</td>
+<td>NPC reached patrol point</td>
+</tr>
+<tr>
+<td><code>callback.script_animation</code></td>
+<td>Yes</td>
+<td>Script animation completed</td>
+</tr>
+<tr>
+<td><code>callback.helicopter_on_point</code></td>
+<td>Yes</td>
+<td>Heli reached point</td>
+</tr>
+<tr>
+<td><code>callback.helicopter_on_hit</code></td>
+<td>Yes</td>
+<td>Heli took damage</td>
+</tr>
+<tr>
+<td><code>callback.weapon_no_ammo</code></td>
+<td>Yes</td>
+<td>No ammo available</td>
+</tr>
+<tr>
+<td><code>callback.key_press</code></td>
+<td><strong>Modded</strong></td>
+<td>Key pressed (actor only)</td>
+</tr>
+<tr>
+<td><code>callback.key_release</code></td>
+<td><strong>Modded</strong></td>
+<td>Key released (actor only)</td>
+</tr>
+<tr>
+<td><code>callback.key_hold</code></td>
+<td><strong>Modded</strong></td>
+<td>Key held (actor only)</td>
+</tr>
+<tr>
+<td><code>callback.mouse_move</code></td>
+<td><strong>Modded</strong></td>
+<td>Mouse moved</td>
+</tr>
+<tr>
+<td><code>callback.mouse_wheel</code></td>
+<td><strong>Modded</strong></td>
+<td>Mouse scrolled</td>
+</tr>
+<tr>
+<td><code>callback.item_to_belt</code></td>
+<td><strong>Modded</strong></td>
+<td>Item moved to belt</td>
+</tr>
+<tr>
+<td><code>callback.item_to_slot</code></td>
+<td><strong>Modded</strong></td>
+<td>Item moved to slot</td>
+</tr>
+<tr>
+<td><code>callback.item_to_ruck</code></td>
+<td><strong>Modded</strong></td>
+<td>Item moved to backpack</td>
+</tr>
+<tr>
+<td><code>callback.weapon_zoom_in</code></td>
+<td><strong>Modded</strong></td>
+<td>Weapon aimed down sights</td>
+</tr>
+<tr>
+<td><code>callback.weapon_zoom_out</code></td>
+<td><strong>Modded</strong></td>
+<td>Weapon lowered from aim</td>
+</tr>
+<tr>
+<td><code>callback.weapon_jammed</code></td>
+<td><strong>Modded</strong></td>
+<td>Weapon jammed</td>
+</tr>
+<tr>
+<td><code>callback.weapon_fired</code></td>
+<td><strong>Modded</strong></td>
+<td>Weapon fired</td>
+</tr>
+<tr>
+<td><code>callback.weapon_magazine_empty</code></td>
+<td><strong>Modded</strong></td>
+<td>Magazine emptied</td>
+</tr>
+<tr>
+<td><code>callback.actor_before_death</code></td>
+<td><strong>Modded</strong></td>
+<td>Before actor death (can be intercepted)</td>
+</tr>
+<tr>
+<td><code>callback.on_foot_step</code></td>
+<td><strong>Modded</strong></td>
+<td>Footstep sound</td>
+</tr>
+<tr>
+<td><code>callback.weapon_lowered</code></td>
+<td><strong>Modded</strong></td>
+<td>Weapon lowered stance</td>
+</tr>
+<tr>
+<td><code>callback.weapon_raised</code></td>
+<td><strong>Modded</strong></td>
+<td>Weapon raised stance</td>
+</tr>
+<tr>
+<td><code>callback.hud_animation_end</code></td>
+<td><strong>Modded</strong></td>
+<td>HUD animation completed</td>
+</tr>
+</tbody>
+</table>
+<p>For mod work, use <code>RegisterScriptCallback</code>. The only reason to use <code>set_callback</code> directly is if you're writing a custom object binder and need to handle engine events on that specific object — and even then, most events you'd care about already have corresponding script callbacks that the base game binders relay for you.</p>
+<hr />
 <h2 id="the-canonical-pattern">The canonical pattern<a class="headerlink" href="#the-canonical-pattern" title="Permanent link">&para;</a></h2>
 <p>Every mod that registers callbacks should follow this structure:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">-- Declare local functions — the same references are used to register AND unregister</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">on_game_load</span><span class="p">()</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="c1">-- ...</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="kr">end</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">on_key_press</span><span class="p">(</span><span class="nv">key</span><span class="p">)</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="c1">-- ...</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="kr">end</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1">-- Register in on_game_start</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="kr">function</span><span class="w"> </span><span class="nf">on_game_start</span><span class="p">()</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;on_game_load&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">on_game_load</span><span class="p">)</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;on_key_press&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">on_key_press</span><span class="p">)</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="kr">end</span>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="c1">-- Unregister in on_game_end</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="kr">function</span><span class="w"> </span><span class="nf">on_game_end</span><span class="p">()</span>
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">    </span><span class="nf">UnregisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;on_game_load&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">on_game_load</span><span class="p">)</span>
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">    </span><span class="nf">UnregisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;on_key_press&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">on_key_press</span><span class="p">)</span>
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">-- Declare local functions — the same references are used to register AND unregister</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">on_game_load</span><span class="p">()</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="c1">-- ...</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kr">end</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">on_key_press</span><span class="p">(</span><span class="nv">key</span><span class="p">)</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="c1">-- ...</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="kr">end</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1">-- Register in on_game_start</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="kr">function</span><span class="w"> </span><span class="nf">on_game_start</span><span class="p">()</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;on_game_load&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">on_game_load</span><span class="p">)</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;on_key_press&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">on_key_press</span><span class="p">)</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="kr">end</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="c1">-- Unregister in on_game_end</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="kr">function</span><span class="w"> </span><span class="nf">on_game_end</span><span class="p">()</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="nf">UnregisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;on_game_load&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">on_game_load</span><span class="p">)</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="nf">UnregisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;on_key_press&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">on_key_press</span><span class="p">)</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="kr">end</span>
 </span></code></pre></div>
 <div class="admonition danger">
 <p class="admonition-title">Anonymous functions break unregistration</p>
 <p>This is a common mistake:
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">-- WRONG: each call creates a new function object; you can never unregister it</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;on_game_load&quot;</span><span class="p">,</span><span class="w"> </span><span class="kr">function</span><span class="p">()</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;loaded&quot;</span><span class="p">)</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kr">end</span><span class="p">)</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">-- WRONG: each call creates a new function object; you can never unregister it</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;on_game_load&quot;</span><span class="p">,</span><span class="w"> </span><span class="kr">function</span><span class="p">()</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;loaded&quot;</span><span class="p">)</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="kr">end</span><span class="p">)</span>
 </span></code></pre></div>
 Always assign your callback to a named local variable first.</p>
 </div>
 <hr />
 <h2 id="callback-arguments">Callback arguments<a class="headerlink" href="#callback-arguments" title="Permanent link">&para;</a></h2>
 <p>Callbacks receive arguments depending on the event. Always check what arguments a callback provides before writing your handler.</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">-- on_key_press provides the key code</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">on_key_press</span><span class="p">(</span><span class="nv">key</span><span class="p">)</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">DIK_keys</span><span class="p">.</span><span class="py">DIK_F5</span><span class="w"> </span><span class="kr">then</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">        </span><span class="c1">-- ...</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="kr">end</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="kr">end</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="c1">-- npc_on_death_callback provides victim and killer</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">npc_on_death_callback</span><span class="p">(</span><span class="nv">victim</span><span class="p">,</span><span class="w"> </span><span class="nv">who</span><span class="p">)</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;NPC %s killed by %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">victim</span><span class="p">:</span><span class="nf">name</span><span class="p">(),</span><span class="w"> </span><span class="nv">who</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">who</span><span class="p">:</span><span class="nf">name</span><span class="p">()</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s2">&quot;unknown&quot;</span><span class="p">)</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="kr">end</span>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="c1">-- actor_on_before_hit provides a hit object and bone id</span>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">actor_on_before_hit</span><span class="p">(</span><span class="nv">shit</span><span class="p">,</span><span class="w"> </span><span class="nv">bone_id</span><span class="p">)</span>
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">    </span><span class="nv">shit</span><span class="p">.</span><span class="py">power</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">shit</span><span class="p">.</span><span class="py">power</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5</span><span class="w">  </span><span class="c1">-- halve incoming damage</span>
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">-- on_key_press provides the key code</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">on_key_press</span><span class="p">(</span><span class="nv">key</span><span class="p">)</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">DIK_keys</span><span class="p">.</span><span class="py">DIK_F5</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">        </span><span class="c1">-- ...</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="kr">end</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1">-- npc_on_death_callback provides victim and killer</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">npc_on_death_callback</span><span class="p">(</span><span class="nv">victim</span><span class="p">,</span><span class="w"> </span><span class="nv">who</span><span class="p">)</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;NPC %s killed by %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">victim</span><span class="p">:</span><span class="nf">name</span><span class="p">(),</span><span class="w"> </span><span class="nv">who</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">who</span><span class="p">:</span><span class="nf">name</span><span class="p">()</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s2">&quot;unknown&quot;</span><span class="p">)</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="kr">end</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="c1">-- actor_on_before_hit provides a hit object, bone id, and flags</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">actor_on_before_hit</span><span class="p">(</span><span class="nv">shit</span><span class="p">,</span><span class="w"> </span><span class="nv">bone_id</span><span class="p">,</span><span class="w"> </span><span class="nv">flags</span><span class="p">)</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">    </span><span class="nv">shit</span><span class="p">.</span><span class="py">power</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">shit</span><span class="p">.</span><span class="py">power</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5</span><span class="w">  </span><span class="c1">-- halve incoming damage</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="w">    </span><span class="c1">-- flags.ret_value = false   -- would cancel the hit entirely</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="kr">end</span>
 </span></code></pre></div>
 <p>See the <a href="../../callbacks-reference/">Callbacks Reference</a> for the full list with signatures.</p>
 <hr />
 <h2 id="registering-objects-not-just-functions">Registering objects (not just functions)<a class="headerlink" href="#registering-objects-not-just-functions" title="Permanent link">&para;</a></h2>
 <p>The callback system also supports registering a <strong>table/object</strong> with a matching method name. This is used by object binders:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">-- RegisterScriptCallback(&quot;save_state&quot;, self) will call self:save_state(m_data)</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nv">class</span><span class="w"> </span><span class="s2">&quot;my_binder&quot;</span><span class="w"> </span><span class="p">(</span><span class="nv">object_binder</span><span class="p">)</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">save_state</span><span class="p">(</span><span class="nv">m_data</span><span class="p">)</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="nv">m_data</span><span class="p">[</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">id</span><span class="p">()]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">my_data</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="kr">end</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">net_spawn</span><span class="p">(</span><span class="nv">se_abstract</span><span class="p">)</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;save_state&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">self</span><span class="p">)</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="kr">end</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">net_destroy</span><span class="p">()</span>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="nf">UnregisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;save_state&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">self</span><span class="p">)</span>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">-- RegisterScriptCallback(&quot;save_state&quot;, self) will call self:save_state(m_data)</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nv">class</span><span class="w"> </span><span class="s2">&quot;my_binder&quot;</span><span class="w"> </span><span class="p">(</span><span class="nv">object_binder</span><span class="p">)</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">save_state</span><span class="p">(</span><span class="nv">m_data</span><span class="p">)</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="nv">m_data</span><span class="p">[</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">id</span><span class="p">()]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">my_data</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="kr">end</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">net_spawn</span><span class="p">(</span><span class="nv">se_abstract</span><span class="p">)</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;save_state&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">self</span><span class="p">)</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="kr">end</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">net_destroy</span><span class="p">()</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">    </span><span class="nf">UnregisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;save_state&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">self</span><span class="p">)</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="kr">end</span>
 </span></code></pre></div>
 <p>For most mods you won't need this — function registration is sufficient.</p>
 <hr />
 <h2 id="defining-your-own-callbacks">Defining your own callbacks<a class="headerlink" href="#defining-your-own-callbacks" title="Permanent link">&para;</a></h2>
 <p>If you're writing a mod that other mods should be able to hook into, you can create your own callbacks:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">-- Declare the callback (do this at top level, before any registrations)</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nf">AddScriptCallback</span><span class="p">(</span><span class="s2">&quot;my_mod_on_something_happened&quot;</span><span class="p">)</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1">-- Fire it when the event occurs</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">do_something</span><span class="p">()</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="c1">-- ... do the thing ...</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="nf">SendScriptCallback</span><span class="p">(</span><span class="s2">&quot;my_mod_on_something_happened&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">some_data</span><span class="p">)</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">-- Declare the callback (do this at top level, before any registrations)</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nf">AddScriptCallback</span><span class="p">(</span><span class="s2">&quot;my_mod_on_something_happened&quot;</span><span class="p">)</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1">-- Fire it when the event occurs</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">do_something</span><span class="p">()</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="c1">-- ... do the thing ...</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="nf">SendScriptCallback</span><span class="p">(</span><span class="s2">&quot;my_mod_on_something_happened&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">some_data</span><span class="p">)</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="kr">end</span>
 </span></code></pre></div>
 <p>Other mods can then:
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">on_my_mod_event</span><span class="p">(</span><span class="nv">data</span><span class="p">)</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="c1">-- react to your event</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="kr">end</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="kr">function</span><span class="w"> </span><span class="nf">on_game_start</span><span class="p">()</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;my_mod_on_something_happened&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">on_my_mod_event</span><span class="p">)</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">on_my_mod_event</span><span class="p">(</span><span class="nv">data</span><span class="p">)</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="c1">-- react to your event</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="kr">end</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="kr">function</span><span class="w"> </span><span class="nf">on_game_start</span><span class="p">()</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;my_mod_on_something_happened&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">on_my_mod_event</span><span class="p">)</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="kr">end</span>
 </span></code></pre></div></p>
 <p>This is how Anomaly's major systems (MCM, the body health system, etc.) expose their events to other mods.</p>
 <hr />
 <h2 id="suppressing-default-behaviour">Suppressing default behaviour<a class="headerlink" href="#suppressing-default-behaviour" title="Permanent link">&para;</a></h2>
 <p>Some callbacks pass a <code>flags</code> table that you can modify to cancel the default engine action:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">-- on_before_key_press: set flags.ret = true to swallow the keypress</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">on_before_key_press</span><span class="p">(</span><span class="nv">key</span><span class="p">,</span><span class="w"> </span><span class="nv">bind</span><span class="p">,</span><span class="w"> </span><span class="nv">flags</span><span class="p">)</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">DIK_keys</span><span class="p">.</span><span class="py">DIK_TAB</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">some_condition</span><span class="w"> </span><span class="kr">then</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">        </span><span class="nv">flags</span><span class="p">.</span><span class="py">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w">  </span><span class="c1">-- prevent default TAB behaviour</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="kr">end</span>
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">-- on_before_key_press: set flags.ret_value = false to swallow the keypress</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">on_before_key_press</span><span class="p">(</span><span class="nv">key</span><span class="p">,</span><span class="w"> </span><span class="nv">bind</span><span class="p">,</span><span class="w"> </span><span class="nv">dis</span><span class="p">,</span><span class="w"> </span><span class="nv">flags</span><span class="p">)</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">key</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">DIK_keys</span><span class="p">.</span><span class="py">DIK_TAB</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">some_condition</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">        </span><span class="nv">flags</span><span class="p">.</span><span class="py">ret_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w">  </span><span class="c1">-- prevent default TAB behaviour</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="kr">end</span>
 </span></code></pre></div>
-<p>Not all callbacks support this. The <a href="../../callbacks-reference/">Callbacks Reference</a> notes which ones do.</p>
+<div class="admonition warning">
+<p class="admonition-title">Flag field names vary by callback</p>
+<p>There is no single convention. Key callbacks use <code>flags.ret_value = false</code> to suppress. Surge/psi storm callbacks use <code>flags.allow = false</code>. Save/load callbacks use <code>flags.ret = true</code>. Always check the <a href="../../callbacks-reference/">Callbacks Reference</a> for the correct field name — using the wrong one will silently do nothing.</p>
+</div>
 
 
 

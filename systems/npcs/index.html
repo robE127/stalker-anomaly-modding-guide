@@ -2659,7 +2659,7 @@
 </span></code></pre></div>
 <hr />
 <h2 id="modifying-incoming-hits">Modifying incoming hits<a class="headerlink" href="#modifying-incoming-hits" title="Permanent link">&para;</a></h2>
-<p><code>npc_on_before_hit</code> fires before damage is applied to an NPC. You can read the hit, modify it, or cancel it entirely.</p>
+<p><code>npc_on_before_hit</code> fires before damage is applied to an NPC. You can read the hit, modify it, or cancel it entirely. This callback requires the <a href="https://github.com/themrdemonized/xray-monolith">modded exes</a>.</p>
 <div class="language-lua highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">npc_on_before_hit</span><span class="p">(</span><span class="nv">npc</span><span class="p">,</span><span class="w"> </span><span class="nv">hit</span><span class="p">,</span><span class="w"> </span><span class="nv">bone_id</span><span class="p">,</span><span class="w"> </span><span class="nv">flags</span><span class="p">)</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="c1">-- hit.draftsman  = source game_object (who fired the shot)</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="c1">-- hit.type       = hit type (hit.wound, hit.explosion, etc.)</span>
@@ -2683,7 +2683,7 @@
 </span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">    </span><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;npc_on_before_hit&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">npc_on_before_hit</span><span class="p">)</span>
 </span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="kr">end</span>
 </span></code></pre></div>
-<p>The equivalent <code>actor_on_before_hit</code> fires when the player is hit.</p>
+<p>The equivalent <code>actor_on_before_hit</code> fires when the player is hit. Both callbacks require the <a href="https://github.com/themrdemonized/xray-monolith">modded exes</a>.</p>
 <hr />
 <h2 id="npc-game_object-methods">NPC game_object methods<a class="headerlink" href="#npc-game_object-methods" title="Permanent link">&para;</a></h2>
 <p>When you have an NPC as a <code>game_object</code> (from a callback or <code>db.storage</code>), the common methods:</p>
