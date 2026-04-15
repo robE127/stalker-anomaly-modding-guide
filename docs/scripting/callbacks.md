@@ -167,9 +167,10 @@ local function npc_on_death_callback(victim, who)
     printf("NPC %s killed by %s", victim:name(), who and who:name() or "unknown")
 end
 
--- actor_on_before_hit provides a hit object and bone id
-local function actor_on_before_hit(shit, bone_id)
+-- actor_on_before_hit provides a hit object, bone id, and flags
+local function actor_on_before_hit(shit, bone_id, flags)
     shit.power = shit.power * 0.5  -- halve incoming damage
+    -- flags.ret_value = false   -- would cancel the hit entirely
 end
 ```
 
@@ -237,12 +238,13 @@ This is how Anomaly's major systems (MCM, the body health system, etc.) expose t
 Some callbacks pass a `flags` table that you can modify to cancel the default engine action:
 
 ```lua
--- on_before_key_press: set flags.ret = true to swallow the keypress
-local function on_before_key_press(key, bind, flags)
+-- on_before_key_press: set flags.ret_value = false to swallow the keypress
+local function on_before_key_press(key, bind, dis, flags)
     if key == DIK_keys.DIK_TAB and some_condition then
-        flags.ret = true  -- prevent default TAB behaviour
+        flags.ret_value = false  -- prevent default TAB behaviour
     end
 end
 ```
 
-Not all callbacks support this. The [Callbacks Reference](../callbacks-reference/index.md) notes which ones do.
+!!! warning "Flag field names vary by callback"
+    There is no single convention. Key callbacks use `flags.ret_value = false` to suppress. Surge/psi storm callbacks use `flags.allow = false`. Save/load callbacks use `flags.ret = true`. Always check the [Callbacks Reference](../callbacks-reference/index.md) for the correct field name — using the wrong one will silently do nothing.

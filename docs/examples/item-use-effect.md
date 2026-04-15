@@ -2,6 +2,9 @@
 
 A complete mod that triggers a custom effect when the player uses a specific item. Demonstrates the item use callback, reading item config properties, applying effects, and blocking use under certain conditions.
 
+!!! note "Requires the modded exes"
+    This example uses `actor_on_item_before_use`, which is dispatched from an engine hook added by the [modded exes](https://github.com/themrdemonized/xray-monolith). The `actor_on_item_use` callback works without them.
+
 ---
 
 ## What this builds

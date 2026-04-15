@@ -51,7 +51,7 @@ end
 
 ### actor_on_item_before_use
 
-Fires before consumption — returning `false` via `flags` cancels the use.
+Fires before consumption — setting `flags.ret_value = false` cancels the use. Requires the [modded exes](https://github.com/themrdemonized/xray-monolith).
 
 ```lua
 local function actor_on_item_before_use(item, flags)
@@ -64,7 +64,7 @@ end
 
 ### actor_on_item_before_pickup
 
-Fires before pickup — set `flags.ret_value = false` to block it.
+Fires before pickup — set `flags.ret_value = false` to block it. Requires the [modded exes](https://github.com/themrdemonized/xray-monolith).
 
 ```lua
 local function actor_on_item_before_pickup(item, flags)

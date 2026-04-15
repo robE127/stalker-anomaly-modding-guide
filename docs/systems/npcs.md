@@ -67,7 +67,7 @@ end
 
 ## Modifying incoming hits
 
-`npc_on_before_hit` fires before damage is applied to an NPC. You can read the hit, modify it, or cancel it entirely.
+`npc_on_before_hit` fires before damage is applied to an NPC. You can read the hit, modify it, or cancel it entirely. This callback requires the [modded exes](https://github.com/themrdemonized/xray-monolith).
 
 ```lua
 local function npc_on_before_hit(npc, hit, bone_id, flags)
@@ -94,7 +94,7 @@ function on_game_start()
 end
 ```
 
-The equivalent `actor_on_before_hit` fires when the player is hit.
+The equivalent `actor_on_before_hit` fires when the player is hit. Both callbacks require the [modded exes](https://github.com/themrdemonized/xray-monolith).
 
 ---
 

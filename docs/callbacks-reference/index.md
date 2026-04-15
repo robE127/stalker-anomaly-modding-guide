@@ -2,6 +2,9 @@
 
 Every callback registered in `axr_main.script` — the authoritative source. Signatures are taken directly from the source comments. Frequency counts are from analysis of 50 community mod repositories.
 
+!!! note "Some callbacks require the modded exes"
+    Callbacks whose names begin with `actor_on_before_`, `actor_on_weapon_before_`, `actor_on_item_before_`, `npc_on_before_`, `monster_on_before_`, `bullet_on_hit`, and `npc_shot_dispersion` are dispatched from C++ engine hooks added by the [modded exes](https://github.com/themrdemonized/xray-monolith). They exist in the base game's Lua scripts but will never fire without the modded engine binaries installed. If your mod uses any of these, list the modded exes as a dependency.
+
 Register any callback with:
 ```lua
 RegisterScriptCallback("callback_name", your_function)
@@ -42,13 +45,15 @@ UnregisterScriptCallback("callback_name", your_function)
 | `on_key_press` | 80 | `(key: number)` | A key was pressed. `key` is a `DIK_keys.*` constant. |
 | `on_key_release` | 64 | `(key: number)` | A key was released. |
 | `on_key_hold` | — | `(key: number)` | A key is being held. Fires repeatedly each tick while held. |
-| `on_before_key_press` | 15 | `(key: number, bind: number, is_down: boolean, flags: table)` | Fires before `on_key_press`. Set `flags.ret = true` to suppress the keypress entirely. |
+| `on_before_key_press` | 15 | `(key: number, bind: number, is_down: boolean, flags: table)` | Fires before `on_key_press`. Set `flags.ret_value = false` to suppress the keypress. |
+| `on_before_key_release` | — | `(key: number, bind: number, is_down: boolean, flags: table)` | Fires before `on_key_release`. Set `flags.ret_value = false` to suppress. |
+| `on_before_key_hold` | — | `(key: number, bind: number, is_down: boolean, flags: table)` | Fires before `on_key_hold`. Set `flags.ret_value = false` to suppress. |
 | `on_console_execute` | 20 | `(cmd: string, ...)` | A console command was executed. Additional arguments are the command parts. |
 | `on_option_change` | 121 | `()` | Player saved settings (MCM or engine options). Re-read your `ui_mcm.get` / `ui_options.get` values here. |
 | `on_localization_change` | 24 | `()` | Player changed language setting. Rebuild any cached translated strings. |
 | `on_screen_resolution_changed` | — | `()` | Screen resolution changed. Rebuild any UI that depends on screen dimensions. |
-| `on_before_save_input` | — | `(number, number, flags: table)` | Before a quicksave/autosave input. |
-| `on_before_load_input` | — | `(number, number, flags: table)` | Before a quickload input. |
+| `on_before_save_input` | — | `(flags: table, number, string)` | Before a quicksave input. Set `flags.ret = true` to cancel. |
+| `on_before_load_input` | — | `(key: number, bind: number, flags: table)` | Before a quickload input. Set `flags.ret = true` to cancel. |
 
 ---
 
@@ -61,8 +66,8 @@ UnregisterScriptCallback("callback_name", your_function)
 | `actor_on_item_put_in_box` | — | `(item: game_object, box: game_object)` | Player put an item into a stash/box. |
 | `actor_on_item_drop` | 34 | `(obj: game_object)` | Player dropped an item. |
 | `actor_on_item_use` | 58 | `(obj: game_object, section: string)` | Player used a consumable. `obj` is the item, `section` is its LTX section name. |
-| `actor_on_item_before_use` | — | `(obj: game_object, flags: table)` | Before item use. Set `flags.ret = true` to cancel. |
-| `actor_on_item_before_pickup` | — | `(obj: game_object, flags: table)` | Before picking up an item. Set `flags.ret = true` to cancel pickup. |
+| `actor_on_item_before_use` | — | `(obj: game_object, flags: table)` | Before item use. Set `flags.ret_value = false` to cancel. |
+| `actor_on_item_before_pickup` | — | `(obj: game_object, flags: table)` | Before picking up an item. Set `flags.ret_value = false` to cancel pickup. |
 | `actor_item_to_belt` | — | `(obj: game_object)` | Item moved to belt. |
 | `actor_item_to_ruck` | 27 | `(obj: game_object)` | Item moved to backpack. |
 | `actor_item_to_slot` | 25 | `(obj: game_object)` | Item moved to equipment slot. |
@@ -74,9 +79,9 @@ UnregisterScriptCallback("callback_name", your_function)
 
 | Callback | Freq | Params | Description |
 |----------|------|--------|-------------|
-| `actor_on_before_hit` | 32 | `(obj: game_object, shit: SHit, bone_id: number, flags: table)` | Actor is about to take damage. Modify `shit.power` to change damage amount. |
+| `actor_on_before_hit` | 32 | `(shit: SHit, bone_id: number, flags: table)` | Actor is about to take damage. Modify `shit.power` to change damage. Set `flags.ret_value = false` to cancel the hit entirely. |
 | `actor_on_hit_callback` | — | `(obj: game_object, amount: number, direction: vector, attacker: game_object, bone_id: number)` | Actor took damage (after the hit resolved). |
-| `actor_on_before_death` | 29 | `(shit: SHit, bone_id: number)` | Actor is about to die. |
+| `actor_on_before_death` | 29 | `(who_id: number, flags: table)` | Actor is about to die. Set `flags.ret_value = false` to prevent death. |
 | `actor_on_feeling_anomaly` | — | `(anomaly: game_object, flags: table)` | Actor entered an anomaly field. |
 
 ---
@@ -86,7 +91,7 @@ UnregisterScriptCallback("callback_name", your_function)
 | Callback | Freq | Params | Description |
 |----------|------|--------|-------------|
 | `actor_on_weapon_fired` | 22 | `(obj: game_object, wpn: game_object, ammo_elapsed: number, grenade: number, bone_id: number, direction: number)` | Player fired a weapon. |
-| `actor_on_weapon_before_fire` | — | `(flags: table)` | Before a shot is fired. Set `flags.ret = true` to cancel. |
+| `actor_on_weapon_before_fire` | — | `(flags: table)` | Before a shot is fired. Set `flags.ret_value = false` to cancel. |
 | `actor_on_weapon_jammed` | — | `(wpn: game_object)` | Weapon jammed. |
 | `actor_on_weapon_no_ammo` | — | `(wpn: game_object, ammo_type: number)` | Out of ammo. |
 | `actor_on_weapon_reload` | — | `(wpn: game_object, ammo_elapsed: number)` | Weapon reloaded. |
@@ -94,6 +99,7 @@ UnregisterScriptCallback("callback_name", your_function)
 | `actor_on_weapon_raise` | — | `(wpn: game_object)` | Weapon raised. |
 | `actor_on_weapon_zoom_in` | 23 | `(wpn: game_object)` | Aimed down sights. |
 | `actor_on_weapon_zoom_out` | 20 | `(wpn: game_object)` | Stopped aiming. |
+| `actor_on_before_throwable_select` | — | `(t: table)` | Before the engine selects the next throwable (grenade/bolt). `t.item` is the selected `game_object`; replace it to override the selection. |
 | `actor_on_hud_animation_play` | — | `(anm_table: table, obj: game_object)` | HUD animation started. |
 | `actor_on_hud_animation_end` | — | `(obj: game_object, name: string, ?, ?, num: number)` | HUD animation finished. |
 | `actor_on_hud_animation_mark` | — | `(mark: number, name: string)` | Animation mark reached (sync point in animation). |
@@ -128,7 +134,7 @@ UnregisterScriptCallback("callback_name", your_function)
 | Callback | Freq | Params | Description |
 |----------|------|--------|-------------|
 | `npc_on_death_callback` | 41 | `(victim: game_object, who: game_object)` | An NPC was killed. `who` may be `nil` if killed by environment. |
-| `npc_on_before_hit` | 23 | `(npc: game_object, shit: SHit, bone_id: number, flags: table)` | NPC is about to be hit. Modify `shit.power` to change damage. |
+| `npc_on_before_hit` | 23 | `(npc: game_object, shit: SHit, bone_id: number, flags: table)` | NPC is about to be hit. Modify `shit.power` to change damage. Set `flags.ret_value = false` to cancel. |
 | `npc_on_hit_callback` | — | `(npc: game_object, amount: number, direction: vector, attacker: game_object, bone_id: number)` | NPC took damage. |
 | `npc_on_net_spawn` | — | `(npc: game_object, server_object)` | NPC entered the online zone (loaded into the scene). |
 | `npc_on_net_destroy` | — | `(npc: game_object)` | NPC left the online zone. |
@@ -145,6 +151,7 @@ UnregisterScriptCallback("callback_name", your_function)
 | `npc_on_get_all_from_corpse` | — | `(npc: game_object, corpse: game_object, item: game_object, is_all: boolean)` | NPC looted a corpse. |
 | `npc_on_eval_danger` | — | `(npc: game_object, flags: table)` | NPC evaluating danger level. |
 | `npc_on_choose_weapon` | — | `(npc: game_object, best_weapon: game_object, flags: table)` | NPC choosing which weapon to use. |
+| `npc_shot_dispersion` | — | `(npc: game_object, wpn: game_object, body_state: number, move_type: number, t: table)` | NPC weapon accuracy calculation. Modify `t.dispersion` to change the shot spread. |
 | `se_stalker_on_spawn` | — | `(server_object)` | Stalker server entity spawned. |
 
 ---
@@ -154,7 +161,7 @@ UnregisterScriptCallback("callback_name", your_function)
 | Callback | Freq | Params | Description |
 |----------|------|--------|-------------|
 | `monster_on_death_callback` | — | `(victim: game_object, who: game_object)` | A monster was killed. |
-| `monster_on_before_hit` | — | `(monster: game_object, shit: SHit, bone_id: number, flags: table)` | Monster about to take damage. |
+| `monster_on_before_hit` | — | `(monster: game_object, shit: SHit, bone_id: number, flags: table)` | Monster about to take damage. Set `flags.ret_value = false` to cancel. |
 | `monster_on_hit_callback` | — | `(monster: game_object, amount: number, direction: vector, attacker: game_object, bone_id: number)` | Monster took damage. |
 | `monster_on_net_spawn` | — | `(monster: game_object, server_object)` | Monster loaded into scene. |
 | `monster_on_net_destroy` | — | `(monster: game_object)` | Monster unloaded. |
@@ -180,7 +187,7 @@ UnregisterScriptCallback("callback_name", your_function)
 | `squad_on_after_game_vertex_change` | — | `(squad: server_object, old_gv: number, new_gv: number, changed: boolean)` | Squad moved to a new game vertex. |
 | `squad_on_after_level_change` | — | `(squad: server_object, old_level: string, new_level: string)` | Squad moved to a different level. |
 | `smart_terrain_on_update` | — | `(smart: server_object)` | Smart terrain simulation tick. |
-| `on_try_respawn` | — | `(squad: server_object, flags: table)` | Squad about to respawn. Set `flags.ret = true` to cancel. |
+| `on_try_respawn` | — | `(smart: server_object, flags: table)` | Smart terrain about to respawn a squad. Set `flags.disabled = true` to cancel. |
 | `server_entity_on_register` | — | `(obj: server_object, type: string)` | Any entity added to A-Life simulation. |
 | `server_entity_on_unregister` | 32 | `(obj: server_object, type: string)` | Any entity removed from A-Life simulation. |
 | `fill_start_position` | — | `()` | New game start positions are being filled. |
@@ -225,8 +232,9 @@ UnregisterScriptCallback("callback_name", your_function)
 | `physic_object_on_use_callback` | — | `(obj: game_object, who: game_object)` | A physics object was used/interacted with. |
 | `heli_on_hit_callback` | — | `(heli: game_object, amount: number, nil, attacker: game_object, nil)` | Helicopter was hit. |
 | `vehicle_on_death_callback` | — | `(id: number)` | Vehicle was destroyed. |
-| `on_before_surge` | — | `(flags: table)` | Emission/surge about to start. Set `flags.ret = true` to cancel. |
-| `on_before_psi_storm` | — | `(flags: table)` | Psi storm about to start. Set `flags.ret = true` to cancel. |
+| `on_before_surge` | — | `(flags: table)` | Emission/surge about to start. Set `flags.allow = false` to cancel. |
+| `on_before_psi_storm` | — | `(flags: table)` | Psi storm about to start. Set `flags.allow = false` to cancel. |
+| `bullet_on_hit` | — | `(section: string, obj: game_object, pos: vector, dir: vector, material: string, speed: number, wpn_id: number)` | A bullet hit something. `section` is the ammo section, `obj` is the hit object, `wpn_id` is the weapon's object ID. |
 | `on_enemy_eval` | — | `(npc: game_object, enemy: game_object, flags: table)` | NPC evaluating whether an entity is an enemy. |
 | `on_get_item_cost` | — | See `utils_item.script` | Item cost being calculated for trading. |
 | `on_xml_read` | 36 | `(path: string, xml_obj: CScriptXmlInit)` | Engine reading an XML file. Used for DXML patching. |
