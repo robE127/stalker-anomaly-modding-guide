@@ -13,7 +13,7 @@ _Nothing currently in progress._
 ## Pending
 
 ### Fixes & quick wins
-- [ ] Fix callback registration contradiction between `docs/scripting/callbacks.md` and `docs/scripting/script-lifecycle.md` — callbacks.md says registering the same function twice is harmless; script-lifecycle.md says it causes double-firing. Resolve against axr_main.script ground truth.
+- [x] Fix callback registration contradiction between `docs/scripting/callbacks.md` and `docs/scripting/script-lifecycle.md` — callbacks.md says registering the same function twice is harmless; script-lifecycle.md says it causes double-firing. Resolve against axr_main.script ground truth.
 - [x] Enable next/prev page navigation — add `navigation.footer` to the `features` list in `mkdocs.yml` (one-line change).
 
 ### Core conceptual gaps (new pages / sections)

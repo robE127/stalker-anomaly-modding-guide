@@ -77,7 +77,9 @@ end
 ```
 
 !!! tip "Why unregister?"
-    Anomaly's callback system stores registered functions by reference in a table. If you load a save, return to menu, and load another save **without restarting the game**, `on_game_start` runs again and re-registers your callbacks — resulting in them being called twice per event. Unregistering in `on_game_end` prevents this.
+    Registering the same function twice does **not** cause double-firing — the callback system stores functions as table keys, so a duplicate registration just sets the same key to `true` again. The real reason to unregister is **session state hygiene**.
+
+    The intercepts table is never automatically cleared between game sessions. If you don't unregister in `on_game_end`, your callbacks remain active across the main menu and into subsequent sessions — firing while your module's local variables may have been reset, `db.actor` may be nil, or the `initialized` flag below may be stale from the previous session. Explicit unregistration defines a clean boundary: your mod is active between `on_game_start` and `on_game_end`, nothing more.
 
 ---
 

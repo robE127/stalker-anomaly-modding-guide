@@ -110,23 +110,23 @@ TODO.md                  — Current task list (keep updated)
 
 ## Dev server
 
-`mkdocs serve` has **live reload built in** — it watches `docs/` and `mkdocs.yml` for changes and automatically rebuilds and refreshes the browser. You never need to restart it after editing content. Start it once and leave it running.
+**Hot reloading does not work on this setup.** Neither the watchdog Windows API observer nor the polling backend reliably detect file changes, regardless of how the server is launched. Do not expect the browser to auto-refresh when files change.
 
-The danger is accidentally accumulating **multiple instances** on port 8000. When this happens the browser silently hits a stale process and no changes ever appear, no matter how many new servers are started. This is not a browser cache issue — it's a server-side problem.
+**The correct workflow for previewing changes:**
 
-**If content changes are not appearing**, diagnose with:
-
+1. Kill the existing server process (use PowerShell):
 ```powershell
-# Check how many processes are on port 8000
 netstat -ano | findstr :8000
-
-# If more than one — kill all of them
-Stop-Process -Id <PID1>,<PID2>,<PID3> -Force
-
-# Verify port is clear, then start a single fresh server
+Stop-Process -Id <PID> -Force
 ```
+2. Start a fresh server:
+```powershell
+cd C:\Users\roced\Documents\Projects\stalker-anomaly-modding-guide
+python -m mkdocs serve
+```
+3. Hard-refresh the browser (Ctrl+Shift+R) after the server is up.
 
-Use `curl http://127.0.0.1:8000/some-page/` to verify the server response directly rather than trusting the browser, which may have its own caching on top.
+**Claude Code should never start the dev server** — running it as a background bash task (Git Bash on Windows) has the same broken file-watching behaviour and also accumulates stale processes. The user always starts and restarts the server manually from their own PowerShell terminal.
 
 ---
 

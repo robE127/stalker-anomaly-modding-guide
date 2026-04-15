@@ -4,7 +4,7 @@ The callback system is how Anomaly scripts communicate with the engine and with 
 
 ---
 
-## The three functions
+## The callback API
 
 ```lua
 RegisterScriptCallback(name, fn)    -- Subscribe to an event
@@ -17,17 +17,20 @@ SendScriptCallback(name, ...)       -- Fire an event (for mod authors)
 
 ## How registration works
 
-Internally, callbacks are stored in a table where the **function itself is the key**:
+Internally, callbacks are stored in a table where the **function itself is the key** (from `axr_main.script`):
 
 ```lua
--- Conceptually (from axr_main.script):
 intercepts["on_game_load"][your_function] = true
 ```
 
 This means:
-- Registering the same function twice is harmless (it's just setting a key to `true` again)
-- You must pass the **exact same function reference** to unregister
+- Registering the same function twice is harmless — the second call just sets the same key to `true` again, no duplicate entry is created
+- You must pass the **exact same function reference** to unregister — this is why anonymous functions can never be unregistered
 - Order of execution among registered functions is not guaranteed
+
+**The intercepts table persists for the entire process lifetime** — it is never automatically reset between game sessions. If you load a save, return to main menu, and load another save without quitting, the table from the first session is still in memory. This is why `on_game_end` unregistration matters: not because double-registration causes double-firing (it doesn't), but because callbacks that aren't unregistered remain active across session boundaries and can fire while your module's state is in an indeterminate condition — reset local variables, a nil `db.actor`, or stale flags from the previous session.
+
+Unregistering in `on_game_end` is also used in advanced mods to **replace or intercept base game callbacks**: unregister the original function, then re-register a patched version that adds behaviour before or after the original call.
 
 ---
 
