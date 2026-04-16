@@ -11,6 +11,9 @@ The X-Ray engine exposes a set of global objects and functions to Lua scripts. T
 - *(blank)* — vanilla Anomaly, no extra dependencies
 - **Exes** — requires the [modded exes](https://github.com/themrdemonized/xray-monolith); method does not exist without them
 
+!!! note "Best-effort accuracy"
+    **Exes** markings are based on author annotations in the game scripts and inspection of the modded exes source. Without access to a vanilla (pre-modded-exes) build to diff against, some markings may be incomplete or incorrect.
+
 ---
 
 ## Most-used calls at a glance

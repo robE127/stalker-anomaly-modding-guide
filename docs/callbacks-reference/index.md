@@ -17,6 +17,9 @@ UnregisterScriptCallback("callback_name", your_function)
 - *(blank)* — vanilla Anomaly, no extra dependencies
 - **Exes** — requires the [modded exes](https://github.com/themrdemonized/xray-monolith) (dispatched from C++ hooks or modded-exes Lua; will never fire without them)
 
+!!! note "Best-effort accuracy"
+    **Exes** markings are based on author annotations in the game scripts and inspection of the modded exes source. Without access to a vanilla (pre-modded-exes) build to diff against, some markings may be incomplete or incorrect.
+
 ---
 
 ## Core game flow
