@@ -2692,6 +2692,11 @@
 <p>Function signatures use the format <code>object:method(param: type) -&gt; return_type</code>.
 Parameters in <code>[brackets]</code> are optional. Frequency counts show how many repos in the analysis used a given call — use this as a rough guide to what's important to learn first.</p>
 </div>
+<p><strong>Req</strong> column:</p>
+<ul>
+<li><em>(blank)</em> — vanilla Anomaly, no extra dependencies</li>
+<li><strong>Exes</strong> — requires the <a href="https://github.com/themrdemonized/xray-monolith">modded exes</a>; method does not exist without them</li>
+</ul>
 <hr />
 <h2 id="most-used-calls-at-a-glance">Most-used calls at a glance<a class="headerlink" href="#most-used-calls-at-a-glance" title="Permanent link">&para;</a></h2>
 <p>The 25 highest-frequency API calls across 50 analysed mods:</p>
@@ -2699,6 +2704,7 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Call</th>
+<th>Req</th>
 <th style="text-align: right;">Freq</th>
 <th>Page</th>
 </tr>
@@ -2706,126 +2712,151 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <tbody>
 <tr>
 <td><code>game.translate_string(key)</code></td>
+<td></td>
 <td style="text-align: right;">3351</td>
 <td><a href="game/">game</a></td>
 </tr>
 <tr>
 <td><code>db.actor:object(section)</code></td>
+<td></td>
 <td style="text-align: right;">861</td>
 <td><a href="actor/">db.actor</a></td>
 </tr>
 <tr>
 <td><code>level.object_by_id(id)</code></td>
+<td></td>
 <td style="text-align: right;">768</td>
 <td><a href="level/">level</a></td>
 </tr>
 <tr>
 <td><code>game.get_game_time()</code></td>
+<td></td>
 <td style="text-align: right;">629</td>
 <td><a href="game/">game</a></td>
 </tr>
 <tr>
 <td><code>ui_options.get(group, key)</code></td>
+<td></td>
 <td style="text-align: right;">549</td>
 <td><a href="ui/">UI</a></td>
 </tr>
 <tr>
 <td><code>db.actor:position()</code></td>
+<td></td>
 <td style="text-align: right;">489</td>
 <td><a href="actor/">db.actor</a></td>
 </tr>
 <tr>
 <td><code>db.actor:item_in_slot(slot_id)</code></td>
+<td></td>
 <td style="text-align: right;">441</td>
 <td><a href="actor/">db.actor</a></td>
 </tr>
 <tr>
 <td><code>db.actor:iterate_inventory(fn, data)</code></td>
+<td></td>
 <td style="text-align: right;">412</td>
 <td><a href="actor/">db.actor</a></td>
 </tr>
 <tr>
 <td><code>level.name()</code></td>
+<td></td>
 <td style="text-align: right;">404</td>
 <td><a href="level/">level</a></td>
 </tr>
 <tr>
 <td><code>db.actor:give_info_portion(info_id)</code></td>
+<td></td>
 <td style="text-align: right;">387</td>
 <td><a href="actor/">db.actor</a></td>
 </tr>
 <tr>
 <td><code>ui_mcm.get(mod, key)</code></td>
+<td></td>
 <td style="text-align: right;">323</td>
 <td><a href="ui/">UI</a></td>
 </tr>
 <tr>
 <td><code>xr_logic.pick_section_from_condlist(obj, npc, cl)</code></td>
+<td></td>
 <td style="text-align: right;">317</td>
 <td><a href="xr-logic/">xr_logic</a></td>
 </tr>
 <tr>
 <td><code>db.actor:active_item()</code></td>
+<td></td>
 <td style="text-align: right;">263</td>
 <td><a href="actor/">db.actor</a></td>
 </tr>
 <tr>
 <td><code>level.add_cam_effector(...)</code></td>
+<td></td>
 <td style="text-align: right;">251</td>
 <td><a href="level/">level</a></td>
 </tr>
 <tr>
 <td><code>level.add_pp_effector(...)</code></td>
+<td></td>
 <td style="text-align: right;">230</td>
 <td><a href="level/">level</a></td>
 </tr>
 <tr>
 <td><code>db.actor:money()</code></td>
+<td></td>
 <td style="text-align: right;">211</td>
 <td><a href="actor/">db.actor</a></td>
 </tr>
 <tr>
 <td><code>db.actor:has_info(info_id)</code></td>
+<td></td>
 <td style="text-align: right;">195</td>
 <td><a href="actor/">db.actor</a></td>
 </tr>
 <tr>
 <td><code>level.get_time_hours()</code></td>
+<td></td>
 <td style="text-align: right;">152</td>
 <td><a href="level/">level</a></td>
 </tr>
 <tr>
 <td><code>level.remove_pp_effector(id)</code></td>
+<td></td>
 <td style="text-align: right;">136</td>
 <td><a href="level/">level</a></td>
 </tr>
 <tr>
 <td><code>xr_logic.parse_condlist(npc, sec, field, str)</code></td>
+<td></td>
 <td style="text-align: right;">133</td>
 <td><a href="xr-logic/">xr_logic</a></td>
 </tr>
 <tr>
 <td><code>level.map_remove_object_spot(id, type)</code></td>
+<td></td>
 <td style="text-align: right;">130</td>
 <td><a href="level/">level</a></td>
 </tr>
 <tr>
 <td><code>level.map_has_object_spot(id, type)</code></td>
+<td></td>
 <td style="text-align: right;">129</td>
 <td><a href="level/">level</a></td>
 </tr>
 <tr>
 <td><code>db.actor:give_game_news(icon, text, tex, delay, time)</code></td>
+<td></td>
 <td style="text-align: right;">123</td>
 <td><a href="actor/">db.actor</a></td>
 </tr>
 <tr>
 <td><code>db.actor:activate_slot(slot_id)</code></td>
+<td></td>
 <td style="text-align: right;">114</td>
 <td><a href="actor/">db.actor</a></td>
 </tr>
 <tr>
 <td><code>db.actor:disable_info_portion(info_id)</code></td>
+<td></td>
 <td style="text-align: right;">111</td>
 <td><a href="actor/">db.actor</a></td>
 </tr>
@@ -2839,408 +2870,509 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Method</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>db.actor:activate_slot(slot_id)</code></td>
+<td></td>
 <td>Switch active slot</td>
 </tr>
 <tr>
 <td><code>db.actor:active_detector()</code></td>
-<td>Currently active detector <em>(modded exes)</em></td>
+<td><strong>Exes</strong></td>
+<td>Currently active detector</td>
 </tr>
 <tr>
 <td><code>db.actor:active_item()</code></td>
+<td></td>
 <td>Currently held item</td>
 </tr>
 <tr>
 <td><code>db.actor:active_slot()</code></td>
+<td></td>
 <td>Active slot index</td>
 </tr>
 <tr>
 <td><code>db.actor:alive()</code></td>
+<td></td>
 <td>Returns <code>true</code> if the actor is alive</td>
 </tr>
 <tr>
 <td><code>db.actor:allow_break_talk_dialog(bool)</code></td>
+<td></td>
 <td>Allow/prevent player ending dialog</td>
 </tr>
 <tr>
 <td><code>db.actor:belt_count()</code></td>
+<td></td>
 <td>Number of items on the belt</td>
 </tr>
 <tr>
 <td><code>db.actor:bone_position(bone_name)</code></td>
+<td></td>
 <td>World position of a named bone</td>
 </tr>
 <tr>
 <td><code>db.actor:change_bleeding(delta)</code></td>
+<td></td>
 <td>Modify bleeding rate by delta</td>
 </tr>
 <tr>
 <td><code>db.actor:change_health(delta)</code></td>
+<td></td>
 <td>Modify health by delta</td>
 </tr>
 <tr>
 <td><code>db.actor:change_morale(delta)</code></td>
+<td></td>
 <td>Modify morale by delta</td>
 </tr>
 <tr>
 <td><code>db.actor:change_power(delta)</code></td>
+<td></td>
 <td>Modify stamina by delta</td>
 </tr>
 <tr>
 <td><code>db.actor:change_psy_health(delta)</code></td>
+<td></td>
 <td>Modify psychic health by delta</td>
 </tr>
 <tr>
 <td><code>db.actor:change_radiation(delta)</code></td>
+<td></td>
 <td>Modify radiation by delta</td>
 </tr>
 <tr>
 <td><code>db.actor:change_satiety(delta)</code></td>
+<td></td>
 <td>Modify satiety by delta</td>
 </tr>
 <tr>
 <td><code>db.actor:character_community()</code></td>
+<td></td>
 <td>Faction string (always <code>"actor"</code>)</td>
 </tr>
 <tr>
 <td><code>db.actor:character_icon()</code></td>
+<td></td>
 <td>Current portrait icon name</td>
 </tr>
 <tr>
 <td><code>db.actor:character_name()</code></td>
+<td></td>
 <td>Display name</td>
 </tr>
 <tr>
 <td><code>db.actor:character_rank()</code></td>
+<td></td>
 <td>Current rank value</td>
 </tr>
 <tr>
 <td><code>db.actor:character_reputation()</code></td>
+<td></td>
 <td>Current reputation (-4000 to 4000)</td>
 </tr>
 <tr>
 <td><code>db.actor:community_goodwill(faction)</code></td>
+<td></td>
 <td>Goodwill with a faction (-10000 to 10000)</td>
 </tr>
 <tr>
 <td><code>db.actor:direction()</code></td>
+<td></td>
 <td>Facing direction in radians</td>
 </tr>
 <tr>
 <td><code>db.actor:disable_info_portion(info_id)</code></td>
+<td></td>
 <td>Unset a quest flag</td>
 </tr>
 <tr>
 <td><code>db.actor:dont_has_info(info_id)</code></td>
+<td></td>
 <td>True if flag is NOT set</td>
 </tr>
 <tr>
 <td><code>db.actor:drop_item(item)</code></td>
+<td></td>
 <td>Drop item to the ground</td>
 </tr>
 <tr>
 <td><code>db.actor:drop_item_and_teleport(item, pos)</code></td>
+<td></td>
 <td>Drop item and teleport it to pos</td>
 </tr>
 <tr>
 <td><code>db.actor:eat(item)</code></td>
+<td></td>
 <td>Consume a food/medkit item</td>
 </tr>
 <tr>
 <td><code>db.actor:force_hide_detector()</code></td>
-<td>Force-hide detector (during animations) <em>(modded exes)</em></td>
+<td><strong>Exes</strong></td>
+<td>Force-hide detector (during animations)</td>
 </tr>
 <tr>
 <td><code>db.actor:game_vertex_id()</code></td>
+<td></td>
 <td>Global navigation graph node</td>
 </tr>
 <tr>
 <td><code>db.actor:get_actor_jump_speed()</code></td>
-<td>Jump power <em>(modded exes)</em></td>
+<td><strong>Exes</strong></td>
+<td>Jump power</td>
 </tr>
 <tr>
 <td><code>db.actor:get_actor_max_walk_weight()</code></td>
+<td></td>
 <td>Weight limit for normal movement</td>
 </tr>
 <tr>
 <td><code>db.actor:get_actor_max_weight()</code></td>
+<td></td>
 <td>Absolute max carry weight</td>
 </tr>
 <tr>
 <td><code>db.actor:get_actor_run_coef()</code></td>
-<td>Run speed multiplier <em>(modded exes)</em></td>
+<td><strong>Exes</strong></td>
+<td>Run speed multiplier</td>
 </tr>
 <tr>
 <td><code>db.actor:get_actor_runback_coef()</code></td>
-<td>Backwards run multiplier <em>(modded exes)</em></td>
+<td><strong>Exes</strong></td>
+<td>Backwards run multiplier</td>
 </tr>
 <tr>
 <td><code>db.actor:get_actor_sprint_koef()</code></td>
-<td>Sprint speed multiplier <em>(modded exes)</em></td>
+<td><strong>Exes</strong></td>
+<td>Sprint speed multiplier</td>
 </tr>
 <tr>
 <td><code>db.actor:get_bone_id(bone_name)</code></td>
+<td></td>
 <td>Numeric ID for a named bone</td>
 </tr>
 <tr>
 <td><code>db.actor:get_current_outfit()</code></td>
+<td></td>
 <td>Equipped outfit <code>game_object</code> or <code>nil</code></td>
 </tr>
 <tr>
 <td><code>db.actor:get_current_outfit_protection(type)</code></td>
-<td>Protection for hit type <em>(modded exes)</em></td>
+<td><strong>Exes</strong></td>
+<td>Protection for hit type</td>
 </tr>
 <tr>
 <td><code>db.actor:get_inv_max_weight()</code></td>
+<td></td>
 <td>Maximum backpack capacity</td>
 </tr>
 <tr>
 <td><code>db.actor:get_inv_weight()</code></td>
+<td></td>
 <td>Backpack weight only</td>
 </tr>
 <tr>
 <td><code>db.actor:get_luminocity()</code></td>
-<td>Direct illumination (0–1) <em>(modded exes)</em></td>
+<td><strong>Exes</strong></td>
+<td>Direct illumination (0–1)</td>
 </tr>
 <tr>
 <td><code>db.actor:get_luminocity_hemi()</code></td>
-<td>Ambient illumination (0–1) <em>(modded exes)</em></td>
+<td><strong>Exes</strong></td>
+<td>Ambient illumination (0–1)</td>
 </tr>
 <tr>
 <td><code>db.actor:get_script()</code></td>
+<td></td>
 <td>True if under script control</td>
 </tr>
 <tr>
 <td><code>db.actor:get_total_weight()</code></td>
-<td>Total carry weight <em>(modded exes)</em></td>
+<td><strong>Exes</strong></td>
+<td>Total carry weight</td>
 </tr>
 <tr>
 <td><code>db.actor:give_game_news(title, body, tex, delay, dur)</code></td>
+<td></td>
 <td>HUD news notification</td>
 </tr>
 <tr>
 <td><code>db.actor:give_info_portion(info_id)</code></td>
+<td></td>
 <td>Set a quest flag</td>
 </tr>
 <tr>
 <td><code>db.actor:give_money(amount)</code></td>
+<td></td>
 <td>Add (or remove if negative) RU</td>
 </tr>
 <tr>
 <td><code>db.actor:give_talk_message2(npc_id, dialog_id, ...)</code></td>
+<td></td>
 <td>Show a talk message from NPC</td>
 </tr>
 <tr>
 <td><code>db.actor:has_info(info_id)</code></td>
+<td></td>
 <td>Check a quest flag</td>
 </tr>
 <tr>
 <td><code>db.actor:hide_detector()</code></td>
-<td>Hide detector HUD <em>(modded exes)</em></td>
+<td><strong>Exes</strong></td>
+<td>Hide detector HUD</td>
 </tr>
 <tr>
 <td><code>db.actor:hide_weapon()</code></td>
+<td></td>
 <td>Holster current weapon</td>
 </tr>
 <tr>
 <td><code>db.actor:hit(hit_obj)</code></td>
+<td></td>
 <td>Apply a <code>hit</code> to the actor</td>
 </tr>
 <tr>
 <td><code>db.actor:id()</code></td>
+<td></td>
 <td>Alife ID</td>
 </tr>
 <tr>
 <td><code>db.actor:inventory_for_each(fn)</code></td>
+<td></td>
 <td>Iterate all items; <code>fn(item)</code></td>
 </tr>
 <tr>
 <td><code>db.actor:invulnerable()</code></td>
+<td></td>
 <td>Get invulnerability state</td>
 </tr>
 <tr>
 <td><code>db.actor:invulnerable(bool)</code></td>
+<td></td>
 <td>Set invulnerability state</td>
 </tr>
 <tr>
 <td><code>db.actor:is_on_belt(item)</code></td>
+<td></td>
 <td>True if item is on the belt</td>
 </tr>
 <tr>
 <td><code>db.actor:is_talking()</code></td>
+<td></td>
 <td>True if dialog is open</td>
 </tr>
 <tr>
 <td><code>db.actor:item_in_slot(slot_id)</code></td>
+<td></td>
 <td>Item equipped in given slot; <code>nil</code> if empty</td>
 </tr>
 <tr>
 <td><code>db.actor:item_on_belt(index)</code></td>
+<td></td>
 <td>Belt item at index (0-based)</td>
 </tr>
 <tr>
 <td><code>db.actor:iterate_belt(fn, data)</code></td>
+<td></td>
 <td>Iterate belt items only</td>
 </tr>
 <tr>
 <td><code>db.actor:iterate_inventory(fn, data)</code></td>
+<td></td>
 <td>Iterate all items; <code>fn(data, item)</code></td>
 </tr>
 <tr>
 <td><code>db.actor:iterate_ruck(fn, data)</code></td>
+<td></td>
 <td>Iterate backpack items only</td>
 </tr>
 <tr>
 <td><code>db.actor:level_vertex_id()</code></td>
+<td></td>
 <td>Local navmesh node</td>
 </tr>
 <tr>
 <td><code>db.actor:make_item_active(item)</code></td>
+<td></td>
 <td>Force item into active slot</td>
 </tr>
 <tr>
 <td><code>db.actor:mark_item_dropped(item)</code></td>
-<td>Mark item as intentionally dropped <em>(modded exes)</em></td>
+<td><strong>Exes</strong></td>
+<td>Mark item as intentionally dropped</td>
 </tr>
 <tr>
 <td><code>db.actor:money()</code></td>
+<td></td>
 <td>Current RU balance</td>
 </tr>
 <tr>
 <td><code>db.actor:move_to_belt(item)</code></td>
+<td></td>
 <td>Move item to belt</td>
 </tr>
 <tr>
 <td><code>db.actor:move_to_ruck(item)</code></td>
+<td></td>
 <td>Move item to backpack</td>
 </tr>
 <tr>
 <td><code>db.actor:move_to_slot(item, slot_id)</code></td>
+<td></td>
 <td>Move item to a specific equip slot</td>
 </tr>
 <tr>
 <td><code>db.actor:name()</code></td>
+<td></td>
 <td>Returns <code>"actor"</code></td>
 </tr>
 <tr>
 <td><code>db.actor:object(section)</code></td>
+<td></td>
 <td>First inventory item matching section; <code>nil</code> if none</td>
 </tr>
 <tr>
 <td><code>db.actor:object(id)</code></td>
+<td></td>
 <td>Inventory item with given alife ID; <code>nil</code> if not held</td>
 </tr>
 <tr>
 <td><code>db.actor:position()</code></td>
+<td></td>
 <td>World position (<code>vector</code>)</td>
 </tr>
 <tr>
 <td><code>db.actor:reload_weapon()</code></td>
+<td></td>
 <td>Trigger a weapon reload</td>
 </tr>
 <tr>
 <td><code>db.actor:restore_weapon()</code></td>
+<td></td>
 <td>Re-equip previously active weapon</td>
 </tr>
 <tr>
 <td><code>db.actor:run_talk_dialog(npc, bool)</code></td>
+<td></td>
 <td>Force-start dialog with NPC</td>
 </tr>
 <tr>
 <td><code>db.actor:script(bool, name)</code></td>
+<td></td>
 <td>Take/release scripted control</td>
 </tr>
 <tr>
 <td><code>db.actor:section()</code></td>
+<td></td>
 <td>Character section name</td>
 </tr>
 <tr>
 <td><code>db.actor:see(obj)</code></td>
+<td></td>
 <td>True if actor has line-of-sight to obj</td>
 </tr>
 <tr>
 <td><code>db.actor:set_actor_direction(angle)</code></td>
+<td></td>
 <td>Set facing direction (radians)</td>
 </tr>
 <tr>
 <td><code>db.actor:set_actor_jump_speed(v)</code></td>
-<td>Set jump power <em>(modded exes)</em></td>
+<td><strong>Exes</strong></td>
+<td>Set jump power</td>
 </tr>
 <tr>
 <td><code>db.actor:set_actor_max_walk_weight(v)</code></td>
+<td></td>
 <td>Override walk weight limit</td>
 </tr>
 <tr>
 <td><code>db.actor:set_actor_max_weight(v)</code></td>
+<td></td>
 <td>Override absolute max weight</td>
 </tr>
 <tr>
 <td><code>db.actor:set_actor_position(pos)</code></td>
+<td></td>
 <td>Teleport actor to position</td>
 </tr>
 <tr>
 <td><code>db.actor:set_actor_run_coef(v)</code></td>
-<td>Set run speed multiplier <em>(modded exes)</em></td>
+<td><strong>Exes</strong></td>
+<td>Set run speed multiplier</td>
 </tr>
 <tr>
 <td><code>db.actor:set_actor_runback_coef(v)</code></td>
-<td>Set backwards run multiplier <em>(modded exes)</em></td>
+<td><strong>Exes</strong></td>
+<td>Set backwards run multiplier</td>
 </tr>
 <tr>
 <td><code>db.actor:set_actor_sprint_koef(v)</code></td>
-<td>Set sprint multiplier <em>(modded exes)</em></td>
+<td><strong>Exes</strong></td>
+<td>Set sprint multiplier</td>
 </tr>
 <tr>
 <td><code>db.actor:set_community_goodwill(faction, val)</code></td>
+<td></td>
 <td>Set faction goodwill</td>
 </tr>
 <tr>
 <td><code>db.actor:set_health_ex(value)</code></td>
-<td>Set health to exact value <em>(modded exes)</em></td>
+<td><strong>Exes</strong></td>
+<td>Set health to exact value</td>
 </tr>
 <tr>
 <td><code>db.actor:set_sight(...)</code></td>
+<td></td>
 <td>Override sight target</td>
 </tr>
 <tr>
 <td><code>db.actor:show_detector()</code></td>
-<td>Show detector HUD <em>(modded exes)</em></td>
+<td><strong>Exes</strong></td>
+<td>Show detector HUD</td>
 </tr>
 <tr>
 <td><code>db.actor:sight_params()</code></td>
+<td></td>
 <td>Returns current <code>CSightParams</code></td>
 </tr>
 <tr>
 <td><code>db.actor:start_particles(effect, bone)</code></td>
+<td></td>
 <td>Attach particle effect to bone</td>
 </tr>
 <tr>
 <td><code>db.actor:stop_particles(effect, bone)</code></td>
+<td></td>
 <td>Remove attached particle effect</td>
 </tr>
 <tr>
 <td><code>db.actor:stop_talk()</code></td>
+<td></td>
 <td>End current dialog</td>
 </tr>
 <tr>
 <td><code>db.actor:transfer_item(item, to_obj)</code></td>
+<td></td>
 <td>Move item to another object's inventory</td>
 </tr>
 <tr>
 <td><code>db.actor:transfer_money(amount, npc)</code></td>
+<td></td>
 <td>Transfer RU to an NPC</td>
 </tr>
 <tr>
 <td><code>db.actor:weapon_strapped()</code></td>
+<td></td>
 <td>True if weapon is holstered</td>
 </tr>
 <tr>
 <td><code>db.actor:weapon_unstrapped()</code></td>
+<td></td>
 <td>True if weapon is drawn</td>
 </tr>
 </tbody>
@@ -3253,284 +3385,354 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Method</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>level.actor_moving_state()</code></td>
+<td></td>
 <td>Current actor movement state number</td>
 </tr>
 <tr>
 <td><code>level.add_call(check_fn, action_fn)</code></td>
+<td></td>
 <td>Register a deferred one-shot callback</td>
 </tr>
 <tr>
 <td><code>level.add_cam_effector(anm, id, cyclic, cb)</code></td>
+<td></td>
 <td>Play camera animation</td>
 </tr>
 <tr>
 <td><code>level.add_complex_effector(name, id)</code></td>
+<td></td>
 <td>Start a named complex camera effector</td>
 </tr>
 <tr>
 <td><code>level.add_pp_effector(name, id, cyclic)</code></td>
+<td></td>
 <td>Apply post-process effect</td>
 </tr>
 <tr>
 <td><code>level.change_game_time(days, hours, mins)</code></td>
+<td></td>
 <td>Advance game time by delta</td>
 </tr>
 <tr>
 <td><code>level.client_spawn_manager()</code></td>
+<td></td>
 <td>Client spawn manager object</td>
 </tr>
 <tr>
 <td><code>level.debug_object(name)</code></td>
+<td></td>
 <td>Find object by name (debug/editor use)</td>
 </tr>
 <tr>
 <td><code>level.disable_input()</code></td>
+<td></td>
 <td>Block player input</td>
 </tr>
 <tr>
 <td><code>level.enable_input()</code></td>
+<td></td>
 <td>Restore player input</td>
 </tr>
 <tr>
 <td><code>level.environment()</code></td>
+<td></td>
 <td>Current environment manager object</td>
 </tr>
 <tr>
 <td><code>level.game_id()</code></td>
+<td></td>
 <td>Internal game ID</td>
 </tr>
 <tr>
 <td><code>level.get_bounding_volume()</code></td>
+<td></td>
 <td>Level bounding box (<code>Fbox</code>)</td>
 </tr>
 <tr>
 <td><code>level.get_env_rads()</code></td>
+<td></td>
 <td>Environmental radiation (HUD sensor value)</td>
 </tr>
 <tr>
 <td><code>level.get_game_difficulty()</code></td>
+<td></td>
 <td>Difficulty constant (0=novice … 3=master)</td>
 </tr>
 <tr>
 <td><code>level.get_rain_volume()</code></td>
+<td></td>
 <td>Rain audio volume (0–1)</td>
 </tr>
 <tr>
 <td><code>level.get_snd_volume()</code></td>
+<td></td>
 <td>Master sound volume (0–1)</td>
 </tr>
 <tr>
 <td><code>level.get_start_time()</code></td>
+<td></td>
 <td><code>CTime</code> when the current level load began</td>
 </tr>
 <tr>
 <td><code>level.get_target_dist()</code></td>
+<td></td>
 <td>Distance to crosshair target</td>
 </tr>
 <tr>
 <td><code>level.get_target_element()</code></td>
+<td></td>
 <td>Bone ID under the crosshair</td>
 </tr>
 <tr>
 <td><code>level.get_target_obj()</code></td>
+<td></td>
 <td>Object the crosshair is aimed at</td>
 </tr>
 <tr>
 <td><code>level.get_time_days()</code></td>
+<td></td>
 <td>Current in-game day number</td>
 </tr>
 <tr>
 <td><code>level.get_time_factor()</code></td>
+<td></td>
 <td>Time acceleration multiplier</td>
 </tr>
 <tr>
 <td><code>level.get_time_hours()</code></td>
+<td></td>
 <td>Current game hour (0–23)</td>
 </tr>
 <tr>
 <td><code>level.get_time_minutes()</code></td>
+<td></td>
 <td>Current game minutes (0–59)</td>
 </tr>
 <tr>
 <td><code>level.get_weather()</code></td>
+<td></td>
 <td>Current weather name string</td>
 </tr>
 <tr>
 <td><code>level.get_wfx_time()</code></td>
+<td></td>
 <td>Elapsed time of current weather effect</td>
 </tr>
 <tr>
 <td><code>level.hide_indicators()</code></td>
+<td></td>
 <td>Hide HUD indicators</td>
 </tr>
 <tr>
 <td><code>level.hide_indicators_safe()</code></td>
+<td></td>
 <td>Safe hide (won't crash before HUD ready)</td>
 </tr>
 <tr>
 <td><code>level.high_cover_in_direction(lvid, dir)</code></td>
+<td></td>
 <td>High-cover score in direction</td>
 </tr>
 <tr>
 <td><code>level.hold_action(key_bind)</code></td>
+<td></td>
 <td>Simulate key hold</td>
 </tr>
 <tr>
 <td><code>level.is_wfx_playing()</code></td>
+<td></td>
 <td>True while a weather effect is running</td>
 </tr>
 <tr>
 <td><code>level.iterate_nearest(pos, radius, fn)</code></td>
+<td></td>
 <td>Call <code>fn(obj)</code> for each online object within radius</td>
 </tr>
 <tr>
 <td><code>level.iterate_sounds(path, radius, fn)</code></td>
+<td></td>
 <td>Iterate sounds at a path within radius</td>
 </tr>
 <tr>
 <td><code>level.low_cover_in_direction(lvid, dir)</code></td>
+<td></td>
 <td>Low-cover score in direction</td>
 </tr>
 <tr>
 <td><code>level.map_add_object_spot(id, type, hint)</code></td>
+<td></td>
 <td>Add minimap marker</td>
 </tr>
 <tr>
 <td><code>level.map_add_object_spot_ser(id, type, hint)</code></td>
+<td></td>
 <td>Add minimap marker (serialised)</td>
 </tr>
 <tr>
 <td><code>level.map_change_spot_hint(id, type, hint)</code></td>
+<td></td>
 <td>Update marker tooltip</td>
 </tr>
 <tr>
 <td><code>level.map_has_object_spot(id, type)</code></td>
+<td></td>
 <td>Check for minimap marker</td>
 </tr>
 <tr>
 <td><code>level.map_remove_object_spot(id, type)</code></td>
+<td></td>
 <td>Remove minimap marker</td>
 </tr>
 <tr>
 <td><code>level.name()</code></td>
+<td></td>
 <td>Internal level name string (e.g. <code>"l01_escape"</code>)</td>
 </tr>
 <tr>
 <td><code>level.object_by_id(id)</code></td>
+<td></td>
 <td>Game object by alife ID; <code>nil</code> if offline</td>
 </tr>
 <tr>
 <td><code>level.patrol_path_exists(name)</code></td>
+<td></td>
 <td>Check if a patrol path exists</td>
 </tr>
 <tr>
 <td><code>level.physics_world()</code></td>
+<td></td>
 <td>Physics world object</td>
 </tr>
 <tr>
 <td><code>level.prefetch_sound(path)</code></td>
+<td></td>
 <td>Preload a sound file</td>
 </tr>
 <tr>
 <td><code>level.present()</code></td>
+<td></td>
 <td>Returns <code>true</code> if a level is loaded</td>
 </tr>
 <tr>
 <td><code>level.press_action(key_bind)</code></td>
+<td></td>
 <td>Simulate key press</td>
 </tr>
 <tr>
 <td><code>level.rain_factor()</code></td>
+<td></td>
 <td>Current rain intensity (0–1)</td>
 </tr>
 <tr>
 <td><code>level.release_action(key_bind)</code></td>
+<td></td>
 <td>Simulate key release</td>
 </tr>
 <tr>
 <td><code>level.remove_call(check_fn, action_fn)</code></td>
+<td></td>
 <td>Unregister a deferred callback</td>
 </tr>
 <tr>
 <td><code>level.remove_calls_for_object(obj)</code></td>
+<td></td>
 <td>Remove all deferred calls for an object</td>
 </tr>
 <tr>
 <td><code>level.remove_cam_effector(id)</code></td>
+<td></td>
 <td>Stop camera animation</td>
 </tr>
 <tr>
 <td><code>level.remove_complex_effector(id)</code></td>
+<td></td>
 <td>Stop complex effector</td>
 </tr>
 <tr>
 <td><code>level.remove_pp_effector(id)</code></td>
+<td></td>
 <td>Remove post-process effect</td>
 </tr>
 <tr>
 <td><code>level.set_game_difficulty(enum_val)</code></td>
+<td></td>
 <td>Change difficulty</td>
 </tr>
 <tr>
 <td><code>level.set_pp_effector_factor(id, factor)</code></td>
+<td></td>
 <td>Blend post-process intensity</td>
 </tr>
 <tr>
 <td><code>level.set_snd_volume(v)</code></td>
+<td></td>
 <td>Set master sound volume</td>
 </tr>
 <tr>
 <td><code>level.set_time_factor(n)</code></td>
+<td></td>
 <td>Set time acceleration multiplier</td>
 </tr>
 <tr>
 <td><code>level.set_weather(name, immediate)</code></td>
+<td></td>
 <td>Change weather</td>
 </tr>
 <tr>
 <td><code>level.set_weather_fx(name)</code></td>
+<td></td>
 <td>Start a weather effect (psi storm etc.)</td>
 </tr>
 <tr>
 <td><code>level.show_indicators()</code></td>
+<td></td>
 <td>Show HUD indicators</td>
 </tr>
 <tr>
 <td><code>level.show_weapon(bool)</code></td>
+<td></td>
 <td>Toggle weapon render</td>
 </tr>
 <tr>
 <td><code>level.spawn_item(sec, pos, lvid, gvid)</code></td>
+<td></td>
 <td>Spawn a client-side object (not tracked by alife)</td>
 </tr>
 <tr>
 <td><code>level.spawn_phantom(pos)</code></td>
+<td></td>
 <td>Spawn a phantom entity</td>
 </tr>
 <tr>
 <td><code>level.start_weather_fx_from_time(name, t)</code></td>
+<td></td>
 <td>Start weather effect at a given elapsed time</td>
 </tr>
 <tr>
 <td><code>level.stop_weather_fx()</code></td>
+<td></td>
 <td>Stop active weather effect</td>
 </tr>
 <tr>
 <td><code>level.vertex_id(pos)</code></td>
+<td></td>
 <td>Nearest navmesh vertex to a world position</td>
 </tr>
 <tr>
 <td><code>level.vertex_in_direction(lvid, dir, dist)</code></td>
+<td></td>
 <td>Navmesh vertex in a direction</td>
 </tr>
 <tr>
 <td><code>level.vertex_position(lvid)</code></td>
+<td></td>
 <td>World position of a navmesh vertex</td>
 </tr>
 </tbody>
@@ -3543,120 +3745,149 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Method</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>game.actor_lower_weapon()</code></td>
+<td></td>
 <td>Lower weapon to safe position</td>
 </tr>
 <tr>
 <td><code>game.actor_weapon_lowered()</code></td>
+<td></td>
 <td>True if weapon is currently lowered</td>
 </tr>
 <tr>
 <td><code>game.change_game_news_show_time(ms)</code></td>
+<td></td>
 <td>Override news notification display duration</td>
 </tr>
 <tr>
 <td><code>game.get_actor_alcohol()</code></td>
+<td></td>
 <td>Actor's current alcohol level (0–1)</td>
 </tr>
 <tr>
 <td><code>game.get_game_time()</code></td>
+<td></td>
 <td>Returns <code>CTime</code> for current in-game time</td>
 </tr>
 <tr>
 <td><code>game.get_motion_length(sec, name, speed)</code></td>
+<td></td>
 <td>Total duration of an animation in seconds</td>
 </tr>
 <tr>
 <td><code>game.get_resolutions()</code></td>
+<td></td>
 <td>String of all supported display resolutions</td>
 </tr>
 <tr>
 <td><code>game.has_active_tutorial()</code></td>
+<td></td>
 <td>True if a tutorial is currently displayed</td>
 </tr>
 <tr>
 <td><code>game.hud_motion_allowed()</code></td>
+<td></td>
 <td>True if HUD motion system is active</td>
 </tr>
 <tr>
 <td><code>game.only_allow_movekeys(bool)</code></td>
+<td></td>
 <td>Restrict input to movement keys</td>
 </tr>
 <tr>
 <td><code>game.only_movekeys_allowed()</code></td>
+<td></td>
 <td>Query movement-keys-only state</td>
 </tr>
 <tr>
 <td><code>game.play_hud_anm(name, part, speed, power, loop, no_restart)</code></td>
+<td></td>
 <td>Play a blended HUD animation</td>
 </tr>
 <tr>
 <td><code>game.play_hud_motion(hand, sec, anim, loop, speed)</code></td>
+<td></td>
 <td>Play a hand/motion animation</td>
 </tr>
 <tr>
 <td><code>game.prefetch_model(path)</code></td>
+<td></td>
 <td>Preload a model without extension</td>
 </tr>
 <tr>
 <td><code>game.prefetch_texture(path)</code></td>
+<td></td>
 <td>Preload a texture with extension</td>
 </tr>
 <tr>
 <td><code>game.reload_language()</code></td>
+<td></td>
 <td>Reload all language XML files</td>
 </tr>
 <tr>
 <td><code>game.reload_ui_xml()</code></td>
+<td></td>
 <td>Clear XML cache and reload all HUD XML</td>
 </tr>
 <tr>
 <td><code>game.set_actor_allow_ladder(bool)</code></td>
+<td></td>
 <td>Toggle ladder climbing</td>
 </tr>
 <tr>
 <td><code>game.set_hud_anm_time(name, t)</code></td>
+<td></td>
 <td>Set playback time; returns current time</td>
 </tr>
 <tr>
 <td><code>game.set_nv_lumfactor(v)</code></td>
+<td></td>
 <td>Adjust night vision luminance factor</td>
 </tr>
 <tr>
 <td><code>game.start_tutorial(name)</code></td>
+<td></td>
 <td>Show a named tutorial</td>
 </tr>
 <tr>
 <td><code>game.stop_all_hud_anms(force)</code></td>
+<td></td>
 <td>Stop all active HUD animations</td>
 </tr>
 <tr>
 <td><code>game.stop_hud_anm(name, force)</code></td>
+<td></td>
 <td>Stop a named HUD animation</td>
 </tr>
 <tr>
 <td><code>game.stop_hud_motion()</code></td>
+<td></td>
 <td>Stop current hand animation</td>
 </tr>
 <tr>
 <td><code>game.stop_tutorial()</code></td>
+<td></td>
 <td>Stop the active tutorial</td>
 </tr>
 <tr>
 <td><code>game.time()</code></td>
+<td></td>
 <td>Raw game time as ms since epoch</td>
 </tr>
 <tr>
 <td><code>game.translate_string(key)</code></td>
+<td></td>
 <td>Look up a localisation string by key</td>
 </tr>
 <tr>
 <td><code>game.world2ui(pos)</code></td>
+<td></td>
 <td>Convert world position to UI screen coordinates</td>
 </tr>
 </tbody>
@@ -3671,60 +3902,74 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Function</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>alife_create(section, pos, lid, gid, [parent_id])</code></td>
+<td></td>
 <td>Spawn any entity in the world</td>
 </tr>
 <tr>
 <td><code>alife_create_item(section, recipient, [props])</code></td>
+<td></td>
 <td>Spawn an item directly into an inventory</td>
 </tr>
 <tr>
 <td><code>alife_object(id)</code></td>
+<td></td>
 <td>Server entity by ID; <code>nil</code> if not found</td>
 </tr>
 <tr>
 <td><code>alife_release(se_or_game_obj, [reason])</code></td>
+<td></td>
 <td>Destroy an entity permanently</td>
 </tr>
 <tr>
 <td><code>alife_release_id(id, [reason])</code></td>
+<td></td>
 <td>Destroy by alife ID</td>
 </tr>
 <tr>
 <td><code>disable_info(info_id)</code></td>
+<td></td>
 <td>Unset an actor quest flag</td>
 </tr>
 <tr>
 <td><code>get_object_story_id(obj_id)</code></td>
+<td></td>
 <td>Reverse lookup: ID → story_id string</td>
 </tr>
 <tr>
 <td><code>get_story_object(story_id)</code></td>
+<td></td>
 <td>Game object for a named entity (nil if offline)</td>
 </tr>
 <tr>
 <td><code>get_story_object_id(story_id)</code></td>
+<td></td>
 <td>Numeric alife ID for a named entity</td>
 </tr>
 <tr>
 <td><code>get_story_se_object(story_id)</code></td>
+<td></td>
 <td>Server entity for a named entity</td>
 </tr>
 <tr>
 <td><code>get_story_squad(story_id)</code></td>
+<td></td>
 <td>Squad server object for a named squad</td>
 </tr>
 <tr>
 <td><code>give_info(info_id)</code></td>
+<td></td>
 <td>Set an actor quest flag</td>
 </tr>
 <tr>
 <td><code>has_alife_info(info_id)</code></td>
+<td></td>
 <td>Check actor quest flag via alife simulator</td>
 </tr>
 </tbody>
@@ -3734,116 +3979,144 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Method</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>alife():actor()</code></td>
+<td></td>
 <td>Server-side actor entity</td>
 </tr>
 <tr>
 <td><code>alife():add_in_restriction(se_obj, restr_id)</code></td>
+<td></td>
 <td>Add in-restriction to NPC/monster</td>
 </tr>
 <tr>
 <td><code>alife():add_out_restriction(se_obj, restr_id)</code></td>
+<td></td>
 <td>Add out-restriction to NPC/monster</td>
 </tr>
 <tr>
 <td><code>alife():create(sec, pos, lvid, gvid, [parent])</code></td>
+<td></td>
 <td>Spawn entity</td>
 </tr>
 <tr>
 <td><code>alife():create_ammo(sec, pos, lvid, gvid, parent, count)</code></td>
+<td></td>
 <td>Spawn an ammo stack</td>
 </tr>
 <tr>
 <td><code>alife():disable_info(entity_id, info_id)</code></td>
+<td></td>
 <td>Remove info portion from any entity</td>
 </tr>
 <tr>
 <td><code>alife():dont_has_info(entity_id, info_id)</code></td>
+<td></td>
 <td>True if entity does NOT have the info</td>
 </tr>
 <tr>
 <td><code>alife():get_children(se_obj)</code></td>
+<td></td>
 <td>Iterator over child entities (inventory)</td>
 </tr>
 <tr>
 <td><code>alife():give_info(entity_id, info_id)</code></td>
+<td></td>
 <td>Give info portion to any entity</td>
 </tr>
 <tr>
 <td><code>alife():has_info(entity_id, info_id)</code></td>
+<td></td>
 <td>Check quest flag on any entity</td>
 </tr>
 <tr>
 <td><code>alife():kill_entity(se_obj, [gvid])</code></td>
+<td></td>
 <td>Mark entity as dead in simulation</td>
 </tr>
 <tr>
 <td><code>alife():level_id()</code></td>
+<td></td>
 <td>Numeric ID of the level the actor is on</td>
 </tr>
 <tr>
 <td><code>alife():level_name(level_id)</code></td>
+<td></td>
 <td>Level name string for a numeric level ID</td>
 </tr>
 <tr>
 <td><code>alife():object(id)</code></td>
+<td></td>
 <td>Server entity by ID; <code>nil</code> if not found</td>
 </tr>
 <tr>
 <td><code>alife():release(se_obj, force)</code></td>
+<td></td>
 <td>Destroy entity</td>
 </tr>
 <tr>
 <td><code>alife():remove_all_restrictions(id, type)</code></td>
+<td></td>
 <td>Remove all restrictions of a type</td>
 </tr>
 <tr>
 <td><code>alife():remove_in_restriction(se_obj, restr_id)</code></td>
+<td></td>
 <td>Remove in-restriction</td>
 </tr>
 <tr>
 <td><code>alife():remove_out_restriction(se_obj, restr_id)</code></td>
+<td></td>
 <td>Remove out-restriction</td>
 </tr>
 <tr>
 <td><code>alife():set_interactive(id, bool)</code></td>
+<td></td>
 <td>Toggle whether NPCs can interact with object</td>
 </tr>
 <tr>
 <td><code>alife():set_switch_offline(id, bool)</code></td>
+<td></td>
 <td>Force offline transition</td>
 </tr>
 <tr>
 <td><code>alife():set_switch_online(id, bool)</code></td>
+<td></td>
 <td>Force online transition</td>
 </tr>
 <tr>
 <td><code>alife():spawn_id(spawn_story_id)</code></td>
+<td></td>
 <td>Spawn by spawn_story_id number</td>
 </tr>
 <tr>
 <td><code>alife():story_object(story_id)</code></td>
+<td></td>
 <td>Server entity for a story ID</td>
 </tr>
 <tr>
 <td><code>alife():switch_distance()</code></td>
+<td></td>
 <td>Get current spawn radius</td>
 </tr>
 <tr>
 <td><code>alife():switch_distance(n)</code></td>
+<td></td>
 <td>Set spawn radius</td>
 </tr>
 <tr>
 <td><code>alife():teleport_object(id, gvid, lvid, pos)</code></td>
+<td></td>
 <td>Move server entity to position</td>
 </tr>
 <tr>
 <td><code>alife():valid_object_id(id)</code></td>
+<td></td>
 <td>True if ID is valid (not 65535 and exists)</td>
 </tr>
 </tbody>
@@ -3856,48 +4129,59 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Function</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>xr_logic.assign_storage_and_bind(obj, ini, scheme, sec)</code></td>
+<td></td>
 <td>Bind a scheme to an object</td>
 </tr>
 <tr>
 <td><code>xr_logic.cfg_get_switch_conditions(ini, sec, obj)</code></td>
+<td></td>
 <td>Read all <code>on_info</code> fields from an LTX section</td>
 </tr>
 <tr>
 <td><code>xr_logic.is_active(obj, action)</code></td>
+<td></td>
 <td>Check if a scheme/action is active on an object</td>
 </tr>
 <tr>
 <td><code>xr_logic.issue_event(obj, st, event)</code></td>
+<td></td>
 <td>Fire an event on a subscribed action</td>
 </tr>
 <tr>
 <td><code>xr_logic.mob_capture(obj, bool)</code></td>
+<td></td>
 <td>Take/release scripted control of a creature</td>
 </tr>
 <tr>
 <td><code>xr_logic.parse_condlist(npc, sec, field, str)</code></td>
+<td></td>
 <td>Parse a condition list string into a table</td>
 </tr>
 <tr>
 <td><code>xr_logic.pick_section_from_condlist(obj, npc, cl)</code></td>
+<td></td>
 <td>Evaluate a parsed condlist; returns the matching section name or <code>nil</code></td>
 </tr>
 <tr>
 <td><code>xr_logic.subscribe_action_for_events(obj, st, action)</code></td>
+<td></td>
 <td>Register a scheme action for event callbacks</td>
 </tr>
 <tr>
 <td><code>xr_logic.switch_to_section(obj, ini, section)</code></td>
+<td></td>
 <td>Force a section switch</td>
 </tr>
 <tr>
 <td><code>xr_logic.try_switch_to_another_section(obj, st, actor)</code></td>
+<td></td>
 <td>Evaluate and execute any pending section switch</td>
 </tr>
 </tbody>
@@ -3910,40 +4194,49 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Function</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>ui_mcm.get(mod, key)</code></td>
+<td></td>
 <td>Read an MCM setting value</td>
 </tr>
 <tr>
 <td><code>ui_options.get(group, key)</code></td>
+<td></td>
 <td>Read a game option value</td>
 </tr>
 <tr>
 <td><code>ui_mcm.get_mod_key(mod, key)</code></td>
+<td></td>
 <td>Get the MCM key path string</td>
 </tr>
 <tr>
 <td><code>news_manager.send_tip(actor, text, icon, delay, time, task)</code></td>
+<td></td>
 <td>Queue a tip/notification</td>
 </tr>
 <tr>
 <td><code>ui_mcm.set(mod, key, value)</code></td>
+<td></td>
 <td>Write an MCM setting value</td>
 </tr>
 <tr>
 <td><code>actor_menu.set_fade_msg(text, dur)</code></td>
+<td></td>
 <td>Show a fading centre message</td>
 </tr>
 <tr>
 <td><code>actor_menu.set_msg(side, text, dur)</code></td>
+<td></td>
 <td>Show a screen-edge HUD message</td>
 </tr>
 <tr>
 <td><code>actor_menu.set_notification(icon, header, body, sound, dur)</code></td>
+<td></td>
 <td>Show a notification popup</td>
 </tr>
 </tbody>
@@ -3955,40 +4248,49 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Function</th>
+<th>Req</th>
 <th>Returns true if…</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>get_clsid(obj)</code></td>
+<td></td>
 <td>Returns <code>obj:clsid()</code> safely (nil-checks <code>obj</code>)</td>
 </tr>
 <tr>
 <td><code>IsArtefact(obj, [clsid])</code></td>
+<td></td>
 <td>Object is an artefact</td>
 </tr>
 <tr>
 <td><code>IsBackpack(obj, [clsid])</code></td>
+<td></td>
 <td>Object is a backpack</td>
 </tr>
 <tr>
 <td><code>IsFood(obj, [clsid])</code></td>
+<td></td>
 <td>Object is a consumable</td>
 </tr>
 <tr>
 <td><code>IsMonster(obj, [clsid])</code></td>
+<td></td>
 <td>Object is a mutant</td>
 </tr>
 <tr>
 <td><code>IsOutfit(obj, [clsid])</code></td>
+<td></td>
 <td>Object is a suit/outfit</td>
 </tr>
 <tr>
 <td><code>IsStalker(obj, [clsid])</code></td>
+<td></td>
 <td>Object is a human NPC or the actor</td>
 </tr>
 <tr>
 <td><code>IsWeapon(obj, [clsid])</code></td>
+<td></td>
 <td>Object is any weapon</td>
 </tr>
 </tbody>
@@ -3999,32 +4301,39 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Name</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>db.actor</code></td>
+<td></td>
 <td>The player's <code>game_object</code>. See <a href="actor/">db.actor</a>.</td>
 </tr>
 <tr>
 <td><code>db.add_obj(game_obj)</code></td>
+<td></td>
 <td>Register an online object in db.storage</td>
 </tr>
 <tr>
 <td><code>db.del_obj(game_obj)</code></td>
+<td></td>
 <td>Remove an object from db.storage</td>
 </tr>
 <tr>
 <td><code>db.offline_objects</code></td>
+<td></td>
 <td>Table of currently offline entity IDs</td>
 </tr>
 <tr>
 <td><code>db.smart_terrain_by_id</code></td>
+<td></td>
 <td>Table mapping alife ID → smart terrain server entity</td>
 </tr>
 <tr>
 <td><code>db.storage</code></td>
+<td></td>
 <td>Per-object state table, keyed by alife ID. See <a href="../scripting/db-storage/">db.storage</a>.</td>
 </tr>
 </tbody>
@@ -4037,144 +4346,179 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Method</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>obj:alive()</code></td>
+<td></td>
 <td>True if not dead</td>
 </tr>
 <tr>
 <td><code>obj:bind_object(binder)</code></td>
+<td></td>
 <td>Attach object_binder instance</td>
 </tr>
 <tr>
 <td><code>obj:bone_position(name)</code></td>
+<td></td>
 <td>World position of a named bone</td>
 </tr>
 <tr>
 <td><code>obj:character_community()</code></td>
+<td></td>
 <td>Faction string</td>
 </tr>
 <tr>
 <td><code>obj:character_name()</code></td>
+<td></td>
 <td>Display name</td>
 </tr>
 <tr>
 <td><code>obj:clsid()</code></td>
+<td></td>
 <td>Class ID — compare with <code>clsid.*</code> constants</td>
 </tr>
 <tr>
 <td><code>obj:condition()</code></td>
+<td></td>
 <td>Item durability (0–1)</td>
 </tr>
 <tr>
 <td><code>obj:direction()</code></td>
+<td></td>
 <td>Facing direction (radians)</td>
 </tr>
 <tr>
 <td><code>obj:game_vertex_id()</code></td>
+<td></td>
 <td>Global graph node</td>
 </tr>
 <tr>
 <td><code>obj:get_ammo_in_magazine()</code></td>
+<td></td>
 <td>Rounds in magazine</td>
 </tr>
 <tr>
 <td><code>obj:get_ammo_total()</code></td>
+<td></td>
 <td>Total ammo count</td>
 </tr>
 <tr>
 <td><code>obj:give_money(n)</code></td>
+<td></td>
 <td>Add RU</td>
 </tr>
 <tr>
 <td><code>obj:hit(hit_obj)</code></td>
+<td></td>
 <td>Apply a <code>hit</code> object for damage</td>
 </tr>
 <tr>
 <td><code>obj:id()</code></td>
+<td></td>
 <td>Alife ID</td>
 </tr>
 <tr>
 <td><code>obj:invulnerable([bool])</code></td>
+<td></td>
 <td>Get/set invulnerability</td>
 </tr>
 <tr>
 <td><code>obj:iterate_inventory(fn, data)</code></td>
+<td></td>
 <td>Iterate inventory items</td>
 </tr>
 <tr>
 <td><code>obj:kill(who)</code></td>
+<td></td>
 <td>Kill the object</td>
 </tr>
 <tr>
 <td><code>obj:level_vertex_id()</code></td>
+<td></td>
 <td>Local navmesh node</td>
 </tr>
 <tr>
 <td><code>obj:max_health()</code></td>
+<td></td>
 <td>Maximum health</td>
 </tr>
 <tr>
 <td><code>obj:money()</code></td>
+<td></td>
 <td>Current RU balance</td>
 </tr>
 <tr>
 <td><code>obj:name()</code></td>
+<td></td>
 <td>Internal name string</td>
 </tr>
 <tr>
 <td><code>obj:object(section)</code></td>
+<td></td>
 <td>First matching inventory item</td>
 </tr>
 <tr>
 <td><code>obj:parent()</code></td>
+<td></td>
 <td>Owner object if in an inventory</td>
 </tr>
 <tr>
 <td><code>obj:position()</code></td>
+<td></td>
 <td>World position (<code>vector</code>)</td>
 </tr>
 <tr>
 <td><code>obj:relation(other)</code></td>
+<td></td>
 <td>Relation enum toward <code>other</code></td>
 </tr>
 <tr>
 <td><code>obj:script(bool, name)</code></td>
+<td></td>
 <td>Take/release scripted control</td>
 </tr>
 <tr>
 <td><code>obj:section()</code></td>
+<td></td>
 <td>Config section name</td>
 </tr>
 <tr>
 <td><code>obj:see(other)</code></td>
+<td></td>
 <td>True if NPC has LOS to <code>other</code></td>
 </tr>
 <tr>
 <td><code>obj:set_callback(type, fn)</code></td>
+<td></td>
 <td>Register per-object callback</td>
 </tr>
 <tr>
 <td><code>obj:set_condition(v)</code></td>
+<td></td>
 <td>Set item durability</td>
 </tr>
 <tr>
 <td><code>obj:spawn_ini()</code></td>
+<td></td>
 <td>Spawn config as <code>ini_file</code></td>
 </tr>
 <tr>
 <td><code>obj:start_particles(effect, bone)</code></td>
+<td></td>
 <td>Attach particle effect</td>
 </tr>
 <tr>
 <td><code>obj:stop_particles(effect, bone)</code></td>
+<td></td>
 <td>Remove particle effect</td>
 </tr>
 <tr>
 <td><code>obj:story_id()</code></td>
+<td></td>
 <td>Story ID, or -1</td>
 </tr>
 </tbody>
@@ -4188,52 +4532,64 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Method</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>ini:line_count(section)</code></td>
+<td></td>
 <td>Number of keys in section</td>
 </tr>
 <tr>
 <td><code>ini:line_exist(section, key)</code></td>
+<td></td>
 <td>True if key exists in section</td>
 </tr>
 <tr>
 <td><code>ini:r_bool(section, key)</code></td>
+<td></td>
 <td>Read boolean value</td>
 </tr>
 <tr>
 <td><code>ini:r_clsid(section, key)</code></td>
+<td></td>
 <td>Read class ID</td>
 </tr>
 <tr>
 <td><code>ini:r_float(section, key)</code></td>
+<td></td>
 <td>Read float value</td>
 </tr>
 <tr>
 <td><code>ini:r_line(ini, section, i, key_out, val_out)</code></td>
+<td></td>
 <td>Read key+value at 0-based index <code>i</code></td>
 </tr>
 <tr>
 <td><code>ini:r_s32(section, key)</code></td>
+<td></td>
 <td>Read signed integer</td>
 </tr>
 <tr>
 <td><code>ini:r_string(section, key)</code></td>
+<td></td>
 <td>Read string value</td>
 </tr>
 <tr>
 <td><code>ini:r_u32(section, key)</code></td>
+<td></td>
 <td>Read unsigned integer</td>
 </tr>
 <tr>
 <td><code>ini:r_vector(section, key)</code></td>
+<td></td>
 <td>Read vector (<code>x, y, z</code>)</td>
 </tr>
 <tr>
 <td><code>ini:section_exist(section)</code></td>
+<td></td>
 <td>True if section exists</td>
 </tr>
 </tbody>
@@ -4246,80 +4602,99 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Method</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>v:add(other)</code></td>
+<td></td>
 <td>Add component-wise (in place)</td>
 </tr>
 <tr>
 <td><code>v:average(a, b)</code></td>
+<td></td>
 <td>Midpoint</td>
 </tr>
 <tr>
 <td><code>v:crossproduct(a, b)</code></td>
+<td></td>
 <td>Cross product into <code>v</code></td>
 </tr>
 <tr>
 <td><code>v:distance_to(other)</code></td>
+<td></td>
 <td>3D distance</td>
 </tr>
 <tr>
 <td><code>v:distance_to_sqr(other)</code></td>
+<td></td>
 <td>Squared distance</td>
 </tr>
 <tr>
 <td><code>v:distance_to_xz(other)</code></td>
+<td></td>
 <td>2D distance (ignoring Y)</td>
 </tr>
 <tr>
 <td><code>v:div(n)</code></td>
+<td></td>
 <td>Divide by scalar</td>
 </tr>
 <tr>
 <td><code>v:dotproduct(other)</code></td>
+<td></td>
 <td>Dot product</td>
 </tr>
 <tr>
 <td><code>v:getH()</code></td>
+<td></td>
 <td>Heading angle</td>
 </tr>
 <tr>
 <td><code>v:lerp(a, b, t)</code></td>
+<td></td>
 <td>Linear interpolate</td>
 </tr>
 <tr>
 <td><code>v:magnitude()</code></td>
+<td></td>
 <td>Length</td>
 </tr>
 <tr>
 <td><code>v:mul(n)</code></td>
+<td></td>
 <td>Multiply by scalar</td>
 </tr>
 <tr>
 <td><code>v:normalize()</code></td>
+<td></td>
 <td>Normalise to unit length</td>
 </tr>
 <tr>
 <td><code>v:normalize_safe()</code></td>
+<td></td>
 <td>Normalise or zero if zero-length</td>
 </tr>
 <tr>
 <td><code>v:set(x, y, z)</code></td>
+<td></td>
 <td>Set components</td>
 </tr>
 <tr>
 <td><code>v:setHP(heading, pitch)</code></td>
+<td></td>
 <td>Set from angles</td>
 </tr>
 <tr>
 <td><code>v:sub(other)</code></td>
+<td></td>
 <td>Subtract component-wise</td>
 </tr>
 <tr>
 <td><code>vector()</code></td>
+<td></td>
 <td>Construct <code>(0,0,0)</code></td>
 </tr>
 </tbody>
@@ -4332,36 +4707,44 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Property / Method</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>h:bone(name)</code></td>
+<td></td>
 <td>Target specific bone</td>
 </tr>
 <tr>
 <td><code>h.direction</code></td>
+<td></td>
 <td>Direction (<code>vector</code>)</td>
 </tr>
 <tr>
 <td><code>h.draftsman</code></td>
+<td></td>
 <td>Credit for the kill (<code>game_object</code>)</td>
 </tr>
 <tr>
 <td><code>hit()</code></td>
+<td></td>
 <td>Construct empty hit</td>
 </tr>
 <tr>
 <td><code>h.impulse</code></td>
+<td></td>
 <td>Physics impulse</td>
 </tr>
 <tr>
 <td><code>h.power</code></td>
+<td></td>
 <td>Damage amount (0–1+ fraction of max health)</td>
 </tr>
 <tr>
 <td><code>h.type</code></td>
+<td></td>
 <td>Damage type (<code>hit.wound</code>, <code>hit.burn</code>, etc.)</td>
 </tr>
 </tbody>
@@ -4375,56 +4758,69 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Method</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>snd.frequency</code></td>
+<td></td>
 <td>Pitch multiplier</td>
 </tr>
 <tr>
 <td><code>snd:length()</code></td>
+<td></td>
 <td>Duration in seconds</td>
 </tr>
 <tr>
 <td><code>snd.max_distance</code></td>
+<td></td>
 <td>Inaudible distance</td>
 </tr>
 <tr>
 <td><code>snd.min_distance</code></td>
+<td></td>
 <td>Full-volume distance</td>
 </tr>
 <tr>
 <td><code>snd:play(obj)</code></td>
+<td></td>
 <td>Play at object's position</td>
 </tr>
 <tr>
 <td><code>snd:play(obj, delay, flags)</code></td>
+<td></td>
 <td>Play with delay / flags</td>
 </tr>
 <tr>
 <td><code>snd:play_at_pos(obj, pos)</code></td>
+<td></td>
 <td>Play at world position</td>
 </tr>
 <tr>
 <td><code>snd:playing()</code></td>
+<td></td>
 <td>True if currently playing</td>
 </tr>
 <tr>
 <td><code>sound_object(path)</code></td>
+<td></td>
 <td>Construct (path relative to <code>sounds/</code>, no extension)</td>
 </tr>
 <tr>
 <td><code>snd:stop()</code></td>
+<td></td>
 <td>Stop immediately</td>
 </tr>
 <tr>
 <td><code>snd:stop_deffered()</code></td>
+<td></td>
 <td>Stop after current loop</td>
 </tr>
 <tr>
 <td><code>snd.volume</code></td>
+<td></td>
 <td>Volume (0–1)</td>
 </tr>
 </tbody>
@@ -4438,40 +4834,49 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Method</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>t:add(other)</code> / <code>t:sub(other)</code></td>
+<td></td>
 <td>Add/subtract CTimes</td>
 </tr>
 <tr>
 <td><code>CTime()</code></td>
+<td></td>
 <td>Construct zeroed time</td>
 </tr>
 <tr>
 <td><code>t:dateToString(fmt)</code></td>
+<td></td>
 <td>Format date as string</td>
 </tr>
 <tr>
 <td><code>t:diffSec(other)</code></td>
+<td></td>
 <td>Difference in game seconds</td>
 </tr>
 <tr>
 <td><code>t:get(...)</code></td>
+<td></td>
 <td>Returns year, month, day, h, m, s, ms</td>
 </tr>
 <tr>
 <td><code>t:set(y, mo, d, h, m, s, ms)</code></td>
+<td></td>
 <td>Set all components</td>
 </tr>
 <tr>
 <td><code>t:setHMS(h, m, s)</code></td>
+<td></td>
 <td>Set H:M:S</td>
 </tr>
 <tr>
 <td><code>t:timeToString(fmt)</code></td>
+<td></td>
 <td>Format time as string</td>
 </tr>
 </tbody>
@@ -4484,56 +4889,69 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Method</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>po:load_path(path)</code></td>
+<td></td>
 <td>Load a movement path</td>
 </tr>
 <tr>
 <td><code>po:looped()</code></td>
+<td></td>
 <td>True if looped effect</td>
 </tr>
 <tr>
 <td><code>po:move_to(pos, dir)</code></td>
+<td></td>
 <td>Move to position</td>
 </tr>
 <tr>
 <td><code>particles_object(name)</code></td>
+<td></td>
 <td>Construct with effect name</td>
 </tr>
 <tr>
 <td><code>po:pause_path(bool)</code></td>
+<td></td>
 <td>Pause/resume path</td>
 </tr>
 <tr>
 <td><code>po:play()</code></td>
+<td></td>
 <td>Start playing</td>
 </tr>
 <tr>
 <td><code>po:play_at_pos(pos)</code></td>
+<td></td>
 <td>Play at world position</td>
 </tr>
 <tr>
 <td><code>po:playing()</code></td>
+<td></td>
 <td>True if active</td>
 </tr>
 <tr>
 <td><code>po:start_path(loop)</code></td>
+<td></td>
 <td>Start path-following</td>
 </tr>
 <tr>
 <td><code>po:stop()</code></td>
+<td></td>
 <td>Stop</td>
 </tr>
 <tr>
 <td><code>po:stop_deffered()</code></td>
+<td></td>
 <td>Stop after current loop</td>
 </tr>
 <tr>
 <td><code>po:stop_path()</code></td>
+<td></td>
 <td>Stop path-following</td>
 </tr>
 </tbody>
@@ -4546,28 +4964,34 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Function</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>relation_registry.change_community_goodwill(faction, entity_id, delta)</code></td>
+<td></td>
 <td>Adjust goodwill by delta</td>
 </tr>
 <tr>
 <td><code>relation_registry.community_goodwill(faction, entity_id)</code></td>
+<td></td>
 <td>Get goodwill of an entity toward a faction</td>
 </tr>
 <tr>
 <td><code>relation_registry.community_relation(fac_a, fac_b)</code></td>
+<td></td>
 <td>Get relation between two faction strings</td>
 </tr>
 <tr>
 <td><code>relation_registry.set_community_goodwill(faction, entity_id, val)</code></td>
+<td></td>
 <td>Set absolute goodwill</td>
 </tr>
 <tr>
 <td><code>relation_registry.set_community_relation(fac_a, fac_b, val)</code></td>
+<td></td>
 <td>Set faction-to-faction relation</td>
 </tr>
 </tbody>
@@ -4579,20 +5003,24 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Function</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>actor_stats.add_points(stat, id, score, amount)</code></td>
+<td></td>
 <td>Add points to a stat</td>
 </tr>
 <tr>
 <td><code>actor_stats.add_points_str(stat, id, string)</code></td>
+<td></td>
 <td>Add string-keyed stat points</td>
 </tr>
 <tr>
 <td><code>actor_stats.get_points(stat)</code></td>
+<td></td>
 <td>Get current point value</td>
 </tr>
 </tbody>
@@ -4604,52 +5032,64 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Function</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>weather.boost_reset()</code></td>
+<td></td>
 <td>Reset all boosts</td>
 </tr>
 <tr>
 <td><code>weather.boost_value(key, val)</code></td>
+<td></td>
 <td>Temporarily boost a parameter</td>
 </tr>
 <tr>
 <td><code>weather.get_value_numric(key)</code></td>
+<td></td>
 <td>Get a numeric weather parameter</td>
 </tr>
 <tr>
 <td><code>weather.get_value_string(key)</code></td>
+<td></td>
 <td>Get a string weather parameter</td>
 </tr>
 <tr>
 <td><code>weather.get_value_vector(key)</code></td>
+<td></td>
 <td>Get a vector weather parameter</td>
 </tr>
 <tr>
 <td><code>weather.is_paused()</code></td>
+<td></td>
 <td>True if paused</td>
 </tr>
 <tr>
 <td><code>weather.pause(bool)</code></td>
+<td></td>
 <td>Pause/resume weather cycling</td>
 </tr>
 <tr>
 <td><code>weather.reload()</code></td>
+<td></td>
 <td>Reload weather config</td>
 </tr>
 <tr>
 <td><code>weather.set_value_numric(key, val)</code></td>
+<td></td>
 <td>Set a numeric weather parameter</td>
 </tr>
 <tr>
 <td><code>weather.set_value_string(key, val)</code></td>
+<td></td>
 <td>Set a string weather parameter</td>
 </tr>
 <tr>
 <td><code>weather.set_value_vector(key, x, y, z, w)</code></td>
+<td></td>
 <td>Set a vector weather parameter</td>
 </tr>
 </tbody>
@@ -4661,132 +5101,164 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Function</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>db.actor</code></td>
+<td></td>
 <td>The player <code>game_object</code></td>
 </tr>
 <tr>
 <td><code>alife()</code></td>
+<td></td>
 <td>The <code>alife_simulator</code> singleton</td>
 </tr>
 <tr>
 <td><code>app_ready()</code></td>
+<td></td>
 <td>True once the engine is fully initialised</td>
 </tr>
 <tr>
 <td><code>bit_and(a, b)</code></td>
+<td></td>
 <td>Bitwise AND</td>
 </tr>
 <tr>
 <td><code>bit_not(a)</code></td>
+<td></td>
 <td>Bitwise NOT</td>
 </tr>
 <tr>
 <td><code>bit_or(a, b)</code></td>
+<td></td>
 <td>Bitwise OR</td>
 </tr>
 <tr>
 <td><code>bit_xor(a, b)</code></td>
+<td></td>
 <td>Bitwise XOR</td>
 </tr>
 <tr>
 <td><code>command_line()</code></td>
+<td></td>
 <td>Raw command line string</td>
 </tr>
 <tr>
 <td><code>create_ini_file(path)</code></td>
+<td></td>
 <td>Open any VFS file as <code>ini_file</code></td>
 </tr>
 <tr>
 <td><code>device()</code></td>
+<td></td>
 <td>Render device object</td>
 </tr>
 <tr>
 <td><code>dik_to_bind(dik)</code></td>
+<td></td>
 <td>Convert <code>DIK_keys</code> constant to <code>key_bindings</code></td>
 </tr>
 <tr>
 <td><code>error_log(msg)</code></td>
+<td></td>
 <td>Write <code>msg</code> to the error log</td>
 </tr>
 <tr>
 <td><code>flush()</code></td>
+<td></td>
 <td>Flush the log buffers</td>
 </tr>
 <tr>
 <td><code>game_graph()</code></td>
+<td></td>
 <td>Global navigation graph object</td>
 </tr>
 <tr>
 <td><code>game_ini()</code></td>
+<td></td>
 <td>Game config (includes AI files)</td>
 </tr>
 <tr>
 <td><code>get_console()</code></td>
+<td></td>
 <td>Console object</td>
 </tr>
 <tr>
 <td><code>get_hud()</code></td>
+<td></td>
 <td>HUD manager object</td>
 </tr>
 <tr>
 <td><code>GetARGB(a, r, g, b)</code></td>
+<td></td>
 <td>Pack colour channels into a single number</td>
 </tr>
 <tr>
 <td><code>GetFontDI()</code></td>
+<td></td>
 <td>DI font object</td>
 </tr>
 <tr>
 <td><code>GetFontMedium()</code></td>
+<td></td>
 <td>Medium UI font object</td>
 </tr>
 <tr>
 <td><code>GetFontSmall()</code></td>
+<td></td>
 <td>Small UI font object</td>
 </tr>
 <tr>
 <td><code>getFS()</code></td>
+<td></td>
 <td>File system object</td>
 </tr>
 <tr>
 <td><code>IsDynamicMusic()</code></td>
+<td></td>
 <td>True if dynamic music is active</td>
 </tr>
 <tr>
 <td><code>IsGameTypeSingle()</code></td>
+<td></td>
 <td>True in singleplayer mode</td>
 </tr>
 <tr>
 <td><code>log(msg)</code></td>
+<td></td>
 <td>Write <code>msg</code> to the script log</td>
 </tr>
 <tr>
 <td><code>reload_system_ini()</code></td>
+<td></td>
 <td>Reload <code>system_ini</code> in-game (Alundaio extension)</td>
 </tr>
 <tr>
 <td><code>render_get_dx_level()</code></td>
+<td></td>
 <td>Current DirectX renderer level (8/9)</td>
 </tr>
 <tr>
 <td><code>system_ini()</code></td>
+<td></td>
 <td>Global config <code>ini_file</code></td>
 </tr>
 <tr>
 <td><code>time_continual()</code></td>
+<td></td>
 <td>Like <code>time_global()</code> but continues while paused</td>
 </tr>
 <tr>
 <td><code>time_global()</code></td>
+<td></td>
 <td>Real-time milliseconds since engine start</td>
 </tr>
 <tr>
 <td><code>user_name()</code></td>
+<td></td>
 <td>Current user name string</td>
 </tr>
 </tbody>
@@ -4800,60 +5272,74 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Constant</th>
+<th>Req</th>
 <th>Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>clsid.actor</code></td>
+<td></td>
 <td>Player actor</td>
 </tr>
 <tr>
 <td><code>clsid.artefact</code></td>
+<td></td>
 <td>Artefact</td>
 </tr>
 <tr>
 <td><code>clsid.bloodsucker</code> … <code>clsid.zombie</code></td>
+<td></td>
 <td>Mutant creatures</td>
 </tr>
 <tr>
 <td><code>clsid.equ_stalker</code> / <code>clsid.equ_exo</code></td>
+<td></td>
 <td>Armour suits</td>
 </tr>
 <tr>
 <td><code>clsid.helmet</code></td>
+<td></td>
 <td>Helmet</td>
 </tr>
 <tr>
 <td><code>clsid.inventory_box</code></td>
+<td></td>
 <td>Stash</td>
 </tr>
 <tr>
 <td><code>clsid.obj_medkit</code> / <code>clsid.obj_food</code> / <code>clsid.obj_bandage</code></td>
+<td></td>
 <td>Consumables</td>
 </tr>
 <tr>
 <td><code>clsid.smart_terrain</code></td>
+<td></td>
 <td>Smart terrain</td>
 </tr>
 <tr>
 <td><code>clsid.space_restrictor</code> / <code>clsid.script_restr</code></td>
+<td></td>
 <td>Zone/restrictor</td>
 </tr>
 <tr>
 <td><code>clsid.stalker</code> / <code>clsid.script_stalker</code></td>
+<td></td>
 <td>NPC stalker</td>
 </tr>
 <tr>
 <td><code>clsid.trader</code> / <code>clsid.script_trader</code></td>
+<td></td>
 <td>Trader NPC</td>
 </tr>
 <tr>
 <td><code>clsid.wpn_ak74</code> … <code>clsid.wpn_walther</code></td>
+<td></td>
 <td>Specific weapon types</td>
 </tr>
 <tr>
 <td><code>clsid.wpn_ammo</code></td>
+<td></td>
 <td>Ammo box</td>
 </tr>
 </tbody>
@@ -4866,68 +5352,84 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Constant</th>
+<th>Req</th>
 <th>When it fires</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>callback.death</code></td>
+<td></td>
 <td>Object dies</td>
 </tr>
 <tr>
 <td><code>callback.hit</code></td>
+<td></td>
 <td>Object receives a hit</td>
 </tr>
 <tr>
 <td><code>callback.inventory_info</code></td>
+<td></td>
 <td>Info portion state changes</td>
 </tr>
 <tr>
 <td><code>callback.map_location_added</code></td>
+<td></td>
 <td>Map marker added</td>
 </tr>
 <tr>
 <td><code>callback.on_item_drop</code></td>
+<td></td>
 <td>Item dropped</td>
 </tr>
 <tr>
 <td><code>callback.on_item_take</code></td>
+<td></td>
 <td>Item picked up</td>
 </tr>
 <tr>
 <td><code>callback.patrol_path_in_point</code></td>
+<td></td>
 <td>Patrol reaches a waypoint</td>
 </tr>
 <tr>
 <td><code>callback.sound</code></td>
+<td></td>
 <td>Object hears a sound</td>
 </tr>
 <tr>
 <td><code>callback.take_item_from_box</code></td>
+<td></td>
 <td>Item taken from box</td>
 </tr>
 <tr>
 <td><code>callback.task_state</code></td>
+<td></td>
 <td>Task state changed</td>
 </tr>
 <tr>
 <td><code>callback.trade_sell_buy_item</code></td>
+<td></td>
 <td>Item bought/sold</td>
 </tr>
 <tr>
 <td><code>callback.trade_start</code> / <code>callback.trade_stop</code></td>
+<td></td>
 <td>Trade opened/closed</td>
 </tr>
 <tr>
 <td><code>callback.use_object</code></td>
+<td></td>
 <td>Player uses object</td>
 </tr>
 <tr>
 <td><code>callback.weapon_no_ammo</code></td>
+<td></td>
 <td>Weapon runs out of ammo</td>
 </tr>
 <tr>
 <td><code>callback.zone_enter</code> / <code>callback.zone_exit</code></td>
+<td></td>
 <td>Zone entry/exit</td>
 </tr>
 </tbody>
@@ -4940,60 +5442,74 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Constant</th>
+<th>Req</th>
 <th>Action</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>key_bindings.kBACK</code></td>
+<td></td>
 <td>Move backward</td>
 </tr>
 <tr>
 <td><code>key_bindings.kCROUCH</code></td>
+<td></td>
 <td>Crouch</td>
 </tr>
 <tr>
 <td><code>key_bindings.kCUSTOM1</code> … <code>kCUSTOM25</code></td>
+<td></td>
 <td>Custom keybinds (MCM)</td>
 </tr>
 <tr>
 <td><code>key_bindings.kDROP</code></td>
+<td></td>
 <td>Drop item</td>
 </tr>
 <tr>
 <td><code>key_bindings.kFWD</code></td>
+<td></td>
 <td>Move forward</td>
 </tr>
 <tr>
 <td><code>key_bindings.kINVENTORY</code></td>
+<td></td>
 <td>Inventory screen</td>
 </tr>
 <tr>
 <td><code>key_bindings.kJUMP</code></td>
+<td></td>
 <td>Jump</td>
 </tr>
 <tr>
 <td><code>key_bindings.kLEFT</code> / <code>kRIGHT</code></td>
+<td></td>
 <td>Strafe</td>
 </tr>
 <tr>
 <td><code>key_bindings.kUSE</code></td>
+<td></td>
 <td>Use / interact</td>
 </tr>
 <tr>
 <td><code>key_bindings.kWPN_1</code> … <code>kWPN_6</code></td>
+<td></td>
 <td>Weapon slots</td>
 </tr>
 <tr>
 <td><code>key_bindings.kWPN_FIRE</code></td>
+<td></td>
 <td>Fire weapon</td>
 </tr>
 <tr>
 <td><code>key_bindings.kWPN_RELOAD</code></td>
+<td></td>
 <td>Reload</td>
 </tr>
 <tr>
 <td><code>key_bindings.kWPN_ZOOM</code></td>
+<td></td>
 <td>Aim / zoom</td>
 </tr>
 </tbody>
@@ -5009,24 +5525,29 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Constant</th>
+<th>Req</th>
 <th>Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>game_difficulty.master</code></td>
+<td></td>
 <td>3</td>
 </tr>
 <tr>
 <td><code>game_difficulty.novice</code></td>
+<td></td>
 <td>0</td>
 </tr>
 <tr>
 <td><code>game_difficulty.stalker</code></td>
+<td></td>
 <td>1</td>
 </tr>
 <tr>
 <td><code>game_difficulty.veteran</code></td>
+<td></td>
 <td>2</td>
 </tr>
 </tbody>
@@ -5043,60 +5564,74 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Constant</th>
+<th>Req</th>
 <th>When</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>ui_events.BUTTON_CLICKED</code></td>
+<td></td>
 <td>Button left-click</td>
 </tr>
 <tr>
 <td><code>ui_events.BUTTON_DOWN</code></td>
+<td></td>
 <td>Button pressed</td>
 </tr>
 <tr>
 <td><code>ui_events.CHECK_BUTTON_RESET</code></td>
+<td></td>
 <td>Checkbox unchecked</td>
 </tr>
 <tr>
 <td><code>ui_events.CHECK_BUTTON_SET</code></td>
+<td></td>
 <td>Checkbox checked</td>
 </tr>
 <tr>
 <td><code>ui_events.EDIT_TEXT_COMMIT</code></td>
+<td></td>
 <td>Edit box committed</td>
 </tr>
 <tr>
 <td><code>ui_events.LIST_ITEM_CLICKED</code></td>
+<td></td>
 <td>List item clicked</td>
 </tr>
 <tr>
 <td><code>ui_events.LIST_ITEM_SELECT</code></td>
+<td></td>
 <td>List item selected</td>
 </tr>
 <tr>
 <td><code>ui_events.MESSAGE_BOX_NO_CLICKED</code></td>
+<td></td>
 <td>Message box No</td>
 </tr>
 <tr>
 <td><code>ui_events.MESSAGE_BOX_OK_CLICKED</code></td>
+<td></td>
 <td>Message box OK</td>
 </tr>
 <tr>
 <td><code>ui_events.MESSAGE_BOX_YES_CLICKED</code></td>
+<td></td>
 <td>Message box Yes</td>
 </tr>
 <tr>
 <td><code>ui_events.SCROLLBAR_VSCROLL</code></td>
+<td></td>
 <td>Vertical scroll</td>
 </tr>
 <tr>
 <td><code>ui_events.TAB_CHANGED</code></td>
+<td></td>
 <td>Tab bar changed</td>
 </tr>
 <tr>
 <td><code>ui_events.WINDOW_KEY_PRESSED</code></td>
+<td></td>
 <td>Key pressed while window focused</td>
 </tr>
 </tbody>
@@ -5108,92 +5643,114 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Class</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>cse_abstract</code></td>
+<td></td>
 <td>Base class: <code>id</code>, <code>position</code>, <code>angle</code>, <code>parent_id</code>, <code>section_name()</code>, <code>name()</code>, <code>clsid()</code>, <code>spawn_ini()</code></td>
 </tr>
 <tr>
 <td><code>cse_alife_creature_abstract</code></td>
+<td></td>
 <td>Adds <code>health</code>, <code>group_id</code>, <code>rank</code></td>
 </tr>
 <tr>
 <td><code>cse_alife_creature_actor</code></td>
+<td></td>
 <td>Server-side actor</td>
 </tr>
 <tr>
 <td><code>cse_alife_dynamic_object</code></td>
+<td></td>
 <td>Adds <code>can_switch_online/offline</code>, <code>switch_online/offline</code></td>
 </tr>
 <tr>
 <td><code>cse_alife_dynamic_object_visual</code></td>
+<td></td>
 <td>Adds visual/model data</td>
 </tr>
 <tr>
 <td><code>cse_alife_helicopter</code></td>
+<td></td>
 <td>Helicopter</td>
 </tr>
 <tr>
 <td><code>cse_alife_human_stalker</code></td>
+<td></td>
 <td>Human NPC — adds <code>community</code>, dialog, rank, reputation</td>
 </tr>
 <tr>
 <td><code>cse_alife_inventory_box</code></td>
+<td></td>
 <td>Stash/box</td>
 </tr>
 <tr>
 <td><code>cse_alife_item</code></td>
+<td></td>
 <td>Base inventory item — adds <code>condition</code></td>
 </tr>
 <tr>
 <td><code>cse_alife_item_ammo</code></td>
+<td></td>
 <td>Ammo — adds <code>ammo_type</code>, <code>elapsed</code></td>
 </tr>
 <tr>
 <td><code>cse_alife_item_artefact</code></td>
+<td></td>
 <td>Artefact</td>
 </tr>
 <tr>
 <td><code>cse_alife_item_custom_outfit</code></td>
+<td></td>
 <td>Armour suit</td>
 </tr>
 <tr>
 <td><code>cse_alife_item_detector</code></td>
+<td></td>
 <td>Detector device</td>
 </tr>
 <tr>
 <td><code>cse_alife_item_weapon</code></td>
+<td></td>
 <td>Weapon server entity — adds ammo, upgrades</td>
 </tr>
 <tr>
 <td><code>cse_alife_level_changer</code></td>
+<td></td>
 <td>Level transition trigger</td>
 </tr>
 <tr>
 <td><code>cse_alife_monster_abstract</code></td>
+<td></td>
 <td>Monster base — adds restrictions, kill helpers</td>
 </tr>
 <tr>
 <td><code>cse_alife_monster_base</code></td>
+<td></td>
 <td>Physics-enabled monster</td>
 </tr>
 <tr>
 <td><code>cse_alife_object</code></td>
+<td></td>
 <td>Adds <code>m_game_vertex_id</code>, <code>m_level_vertex_id</code>, <code>m_story_id</code>, <code>online</code></td>
 </tr>
 <tr>
 <td><code>cse_alife_online_offline_group</code></td>
+<td></td>
 <td>NPC squad group</td>
 </tr>
 <tr>
 <td><code>cse_alife_smart_zone</code></td>
+<td></td>
 <td>Smart terrain zone</td>
 </tr>
 <tr>
 <td><code>cse_alife_space_restrictor</code></td>
+<td></td>
 <td>Zone restrictor</td>
 </tr>
 </tbody>
@@ -5205,68 +5762,84 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Method</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>xml:Init(path, ...)</code></td>
+<td></td>
 <td>Load an XML file</td>
 </tr>
 <tr>
 <td><code>xml:InitButton(section, parent)</code></td>
+<td></td>
 <td>Create a button</td>
 </tr>
 <tr>
 <td><code>xml:InitCheck(section, parent)</code></td>
+<td></td>
 <td>Create a checkbox</td>
 </tr>
 <tr>
 <td><code>xml:InitComboBox(section, parent)</code></td>
+<td></td>
 <td>Create a combo box</td>
 </tr>
 <tr>
 <td><code>xml:InitEditBox(section, parent)</code></td>
+<td></td>
 <td>Create an edit box</td>
 </tr>
 <tr>
 <td><code>xml:InitFont(section, parent)</code></td>
+<td></td>
 <td>Get a font from section</td>
 </tr>
 <tr>
 <td><code>xml:InitFrame(section, parent)</code></td>
+<td></td>
 <td>Create a frame</td>
 </tr>
 <tr>
 <td><code>xml:InitFrameLine(section, parent)</code></td>
+<td></td>
 <td>Create a frame line</td>
 </tr>
 <tr>
 <td><code>xml:InitListBox(section, parent)</code></td>
+<td></td>
 <td>Create a list box</td>
 </tr>
 <tr>
 <td><code>xml:InitScrollView(section, parent)</code></td>
+<td></td>
 <td>Create a scroll view</td>
 </tr>
 <tr>
 <td><code>xml:InitStatic(section, parent)</code></td>
+<td></td>
 <td>Create a static/label</td>
 </tr>
 <tr>
 <td><code>xml:InitTab(section, parent)</code></td>
+<td></td>
 <td>Create a tab control</td>
 </tr>
 <tr>
 <td><code>xml:InitTextWnd(section, parent)</code></td>
+<td></td>
 <td>Create a text window</td>
 </tr>
 <tr>
 <td><code>xml:InitTrackBar(section, parent)</code></td>
+<td></td>
 <td>Create a track bar</td>
 </tr>
 <tr>
 <td><code>xml:InitWindow(section, parent)</code></td>
+<td></td>
 <td>Create a basic window</td>
 </tr>
 </tbody>
@@ -5279,36 +5852,44 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Class</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>action_base</code></td>
+<td></td>
 <td>A single action in the planner</td>
 </tr>
 <tr>
 <td><code>action_planner</code></td>
+<td></td>
 <td>GOAP planner — manages actions and evaluators</td>
 </tr>
 <tr>
 <td><code>planner_action</code></td>
+<td></td>
 <td>Combined planner + action</td>
 </tr>
 <tr>
 <td><code>property_evaluator</code></td>
+<td></td>
 <td>Evaluates a world-state property (boolean)</td>
 </tr>
 <tr>
 <td><code>property_evaluator_const</code></td>
+<td></td>
 <td>Evaluator that always returns a constant</td>
 </tr>
 <tr>
 <td><code>world_property</code></td>
+<td></td>
 <td>Single property: condition ID + boolean value</td>
 </tr>
 <tr>
 <td><code>world_state</code></td>
+<td></td>
 <td>Set of world-state properties</td>
 </tr>
 </tbody>
@@ -5321,24 +5902,29 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <thead>
 <tr>
 <th>Module</th>
+<th>Req</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>axr_task_manager</code></td>
+<td></td>
 <td>Quest task creation and management</td>
 </tr>
 <tr>
 <td><code>bind_stalker_ext</code></td>
+<td></td>
 <td>Extended actor binder callbacks (see base game source)</td>
 </tr>
 <tr>
 <td><code>sim_board</code></td>
+<td></td>
 <td>Simulation board — squad/smart terrain matching</td>
 </tr>
 <tr>
 <td><code>story_objects</code></td>
+<td></td>
 <td><code>story_id</code> registration and lookup internals</td>
 </tr>
 </tbody>
