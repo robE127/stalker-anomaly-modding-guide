@@ -116,6 +116,9 @@ Web search and the Anomaly modding community (AP-PRO forums, ModDB, Discord) may
 ## Writing standards
 
 - **Code examples must be grounded.** Every function, method, or property shown in examples must exist in the base game scripts. Do not invent API.
+- **No assumed facts.** The "do not invent API" rule extends to all factual claims — file extensions, paths, config field names, behaviour descriptions, engine limits, anything. If a detail isn't confirmed by a source in `data/` (base game scripts, community mods, or xray-monolith), say so explicitly or leave it out. "I verified X in `game_autosave.script`" is the standard. "X is probably Y" is not acceptable in committed content.
+- **Cross-layer verification.** When a topic spans multiple source layers (e.g. C++ engine code and the Lua scripts that sit on top of it), verify details in all relevant layers. A C++ investigation that leaves a Lua-level detail unverified is incomplete — check both before writing.
+- **Ask when uncertain.** If a detail can't be confirmed from available sources, ask the project owner before writing it. They play and mod the game and may know the answer immediately — this is faster and more reliable than guessing.
 - **Accurate over complete.** A shorter page with verified information is better than a long page with speculative content.
 - **No WIP stubs.** Every page must be fully written before being committed. The admonition `!!! note "Work in progress"` must never appear in committed content.
 - **Lua style.** Use `local` for all module-level variables and callback functions. Show the full `on_game_start` / `on_game_end` registration pattern in every example that registers callbacks.
