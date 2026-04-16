@@ -1,0 +1,4926 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A comprehensive scripting and API reference for S.T.A.L.K.E.R. Anomaly modding — callbacks, engine bindings, config formats, and worked examples.">
+      
+      
+        <meta name="author" content="stalker-anomaly-modding-guide contributors">
+      
+      
+      
+        <link rel="prev" href="../actor/">
+      
+      
+        <link rel="next" href="../level/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>game_object - S.T.A.L.K.E.R. Anomaly Modding Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#game_object" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="S.T.A.L.K.E.R. Anomaly Modding Guide" class="md-header__button md-logo" aria-label="S.T.A.L.K.E.R. Anomaly Modding Guide" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            S.T.A.L.K.E.R. Anomaly Modding Guide
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              game_object
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="orange"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../scripting/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Scripting
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../config-formats/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Config Formats
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../systems/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Systems
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../callbacks-reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Callbacks Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../examples/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Examples
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/glossary/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="S.T.A.L.K.E.R. Anomaly Modding Guide" class="md-nav__button md-logo" aria-label="S.T.A.L.K.E.R. Anomaly Modding Guide" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    S.T.A.L.K.E.R. Anomaly Modding Guide
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../getting-started/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/environment-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/gamedata-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gamedata Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/first-mod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Your First Mod
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/packaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packaging & Publishing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../scripting/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scripting
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Scripting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/lua-in-anomaly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua in Anomaly
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/lua-scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua Scope & Globals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/game-object/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is a game_object?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/db-storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is db.storage?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/object-binders/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Binders
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/script-lifecycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Script Lifecycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/callbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The Callback System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debugging & Logging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/save-load/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Save & Load State
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/engine-internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engine Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../actor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    db.actor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    game_object
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    game_object
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#identity-position" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Identity &amp; position
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#type-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Type testing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vitals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vitals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#info-portions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Info portions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#applying-damage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Applying damage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#npc-stalker-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NPC / stalker methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NPC / stalker methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#relations-goodwill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relations &amp; goodwill
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#character-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Character info
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#economy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Economy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dialog-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dialog &amp; tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patrolling-movement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Patrolling &amp; movement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-perception" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory / perception
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-control-goap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script control (GOAP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sounds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sounds
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inventory-owner-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inventory owner methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trade-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trade methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#item-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Item methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#weapon-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weapon methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ammo-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ammo methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#outfit-armour-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Outfit / armour methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anomaly-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anomaly methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#particles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Particles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bones-geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bones &amp; geometry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-callbacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object callbacks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visual-hud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visual &amp; HUD
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miscellaneous" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-casting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Class casting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    level
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../game/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    game
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alife/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    alife
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../xr-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    xr_logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ini-file/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ini_file
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vector/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    vector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    hit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sound-object/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sound_object
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ctime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../config-formats/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Config Formats
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Config Formats
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config-formats/ltx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LTX Format
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config-formats/xml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XML Configs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config-formats/dxml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DXML (XML Patching)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config-formats/dltx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DLTX (LTX Patching)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../systems/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systems
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Systems
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/mcm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mod Configuration Menu
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/localization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Localization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/items/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Items & Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/npcs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NPCs & Factions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/ui-scripting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI Scripting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../callbacks-reference/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks Reference
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Callbacks Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../examples/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/keybind/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Keybind Action
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/item-use-effect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Item Use Effect
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/npc-death-reward/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NPC Death Reward
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/mcm-options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCM Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#identity-position" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Identity &amp; position
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#type-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Type testing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vitals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vitals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#info-portions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Info portions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#applying-damage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Applying damage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#npc-stalker-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NPC / stalker methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NPC / stalker methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#relations-goodwill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relations &amp; goodwill
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combat
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#character-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Character info
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#economy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Economy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dialog-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dialog &amp; tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patrolling-movement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Patrolling &amp; movement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-perception" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory / perception
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#script-control-goap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Script control (GOAP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sounds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sounds
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inventory-owner-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inventory owner methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trade-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trade methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#item-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Item methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#weapon-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weapon methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ammo-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ammo methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#outfit-armour-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Outfit / armour methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anomaly-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anomaly methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#particles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Particles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bones-geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bones &amp; geometry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-callbacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object callbacks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visual-hud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visual &amp; HUD
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#miscellaneous" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Miscellaneous
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#class-casting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Class casting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="game_object">game_object<a class="headerlink" href="#game_object" title="Permanent link">&para;</a></h1>
+<p><code>game_object</code> is the Lua class for every entity that exists in the game world as a client-side object — NPCs, mutants, items, weapons, anomaly zones, campfires, inventory boxes, and the actor. Every object you receive in a callback or retrieve with <code>level.object_by_id()</code> is a <code>game_object</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">db.actor is a game_object</p>
+<p>All methods on this page also work on <code>db.actor</code>. The <a href="../actor/">db.actor reference</a> documents actor-specific usage and adds the actor-only methods not covered here.</p>
+</div>
+<hr />
+<h2 id="identity-position">Identity &amp; position<a class="headerlink" href="#identity-position" title="Permanent link">&para;</a></h2>
+<p>These methods work on any game_object regardless of type.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Returns</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:id()</code></td>
+<td><code>number</code></td>
+<td>Alife ID (unique, stable per session)</td>
+</tr>
+<tr>
+<td><code>obj:name()</code></td>
+<td><code>string</code></td>
+<td>Internal name (e.g. <code>"esc_stalker_01"</code>)</td>
+</tr>
+<tr>
+<td><code>obj:section()</code></td>
+<td><code>string</code></td>
+<td>Config section (e.g. <code>"stalker_novice"</code>)</td>
+</tr>
+<tr>
+<td><code>obj:clsid()</code></td>
+<td><code>number</code></td>
+<td>Class ID constant — compare with <code>clsid.*</code></td>
+</tr>
+<tr>
+<td><code>obj:position()</code></td>
+<td><code>vector</code></td>
+<td>World position</td>
+</tr>
+<tr>
+<td><code>obj:level_vertex_id()</code></td>
+<td><code>number</code></td>
+<td>Local navmesh vertex</td>
+</tr>
+<tr>
+<td><code>obj:game_vertex_id()</code></td>
+<td><code>number</code></td>
+<td>Global graph node</td>
+</tr>
+<tr>
+<td><code>obj:direction()</code></td>
+<td><code>number</code></td>
+<td>Facing direction in radians</td>
+</tr>
+<tr>
+<td><code>obj:parent()</code></td>
+<td><code>game_object\|nil</code></td>
+<td>Owner if carried in inventory; <code>nil</code> otherwise</td>
+</tr>
+<tr>
+<td><code>obj:story_id()</code></td>
+<td><code>number</code></td>
+<td>Story ID if assigned; <code>-1</code> otherwise</td>
+</tr>
+</tbody>
+</table>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">level</span><span class="p">.</span><span class="nf">object_by_id</span><span class="p">(</span><span class="nv">some_id</span><span class="p">)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kr">if</span><span class="w"> </span><span class="nv">obj</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;[my_mod] %s at %s (section=%s)&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">obj</span><span class="p">:</span><span class="nf">name</span><span class="p">(),</span><span class="w"> </span><span class="nb">tostring</span><span class="p">(</span><span class="nv">obj</span><span class="p">:</span><span class="nf">position</span><span class="p">()),</span><span class="w"> </span><span class="nv">obj</span><span class="p">:</span><span class="nf">section</span><span class="p">())</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kr">end</span>
+</span></code></pre></div>
+<hr />
+<h2 id="type-testing">Type testing<a class="headerlink" href="#type-testing" title="Permanent link">&para;</a></h2>
+<p>Use these to check what kind of object you have before calling type-specific methods. The <code>is_*</code> functions return <code>true</code>/<code>false</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>True when…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:is_actor()</code></td>
+<td>Object is the player</td>
+</tr>
+<tr>
+<td><code>obj:is_stalker()</code></td>
+<td>Human NPC (not actor)</td>
+</tr>
+<tr>
+<td><code>obj:is_monster()</code></td>
+<td>Mutant creature</td>
+</tr>
+<tr>
+<td><code>obj:is_custom_monster()</code></td>
+<td>Both stalkers and monsters</td>
+</tr>
+<tr>
+<td><code>obj:is_trader()</code></td>
+<td>Trader NPC</td>
+</tr>
+<tr>
+<td><code>obj:is_entity_alive()</code></td>
+<td>Creature that can die (alive or dead)</td>
+</tr>
+<tr>
+<td><code>obj:is_weapon()</code></td>
+<td>Any weapon</td>
+</tr>
+<tr>
+<td><code>obj:is_weapon_magazined()</code></td>
+<td>Magazine-fed weapon</td>
+</tr>
+<tr>
+<td><code>obj:is_weapon_gl()</code></td>
+<td>Weapon with underbarrel launcher</td>
+</tr>
+<tr>
+<td><code>obj:is_outfit()</code></td>
+<td>Suit/armour</td>
+</tr>
+<tr>
+<td><code>obj:is_artefact()</code></td>
+<td>Artefact</td>
+</tr>
+<tr>
+<td><code>obj:is_ammo()</code></td>
+<td>Ammo box</td>
+</tr>
+<tr>
+<td><code>obj:is_scope()</code></td>
+<td>Scope attachment</td>
+</tr>
+<tr>
+<td><code>obj:is_silencer()</code></td>
+<td>Silencer attachment</td>
+</tr>
+<tr>
+<td><code>obj:is_grenade_launcher()</code></td>
+<td>Grenade launcher attachment</td>
+</tr>
+<tr>
+<td><code>obj:is_hud_item()</code></td>
+<td>Item that has a HUD model</td>
+</tr>
+<tr>
+<td><code>obj:is_space_restrictor()</code></td>
+<td>Zone/restrictor</td>
+</tr>
+<tr>
+<td><code>obj:is_anomaly()</code></td>
+<td>Anomaly zone</td>
+</tr>
+<tr>
+<td><code>obj:is_inventory_item()</code></td>
+<td>Can be held in inventory</td>
+</tr>
+<tr>
+<td><code>obj:is_inventory_owner()</code></td>
+<td>Has an inventory (NPC/actor)</td>
+</tr>
+<tr>
+<td><code>obj:is_inventory_box()</code></td>
+<td>Stash/inventory box</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Prefer <code>_g.script</code> helpers for simple checks</p>
+<p><code>IsStalker(obj)</code>, <code>IsMonster(obj)</code>, <code>IsWeapon(obj)</code> etc. wrap <code>clsid</code> comparisons and are safer (nil-check included). See <a href="../#type-checking-helpers-_gscript">Type-checking helpers</a>.</p>
+</div>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">on_hit</span><span class="p">(</span><span class="nv">obj</span><span class="p">,</span><span class="w"> </span><span class="nv">amount</span><span class="p">,</span><span class="w"> </span><span class="nv">local_dir</span><span class="p">,</span><span class="w"> </span><span class="nv">who</span><span class="p">,</span><span class="w"> </span><span class="nv">bone</span><span class="p">)</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">obj</span><span class="p">:</span><span class="nf">is_stalker</span><span class="p">()</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="nv">obj</span><span class="p">:</span><span class="nf">is_monster</span><span class="p">()</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;[my_mod] %s was hit for %f&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">obj</span><span class="p">:</span><span class="nf">name</span><span class="p">(),</span><span class="w"> </span><span class="nv">amount</span><span class="p">)</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="kr">end</span>
+</span></code></pre></div>
+<hr />
+<h2 id="vitals">Vitals<a class="headerlink" href="#vitals" title="Permanent link">&para;</a></h2>
+<p>Properties on a <code>game_object</code> (read/write directly):</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj.health</code></td>
+<td>0–1</td>
+<td>Current health</td>
+</tr>
+<tr>
+<td><code>obj.power</code></td>
+<td>0–1</td>
+<td>Current stamina</td>
+</tr>
+<tr>
+<td><code>obj.psy_health</code></td>
+<td>0–1</td>
+<td>Psychic health</td>
+</tr>
+<tr>
+<td><code>obj.radiation</code></td>
+<td>0–1</td>
+<td>Radiation level</td>
+</tr>
+<tr>
+<td><code>obj.bleeding</code></td>
+<td>0–1</td>
+<td>Bleeding intensity</td>
+</tr>
+<tr>
+<td><code>obj.morale</code></td>
+<td>0–1</td>
+<td>Morale (creatures)</td>
+</tr>
+</tbody>
+</table>
+<p>For incremental changes prefer the <code>change_*</code> methods:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:change_health(delta)</code></td>
+<td>Add delta to health (negative to damage)</td>
+</tr>
+<tr>
+<td><code>obj:change_power(delta)</code></td>
+<td>Add delta to stamina</td>
+</tr>
+<tr>
+<td><code>obj:change_psy_health(delta)</code></td>
+<td>Add delta to psy health</td>
+</tr>
+<tr>
+<td><code>obj:change_radiation(delta)</code></td>
+<td>Add delta to radiation</td>
+</tr>
+<tr>
+<td><code>obj:change_bleeding(delta)</code></td>
+<td>Add delta to bleed rate</td>
+</tr>
+<tr>
+<td><code>obj:change_morale(delta)</code></td>
+<td>Add delta to morale</td>
+</tr>
+<tr>
+<td><code>obj:alive()</code></td>
+<td>Returns <code>true</code> if not dead</td>
+</tr>
+<tr>
+<td><code>obj:max_health()</code></td>
+<td>Maximum health value</td>
+</tr>
+<tr>
+<td><code>obj:wounded()</code></td>
+<td>Get/set wounded state (boolean)</td>
+</tr>
+<tr>
+<td><code>obj:critically_wounded()</code></td>
+<td>True if in critical wound state</td>
+</tr>
+<tr>
+<td><code>obj:mass()</code></td>
+<td>Physics mass</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="info-portions">Info portions<a class="headerlink" href="#info-portions" title="Permanent link">&para;</a></h2>
+<p>Info portions work on any entity that can carry them (actors, NPCs).</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:has_info(id)</code></td>
+<td><code>true</code> if entity has this info portion</td>
+</tr>
+<tr>
+<td><code>obj:dont_has_info(id)</code></td>
+<td><code>true</code> if entity does NOT have it</td>
+</tr>
+<tr>
+<td><code>obj:give_info_portion(id)</code></td>
+<td>Set the info portion</td>
+</tr>
+<tr>
+<td><code>obj:disable_info_portion(id)</code></td>
+<td>Unset the info portion</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="applying-damage">Applying damage<a class="headerlink" href="#applying-damage" title="Permanent link">&para;</a></h2>
+<p>To deal damage to any creature from script, create a <code>hit</code> object and call <code>obj:hit()</code>:</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">damage_npc</span><span class="p">(</span><span class="nv">npc</span><span class="p">,</span><span class="w"> </span><span class="nv">amount</span><span class="p">)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">hit</span><span class="p">()</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nv">h</span><span class="p">.</span><span class="py">type</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="nv">hit</span><span class="p">.</span><span class="py">wound</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nv">h</span><span class="p">.</span><span class="py">power</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="nv">amount</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nv">h</span><span class="p">.</span><span class="py">direction</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nf">vector</span><span class="p">():</span><span class="nf">set</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nv">h</span><span class="p">.</span><span class="py">draftsman</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="w">   </span><span class="c1">-- who is credited with the hit</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nv">h</span><span class="p">.</span><span class="py">impulse</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nv">npc</span><span class="p">:</span><span class="nf">hit</span><span class="p">(</span><span class="nv">h</span><span class="p">)</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="kr">end</span>
+</span></code></pre></div>
+<p>See <a href="../hit/">hit</a> for all hit type constants and properties.</p>
+<hr />
+<h2 id="npc-stalker-methods">NPC / stalker methods<a class="headerlink" href="#npc-stalker-methods" title="Permanent link">&para;</a></h2>
+<p>These apply when <code>obj:is_stalker()</code> or <code>obj:is_actor()</code> is true.</p>
+<h3 id="relations-goodwill">Relations &amp; goodwill<a class="headerlink" href="#relations-goodwill" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:relation(other)</code></td>
+<td>Relation enum toward <code>other</code> (0=kill, 1=neutral, 2=friend)</td>
+</tr>
+<tr>
+<td><code>obj:goodwill(other)</code></td>
+<td>Personal goodwill toward <code>other</code> game_object</td>
+</tr>
+<tr>
+<td><code>obj:general_goodwill(other)</code></td>
+<td>Combined goodwill (personal + community)</td>
+</tr>
+<tr>
+<td><code>obj:community_goodwill(faction)</code></td>
+<td>NPC's community goodwill toward a faction string</td>
+</tr>
+<tr>
+<td><code>obj:set_relation(type, other)</code></td>
+<td>Override relation enum</td>
+</tr>
+<tr>
+<td><code>obj:set_goodwill(val, other)</code></td>
+<td>Set personal goodwill (−10000 to 10000)</td>
+</tr>
+<tr>
+<td><code>obj:force_set_goodwill(val, other)</code></td>
+<td>Force-set goodwill (bypasses clamping)</td>
+</tr>
+<tr>
+<td><code>obj:change_goodwill(delta, other)</code></td>
+<td>Adjust goodwill by delta</td>
+</tr>
+<tr>
+<td><code>obj:set_community_goodwill(faction, val)</code></td>
+<td>Set NPC's community goodwill</td>
+</tr>
+<tr>
+<td><code>obj:sympathy()</code></td>
+<td>Sympathy value (community affinity)</td>
+</tr>
+<tr>
+<td><code>obj:set_sympathy(val)</code></td>
+<td>Set sympathy</td>
+</tr>
+<tr>
+<td><code>obj:rank()</code></td>
+<td>Rank value</td>
+</tr>
+</tbody>
+</table>
+<h3 id="combat">Combat<a class="headerlink" href="#combat" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:see(other)</code></td>
+<td>True if NPC can currently see <code>other</code></td>
+</tr>
+<tr>
+<td><code>obj:see(section)</code></td>
+<td>True if NPC can see any object matching section</td>
+</tr>
+<tr>
+<td><code>obj:best_enemy()</code></td>
+<td>Current best enemy <code>game_object</code></td>
+</tr>
+<tr>
+<td><code>obj:get_enemy()</code></td>
+<td>Active enemy target</td>
+</tr>
+<tr>
+<td><code>obj:set_enemy(obj)</code></td>
+<td>Force a new enemy target</td>
+</tr>
+<tr>
+<td><code>obj:best_danger()</code></td>
+<td>Most threatening danger source</td>
+</tr>
+<tr>
+<td><code>obj:mental_state()</code></td>
+<td>Current mental state (free/danger/panic)</td>
+</tr>
+<tr>
+<td><code>obj:set_mental_state(state)</code></td>
+<td>Set mental state</td>
+</tr>
+<tr>
+<td><code>obj:kill(who)</code></td>
+<td>Kill the NPC, crediting <code>who</code></td>
+</tr>
+<tr>
+<td><code>obj:can_be_harmed()</code></td>
+<td>Whether NPC can take damage</td>
+</tr>
+<tr>
+<td><code>obj:set_can_be_harmed(bool)</code></td>
+<td>Toggle harm-ability</td>
+</tr>
+<tr>
+<td><code>obj:invulnerable()</code></td>
+<td>Get invulnerability</td>
+</tr>
+<tr>
+<td><code>obj:invulnerable(bool)</code></td>
+<td>Set invulnerability</td>
+</tr>
+<tr>
+<td><code>obj:register_in_combat()</code></td>
+<td>Mark as combat participant</td>
+</tr>
+<tr>
+<td><code>obj:unregister_in_combat()</code></td>
+<td>Remove from combat tracking</td>
+</tr>
+<tr>
+<td><code>obj:berserk()</code></td>
+<td>Force berserk state</td>
+</tr>
+</tbody>
+</table>
+<h3 id="character-info">Character info<a class="headerlink" href="#character-info" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:character_name()</code></td>
+<td>Display name</td>
+</tr>
+<tr>
+<td><code>obj:character_icon()</code></td>
+<td>Portrait icon</td>
+</tr>
+<tr>
+<td><code>obj:character_community()</code></td>
+<td>Faction string</td>
+</tr>
+<tr>
+<td><code>obj:character_rank()</code></td>
+<td>Rank value</td>
+</tr>
+<tr>
+<td><code>obj:character_reputation()</code></td>
+<td>Reputation</td>
+</tr>
+<tr>
+<td><code>obj:set_character_rank(val)</code></td>
+<td>Set rank</td>
+</tr>
+<tr>
+<td><code>obj:set_character_community(faction, rank, rep)</code></td>
+<td>Change faction</td>
+</tr>
+<tr>
+<td><code>obj:set_character_icon(icon)</code></td>
+<td>Change portrait</td>
+</tr>
+<tr>
+<td><code>obj:change_character_reputation(delta)</code></td>
+<td>Adjust reputation</td>
+</tr>
+<tr>
+<td><code>obj:profile_name()</code></td>
+<td>Internal profile name</td>
+</tr>
+</tbody>
+</table>
+<h3 id="economy">Economy<a class="headerlink" href="#economy" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:money()</code></td>
+<td>Current money in RU</td>
+</tr>
+<tr>
+<td><code>obj:give_money(amount)</code></td>
+<td>Add (or remove if negative) RU</td>
+</tr>
+<tr>
+<td><code>obj:transfer_money(amount, target)</code></td>
+<td>Move RU to another entity</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dialog-tasks">Dialog &amp; tasks<a class="headerlink" href="#dialog-tasks" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:enable_talk()</code></td>
+<td>Allow player to start dialog</td>
+</tr>
+<tr>
+<td><code>obj:disable_talk()</code></td>
+<td>Prevent dialog</td>
+</tr>
+<tr>
+<td><code>obj:is_talk_enabled()</code></td>
+<td>Whether dialog is allowed</td>
+</tr>
+<tr>
+<td><code>obj:is_talking()</code></td>
+<td>Whether dialog is active</td>
+</tr>
+<tr>
+<td><code>obj:switch_to_talk()</code></td>
+<td>Open dialog with this NPC</td>
+</tr>
+<tr>
+<td><code>obj:stop_talk()</code></td>
+<td>End current dialog</td>
+</tr>
+<tr>
+<td><code>obj:allow_break_talk_dialog(bool)</code></td>
+<td>Whether player can close dialog early</td>
+</tr>
+<tr>
+<td><code>obj:run_talk_dialog(npc, bool)</code></td>
+<td>Force dialog with <code>npc</code></td>
+</tr>
+<tr>
+<td><code>obj:give_talk_message(npc_id, dialog_id, icon)</code></td>
+<td>Show talk message</td>
+</tr>
+<tr>
+<td><code>obj:give_talk_message2(npc_id, dialog_id, icon, sound)</code></td>
+<td>Show talk message with sound</td>
+</tr>
+<tr>
+<td><code>obj:get_start_dialog()</code></td>
+<td>First dialog ID</td>
+</tr>
+<tr>
+<td><code>obj:set_start_dialog(id)</code></td>
+<td>Override start dialog</td>
+</tr>
+<tr>
+<td><code>obj:restore_default_start_dialog()</code></td>
+<td>Reset to config dialog</td>
+</tr>
+<tr>
+<td><code>obj:give_task(task, t1, bool, t2)</code></td>
+<td>Assign a task</td>
+</tr>
+<tr>
+<td><code>obj:set_active_task(task)</code></td>
+<td>Set active task</td>
+</tr>
+<tr>
+<td><code>obj:get_task_state(id)</code></td>
+<td>State of task by ID</td>
+</tr>
+</tbody>
+</table>
+<h3 id="patrolling-movement">Patrolling &amp; movement<a class="headerlink" href="#patrolling-movement" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:set_patrol_path(name, start_type, route_type, bool)</code></td>
+<td>Set patrol path</td>
+</tr>
+<tr>
+<td><code>obj:patrol()</code></td>
+<td>Current patrol object</td>
+</tr>
+<tr>
+<td><code>obj:path_completed()</code></td>
+<td>True if current path is done</td>
+</tr>
+<tr>
+<td><code>obj:set_dest_game_vertex_id(gvid)</code></td>
+<td>Set destination graph node</td>
+</tr>
+<tr>
+<td><code>obj:set_dest_level_vertex_id(lvid)</code></td>
+<td>Set destination navmesh node</td>
+</tr>
+<tr>
+<td><code>obj:set_path_type(type)</code></td>
+<td>Path type (game_path/level_path/etc.)</td>
+</tr>
+<tr>
+<td><code>obj:movement_type()</code></td>
+<td>Current movement type</td>
+</tr>
+<tr>
+<td><code>obj:set_movement_type(type)</code></td>
+<td>Override movement type</td>
+</tr>
+<tr>
+<td><code>obj:set_body_state(state)</code></td>
+<td>Stand/crouch state</td>
+</tr>
+<tr>
+<td><code>obj:set_fov(angle)</code></td>
+<td>Override field of view</td>
+</tr>
+<tr>
+<td><code>obj:fov()</code></td>
+<td>Current field of view</td>
+</tr>
+<tr>
+<td><code>obj:set_home(patrol, min, max, aggress, [point])</code></td>
+<td>Define home territory</td>
+</tr>
+<tr>
+<td><code>obj:remove_home()</code></td>
+<td>Remove home restriction</td>
+</tr>
+<tr>
+<td><code>obj:jump(pos, factor)</code></td>
+<td>Force a jump toward <code>pos</code></td>
+</tr>
+<tr>
+<td><code>obj:set_npc_position(pos)</code></td>
+<td>Teleport NPC to position</td>
+</tr>
+<tr>
+<td><code>obj:set_desired_position([pos])</code></td>
+<td>Hint at preferred position</td>
+</tr>
+<tr>
+<td><code>obj:set_desired_direction([dir])</code></td>
+<td>Hint at preferred facing</td>
+</tr>
+<tr>
+<td><code>obj:movement_target_reached()</code></td>
+<td>True when movement goal reached</td>
+</tr>
+<tr>
+<td><code>obj:get_movement_speed()</code></td>
+<td>Current movement speed</td>
+</tr>
+<tr>
+<td><code>obj:allow_sprint(bool)</code></td>
+<td>Toggle sprinting</td>
+</tr>
+</tbody>
+</table>
+<h3 id="memory-perception">Memory / perception<a class="headerlink" href="#memory-perception" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:memory_visible_objects()</code></td>
+<td>List of visible remembered objects</td>
+</tr>
+<tr>
+<td><code>obj:memory_sound_objects()</code></td>
+<td>List of recently heard objects</td>
+</tr>
+<tr>
+<td><code>obj:memory_hit_objects()</code></td>
+<td>List of recently hit objects</td>
+</tr>
+<tr>
+<td><code>obj:memory_time(other)</code></td>
+<td>Last time <code>other</code> was perceived</td>
+</tr>
+<tr>
+<td><code>obj:memory_position(other)</code></td>
+<td>Last known position of <code>other</code></td>
+</tr>
+<tr>
+<td><code>obj:not_yet_visible_objects()</code></td>
+<td>Objects entering vision but not yet seen</td>
+</tr>
+<tr>
+<td><code>obj:enable_memory_object(other, bool)</code></td>
+<td>Force-track/untrack an object in memory</td>
+</tr>
+<tr>
+<td><code>obj:make_object_visible_somewhen(other)</code></td>
+<td>Schedule visibility of <code>other</code></td>
+</tr>
+<tr>
+<td><code>obj:set_visual_memory_enabled(bool)</code></td>
+<td>Toggle visual memory system</td>
+</tr>
+<tr>
+<td><code>obj:enable_vision(bool)</code></td>
+<td>Toggle vision entirely</td>
+</tr>
+<tr>
+<td><code>obj:vision_enabled()</code></td>
+<td>Whether vision is on</td>
+</tr>
+<tr>
+<td><code>obj:who_hit_name()</code></td>
+<td>Name of last attacker</td>
+</tr>
+<tr>
+<td><code>obj:who_hit_section_name()</code></td>
+<td>Section of last attacker</td>
+</tr>
+<tr>
+<td><code>obj:get_monster_hit_info()</code></td>
+<td><code>MonsterHitInfo</code> for last hit received</td>
+</tr>
+</tbody>
+</table>
+<h3 id="script-control-goap">Script control (GOAP)<a class="headerlink" href="#script-control-goap" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:script(bool, name)</code></td>
+<td>Take (<code>true</code>) or release (<code>false</code>) scripted control</td>
+</tr>
+<tr>
+<td><code>obj:get_script()</code></td>
+<td>True if under script control</td>
+</tr>
+<tr>
+<td><code>obj:can_script_capture()</code></td>
+<td>True if script control is available</td>
+</tr>
+<tr>
+<td><code>obj:motivation_action_manager(obj)</code></td>
+<td>Access the GOAP planner</td>
+</tr>
+<tr>
+<td><code>obj:debug_planner(planner)</code></td>
+<td>Dump planner state to log</td>
+</tr>
+<tr>
+<td><code>obj:action()</code></td>
+<td>Current active script action</td>
+</tr>
+<tr>
+<td><code>obj:action_count()</code></td>
+<td>Number of queued actions</td>
+</tr>
+<tr>
+<td><code>obj:action_by_index(i)</code></td>
+<td>Action at index <code>i</code></td>
+</tr>
+<tr>
+<td><code>obj:reset_action_queue()</code></td>
+<td>Clear pending actions</td>
+</tr>
+<tr>
+<td><code>obj:set_fastcall(fn, obj)</code></td>
+<td>Register a per-frame update function</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sounds">Sounds<a class="headerlink" href="#sounds" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:add_sound(path, count, type, delay, priority, freq, [anim])</code></td>
+<td>Register a script sound</td>
+</tr>
+<tr>
+<td><code>obj:add_combat_sound(path, count, type, delay, priority, freq, anim)</code></td>
+<td>Register combat sound</td>
+</tr>
+<tr>
+<td><code>obj:remove_sound(index)</code></td>
+<td>Remove a registered sound</td>
+</tr>
+<tr>
+<td><code>obj:play_sound(index, [delay, [priority, [freq, [vol, [pitch]]]]])</code></td>
+<td>Play a registered sound</td>
+</tr>
+<tr>
+<td><code>obj:active_sound_count([bool])</code></td>
+<td>Number of currently playing sounds</td>
+</tr>
+<tr>
+<td><code>obj:external_sound_start(name)</code></td>
+<td>Start an external named sound</td>
+</tr>
+<tr>
+<td><code>obj:external_sound_stop()</code></td>
+<td>Stop external sound</td>
+</tr>
+<tr>
+<td><code>obj:restore_sound_threshold()</code></td>
+<td>Reset sound threshold</td>
+</tr>
+<tr>
+<td><code>obj:set_sound_threshold(val)</code></td>
+<td>Set minimum audible threshold</td>
+</tr>
+<tr>
+<td><code>obj:set_sound_mask(mask)</code></td>
+<td>Bit-mask of permitted sound channels</td>
+</tr>
+<tr>
+<td><code>obj:sound_prefix()</code></td>
+<td>Current voice/sound prefix</td>
+</tr>
+<tr>
+<td><code>obj:sound_prefix(prefix)</code></td>
+<td>Override voice/sound prefix</td>
+</tr>
+<tr>
+<td><code>obj:sound_voice_prefix()</code></td>
+<td>Voice-specific prefix</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="inventory-owner-methods">Inventory owner methods<a class="headerlink" href="#inventory-owner-methods" title="Permanent link">&para;</a></h2>
+<p>Available when <code>obj:is_inventory_owner()</code> is true (NPC or actor).</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:object(section)</code></td>
+<td>First item matching section; <code>nil</code> if not found</td>
+</tr>
+<tr>
+<td><code>obj:object(id)</code></td>
+<td>Item with given alife ID; <code>nil</code> if not held</td>
+</tr>
+<tr>
+<td><code>obj:iterate_inventory(fn, data)</code></td>
+<td>Iterate all items: <code>fn(data, item)</code></td>
+</tr>
+<tr>
+<td><code>obj:iterate_ruck(fn, data)</code></td>
+<td>Iterate backpack items only</td>
+</tr>
+<tr>
+<td><code>obj:iterate_belt(fn, data)</code></td>
+<td>Iterate belt items only</td>
+</tr>
+<tr>
+<td><code>obj:inventory_for_each(fn)</code></td>
+<td>Iterate all items: <code>fn(item)</code></td>
+</tr>
+<tr>
+<td><code>obj:active_item()</code></td>
+<td>Currently held item</td>
+</tr>
+<tr>
+<td><code>obj:item_in_slot(slot_id)</code></td>
+<td>Item in slot; <code>nil</code> if empty</td>
+</tr>
+<tr>
+<td><code>obj:item_on_belt(index)</code></td>
+<td>Belt item at 0-based index</td>
+</tr>
+<tr>
+<td><code>obj:belt_count()</code></td>
+<td>Number of belt items</td>
+</tr>
+<tr>
+<td><code>obj:is_on_belt(item)</code></td>
+<td>True if item is on the belt</td>
+</tr>
+<tr>
+<td><code>obj:active_slot()</code></td>
+<td>Active weapon slot index</td>
+</tr>
+<tr>
+<td><code>obj:activate_slot(slot_id)</code></td>
+<td>Switch active weapon slot</td>
+</tr>
+<tr>
+<td><code>obj:best_weapon()</code></td>
+<td>Best weapon in inventory</td>
+</tr>
+<tr>
+<td><code>obj:best_item()</code></td>
+<td>Best general item</td>
+</tr>
+<tr>
+<td><code>obj:get_artefact()</code></td>
+<td>Currently active artefact</td>
+</tr>
+<tr>
+<td><code>obj:active_detector()</code></td>
+<td>Active detector object</td>
+</tr>
+<tr>
+<td><code>obj:show_detector()</code></td>
+<td>Show detector</td>
+</tr>
+<tr>
+<td><code>obj:hide_detector()</code></td>
+<td>Hide detector</td>
+</tr>
+<tr>
+<td><code>obj:drop_item(item)</code></td>
+<td>Drop item to the ground</td>
+</tr>
+<tr>
+<td><code>obj:drop_item_and_teleport(item, pos)</code></td>
+<td>Drop and teleport item</td>
+</tr>
+<tr>
+<td><code>obj:take_items_enabled(bool)</code></td>
+<td>Toggle item pickup</td>
+</tr>
+<tr>
+<td><code>obj:take_items_enabled()</code></td>
+<td>Whether item pickup is enabled</td>
+</tr>
+<tr>
+<td><code>obj:is_there_items_to_pickup()</code></td>
+<td>Items nearby to pick up</td>
+</tr>
+<tr>
+<td><code>obj:transfer_item(item, target)</code></td>
+<td>Move item to another inventory</td>
+</tr>
+<tr>
+<td><code>obj:move_to_ruck(item)</code></td>
+<td>Move item to backpack</td>
+</tr>
+<tr>
+<td><code>obj:move_to_slot(item, slot_id)</code></td>
+<td>Move item to weapon slot</td>
+</tr>
+<tr>
+<td><code>obj:move_to_belt(item)</code></td>
+<td>Move item to belt</td>
+</tr>
+<tr>
+<td><code>obj:eat(item)</code></td>
+<td>Consume a food/medkit item</td>
+</tr>
+<tr>
+<td><code>obj:get_total_weight()</code></td>
+<td>Total carry weight</td>
+</tr>
+<tr>
+<td><code>obj:get_inv_weight()</code></td>
+<td>Backpack weight</td>
+</tr>
+<tr>
+<td><code>obj:get_inv_max_weight()</code></td>
+<td>Max backpack capacity</td>
+</tr>
+<tr>
+<td><code>obj:get_actor_max_weight()</code></td>
+<td>Absolute max carry weight</td>
+</tr>
+<tr>
+<td><code>obj:set_actor_max_weight(v)</code></td>
+<td>Override max carry weight</td>
+</tr>
+<tr>
+<td><code>obj:get_actor_max_walk_weight()</code></td>
+<td>Walk weight limit</td>
+</tr>
+<tr>
+<td><code>obj:set_actor_max_walk_weight(v)</code></td>
+<td>Override walk weight limit</td>
+</tr>
+<tr>
+<td><code>obj:can_select_weapon(bool)</code></td>
+<td>Toggle weapon auto-select</td>
+</tr>
+<tr>
+<td><code>obj:weapon_strapped()</code></td>
+<td>True if weapon is holstered</td>
+</tr>
+<tr>
+<td><code>obj:weapon_unstrapped()</code></td>
+<td>True if weapon is drawn</td>
+</tr>
+<tr>
+<td><code>obj:hide_weapon()</code></td>
+<td>Holster weapon</td>
+</tr>
+<tr>
+<td><code>obj:restore_weapon()</code></td>
+<td>Equip previous weapon</td>
+</tr>
+<tr>
+<td><code>obj:make_item_active(item)</code></td>
+<td>Force item into active slot</td>
+</tr>
+<tr>
+<td><code>obj:mark_item_dropped(item)</code></td>
+<td>Mark item as intentionally dropped</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="trade-methods">Trade methods<a class="headerlink" href="#trade-methods" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:is_trade_enabled()</code></td>
+<td>Whether trade is available</td>
+</tr>
+<tr>
+<td><code>obj:enable_trade()</code></td>
+<td>Allow trading</td>
+</tr>
+<tr>
+<td><code>obj:disable_trade()</code></td>
+<td>Prevent trading</td>
+</tr>
+<tr>
+<td><code>obj:switch_to_trade()</code></td>
+<td>Open trade UI</td>
+</tr>
+<tr>
+<td><code>obj:item_allow_trade(item)</code></td>
+<td>Mark item as tradeable</td>
+</tr>
+<tr>
+<td><code>obj:item_deny_trade(item)</code></td>
+<td>Mark item as not tradeable</td>
+</tr>
+<tr>
+<td><code>obj:buy_condition(ini, section)</code></td>
+<td>Set buy condition from ini</td>
+</tr>
+<tr>
+<td><code>obj:sell_condition(ini, section)</code></td>
+<td>Set sell condition from ini</td>
+</tr>
+<tr>
+<td><code>obj:buy_supplies(ini, section)</code></td>
+<td>Load supply config</td>
+</tr>
+<tr>
+<td><code>obj:buy_item_condition_factor(v)</code></td>
+<td>Set item condition threshold for purchases</td>
+</tr>
+<tr>
+<td><code>obj:set_trader_global_anim(name)</code></td>
+<td>Set trader global animation</td>
+</tr>
+<tr>
+<td><code>obj:set_trader_head_anim(name)</code></td>
+<td>Set trader head animation</td>
+</tr>
+<tr>
+<td><code>obj:set_trader_sound(name, anim)</code></td>
+<td>Set trader sound</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="item-methods">Item methods<a class="headerlink" href="#item-methods" title="Permanent link">&para;</a></h2>
+<p>Available when <code>obj:is_inventory_item()</code> is true.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:condition()</code></td>
+<td>Durability (0–1)</td>
+</tr>
+<tr>
+<td><code>obj:set_condition(v)</code></td>
+<td>Set durability</td>
+</tr>
+<tr>
+<td><code>obj:weight()</code></td>
+<td>Item weight in kg</td>
+</tr>
+<tr>
+<td><code>obj:set_weight(v)</code></td>
+<td>Override weight</td>
+</tr>
+<tr>
+<td><code>obj:cost()</code></td>
+<td>Item value in RU</td>
+</tr>
+<tr>
+<td><code>obj:get_max_uses()</code></td>
+<td>Maximum use count</td>
+</tr>
+<tr>
+<td><code>obj:get_remaining_uses()</code></td>
+<td>Remaining uses</td>
+</tr>
+<tr>
+<td><code>obj:set_remaining_uses(n)</code></td>
+<td>Set remaining uses</td>
+</tr>
+<tr>
+<td><code>obj:install_upgrade(section)</code></td>
+<td>Apply an upgrade to the item</td>
+</tr>
+<tr>
+<td><code>obj:has_upgrade(section)</code></td>
+<td>True if upgrade is installed</td>
+</tr>
+<tr>
+<td><code>obj:iterate_installed_upgrades(fn)</code></td>
+<td>Iterate installed upgrades: <code>fn(section, item)</code>, return <code>true</code> to stop</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="weapon-methods">Weapon methods<a class="headerlink" href="#weapon-methods" title="Permanent link">&para;</a></h2>
+<p>Available when <code>obj:is_weapon()</code> is true.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:get_main_weapon_type()</code></td>
+<td>Main weapon type constant</td>
+</tr>
+<tr>
+<td><code>obj:set_main_weapon_type(n)</code></td>
+<td>Override main weapon type</td>
+</tr>
+<tr>
+<td><code>obj:get_weapon_type()</code></td>
+<td>Weapon category constant</td>
+</tr>
+<tr>
+<td><code>obj:set_weapon_type(n)</code></td>
+<td>Override weapon category</td>
+</tr>
+<tr>
+<td><code>obj:get_ammo_total()</code></td>
+<td>Total ammo across all magazines</td>
+</tr>
+<tr>
+<td><code>obj:get_ammo_in_magazine()</code></td>
+<td>Rounds currently in magazine</td>
+</tr>
+<tr>
+<td><code>obj:set_ammo_elapsed(n)</code></td>
+<td>Set magazine fill count</td>
+</tr>
+<tr>
+<td><code>obj:unload_magazine(retrieve)</code></td>
+<td>Unload — pass <code>true</code> to recover ammo</td>
+</tr>
+<tr>
+<td><code>obj:force_unload_magazine(retrieve)</code></td>
+<td>Unload even when jammed</td>
+</tr>
+<tr>
+<td><code>obj:get_ammo_type()</code></td>
+<td>Current ammo type index</td>
+</tr>
+<tr>
+<td><code>obj:set_ammo_type(n)</code></td>
+<td>Set ammo type</td>
+</tr>
+<tr>
+<td><code>obj:has_ammo_type(n)</code></td>
+<td>True if ammo type is compatible</td>
+</tr>
+<tr>
+<td><code>obj:get_state()</code></td>
+<td>Weapon state constant</td>
+</tr>
+<tr>
+<td><code>obj:get_weapon_substate()</code></td>
+<td>Sub-state constant</td>
+</tr>
+<tr>
+<td><code>obj:switch_state(n)</code></td>
+<td>Force weapon state transition</td>
+</tr>
+<tr>
+<td><code>obj:weapon_in_grenade_mode()</code></td>
+<td>True when in GL mode</td>
+</tr>
+<tr>
+<td><code>obj:weapon_is_scope()</code></td>
+<td>True if scope is installed</td>
+</tr>
+<tr>
+<td><code>obj:weapon_scope_status()</code></td>
+<td>Scope attachment status</td>
+</tr>
+<tr>
+<td><code>obj:weapon_is_silencer()</code></td>
+<td>True if silencer installed</td>
+</tr>
+<tr>
+<td><code>obj:weapon_silencer_status()</code></td>
+<td>Silencer attachment status</td>
+</tr>
+<tr>
+<td><code>obj:weapon_is_grenadelauncher()</code></td>
+<td>True if GL installed</td>
+</tr>
+<tr>
+<td><code>obj:weapon_grenadelauncher_status()</code></td>
+<td>GL attachment status</td>
+</tr>
+<tr>
+<td><code>obj:weapon_addon_attach(item)</code></td>
+<td>Attach an addon <code>game_object</code></td>
+</tr>
+<tr>
+<td><code>obj:weapon_addon_detach(section)</code></td>
+<td>Detach addon by section name</td>
+</tr>
+<tr>
+<td><code>obj:set_queue_size(n)</code></td>
+<td>Override burst size</td>
+</tr>
+<tr>
+<td><code>obj:can_throw_grenades()</code></td>
+<td>Whether NPC can throw grenades</td>
+</tr>
+<tr>
+<td><code>obj:can_throw_grenades(bool)</code></td>
+<td>Toggle grenade throwing</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="ammo-methods">Ammo methods<a class="headerlink" href="#ammo-methods" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:ammo_get_count()</code></td>
+<td>Rounds in this ammo box</td>
+</tr>
+<tr>
+<td><code>obj:ammo_set_count(n)</code></td>
+<td>Set round count</td>
+</tr>
+<tr>
+<td><code>obj:ammo_box_size()</code></td>
+<td>Maximum capacity of the box</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="outfit-armour-methods">Outfit / armour methods<a class="headerlink" href="#outfit-armour-methods" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:get_current_outfit()</code></td>
+<td>Currently equipped outfit <code>game_object</code></td>
+</tr>
+<tr>
+<td><code>obj:get_current_outfit_protection(hit_type)</code></td>
+<td>Protection value for a given hit type</td>
+</tr>
+<tr>
+<td><code>obj:get_additional_max_weight()</code></td>
+<td>Extra carry capacity from outfit</td>
+</tr>
+<tr>
+<td><code>obj:set_additional_max_weight(v)</code></td>
+<td>Override extra carry capacity</td>
+</tr>
+<tr>
+<td><code>obj:get_additional_max_walk_weight()</code></td>
+<td>Extra walk-weight capacity</td>
+</tr>
+<tr>
+<td><code>obj:set_additional_max_walk_weight(v)</code></td>
+<td>Override extra walk-weight capacity</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="anomaly-methods">Anomaly methods<a class="headerlink" href="#anomaly-methods" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:get_anomaly_power()</code></td>
+<td>Current power/intensity</td>
+</tr>
+<tr>
+<td><code>obj:set_anomaly_power(v)</code></td>
+<td>Override power</td>
+</tr>
+<tr>
+<td><code>obj:get_anomaly_radius()</code></td>
+<td>Effect radius</td>
+</tr>
+<tr>
+<td><code>obj:set_anomaly_radius(v)</code></td>
+<td>Override radius</td>
+</tr>
+<tr>
+<td><code>obj:set_anomaly_position(x, y, z)</code></td>
+<td>Reposition anomaly</td>
+</tr>
+<tr>
+<td><code>obj:enable_anomaly()</code></td>
+<td>Enable anomaly</td>
+</tr>
+<tr>
+<td><code>obj:disable_anomaly()</code></td>
+<td>Disable anomaly</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="particles">Particles<a class="headerlink" href="#particles" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:start_particles(effect, bone)</code></td>
+<td>Attach particle effect to a bone</td>
+</tr>
+<tr>
+<td><code>obj:stop_particles(effect, bone)</code></td>
+<td>Remove particle effect from a bone</td>
+</tr>
+</tbody>
+</table>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">-- Attach a fire effect to an NPC&#39;s torso</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nv">npc</span><span class="p">:</span><span class="nf">start_particles</span><span class="p">(</span><span class="s2">&quot;anomaly</span><span class="se">\\</span><span class="s2">electra_hit_01&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;bip01_spine&quot;</span><span class="p">)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1">-- Remove it later</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nv">npc</span><span class="p">:</span><span class="nf">stop_particles</span><span class="p">(</span><span class="s2">&quot;anomaly</span><span class="se">\\</span><span class="s2">electra_hit_01&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;bip01_spine&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<hr />
+<h2 id="bones-geometry">Bones &amp; geometry<a class="headerlink" href="#bones-geometry" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:bone_position(bone_name)</code></td>
+<td>World position of a named bone</td>
+</tr>
+<tr>
+<td><code>obj:get_bone_id(bone_name)</code></td>
+<td>Numeric bone ID</td>
+</tr>
+<tr>
+<td><code>obj:center()</code></td>
+<td>World position of the object's centre</td>
+</tr>
+<tr>
+<td><code>obj:inside(pos, radius)</code></td>
+<td>True if <code>pos</code> is within the zone</td>
+</tr>
+<tr>
+<td><code>obj:inside(pos)</code></td>
+<td>True if <code>pos</code> is within the zone (default radius)</td>
+</tr>
+<tr>
+<td><code>obj:mass()</code></td>
+<td>Physics mass</td>
+</tr>
+<tr>
+<td><code>obj:get_physics_shell()</code></td>
+<td>Physics shell if one exists</td>
+</tr>
+<tr>
+<td><code>obj:get_physics_object()</code></td>
+<td>Raw physics object</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="object-callbacks">Object callbacks<a class="headerlink" href="#object-callbacks" title="Permanent link">&para;</a></h2>
+<p><code>game_object</code> supports per-object per-callback registration (distinct from the global callback system). These bind directly to the object:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:set_callback(type, fn)</code></td>
+<td>Register <code>fn</code> for callback <code>type</code></td>
+</tr>
+<tr>
+<td><code>obj:set_callback(type, fn, obj)</code></td>
+<td>Register with extra <code>obj</code> context</td>
+</tr>
+<tr>
+<td><code>obj:set_callback(type)</code></td>
+<td>Clear callback for <code>type</code></td>
+</tr>
+</tbody>
+</table>
+<p>Use <code>callback.*</code> constants for <code>type</code>. Example:</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">-- React to this specific NPC dying</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nv">npc</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">death</span><span class="p">,</span><span class="w"> </span><span class="kr">function</span><span class="p">(</span><span class="nv">victim</span><span class="p">,</span><span class="w"> </span><span class="nv">killer</span><span class="p">)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;[my_mod] %s was killed by %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">victim</span><span class="p">:</span><span class="nf">name</span><span class="p">(),</span><span class="w"> </span><span class="nv">killer</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">killer</span><span class="p">:</span><span class="nf">name</span><span class="p">()</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s2">&quot;unknown&quot;</span><span class="p">)</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="kr">end</span><span class="p">)</span>
+</span></code></pre></div>
+<hr />
+<h2 id="visual-hud">Visual &amp; HUD<a class="headerlink" href="#visual-hud" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:get_visual_name()</code></td>
+<td>Path to current 3D model</td>
+</tr>
+<tr>
+<td><code>obj:set_visual_name(path)</code></td>
+<td>Change 3D model</td>
+</tr>
+<tr>
+<td><code>obj:set_invisible(bool)</code></td>
+<td>Toggle object visibility</td>
+</tr>
+<tr>
+<td><code>obj:force_visibility_state(n)</code></td>
+<td>Force a specific visibility state</td>
+</tr>
+<tr>
+<td><code>obj:get_visibility_state()</code></td>
+<td>Current visibility state</td>
+</tr>
+<tr>
+<td><code>obj:night_vision_enabled()</code></td>
+<td>True if NV is active</td>
+</tr>
+<tr>
+<td><code>obj:enable_night_vision(bool)</code></td>
+<td>Toggle NV on NPC</td>
+</tr>
+<tr>
+<td><code>obj:play_cycle(anim)</code></td>
+<td>Loop a named animation</td>
+</tr>
+<tr>
+<td><code>obj:play_cycle(anim, mix)</code></td>
+<td>Loop with blending</td>
+</tr>
+<tr>
+<td><code>obj:add_animation(anim, mix, bool)</code></td>
+<td>Queue a one-shot animation</td>
+</tr>
+<tr>
+<td><code>obj:clear_animations()</code></td>
+<td>Stop all queued animations</td>
+</tr>
+<tr>
+<td><code>obj:animation_count()</code></td>
+<td>Number of queued animations</td>
+</tr>
+<tr>
+<td><code>obj:animation_slot()</code></td>
+<td>Animation slot index</td>
+</tr>
+<tr>
+<td><code>obj:set_tip_text(text)</code></td>
+<td>Override use-hint text</td>
+</tr>
+<tr>
+<td><code>obj:set_tip_text_default()</code></td>
+<td>Reset use-hint to config default</td>
+</tr>
+<tr>
+<td><code>obj:set_nonscript_usable(bool)</code></td>
+<td>Whether the use key triggers a callback</td>
+</tr>
+<tr>
+<td><code>obj:info_add(text)</code></td>
+<td>Add debug text overlay</td>
+</tr>
+<tr>
+<td><code>obj:info_clear()</code></td>
+<td>Clear debug text overlay</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="miscellaneous">Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:bind_object(binder)</code></td>
+<td>Attach an object_binder instance</td>
+</tr>
+<tr>
+<td><code>obj:binded_object()</code></td>
+<td>Get the bound object_binder</td>
+</tr>
+<tr>
+<td><code>obj:spawn_ini()</code></td>
+<td><code>ini_file</code> for the object's spawn config</td>
+</tr>
+<tr>
+<td><code>obj:get_script_name()</code></td>
+<td>Active scheme script name</td>
+</tr>
+<tr>
+<td><code>obj:accessible(pos)</code></td>
+<td>True if <code>pos</code> is reachable</td>
+</tr>
+<tr>
+<td><code>obj:accessible(lvid)</code></td>
+<td>True if navmesh node is reachable</td>
+</tr>
+<tr>
+<td><code>obj:accessible_nearest(pos, out)</code></td>
+<td>Nearest accessible position to <code>pos</code></td>
+</tr>
+<tr>
+<td><code>obj:team()</code></td>
+<td>Team index</td>
+</tr>
+<tr>
+<td><code>obj:squad()</code></td>
+<td>Squad index</td>
+</tr>
+<tr>
+<td><code>obj:group()</code></td>
+<td>Group index</td>
+</tr>
+<tr>
+<td><code>obj:change_team(team, squad, group)</code></td>
+<td>Change team assignment</td>
+</tr>
+<tr>
+<td><code>obj:get_corpse()</code></td>
+<td>Carried corpse if any</td>
+</tr>
+<tr>
+<td><code>obj:get_enemy_strength()</code></td>
+<td>Threat level of current enemy</td>
+</tr>
+<tr>
+<td><code>obj:sight_params()</code></td>
+<td>Current <code>CSightParams</code></td>
+</tr>
+<tr>
+<td><code>obj:set_sight(...)</code></td>
+<td>Override sight target (many overloads)</td>
+</tr>
+<tr>
+<td><code>obj:head_orientation()</code></td>
+<td>Current head rotation</td>
+</tr>
+<tr>
+<td><code>obj:add_restrictions(in_restr, out_restr)</code></td>
+<td>Add zone restrictions</td>
+</tr>
+<tr>
+<td><code>obj:remove_restrictions(in_restr, out_restr)</code></td>
+<td>Remove zone restrictions</td>
+</tr>
+<tr>
+<td><code>obj:in_restrictions()</code></td>
+<td>Current in-restriction list</td>
+</tr>
+<tr>
+<td><code>obj:out_restrictions()</code></td>
+<td>Current out-restriction list</td>
+</tr>
+<tr>
+<td><code>obj:remove_all_restrictions()</code></td>
+<td>Clear all restrictions</td>
+</tr>
+<tr>
+<td><code>obj:in_smart_cover()</code></td>
+<td>True if NPC is in smart cover</td>
+</tr>
+<tr>
+<td><code>obj:get_dest_smart_cover_name()</code></td>
+<td>Target smart cover name</td>
+</tr>
+<tr>
+<td><code>obj:get_smart_cover_description()</code></td>
+<td>Current smart cover description</td>
+</tr>
+<tr>
+<td><code>obj:get_dest_smart_cover()</code></td>
+<td>Target smart cover object</td>
+</tr>
+<tr>
+<td><code>obj:set_dest_smart_cover(name)</code></td>
+<td>Set target smart cover</td>
+</tr>
+<tr>
+<td><code>obj:is_body_turning()</code></td>
+<td>True while turning body</td>
+</tr>
+<tr>
+<td><code>obj:path_type()</code></td>
+<td>Current path type</td>
+</tr>
+<tr>
+<td><code>obj:detail_path_type()</code></td>
+<td>Detail path type</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="class-casting">Class casting<a class="headerlink" href="#class-casting" title="Permanent link">&para;</a></h2>
+<p>Several engine classes extend <code>game_object</code> with extra methods. To access them, cast the object:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Gives access to…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj:cast_Actor()</code></td>
+<td><code>CActor</code> — player-specific methods</td>
+</tr>
+<tr>
+<td><code>obj:cast_Weapon()</code></td>
+<td><code>CWeapon</code> — weapon methods</td>
+</tr>
+<tr>
+<td><code>obj:cast_WeaponMagazined()</code></td>
+<td><code>CWeaponMagazined</code></td>
+</tr>
+<tr>
+<td><code>obj:cast_WeaponMagazinedWGrenade()</code></td>
+<td><code>CWeaponMagazinedWGrenade</code></td>
+</tr>
+<tr>
+<td><code>obj:cast_CustomOutfit()</code></td>
+<td><code>CCustomOutfit</code></td>
+</tr>
+<tr>
+<td><code>obj:cast_Helmet()</code></td>
+<td><code>CHelmet</code></td>
+</tr>
+<tr>
+<td><code>obj:cast_Artefact()</code></td>
+<td><code>CArtefact</code></td>
+</tr>
+<tr>
+<td><code>obj:cast_Ammo()</code></td>
+<td><code>CAmmo</code></td>
+</tr>
+<tr>
+<td><code>obj:cast_EatableItem()</code></td>
+<td><code>CEatableItem</code></td>
+</tr>
+<tr>
+<td><code>obj:cast_Medkit()</code></td>
+<td><code>CMedkit</code></td>
+</tr>
+<tr>
+<td><code>obj:cast_Antirad()</code></td>
+<td><code>CAntirad</code></td>
+</tr>
+<tr>
+<td><code>obj:cast_FoodItem()</code></td>
+<td><code>CFoodItem</code></td>
+</tr>
+<tr>
+<td><code>obj:cast_BottleItem()</code></td>
+<td><code>CBottleItem</code></td>
+</tr>
+<tr>
+<td><code>obj:cast_InventoryOwner()</code></td>
+<td><code>CInventoryOwner</code></td>
+</tr>
+<tr>
+<td><code>obj:cast_InventoryBox()</code></td>
+<td><code>CInventoryBox</code></td>
+</tr>
+<tr>
+<td><code>obj:cast_CustomZone()</code></td>
+<td><code>CCustomZone</code></td>
+</tr>
+<tr>
+<td><code>obj:cast_TorridZone()</code></td>
+<td><code>CTorridZone</code></td>
+</tr>
+<tr>
+<td><code>obj:cast_MosquitoBald()</code></td>
+<td><code>CMosquitoBald</code></td>
+</tr>
+<tr>
+<td><code>obj:cast_ZoneCampfire()</code></td>
+<td><code>CZoneCampfire</code></td>
+</tr>
+<tr>
+<td><code>obj:cast_Car()</code></td>
+<td><code>CCar</code></td>
+</tr>
+<tr>
+<td><code>obj:cast_Heli()</code></td>
+<td><code>CHelicopter</code></td>
+</tr>
+</tbody>
+</table>
+<p>Returns the cast object on success, or <code>nil</code> if the object is not of that type.</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">outfit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">get_current_outfit</span><span class="p">()</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kr">if</span><span class="w"> </span><span class="nv">outfit</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">co</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">outfit</span><span class="p">:</span><span class="nf">cast_CustomOutfit</span><span class="p">()</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">co</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">        </span><span class="c1">-- access CCustomOutfit-specific methods</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="kr">end</span>
+</span></code></pre></div>
+<hr />
+<h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../actor/">db.actor</a> — actor-specific methods (satiety, psy, goodwill, etc.)</li>
+<li><a href="../hit/">hit</a> — hit object for applying damage</li>
+<li><a href="../alife/">alife</a> — server-side entity API (<code>se_abstract</code> and subclasses)</li>
+<li><a href="../../scripting/game-object/">Scripting: What is a game_object?</a> — conceptual overview</li>
+<li><a href="../../scripting/object-binders/">Object Binders</a> — per-object Lua state</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../actor/" class="md-footer__link md-footer__link--prev" aria-label="Previous: db.actor">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                db.actor
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../level/" class="md-footer__link md-footer__link--next" aria-label="Next: level">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                level
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "toc.follow", "navigation.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
