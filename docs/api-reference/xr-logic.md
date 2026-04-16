@@ -167,6 +167,9 @@ end
 
 ## State machine: switching sections
 
+!!! abstract "Advanced — skip on first read"
+    This section and [Scripted creature control](#scripted-creature-control) cover the NPC behaviour engine internals. Most mods only need [`parse_condlist` / `pick_section_from_condlist`](#parsing-a-condlist) and the custom conditions/effects pattern above.
+
 `xr_logic` drives NPC behavior by switching between named sections in `.ltx` config. Each section defines a behavior scheme (`walker`, `combat`, `patrol`, etc.) plus switch conditions.
 
 ```lua

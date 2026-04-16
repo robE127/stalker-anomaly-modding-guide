@@ -17,7 +17,10 @@ end
 level.name()       -- current map name, e.g. "l01_escape", "k00_marsh", "l08_yantar"
 level.present()    -- true if a level is currently loaded (false on main menu)
 level.game_id()    -- internal game ID
-level.get_game_difficulty()  -- 0=novice, 1=stalker, 2=veteran, 3=master
+level.get_game_difficulty()           -- 0=novice, 1=stalker, 2=veteran, 3=master
+level.set_game_difficulty(enum_val)   -- change difficulty; use game_difficulty constants
+level.environment()                   -- returns the current environment manager object
+level.get_bounding_volume()           -- returns Fbox defining the level's bounding box
 ```
 
 The level name is how scripts distinguish which map the player is on. Level names match the folder names in `gamedata/levels/`:
@@ -41,13 +44,18 @@ end
 -- Retrieve any client-side game object by its numeric ID
 local obj = level.object_by_id(id)  -- returns game_object or nil
 
--- Get the player object (same as db.actor, but via level)
-local actor = level.actor()
-
 -- Get the object the player is currently looking at (crosshair target)
 local target = level.get_target_obj()
 local dist   = level.get_target_dist()
+local bone   = level.get_target_element()  -- bone ID under the crosshair
+
+-- Find an object by name (debug/editor use)
+level.debug_object("object_name")
+level.debug_actor()             -- returns the actor game_object (do not use in production)
 ```
+
+!!! warning "Do not use `level.actor()`"
+    `level.actor()` logs an engine error message every call. Use `db.actor` instead.
 
 `level.object_by_id` only works for **online** (client-side, currently simulated) objects. Use `alife():object(id)` for server-side (alife) entities.
 
@@ -60,13 +68,18 @@ The in-game clock runs independently of real time.
 ```lua
 local hour   = level.get_time_hours()    -- 0–23
 local minute = level.get_time_minutes()  -- 0–59
+local day    = level.get_time_days()     -- current in-game day number
 
 -- Time factor (how fast in-game time passes relative to real time)
 local factor = level.get_time_factor()
 level.set_time_factor(5)   -- 5× speed
 
--- Advance time (value is in seconds of game time)
-level.change_game_time(3600)  -- skip 1 game-hour forward
+-- Advance time by (days, hours, minutes)
+level.change_game_time(0, 1, 0)   -- skip 1 game-hour forward
+level.change_game_time(1, 0, 0)   -- skip 1 game-day forward
+
+-- CTime object representing when the current level session started
+local start = level.get_start_time()
 ```
 
 For a full `CTime` timestamp, use `game.get_game_time()` instead (see the [game](game.md) page).
@@ -97,9 +110,10 @@ level.start_weather_fx_from_time("fx_psi_storm_night", elapsed_time)
 
 -- Rain intensity (0.0 = dry, 1.0 = heavy rain)
 local rain = level.rain_factor()
+local rain_vol = level.get_rain_volume()   -- rain audio volume (0.0–1.0)
 
--- Sound/environment
-local env_rads = level.get_env_rads()      -- environmental radiation
+-- Environment
+local env_rads = level.get_env_rads()      -- environmental radiation (HUD sensor value)
 ```
 
 ---
@@ -189,14 +203,20 @@ local vid = level.vertex_id(world_position)
 -- Find a vertex in a given direction (for AI cover calculations)
 local vid = level.vertex_in_direction(base_vertex_id, direction_vector, max_distance)
 
--- Check if a vertex is within the level's valid range
-if level.vertex_in_level_range(vid) then ... end
-
 -- Cover height in a direction (0.0 = no cover, higher = more cover)
-local cover = level.high_cover_in_direction(npc:level_vertex_id(), direction_vec)
+local hi = level.high_cover_in_direction(npc:level_vertex_id(), direction_vec)
+local lo = level.low_cover_in_direction(npc:level_vertex_id(), direction_vec)
 
 -- Check if a patrol path exists in the current level
 if level.patrol_path_exists("esc_wolf_walk") then ... end
+
+-- Client spawn manager (for deferred object spawns)
+local mgr = level.client_spawn_manager()
+-- mgr:add(id, version, callback, data)
+-- mgr:remove(id, version)
+
+-- Physics world (for applying impulses to physics objects)
+local phys = level.physics_world()
 ```
 
 ---
@@ -223,14 +243,19 @@ level.disable_input()
 
 -- Show/hide the HUD indicators (health, stamina bars, etc.)
 level.show_indicators()
-level.hide_indicators_safe()
+level.hide_indicators()
+level.hide_indicators_safe()  -- safe version (won't crash if HUD not ready)
 
 -- Show/hide the weapon model on-screen
 level.show_weapon(true)
 
--- Simulate key press/release (useful for automated actions)
+-- Simulate key press/release/hold
 level.press_action(bind_to_dik(key_bindings.kWPN_ZOOM))
 level.release_action(bind_to_dik(key_bindings.kWPN_ZOOM))
+level.hold_action(bind_to_dik(key_bindings.kWPN_ZOOM))
+
+-- Current actor movement state (returns a number, e.g. standing/crouching/sprinting)
+local state = level.actor_moving_state()
 ```
 
 ---
@@ -268,12 +293,19 @@ This is a lightweight alternative to `actor_on_update` for one-shot deferred act
 ## Spawning
 
 ```lua
--- Spawn a physics object (prop/debris)
+-- Spawn a client-side object immediately (online only, not tracked by alife)
 -- level.spawn_item(section, position, level_vertex_id, game_vertex_id)
 level.spawn_item("wpn_ak74", spawn_pos, lvid, gvid)
 
--- Spawn a phantom (internal engine entity)
+-- Spawn a phantom (internal engine entity, for visual effects)
 level.spawn_phantom(position)
+
+-- Preload sounds into memory before they are needed
+level.prefetch_sound("weapons\\ak74\\ak74_shoot")
+
+-- Iterate all sounds at a path (for distance-based mixing)
+-- level.iterate_sounds(path, proximity, callback)
+level.iterate_sounds("ambient\\zaton", 100, function(obj) ... end)
 ```
 
 For spawning NPC and creature entities, prefer `alife_create` (see the [alife](alife.md) page).

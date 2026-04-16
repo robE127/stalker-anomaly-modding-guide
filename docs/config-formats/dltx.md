@@ -241,6 +241,9 @@ inv_grid_height = 1
 
 ## Load order and merge algorithm
 
+!!! abstract "Advanced — skip on first read"
+    This section covers how DLTX works internally. You don't need it to use DLTX — only read this if you're debugging merge conflicts or need to reason about load order.
+
 This section describes how DLTX actually works inside the engine, based on the C++ source in `CInifile` ([xray-monolith](https://github.com/themrdemonized/xray-monolith) `src/xrCore/Xr_ini.cpp`).
 
 !!! info "Source: modded exes"

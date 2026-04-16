@@ -425,6 +425,9 @@ end
 
 ## Caching
 
+!!! abstract "Advanced — skip on first read"
+    This section and [Execution order](#execution-order) below cover DXML internals. Skip them until you need to optimise repeated DXML calls or debug unexpected callback ordering.
+
 The `on_xml_read` callback receives an optional third argument — a `flags` table:
 
 ```lua

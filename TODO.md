@@ -18,11 +18,11 @@ _(all done)_
 
 ### P2 — Medium effort, meaningful impact
 
-- [ ] **Basic vs advanced content tagging** — Add a visual system distinguishing beginner-essential content from deep-dive/advanced material. Could be MkDocs Material admonitions, section badges, or separate "advanced" callout boxes. Should work across all pages without requiring site-wide restructure.
-- [ ] **Full API reference index page** — A single page listing every known Lua API callable (namespaces, classes, functions) with the most commonly used ones visually highlighted (based on `data/analysis/index.json` frequency data). Links to the relevant detailed pages.
-- [ ] **Audit and fix all internal cross-links** — Many pages reference other pages without a proper Markdown link. Do a systematic pass and wire them all up.
-- [ ] **Full Mini-Quest Example** — A complete worked example: NPC dialog → info portion flag → item delivery → save/load → reward. Demonstrates how real quest mods are structured.
-- [ ] **Add See Also sections** — Structured "See Also" footers on pages with clear relationships (e.g. alife.md → npcs.md, mcm.md → examples/mcm-options.md).
+- [x] **Basic vs advanced content tagging** — `!!! abstract "Advanced — skip on first read"` admonitions added to engine-internals.md (page level), DLTX merge algorithm, DXML caching/execution sections, and xr-logic state machine.
+- [x] **Full API reference index page** — Rewrote `docs/api-reference/index.md`: top-25 most-used calls table (with freq counts), full namespace-organized reference, type-checking helpers table, "not yet documented" module list.
+- [x] **Audit and fix all internal cross-links** — Systematic pass completed; bare text references linked.
+- [ ] **Full Mini-Quest Example** — Postponed. A complete worked example: NPC dialog → info portion flag → item delivery → save/load → reward.
+- [x] **Add See Also sections** — Added to 13 pages across api-reference/, config-formats/, scripting/, and systems/.
 
 ### P3 — Larger projects
 

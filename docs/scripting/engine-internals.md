@@ -2,6 +2,9 @@
 
 This page documents engine-level behaviour that affects how you write mods — object lifetimes, the online/offline system, save serialization, and engine limits.
 
+!!! abstract "Advanced — skip on first read"
+    This page covers implementation details of the X-Ray engine. You don't need to understand any of this to write most mods — come back here when you hit a specific problem (stale object references, save/load bugs, or unexplained spawn behaviour).
+
 !!! info "Source: modded exes only"
     The information on this page is derived from the [xray-monolith](https://github.com/themrdemonized/xray-monolith) C++ source — the community **modded exes** maintained by themrdemonized. The vanilla Anomaly engine is closed-source and cannot be inspected. While the core architecture (online/offline switching, alife simulation, save format) originates from the original X-Ray engine and is likely similar in vanilla, specific implementation details — line counts, exact thresholds, Lua bridge callbacks, and modded-exes-specific features like the marshal `.scoc` save system — may differ. If you are targeting vanilla Anomaly without the modded exes, treat the details here as best-available approximations rather than guarantees.
 

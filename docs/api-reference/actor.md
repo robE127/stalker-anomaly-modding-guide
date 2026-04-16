@@ -36,11 +36,14 @@ db.actor:change_health(-0.5)         -- remove 50% health
 db.actor:change_power(delta)
 db.actor:change_radiation(delta)
 db.actor:change_satiety(delta)
-db.actor:set_health_ex(1.0)          -- set health to exact value
+db.actor:change_psy_health(delta)    -- modify psychic health by delta
+db.actor:change_morale(delta)        -- modify morale by delta
+db.actor:change_bleeding(delta)      -- modify bleeding rate by delta
+db.actor:set_health_ex(1.0)          -- set health to exact value *(modded exes)*
 ```
 
 !!! note
-    `change_health` takes a **delta** (positive or negative). `set_health_ex` takes an **absolute** value. Avoid reading `.health` and then writing back a computed value — prefer deltas to avoid race conditions with other mods.
+    `change_health` takes a **delta** (positive or negative). `set_health_ex` takes an **absolute** value and is added by the modded exes. Avoid reading `.health` and then writing back a computed value — prefer deltas to avoid race conditions with other mods.
 
 ---
 
@@ -67,10 +70,15 @@ db.actor:game_vertex_id()            -- game vertex (used for level-to-level tra
 
 -- Bone position (e.g. for attaching effects)
 local head_pos = db.actor:bone_position("bip01_head")
+local bone_id  = db.actor:get_bone_id("bip01_head")  -- numeric bone ID for a named bone
 
 -- Teleport the actor (use with caution)
 db.actor:set_actor_position(new_position)
 db.actor:set_actor_direction(angle_radians)
+
+-- Lighting (useful for stealth/visibility systems) *(modded exes)*
+local light = db.actor:get_luminocity()       -- direct illumination level (0–1)
+local hemi  = db.actor:get_luminocity_hemi()  -- ambient hemisphere illumination (0–1)
 ```
 
 **Distance checks** are done on the returned vector:
@@ -145,19 +153,33 @@ db.actor:iterate_belt(callback, arg)
 ### Moving and dropping items
 
 ```lua
-db.actor:move_to_ruck(item)           -- move item to backpack
-db.actor:move_to_belt(item)           -- move item to belt
-db.actor:move_to_slot(item, slot_num) -- equip item to a specific slot
-db.actor:drop_item(item)              -- drop item on the ground
-db.actor:transfer_item(item, npc)     -- give item to an NPC game_object
+db.actor:move_to_ruck(item)                    -- move item to backpack
+db.actor:move_to_belt(item)                    -- move item to belt
+db.actor:move_to_slot(item, slot_num)          -- equip item to a specific slot
+db.actor:drop_item(item)                       -- drop item on the ground
+db.actor:drop_item_and_teleport(item, pos)     -- drop item and teleport it to pos
+db.actor:transfer_item(item, npc)              -- give item to an NPC game_object
+db.actor:mark_item_dropped(item)               -- mark item as intentionally dropped *(modded exes)*
+db.actor:make_item_active(item)                -- force an item into the active slot
+```
+
+### Belt
+
+```lua
+db.actor:belt_count()                          -- number of items on the belt
+db.actor:item_on_belt(index)                   -- item at given belt index (0-based)
+db.actor:is_on_belt(item)                      -- true if item is currently on the belt
+db.actor:iterate_belt(callback, arg)           -- iterate belt items; callback(arg, item)
 ```
 
 ### Weight
 
 ```lua
-db.actor:get_total_weight()           -- current carry weight
-db.actor:get_actor_max_weight()       -- maximum carry weight
-db.actor:set_actor_max_weight(value)  -- override max weight
+db.actor:get_total_weight()           -- current carry weight (includes belt) *(modded exes)*
+db.actor:get_inv_weight()             -- weight of items in the backpack only
+db.actor:get_inv_max_weight()         -- maximum backpack capacity
+db.actor:get_actor_max_weight()       -- absolute maximum carry weight (including belt)
+db.actor:set_actor_max_weight(value)  -- override absolute max weight
 db.actor:get_actor_max_walk_weight()  -- weight limit for normal movement speed
 db.actor:set_actor_max_walk_weight(value)
 ```
@@ -214,18 +236,21 @@ local rank    = db.actor:character_rank()         -- numeric rank value
 local rep     = db.actor:character_reputation()   -- -4000 to 4000
 local faction = db.actor:character_community()    -- e.g. "stalker", "freedom"
 
--- Modify by delta
+-- Modify by delta *(modded exes)*
 db.actor:change_character_rank(50)
 db.actor:change_character_reputation(100)
 
--- Set to exact value
+-- Set to exact value *(modded exes)*
 db.actor:set_character_rank(500)
 db.actor:set_character_reputation(2000)
 db.actor:set_character_community("freedom")
 
--- Faction goodwill
+-- Actor community goodwill
 local goodwill = db.actor:community_goodwill("dolg")  -- -10000 to 10000
 db.actor:set_community_goodwill("dolg", 1000)
+
+-- Actor profile icon *(modded exes)*
+db.actor:set_character_icon("ui_inGame2_Dolg_1")
 ```
 
 ---
@@ -257,9 +282,72 @@ actor_menu.set_msg(1, "Something happened", 3)
 ```lua
 local outfit = db.actor:get_current_outfit()  -- returns game_object or nil
 
--- Protection value for a given hit type
+-- Protection value for a given hit type *(modded exes)*
 -- hit types: HIT_TYPE_BURN, HIT_TYPE_STRIKE, etc. (constants in _g.script)
 local protection = db.actor:get_current_outfit_protection(HIT_TYPE_BURN)
+
+-- Movement speed coefficients (all *(modded exes)*)
+local jump   = db.actor:get_actor_jump_speed()       -- jump power
+local sprint = db.actor:get_actor_sprint_koef()      -- sprint speed multiplier
+local run    = db.actor:get_actor_run_coef()         -- run speed multiplier
+local runbk  = db.actor:get_actor_runback_coef()     -- run-backward multiplier
+db.actor:set_actor_jump_speed(value)
+db.actor:set_actor_sprint_koef(value)
+db.actor:set_actor_run_coef(value)
+db.actor:set_actor_runback_coef(value)
+```
+
+---
+
+## Weapon state
+
+```lua
+-- Weapon strap state
+local strapped   = db.actor:weapon_strapped()    -- true if weapon is on back (not drawn)
+local unstrapped = db.actor:weapon_unstrapped()  -- true if weapon is drawn
+db.actor:hide_weapon()         -- holster the current weapon
+db.actor:restore_weapon()      -- re-equip previously active weapon
+db.actor:reload_weapon()       -- trigger a reload (call after unloading magazine)
+
+-- Active slot
+db.actor:active_slot()         -- index of the currently active equipment slot
+db.actor:activate_slot(n)      -- switch to slot n
+```
+
+---
+
+## Invulnerability
+
+```lua
+-- Check or set invulnerability (god mode)
+local inv = db.actor:invulnerable()       -- returns bool
+db.actor:invulnerable(true)               -- enable invulnerability
+db.actor:invulnerable(false)              -- disable invulnerability
+```
+
+---
+
+## Script control
+
+```lua
+-- Take/release scripted control of the actor
+-- true = enable script control, string = script name for logging
+db.actor:script(true, "my_mod_capture")
+db.actor:script(false, "my_mod_capture")
+local controlled = db.actor:get_script()  -- returns true if under script control
+```
+
+---
+
+## Sight
+
+```lua
+-- Point the actor at a target or world position
+-- Sight types defined in CSightParams constants (eSightTypeObject, eSightTypePosition, etc.)
+db.actor:set_sight(target_game_object)
+db.actor:set_sight(target_game_object, true)          -- with look-over flag
+db.actor:set_sight(SightType, target_vector, bone_id) -- explicit direction
+local sp = db.actor:sight_params()                    -- returns CSightParams object
 ```
 
 ---
@@ -274,6 +362,17 @@ db.actor:stop_particles("anomaly\\electra_spell", "bip01_head")
 
 ---
 
+## Detector
+
+```lua
+local det = db.actor:active_detector()    -- currently held detector item (or nil) *(modded exes)*
+db.actor:show_detector()                  -- show the detector HUD *(modded exes)*
+db.actor:hide_detector()                  -- hide the detector HUD *(modded exes)*
+db.actor:force_hide_detector()            -- force-hide (used during item animations) *(modded exes)*
+```
+
+---
+
 ## Perception & visibility
 
 ```lua
@@ -281,10 +380,6 @@ db.actor:stop_particles("anomaly\\electra_spell", "bip01_head")
 if db.actor:see(npc_object) then
     -- actor has line of sight to the NPC
 end
-
--- Ambient light level (useful for stealth systems)
-local light = db.actor:get_luminocity()
-local hemi  = db.actor:get_luminocity_hemi()
 ```
 
 ---

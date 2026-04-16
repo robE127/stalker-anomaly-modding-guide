@@ -90,23 +90,29 @@ end
 Anomaly's weapon and hand animations can be driven from script using the HUD animation system.
 
 ```lua
--- Play a HUD animation file
--- game.play_hud_anm(anm_section, start_frame, speed, accel, looped)
-game.play_hud_anm("anm_eat_bread", 0, 0.25, 1, false)
+-- Play a blended HUD animation
+-- game.play_hud_anm(name, part, speed, power, looped, no_restart)
+game.play_hud_anm("anm_eat_bread", 0, 0.25, 1.0, false, false)
+
+-- Stop a specific HUD animation
+game.stop_hud_anm("anm_eat_bread", false)  -- false = let it finish; true = force stop
 
 -- Stop all active HUD animations
-game.stop_all_hud_anms()
+game.stop_all_hud_anms(false)
 
--- Set playback time of a running animation
-local length = game.set_hud_anm_time("anm_eat_bread", elapsed_seconds)
+-- Set the playback time of a running animation; returns current time as float
+local t = game.set_hud_anm_time("anm_eat_bread", elapsed_seconds)
+
+-- Check if HUD motion system is currently playing
+local allowed = game.hud_motion_allowed()
 
 -- Play a hand/motion animation (for items that have anm_ bones)
--- game.play_hud_motion(hand_id, section, bone, looped, speed)
+-- game.play_hud_motion(hand_id, section, animation_name, looped, speed)
 game.play_hud_motion(1, "torch_section", "anm_switch", true, 0.75)
 
 game.stop_hud_motion()
 
--- Get the total duration of an animation at a given speed
+-- Get the total duration of an animation at a given speed (returns float seconds)
 local duration_ms = game.get_motion_length("torch_section", "anm_switch", 1.0)
 ```
 
@@ -178,6 +184,40 @@ game.prefetch_model("actors\\stalker_dolg\\stalker_dolg")
 ```lua
 -- Reload the current language XML files (useful after adding new text keys mid-session)
 game.reload_language()
+```
+
+---
+
+## UI utilities
+
+```lua
+-- Force a full reload of all HUD XML definitions (clears XML cache)
+game.reload_ui_xml()
+
+-- Convert a world-space position to 2D screen/UI coordinates
+-- Returns: x, y (0.0–1.0 normalized screen coordinates), depth
+local x, y, depth = game.world2ui(world_position)
+local x, y, depth = game.world2ui_with_depth(world_position)
+
+-- Convert UI coordinates back to world space
+-- game.ui2world(screen_pos_vec, world_pos_out, vertex_id_out)
+-- game.ui2world_offscreen(screen_pos_vec, world_pos_out, vertex_id_out)
+
+-- Get a string of all supported display resolutions
+local resolutions = game.get_resolutions()
+
+-- Change how long game news messages (give_game_news) are visible on screen
+-- value is in milliseconds
+game.change_game_news_show_time(8000)
+```
+
+---
+
+## Actor alcohol level
+
+```lua
+-- Returns the actor's current alcohol level (0.0–1.0)
+local alcohol = game.get_actor_alcohol()
 ```
 
 ---

@@ -150,7 +150,78 @@ Useful for containers or NPCs that must remain interactable.
 
 ```lua
 local dist = alife():switch_distance()     -- current spawn radius
-alife():set_switch_distance(200)           -- widen/narrow spawn zone
+alife():switch_distance(200)               -- set spawn radius (overloaded)
+```
+
+### Level and ID utilities
+
+```lua
+-- Check if an alife object ID is valid (not 65535 and exists in the simulator)
+local ok = alife():valid_object_id(id)
+
+-- Get the numeric ID of the level currently hosting the actor
+local lid = alife():level_id()
+
+-- Get the name of a level by its numeric ID
+local name = alife():level_name(level_id)
+
+-- Spawn by spawn_story_id (numeric ID defined in spawn files)
+local se_obj = alife():spawn_id(spawn_story_id_number)
+```
+
+### Ammo spawning
+
+```lua
+-- Spawn a stack of ammo at a position
+-- alife():create_ammo(section, pos, level_vertex_id, game_vertex_id, parent_id, count)
+local se_ammo = alife():create_ammo("ammo_9x18_fmj", pos, lvid, gvid, 65535, 30)
+```
+
+### Restrictions (space restrictors)
+
+```lua
+-- Add/remove in-restriction (zone that keeps NPC inside)
+alife():add_in_restriction(se_monster, restrictor_id)
+alife():remove_in_restriction(se_monster, restrictor_id)
+
+-- Add/remove out-restriction (zone that keeps NPC outside)
+alife():add_out_restriction(se_monster, restrictor_id)
+alife():remove_out_restriction(se_monster, restrictor_id)
+
+-- Remove all restrictions of a given type from an object
+-- types: RestrictionSpace.ERestrictorTypes constants
+alife():remove_all_restrictions(object_id, restrictor_type)
+```
+
+### Kill and interactive
+
+```lua
+-- Kill a server entity (mark as dead in the simulation)
+alife():kill_entity(se_monster)
+alife():kill_entity(se_monster, game_vertex_id)
+
+-- Mark an object as interactive (affects whether NPCs can interact with it)
+alife():set_interactive(object_id, true)
+```
+
+### Info portions via alife
+
+```lua
+-- Check/give/disable info portions on any entity (identified by alife ID)
+local has = alife():has_info(entity_id, "info_id_string")
+alife():give_info(entity_id, "info_id_string")
+alife():disable_info(entity_id, "info_id_string")
+alife():dont_has_info(entity_id, "info_id_string")  -- returns true if entity does NOT have the info
+```
+
+### Children
+
+```lua
+-- Get all child objects of a server entity (e.g. items in an NPC's inventory)
+-- Returns an iterator
+for child in alife():get_children(se_obj) do
+    printf("child id: %d", child.id)
+end
 ```
 
 ---
