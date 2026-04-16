@@ -2127,22 +2127,24 @@
 
 <h1 id="callbacks-reference">Callbacks Reference<a class="headerlink" href="#callbacks-reference" title="Permanent link">&para;</a></h1>
 <p>Every callback registered in <code>axr_main.script</code> — the authoritative source. Signatures are taken directly from the source comments. Frequency counts are from analysis of 50 community mod repositories.</p>
-<div class="admonition note">
-<p class="admonition-title">Some callbacks require the modded exes</p>
-<p>Callbacks whose names begin with <code>actor_on_before_</code>, <code>actor_on_weapon_before_</code>, <code>actor_on_item_before_</code>, <code>npc_on_before_</code>, <code>monster_on_before_</code>, <code>bullet_on_hit</code>, and <code>npc_shot_dispersion</code> are dispatched from C++ engine hooks added by the <a href="https://github.com/themrdemonized/xray-monolith">modded exes</a>. They exist in the base game's Lua scripts but will never fire without the modded engine binaries installed. If your mod uses any of these, list the modded exes as a dependency.</p>
-</div>
 <p>Register any callback with:
 <div class="language-lua highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;callback_name&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">your_function</span><span class="p">)</span>
 </span></code></pre></div></p>
 <p>Unregister in <code>on_game_end</code> (or when done):
 <div class="language-lua highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nf">UnregisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;callback_name&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">your_function</span><span class="p">)</span>
 </span></code></pre></div></p>
+<p><strong>Req</strong> column:</p>
+<ul>
+<li><em>(blank)</em> — vanilla Anomaly, no extra dependencies</li>
+<li><strong>Exes</strong> — requires the <a href="https://github.com/themrdemonized/xray-monolith">modded exes</a> (dispatched from C++ hooks or modded-exes Lua; will never fire without them)</li>
+</ul>
 <hr />
 <h2 id="core-game-flow">Core game flow<a class="headerlink" href="#core-game-flow" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Callback</th>
+<th>Req</th>
 <th>Freq</th>
 <th>Params</th>
 <th>Description</th>
@@ -2151,84 +2153,98 @@
 <tbody>
 <tr>
 <td><code>actor_on_first_update</code></td>
+<td></td>
 <td>187</td>
 <td><code>(binder, ?)</code></td>
 <td>First simulation tick after loading. <code>db.actor</code> is guaranteed available. Use for one-time initialisation requiring the actor.</td>
 </tr>
 <tr>
 <td><code>actor_on_update</code></td>
+<td></td>
 <td>147</td>
 <td><code>(binder, ?)</code></td>
 <td>Every simulation tick while the actor is alive. Keep handlers fast — this runs every frame.</td>
 </tr>
 <tr>
 <td><code>actor_on_init</code></td>
+<td></td>
 <td>—</td>
 <td><code>(binder)</code></td>
 <td>Actor binder initialised.</td>
 </tr>
 <tr>
 <td><code>actor_on_reinit</code></td>
+<td></td>
 <td>—</td>
 <td><code>(binder)</code></td>
 <td>Actor binder re-initialised.</td>
 </tr>
 <tr>
 <td><code>actor_on_net_destroy</code></td>
+<td></td>
 <td>29</td>
 <td><code>(binder)</code></td>
 <td>Actor client-side object destroyed (level transition or death).</td>
 </tr>
 <tr>
 <td><code>on_game_load</code></td>
+<td></td>
 <td>107</td>
 <td><code>(binder)</code></td>
 <td>Save file fully loaded and deserialised. Fires after <code>load_state</code>. <code>db.actor</code> not yet available.</td>
 </tr>
 <tr>
 <td><code>on_before_level_changing</code></td>
+<td></td>
 <td>—</td>
 <td><code>()</code></td>
 <td>Player is about to transition to a new level.</td>
 </tr>
 <tr>
 <td><code>on_level_changing</code></td>
+<td></td>
 <td>—</td>
 <td><code>()</code></td>
 <td>Level transition in progress.</td>
 </tr>
 <tr>
 <td><code>save_state</code></td>
+<td></td>
 <td>198</td>
 <td><code>(m_data: table)</code></td>
 <td>Write your mod's persistent data into <code>m_data</code>. See <a href="../scripting/save-load/">Save &amp; Load State</a>.</td>
 </tr>
 <tr>
 <td><code>load_state</code></td>
+<td></td>
 <td>181</td>
 <td><code>(m_data: table)</code></td>
 <td>Restore your mod's persistent data from <code>m_data</code>. <code>db.actor</code> not available yet.</td>
 </tr>
 <tr>
 <td><code>on_pstor_save_all</code></td>
+<td></td>
 <td>—</td>
 <td><code>(game_object, ?)</code></td>
 <td>Per-object persistent storage save.</td>
 </tr>
 <tr>
 <td><code>on_pstor_load_all</code></td>
+<td></td>
 <td>—</td>
 <td><code>(game_object, ?)</code></td>
 <td>Per-object persistent storage load.</td>
 </tr>
 <tr>
 <td><code>se_actor_on_STATE_Write</code></td>
+<td></td>
 <td>—</td>
 <td><code>(server_object)</code></td>
 <td>Server-side actor state written.</td>
 </tr>
 <tr>
 <td><code>se_actor_on_STATE_Read</code></td>
+<td></td>
 <td>—</td>
 <td><code>(server_object)</code></td>
 <td>Server-side actor state read.</td>
@@ -2241,6 +2257,7 @@
 <thead>
 <tr>
 <th>Callback</th>
+<th>Req</th>
 <th>Freq</th>
 <th>Params</th>
 <th>Description</th>
@@ -2249,72 +2266,84 @@
 <tbody>
 <tr>
 <td><code>on_key_press</code></td>
+<td></td>
 <td>80</td>
 <td><code>(key: number)</code></td>
 <td>A key was pressed. <code>key</code> is a <code>DIK_keys.*</code> constant.</td>
 </tr>
 <tr>
 <td><code>on_key_release</code></td>
+<td></td>
 <td>64</td>
 <td><code>(key: number)</code></td>
 <td>A key was released.</td>
 </tr>
 <tr>
 <td><code>on_key_hold</code></td>
+<td></td>
 <td>—</td>
 <td><code>(key: number)</code></td>
 <td>A key is being held. Fires repeatedly each tick while held.</td>
 </tr>
 <tr>
 <td><code>on_before_key_press</code></td>
+<td><strong>Exes</strong></td>
 <td>15</td>
 <td><code>(key: number, bind: number, is_down: boolean, flags: table)</code></td>
 <td>Fires before <code>on_key_press</code>. Set <code>flags.ret_value = false</code> to suppress the keypress.</td>
 </tr>
 <tr>
 <td><code>on_before_key_release</code></td>
+<td><strong>Exes</strong></td>
 <td>—</td>
 <td><code>(key: number, bind: number, is_down: boolean, flags: table)</code></td>
 <td>Fires before <code>on_key_release</code>. Set <code>flags.ret_value = false</code> to suppress.</td>
 </tr>
 <tr>
 <td><code>on_before_key_hold</code></td>
+<td><strong>Exes</strong></td>
 <td>—</td>
 <td><code>(key: number, bind: number, is_down: boolean, flags: table)</code></td>
 <td>Fires before <code>on_key_hold</code>. Set <code>flags.ret_value = false</code> to suppress.</td>
 </tr>
 <tr>
 <td><code>on_console_execute</code></td>
+<td></td>
 <td>20</td>
 <td><code>(cmd: string, ...)</code></td>
 <td>A console command was executed. Additional arguments are the command parts.</td>
 </tr>
 <tr>
 <td><code>on_option_change</code></td>
+<td></td>
 <td>121</td>
 <td><code>()</code></td>
 <td>Player saved settings (MCM or engine options). Re-read your <code>ui_mcm.get</code> / <code>ui_options.get</code> values here.</td>
 </tr>
 <tr>
 <td><code>on_localization_change</code></td>
+<td></td>
 <td>24</td>
 <td><code>()</code></td>
 <td>Player changed language setting. Rebuild any cached translated strings.</td>
 </tr>
 <tr>
 <td><code>on_screen_resolution_changed</code></td>
+<td></td>
 <td>—</td>
 <td><code>()</code></td>
 <td>Screen resolution changed. Rebuild any UI that depends on screen dimensions.</td>
 </tr>
 <tr>
 <td><code>on_before_save_input</code></td>
+<td></td>
 <td>—</td>
 <td><code>(flags: table, number, string)</code></td>
 <td>Before a quicksave input. Set <code>flags.ret = true</code> to cancel.</td>
 </tr>
 <tr>
 <td><code>on_before_load_input</code></td>
+<td></td>
 <td>—</td>
 <td><code>(key: number, bind: number, flags: table)</code></td>
 <td>Before a quickload input. Set <code>flags.ret = true</code> to cancel.</td>
@@ -2327,6 +2356,7 @@
 <thead>
 <tr>
 <th>Callback</th>
+<th>Req</th>
 <th>Freq</th>
 <th>Params</th>
 <th>Description</th>
@@ -2335,66 +2365,77 @@
 <tbody>
 <tr>
 <td><code>actor_on_item_take</code></td>
+<td></td>
 <td>39</td>
 <td><code>(obj: game_object)</code></td>
 <td>Player picked up an item.</td>
 </tr>
 <tr>
 <td><code>actor_on_item_take_from_box</code></td>
+<td></td>
 <td>—</td>
 <td><code>(item: game_object, box: game_object)</code></td>
 <td>Player took an item from a stash/box.</td>
 </tr>
 <tr>
 <td><code>actor_on_item_put_in_box</code></td>
+<td></td>
 <td>—</td>
 <td><code>(item: game_object, box: game_object)</code></td>
 <td>Player put an item into a stash/box.</td>
 </tr>
 <tr>
 <td><code>actor_on_item_drop</code></td>
+<td></td>
 <td>34</td>
 <td><code>(obj: game_object)</code></td>
 <td>Player dropped an item.</td>
 </tr>
 <tr>
 <td><code>actor_on_item_use</code></td>
+<td></td>
 <td>58</td>
 <td><code>(obj: game_object, section: string)</code></td>
 <td>Player used a consumable. <code>obj</code> is the item, <code>section</code> is its LTX section name.</td>
 </tr>
 <tr>
 <td><code>actor_on_item_before_use</code></td>
+<td><strong>Exes</strong></td>
 <td>—</td>
 <td><code>(obj: game_object, flags: table)</code></td>
 <td>Before item use. Set <code>flags.ret_value = false</code> to cancel.</td>
 </tr>
 <tr>
 <td><code>actor_on_item_before_pickup</code></td>
+<td><strong>Exes</strong></td>
 <td>—</td>
 <td><code>(obj: game_object, flags: table)</code></td>
 <td>Before picking up an item. Set <code>flags.ret_value = false</code> to cancel pickup.</td>
 </tr>
 <tr>
 <td><code>actor_item_to_belt</code></td>
+<td></td>
 <td>—</td>
 <td><code>(obj: game_object)</code></td>
 <td>Item moved to belt.</td>
 </tr>
 <tr>
 <td><code>actor_item_to_ruck</code></td>
+<td></td>
 <td>27</td>
 <td><code>(obj: game_object)</code></td>
 <td>Item moved to backpack.</td>
 </tr>
 <tr>
 <td><code>actor_item_to_slot</code></td>
+<td></td>
 <td>25</td>
 <td><code>(obj: game_object)</code></td>
 <td>Item moved to equipment slot.</td>
 </tr>
 <tr>
 <td><code>actor_on_trade</code></td>
+<td></td>
 <td>—</td>
 <td><code>(obj: game_object, sell: boolean, cost: number)</code></td>
 <td>Trade transaction completed.</td>
@@ -2407,6 +2448,7 @@
 <thead>
 <tr>
 <th>Callback</th>
+<th>Req</th>
 <th>Freq</th>
 <th>Params</th>
 <th>Description</th>
@@ -2415,24 +2457,28 @@
 <tbody>
 <tr>
 <td><code>actor_on_before_hit</code></td>
+<td><strong>Exes</strong></td>
 <td>32</td>
 <td><code>(shit: SHit, bone_id: number, flags: table)</code></td>
 <td>Actor is about to take damage. Modify <code>shit.power</code> to change damage. Set <code>flags.ret_value = false</code> to cancel the hit entirely.</td>
 </tr>
 <tr>
 <td><code>actor_on_hit_callback</code></td>
+<td></td>
 <td>—</td>
 <td><code>(obj: game_object, amount: number, direction: vector, attacker: game_object, bone_id: number)</code></td>
 <td>Actor took damage (after the hit resolved).</td>
 </tr>
 <tr>
 <td><code>actor_on_before_death</code></td>
+<td><strong>Exes</strong></td>
 <td>29</td>
 <td><code>(who_id: number, flags: table)</code></td>
 <td>Actor is about to die. Set <code>flags.ret_value = false</code> to prevent death.</td>
 </tr>
 <tr>
 <td><code>actor_on_feeling_anomaly</code></td>
+<td></td>
 <td>—</td>
 <td><code>(anomaly: game_object, flags: table)</code></td>
 <td>Actor entered an anomaly field.</td>
@@ -2445,6 +2491,7 @@
 <thead>
 <tr>
 <th>Callback</th>
+<th>Req</th>
 <th>Freq</th>
 <th>Params</th>
 <th>Description</th>
@@ -2453,78 +2500,91 @@
 <tbody>
 <tr>
 <td><code>actor_on_weapon_fired</code></td>
+<td><strong>Exes</strong></td>
 <td>22</td>
 <td><code>(obj: game_object, wpn: game_object, ammo_elapsed: number, grenade: number, bone_id: number, direction: number)</code></td>
 <td>Player fired a weapon.</td>
 </tr>
 <tr>
 <td><code>actor_on_weapon_before_fire</code></td>
+<td><strong>Exes</strong></td>
 <td>—</td>
 <td><code>(flags: table)</code></td>
 <td>Before a shot is fired. Set <code>flags.ret_value = false</code> to cancel.</td>
 </tr>
 <tr>
 <td><code>actor_on_weapon_jammed</code></td>
+<td><strong>Exes</strong></td>
 <td>—</td>
 <td><code>(wpn: game_object)</code></td>
 <td>Weapon jammed.</td>
 </tr>
 <tr>
 <td><code>actor_on_weapon_no_ammo</code></td>
+<td></td>
 <td>—</td>
 <td><code>(wpn: game_object, ammo_type: number)</code></td>
 <td>Out of ammo.</td>
 </tr>
 <tr>
 <td><code>actor_on_weapon_reload</code></td>
+<td></td>
 <td>—</td>
 <td><code>(wpn: game_object, ammo_elapsed: number)</code></td>
 <td>Weapon reloaded.</td>
 </tr>
 <tr>
 <td><code>actor_on_weapon_lower</code></td>
+<td><strong>Exes</strong></td>
 <td>—</td>
 <td><code>(wpn: game_object)</code></td>
 <td>Weapon lowered.</td>
 </tr>
 <tr>
 <td><code>actor_on_weapon_raise</code></td>
+<td><strong>Exes</strong></td>
 <td>—</td>
 <td><code>(wpn: game_object)</code></td>
 <td>Weapon raised.</td>
 </tr>
 <tr>
 <td><code>actor_on_weapon_zoom_in</code></td>
+<td></td>
 <td>23</td>
 <td><code>(wpn: game_object)</code></td>
 <td>Aimed down sights.</td>
 </tr>
 <tr>
 <td><code>actor_on_weapon_zoom_out</code></td>
+<td></td>
 <td>20</td>
 <td><code>(wpn: game_object)</code></td>
 <td>Stopped aiming.</td>
 </tr>
 <tr>
 <td><code>actor_on_before_throwable_select</code></td>
+<td><strong>Exes</strong></td>
 <td>—</td>
 <td><code>(t: table)</code></td>
 <td>Before the engine selects the next throwable (grenade/bolt). <code>t.item</code> is the selected <code>game_object</code>; replace it to override the selection.</td>
 </tr>
 <tr>
 <td><code>actor_on_hud_animation_play</code></td>
+<td></td>
 <td>—</td>
 <td><code>(anm_table: table, obj: game_object)</code></td>
 <td>HUD animation started.</td>
 </tr>
 <tr>
 <td><code>actor_on_hud_animation_end</code></td>
+<td><strong>Exes</strong></td>
 <td>—</td>
 <td><code>(obj: game_object, name: string, ?, ?, num: number)</code></td>
 <td>HUD animation finished.</td>
 </tr>
 <tr>
 <td><code>actor_on_hud_animation_mark</code></td>
+<td></td>
 <td>—</td>
 <td><code>(mark: number, name: string)</code></td>
 <td>Animation mark reached (sync point in animation).</td>
@@ -2537,6 +2597,7 @@
 <thead>
 <tr>
 <th>Callback</th>
+<th>Req</th>
 <th>Freq</th>
 <th>Params</th>
 <th>Description</th>
@@ -2545,96 +2606,112 @@
 <tbody>
 <tr>
 <td><code>actor_on_sleep</code></td>
+<td></td>
 <td>22</td>
 <td><code>(hours: number)</code></td>
 <td>Player slept. <code>hours</code> is how long they slept.</td>
 </tr>
 <tr>
 <td><code>actor_on_foot_step</code></td>
+<td><strong>Exes</strong></td>
 <td>—</td>
 <td><code>(obj: game_object, surface: number, ?, ?, ?)</code></td>
 <td>Footstep sound played.</td>
 </tr>
 <tr>
 <td><code>actor_on_footstep</code></td>
+<td></td>
 <td>—</td>
 <td><code>(surface: string, power: number, is_crouching: boolean, flags: table)</code></td>
 <td>Footstep event (newer version).</td>
 </tr>
 <tr>
 <td><code>actor_on_jump</code></td>
+<td></td>
 <td>—</td>
 <td><code>()</code></td>
 <td>Player jumped.</td>
 </tr>
 <tr>
 <td><code>actor_on_land</code></td>
+<td></td>
 <td>—</td>
 <td><code>(fall_speed: number)</code></td>
 <td>Player landed.</td>
 </tr>
 <tr>
 <td><code>actor_on_movement_changed</code></td>
+<td></td>
 <td>—</td>
 <td><code>(move_type: number)</code></td>
 <td>Player movement type changed (walking/running/crouching).</td>
 </tr>
 <tr>
 <td><code>actor_on_interaction</code></td>
+<td></td>
 <td>—</td>
 <td><code>(interaction_type: string, obj: game_object, section: string)</code></td>
 <td>Player interacted with something.</td>
 </tr>
 <tr>
 <td><code>actor_on_attach_vehicle</code></td>
+<td></td>
 <td>—</td>
 <td><code>(vehicle: game_object)</code></td>
 <td>Player entered a vehicle.</td>
 </tr>
 <tr>
 <td><code>actor_on_detach_vehicle</code></td>
+<td></td>
 <td>—</td>
 <td><code>(vehicle: game_object)</code></td>
 <td>Player exited a vehicle.</td>
 </tr>
 <tr>
 <td><code>actor_on_use_vehicle</code></td>
+<td></td>
 <td>—</td>
 <td><code>(vehicle: game_object)</code></td>
 <td>Player used a vehicle.</td>
 </tr>
 <tr>
 <td><code>actor_on_leave_dialog</code></td>
+<td></td>
 <td>—</td>
 <td><code>(dialog_id: number)</code></td>
 <td>Player exited a dialog.</td>
 </tr>
 <tr>
 <td><code>actor_on_stash_create</code></td>
+<td></td>
 <td>—</td>
 <td><code>(stash_data: table)</code></td>
 <td>A stash was created.</td>
 </tr>
 <tr>
 <td><code>actor_on_stash_remove</code></td>
+<td></td>
 <td>—</td>
 <td><code>(stash_data: table)</code></td>
 <td>A stash was removed.</td>
 </tr>
 <tr>
 <td><code>actor_on_frequency_change</code></td>
+<td></td>
 <td>—</td>
 <td><code>(old_freq: number, new_freq: number)</code></td>
 <td>Radio frequency changed.</td>
 </tr>
 <tr>
 <td><code>actor_on_achievement_earned</code></td>
+<td></td>
 <td>—</td>
 <td><code>(id: string, name: string)</code></td>
 <td>Achievement unlocked.</td>
 </tr>
 <tr>
 <td><code>actor_on_info_callback</code></td>
+<td></td>
 <td>—</td>
 <td><code>(obj: game_object, info_id: number)</code></td>
 <td>An info portion was received.</td>
@@ -2647,6 +2724,7 @@
 <thead>
 <tr>
 <th>Callback</th>
+<th>Req</th>
 <th>Freq</th>
 <th>Params</th>
 <th>Description</th>
@@ -2655,120 +2733,140 @@
 <tbody>
 <tr>
 <td><code>npc_on_death_callback</code></td>
+<td></td>
 <td>41</td>
 <td><code>(victim: game_object, who: game_object)</code></td>
 <td>An NPC was killed. <code>who</code> may be <code>nil</code> if killed by environment.</td>
 </tr>
 <tr>
 <td><code>npc_on_before_hit</code></td>
+<td><strong>Exes</strong></td>
 <td>23</td>
 <td><code>(npc: game_object, shit: SHit, bone_id: number, flags: table)</code></td>
 <td>NPC is about to be hit. Modify <code>shit.power</code> to change damage. Set <code>flags.ret_value = false</code> to cancel.</td>
 </tr>
 <tr>
 <td><code>npc_on_hit_callback</code></td>
+<td></td>
 <td>—</td>
 <td><code>(npc: game_object, amount: number, direction: vector, attacker: game_object, bone_id: number)</code></td>
 <td>NPC took damage.</td>
 </tr>
 <tr>
 <td><code>npc_on_net_spawn</code></td>
+<td></td>
 <td>—</td>
 <td><code>(npc: game_object, server_object)</code></td>
 <td>NPC entered the online zone (loaded into the scene).</td>
 </tr>
 <tr>
 <td><code>npc_on_net_destroy</code></td>
+<td></td>
 <td>—</td>
 <td><code>(npc: game_object)</code></td>
 <td>NPC left the online zone.</td>
 </tr>
 <tr>
 <td><code>npc_on_update</code></td>
+<td></td>
 <td>—</td>
 <td><code>(npc: game_object, state: table)</code></td>
 <td>NPC update tick. Expensive — avoid registering this for many NPCs.</td>
 </tr>
 <tr>
 <td><code>npc_on_use</code></td>
+<td></td>
 <td>—</td>
 <td><code>(npc: game_object, who: game_object)</code></td>
 <td>Player used/talked to an NPC.</td>
 </tr>
 <tr>
 <td><code>npc_on_item_take</code></td>
+<td></td>
 <td>—</td>
 <td><code>(npc: game_object, item: game_object)</code></td>
 <td>NPC picked up an item.</td>
 </tr>
 <tr>
 <td><code>npc_on_item_take_from_box</code></td>
+<td></td>
 <td>—</td>
 <td><code>(npc: game_object, item: game_object, box: game_object)</code></td>
 <td>NPC took from a box.</td>
 </tr>
 <tr>
 <td><code>npc_on_item_drop</code></td>
+<td></td>
 <td>—</td>
 <td><code>(npc: game_object, item: game_object)</code></td>
 <td>NPC dropped an item.</td>
 </tr>
 <tr>
 <td><code>npc_on_fighting_actor</code></td>
+<td></td>
 <td>—</td>
 <td><code>(npc: game_object)</code></td>
 <td>NPC became hostile to the player.</td>
 </tr>
 <tr>
 <td><code>npc_on_weapon_strapped</code></td>
+<td></td>
 <td>—</td>
 <td><code>(npc: game_object, wpn: game_object)</code></td>
 <td>NPC strapped a weapon.</td>
 </tr>
 <tr>
 <td><code>npc_on_weapon_unstrapped</code></td>
+<td></td>
 <td>—</td>
 <td><code>(npc: game_object, wpn: game_object)</code></td>
 <td>NPC unstrapped a weapon.</td>
 </tr>
 <tr>
 <td><code>npc_on_weapon_drop</code></td>
+<td></td>
 <td>—</td>
 <td><code>(npc: game_object, wpn: game_object)</code></td>
 <td>NPC dropped a weapon.</td>
 </tr>
 <tr>
 <td><code>npc_on_hear_callback</code></td>
+<td></td>
 <td>—</td>
 <td><code>(npc: game_object, who_id: number, ?, power: number, ?, position: vector)</code></td>
 <td>NPC heard a sound.</td>
 </tr>
 <tr>
 <td><code>npc_on_get_all_from_corpse</code></td>
+<td></td>
 <td>—</td>
 <td><code>(npc: game_object, corpse: game_object, item: game_object, is_all: boolean)</code></td>
 <td>NPC looted a corpse.</td>
 </tr>
 <tr>
 <td><code>npc_on_eval_danger</code></td>
+<td></td>
 <td>—</td>
 <td><code>(npc: game_object, flags: table)</code></td>
 <td>NPC evaluating danger level.</td>
 </tr>
 <tr>
 <td><code>npc_on_choose_weapon</code></td>
+<td></td>
 <td>—</td>
 <td><code>(npc: game_object, best_weapon: game_object, flags: table)</code></td>
 <td>NPC choosing which weapon to use.</td>
 </tr>
 <tr>
 <td><code>npc_shot_dispersion</code></td>
+<td><strong>Exes</strong></td>
 <td>—</td>
 <td><code>(npc: game_object, wpn: game_object, body_state: number, move_type: number, t: table)</code></td>
 <td>NPC weapon accuracy calculation. Modify <code>t.dispersion</code> to change the shot spread.</td>
 </tr>
 <tr>
 <td><code>se_stalker_on_spawn</code></td>
+<td></td>
 <td>—</td>
 <td><code>(server_object)</code></td>
 <td>Stalker server entity spawned.</td>
@@ -2781,6 +2879,7 @@
 <thead>
 <tr>
 <th>Callback</th>
+<th>Req</th>
 <th>Freq</th>
 <th>Params</th>
 <th>Description</th>
@@ -2789,60 +2888,70 @@
 <tbody>
 <tr>
 <td><code>monster_on_death_callback</code></td>
+<td></td>
 <td>—</td>
 <td><code>(victim: game_object, who: game_object)</code></td>
 <td>A monster was killed.</td>
 </tr>
 <tr>
 <td><code>monster_on_before_hit</code></td>
+<td><strong>Exes</strong></td>
 <td>—</td>
 <td><code>(monster: game_object, shit: SHit, bone_id: number, flags: table)</code></td>
 <td>Monster about to take damage. Set <code>flags.ret_value = false</code> to cancel.</td>
 </tr>
 <tr>
 <td><code>monster_on_hit_callback</code></td>
+<td></td>
 <td>—</td>
 <td><code>(monster: game_object, amount: number, direction: vector, attacker: game_object, bone_id: number)</code></td>
 <td>Monster took damage.</td>
 </tr>
 <tr>
 <td><code>monster_on_net_spawn</code></td>
+<td></td>
 <td>—</td>
 <td><code>(monster: game_object, server_object)</code></td>
 <td>Monster loaded into scene.</td>
 </tr>
 <tr>
 <td><code>monster_on_net_destroy</code></td>
+<td></td>
 <td>—</td>
 <td><code>(monster: game_object)</code></td>
 <td>Monster unloaded.</td>
 </tr>
 <tr>
 <td><code>monster_on_update</code></td>
+<td></td>
 <td>—</td>
 <td><code>(monster: game_object, state: table)</code></td>
 <td>Monster update tick.</td>
 </tr>
 <tr>
 <td><code>monster_on_actor_use_callback</code></td>
+<td></td>
 <td>—</td>
 <td><code>(monster: game_object, who: game_object)</code></td>
 <td>Player interacted with a monster.</td>
 </tr>
 <tr>
 <td><code>monster_on_loot_init</code></td>
+<td></td>
 <td>—</td>
 <td><code>(monster: game_object, loot_table: table)</code></td>
 <td>Monster loot table being built. Modify the table to change drops.</td>
 </tr>
 <tr>
 <td><code>burer_on_before_weapon_drop</code></td>
+<td></td>
 <td>—</td>
 <td><code>(burer: game_object, wpn: game_object)</code></td>
 <td>Burer (telekinetic mutant) about to throw a weapon.</td>
 </tr>
 <tr>
 <td><code>anomaly_on_before_activate</code></td>
+<td></td>
 <td>—</td>
 <td><code>(anomaly: game_object, activator: game_object)</code></td>
 <td>Anomaly about to activate.</td>
@@ -2855,6 +2964,7 @@
 <thead>
 <tr>
 <th>Callback</th>
+<th>Req</th>
 <th>Freq</th>
 <th>Params</th>
 <th>Description</th>
@@ -2863,84 +2973,98 @@
 <tbody>
 <tr>
 <td><code>squad_on_npc_creation</code></td>
+<td></td>
 <td>—</td>
 <td><code>(squad: server_object, npc: server_object, smart: server_object)</code></td>
 <td>NPC added to a squad at creation.</td>
 </tr>
 <tr>
 <td><code>squad_on_npc_death</code></td>
+<td></td>
 <td>—</td>
 <td><code>(squad: server_object, npc: server_object, killer: server_object)</code></td>
 <td>NPC in squad died.</td>
 </tr>
 <tr>
 <td><code>squad_on_add_npc</code></td>
+<td></td>
 <td>—</td>
 <td><code>(squad: server_object, npc: server_object, section: string, pos: vector, lv_id: number, gv_id: number)</code></td>
 <td>NPC added to squad.</td>
 </tr>
 <tr>
 <td><code>squad_on_enter_smart</code></td>
+<td></td>
 <td>—</td>
 <td><code>(squad: server_object, smart: server_object)</code></td>
 <td>Squad entered a smart terrain.</td>
 </tr>
 <tr>
 <td><code>squad_on_leave_smart</code></td>
+<td></td>
 <td>—</td>
 <td><code>(squad: server_object, smart: server_object)</code></td>
 <td>Squad left a smart terrain.</td>
 </tr>
 <tr>
 <td><code>squad_on_update</code></td>
+<td></td>
 <td>—</td>
 <td><code>(squad: server_object)</code></td>
 <td>Squad simulation tick.</td>
 </tr>
 <tr>
 <td><code>squad_on_first_update</code></td>
+<td></td>
 <td>—</td>
 <td><code>(squad: server_object)</code></td>
 <td>First simulation tick for a squad.</td>
 </tr>
 <tr>
 <td><code>squad_on_after_game_vertex_change</code></td>
+<td></td>
 <td>—</td>
 <td><code>(squad: server_object, old_gv: number, new_gv: number, changed: boolean)</code></td>
 <td>Squad moved to a new game vertex.</td>
 </tr>
 <tr>
 <td><code>squad_on_after_level_change</code></td>
+<td></td>
 <td>—</td>
 <td><code>(squad: server_object, old_level: string, new_level: string)</code></td>
 <td>Squad moved to a different level.</td>
 </tr>
 <tr>
 <td><code>smart_terrain_on_update</code></td>
+<td></td>
 <td>—</td>
 <td><code>(smart: server_object)</code></td>
 <td>Smart terrain simulation tick.</td>
 </tr>
 <tr>
 <td><code>on_try_respawn</code></td>
+<td></td>
 <td>—</td>
 <td><code>(smart: server_object, flags: table)</code></td>
 <td>Smart terrain about to respawn a squad. Set <code>flags.disabled = true</code> to cancel.</td>
 </tr>
 <tr>
 <td><code>server_entity_on_register</code></td>
+<td></td>
 <td>—</td>
 <td><code>(obj: server_object, type: string)</code></td>
 <td>Any entity added to A-Life simulation.</td>
 </tr>
 <tr>
 <td><code>server_entity_on_unregister</code></td>
+<td></td>
 <td>32</td>
 <td><code>(obj: server_object, type: string)</code></td>
 <td>Any entity removed from A-Life simulation.</td>
 </tr>
 <tr>
 <td><code>fill_start_position</code></td>
+<td></td>
 <td>—</td>
 <td><code>()</code></td>
 <td>New game start positions are being filled.</td>
@@ -2953,6 +3077,7 @@
 <thead>
 <tr>
 <th>Callback</th>
+<th>Req</th>
 <th>Freq</th>
 <th>Params</th>
 <th>Description</th>
@@ -2961,78 +3086,91 @@
 <tbody>
 <tr>
 <td><code>GUI_on_show</code></td>
+<td></td>
 <td>31</td>
 <td><code>(name: string, path: string)</code></td>
 <td>A UI window opened. <code>name</code> is the Lua class name, <code>path</code> is the XML source path.</td>
 </tr>
 <tr>
 <td><code>GUI_on_hide</code></td>
+<td></td>
 <td>23</td>
 <td><code>(name: string, path: string)</code></td>
 <td>A UI window closed.</td>
 </tr>
 <tr>
 <td><code>ActorMenu_on_mode_changed</code></td>
+<td></td>
 <td>—</td>
 <td><code>(old_mode: number, new_mode: number)</code></td>
 <td>Inventory screen tab changed.</td>
 </tr>
 <tr>
 <td><code>ActorMenu_on_before_init_mode</code></td>
+<td></td>
 <td>—</td>
 <td><code>(mode: string, flags: table, item: game_object)</code></td>
 <td>Before inventory mode initialised.</td>
 </tr>
 <tr>
 <td><code>ActorMenu_on_item_drag_drop</code></td>
+<td></td>
 <td>26</td>
 <td><code>(item: game_object, from: game_object, from_slot: number, to_slot: number)</code></td>
 <td>Item dragged and dropped in inventory.</td>
 </tr>
 <tr>
 <td><code>ActorMenu_on_item_focus_receive</code></td>
+<td></td>
 <td>20</td>
 <td><code>(item: game_object)</code></td>
 <td>Mouse hovered over an inventory item.</td>
 </tr>
 <tr>
 <td><code>ActorMenu_on_item_focus_lost</code></td>
+<td></td>
 <td>—</td>
 <td><code>(item: game_object)</code></td>
 <td>Mouse left an inventory item.</td>
 </tr>
 <tr>
 <td><code>ActorMenu_on_item_before_move</code></td>
+<td></td>
 <td>—</td>
 <td><code>(flags: table, mode: number, item: game_object, to: string, ?, slot: number)</code></td>
 <td>Before item moved in inventory. Set flag to cancel.</td>
 </tr>
 <tr>
 <td><code>ActorMenu_on_item_after_move</code></td>
+<td></td>
 <td>—</td>
 <td><code>(mode: number, item: game_object, to: string, ?, slot: number)</code></td>
 <td>After item moved in inventory.</td>
 </tr>
 <tr>
 <td><code>ActorMenu_on_trade_started</code></td>
+<td></td>
 <td>—</td>
 <td><code>()</code></td>
 <td>Trade window opened.</td>
 </tr>
 <tr>
 <td><code>ActorMenu_on_trade_closed</code></td>
+<td></td>
 <td>—</td>
 <td><code>()</code></td>
 <td>Trade window closed.</td>
 </tr>
 <tr>
 <td><code>map_spot_menu_add_property</code></td>
+<td></td>
 <td>—</td>
 <td><code>(wnd: CUIWindow, obj_id: number, section: string, ?)</code></td>
 <td>Map spot right-click menu being built. Add custom options here.</td>
 </tr>
 <tr>
 <td><code>map_spot_menu_property_clicked</code></td>
+<td></td>
 <td>—</td>
 <td><code>(wnd: CUIWindow, obj_id: number, section: string, ?)</code></td>
 <td>Map spot menu option was clicked.</td>
@@ -3045,6 +3183,7 @@
 <thead>
 <tr>
 <th>Callback</th>
+<th>Req</th>
 <th>Freq</th>
 <th>Params</th>
 <th>Description</th>
@@ -3053,18 +3192,21 @@
 <tbody>
 <tr>
 <td><code>main_menu_on_init</code></td>
+<td></td>
 <td>—</td>
 <td><code>(wnd: CUIScriptWnd)</code></td>
 <td>Main menu initialised.</td>
 </tr>
 <tr>
 <td><code>main_menu_on_quit</code></td>
+<td></td>
 <td>—</td>
 <td><code>(wnd: CUIScriptWnd)</code></td>
 <td>Player clicked quit from main menu.</td>
 </tr>
 <tr>
 <td><code>main_menu_on_keyboard</code></td>
+<td></td>
 <td>—</td>
 <td><code>(key: number, action: number, wnd: CUIScriptWnd, is_down: boolean)</code></td>
 <td>Key pressed while main menu is open.</td>
@@ -3077,6 +3219,7 @@
 <thead>
 <tr>
 <th>Callback</th>
+<th>Req</th>
 <th>Freq</th>
 <th>Params</th>
 <th>Description</th>
@@ -3085,63 +3228,73 @@
 <tbody>
 <tr>
 <td><code>physic_object_on_hit_callback</code></td>
+<td></td>
 <td>—</td>
 <td><code>(obj: game_object, amount: number, direction: vector, attacker: game_object, bone_id: number)</code></td>
 <td>A physics object (barrel, crate, etc.) was hit.</td>
 </tr>
 <tr>
 <td><code>physic_object_on_use_callback</code></td>
+<td></td>
 <td>—</td>
 <td><code>(obj: game_object, who: game_object)</code></td>
 <td>A physics object was used/interacted with.</td>
 </tr>
 <tr>
 <td><code>heli_on_hit_callback</code></td>
+<td></td>
 <td>—</td>
 <td><code>(heli: game_object, amount: number, nil, attacker: game_object, nil)</code></td>
 <td>Helicopter was hit.</td>
 </tr>
 <tr>
 <td><code>vehicle_on_death_callback</code></td>
+<td></td>
 <td>—</td>
 <td><code>(id: number)</code></td>
 <td>Vehicle was destroyed.</td>
 </tr>
 <tr>
 <td><code>on_before_surge</code></td>
+<td></td>
 <td>—</td>
 <td><code>(flags: table)</code></td>
 <td>Emission/surge about to start. Set <code>flags.allow = false</code> to cancel.</td>
 </tr>
 <tr>
 <td><code>on_before_psi_storm</code></td>
+<td></td>
 <td>—</td>
 <td><code>(flags: table)</code></td>
 <td>Psi storm about to start. Set <code>flags.allow = false</code> to cancel.</td>
 </tr>
 <tr>
 <td><code>bullet_on_hit</code></td>
+<td><strong>Exes</strong></td>
 <td>—</td>
 <td><code>(section: string, obj: game_object, pos: vector, dir: vector, material: string, speed: number, wpn_id: number)</code></td>
 <td>A bullet hit something. <code>section</code> is the ammo section, <code>obj</code> is the hit object, <code>wpn_id</code> is the weapon's object ID.</td>
 </tr>
 <tr>
 <td><code>on_enemy_eval</code></td>
+<td></td>
 <td>—</td>
 <td><code>(npc: game_object, enemy: game_object, flags: table)</code></td>
 <td>NPC evaluating whether an entity is an enemy.</td>
 </tr>
 <tr>
 <td><code>on_get_item_cost</code></td>
+<td></td>
 <td>—</td>
 <td>See <code>utils_item.script</code></td>
 <td>Item cost being calculated for trading.</td>
 </tr>
 <tr>
 <td><code>on_xml_read</code></td>
+<td><strong>Exes</strong></td>
 <td>36</td>
 <td><code>(path: string, xml_obj: CScriptXmlInit)</code></td>
-<td>Engine reading an XML file. Used for DXML patching.</td>
+<td>Engine reading an XML file. Used for DXML patching. See <a href="../config-formats/dxml/">DXML</a>.</td>
 </tr>
 </tbody>
 </table>

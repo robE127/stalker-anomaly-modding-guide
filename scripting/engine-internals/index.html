@@ -2604,8 +2604,8 @@
 <p>The engine's native save system uses binary network packets:</p>
 <ol>
 <li><strong>On save:</strong> The engine iterates all online <code>CGameObject</code>s, calls <code>net_Save()</code> on each, which writes native state plus the script binder's <code>save(packet)</code> data into a <code>NET_Packet</code>. This data is sent to the server and stored on the server entity as <code>client_data</code> (a raw byte vector).</li>
-<li><strong>On disk write:</strong> The alife storage manager serializes all server entities (including their <code>client_data</code>) into a compressed binary blob — the <code>.sav</code> file.</li>
-<li><strong>On load:</strong> Server entities are deserialized from the <code>.sav</code> file. When an entity comes online, its <code>client_data</code> is fed back through <code>net_Load()</code> into the script binder's <code>load(packet)</code> method.</li>
+<li><strong>On disk write:</strong> The alife storage manager serializes all server entities (including their <code>client_data</code>) into a compressed binary blob — the <code>.scop</code> file (Anomaly's save file format, stored in <code>appdata/savedgames/</code>).</li>
+<li><strong>On load:</strong> Server entities are deserialized from the <code>.scop</code> file. When an entity comes online, its <code>client_data</code> is fed back through <code>net_Load()</code> into the script binder's <code>load(packet)</code> method.</li>
 </ol>
 <div class="admonition warning">
 <p class="admonition-title">NET_Packet size limit</p>
@@ -2626,7 +2626,7 @@
 <li><code>m_data.game_object</code> — purged when an entity is unregistered</li>
 </ul>
 </li>
-<li><strong>On save:</strong> The <code>save_state</code> script callback fires, allowing all mods to write their data into <code>m_data</code>. The table is then serialized using the <strong>marshal</strong> library (Lua binary serialization) and written to a <code>.scoc</code> sidecar file next to the <code>.sav</code> file.</li>
+<li><strong>On save:</strong> The <code>save_state</code> script callback fires, allowing all mods to write their data into <code>m_data</code>. The table is then serialized using the <strong>marshal</strong> library (Lua binary serialization) and written to a <code>.scoc</code> sidecar file alongside the <code>.scop</code> save file.</li>
 <li><strong>On load:</strong> The <code>.scoc</code> file is deserialized back into <code>m_data</code>, and the <code>load_state</code> script callback fires so mods can read their data back.</li>
 </ol>
 <p>The C++ engine calls into Lua (<code>CALifeStorageManager_before_save</code> and <code>CALifeStorageManager_load</code>) at the right moments — this bridge is enabled by the <code>ENGINE_LUA_ALIFE_STORAGE_MANAGER_CALLBACKS</code> compile flag in the modded exes.</p>
