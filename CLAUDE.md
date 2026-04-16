@@ -87,7 +87,17 @@ Particularly useful clones for real-world patterns:
 Always prefer higher-scored repos from `repos.json` when choosing which GitHub sources to consult.
 
 ### 3. xray-monolith (engine internals)
-The modded exes are open-source C++: **https://github.com/themrdemonized/xray-monolith**
+The modded exes are open-source C++, and the repo is **cloned locally**:
+```
+data/clones/xray-monolith/src/
+```
+
+**Always grep here first** for engine-level questions. Do not fetch from GitHub when the local clone is available. Key subdirectories:
+- `src/xrGame/` — game logic, Lua bindings, callbacks, alife, save/load
+- `src/xrCore/` — core engine, CInifile (DLTX), file system
+- `src/xrXMLParser/` — XML loading (DXML hook lives here)
+- `src/xrServerEntities/` — server entity classes, script_ini_file Lua bindings
+- `gamedata/scripts/` — Lua scripts shipped with the modded exes (dxml_core.script, etc.)
 
 Use this when you need to understand how the engine actually works rather than just what it exposes to Lua. Particularly useful for:
 - Verifying exactly which C++ functions are bound to the Lua API (`luabind` / `script_register` calls in the source)
@@ -95,16 +105,8 @@ Use this when you need to understand how the engine actually works rather than j
 - Understanding which callbacks are added by the modded exes vs present in vanilla Anomaly
 - Engine behaviours (object lifetime, save serialisation, etc.) that are otherwise only documentable by observation
 
-This repo is not cloned locally. Fetch files directly from GitHub using raw URLs:
+If a specific file is not found locally, fall back to raw GitHub URLs:
 `https://raw.githubusercontent.com/themrdemonized/xray-monolith/master/<path>`
-
-Or browse the tree: `https://github.com/themrdemonized/xray-monolith/tree/master`
-
-Key areas to look in:
-- `src/xrScripts/` or similar — Lua binding registration
-- Search for `luabind::` or `export_` prefix functions to find what's exposed to scripts
-- DLTX implementation: search for `dltx` or `mod_` prefix handling
-- DXML implementation: search for `on_xml_read` or `xml_document`
 
 ### 4. External sources (use only when local data is insufficient)
 Web search and the Anomaly modding community (AP-PRO forums, ModDB, Discord) may fill gaps not covered by the local data. Always verify against the base game scripts before publishing.
