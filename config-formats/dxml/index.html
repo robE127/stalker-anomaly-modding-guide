@@ -3208,6 +3208,10 @@
 </table>
 <hr />
 <h2 id="caching">Caching<a class="headerlink" href="#caching" title="Permanent link">&para;</a></h2>
+<div class="admonition abstract">
+<p class="admonition-title">Advanced — skip on first read</p>
+<p>This section and <a href="#execution-order">Execution order</a> below cover DXML internals. Skip them until you need to optimise repeated DXML calls or debug unexpected callback ordering.</p>
+</div>
 <p>The <code>on_xml_read</code> callback receives an optional third argument — a <code>flags</code> table:</p>
 <div class="language-lua highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">on_xml_read</span><span class="p">(</span><span class="nv">xml_file_name</span><span class="p">,</span><span class="w"> </span><span class="nv">xml_obj</span><span class="p">,</span><span class="w"> </span><span class="nv">flags</span><span class="p">)</span>
 </span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">xml_file_name</span><span class="w"> </span><span class="o">~=</span><span class="w"> </span><span class="s">[[ui\ui_inventory.xml]]</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>

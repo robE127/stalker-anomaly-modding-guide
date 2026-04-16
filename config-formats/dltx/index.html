@@ -3083,6 +3083,10 @@
 </span></code></pre></div>
 <hr />
 <h2 id="load-order-and-merge-algorithm">Load order and merge algorithm<a class="headerlink" href="#load-order-and-merge-algorithm" title="Permanent link">&para;</a></h2>
+<div class="admonition abstract">
+<p class="admonition-title">Advanced — skip on first read</p>
+<p>This section covers how DLTX works internally. You don't need it to use DLTX — only read this if you're debugging merge conflicts or need to reason about load order.</p>
+</div>
 <p>This section describes how DLTX actually works inside the engine, based on the C++ source in <code>CInifile</code> (<a href="https://github.com/themrdemonized/xray-monolith">xray-monolith</a> <code>src/xrCore/Xr_ini.cpp</code>).</p>
 <div class="admonition info">
 <p class="admonition-title">Source: modded exes</p>

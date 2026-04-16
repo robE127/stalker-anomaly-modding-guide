@@ -1419,6 +1419,72 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#level-and-id-utilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level and ID utilities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ammo-spawning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ammo spawning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restrictions-space-restrictors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restrictions (space restrictors)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kill-and-interactive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kill and interactive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#info-portions-via-alife" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Info portions via alife
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#children" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Children
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2609,6 +2675,72 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#level-and-id-utilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level and ID utilities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ammo-spawning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ammo spawning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restrictions-space-restrictors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restrictions (space restrictors)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kill-and-interactive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kill and interactive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#info-portions-via-alife" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Info portions via alife
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#children" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Children
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2902,80 +3034,133 @@
 <p>Useful for containers or NPCs that must remain interactable.</p>
 <h3 id="spawn-distance">Spawn distance<a class="headerlink" href="#spawn-distance" title="Permanent link">&para;</a></h3>
 <div class="language-lua highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">dist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">alife</span><span class="p">():</span><span class="nf">switch_distance</span><span class="p">()</span><span class="w">     </span><span class="c1">-- current spawn radius</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nf">alife</span><span class="p">():</span><span class="nf">set_switch_distance</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span><span class="w">           </span><span class="c1">-- widen/narrow spawn zone</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nf">alife</span><span class="p">():</span><span class="nf">switch_distance</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span><span class="w">               </span><span class="c1">-- set spawn radius (overloaded)</span>
+</span></code></pre></div>
+<h3 id="level-and-id-utilities">Level and ID utilities<a class="headerlink" href="#level-and-id-utilities" title="Permanent link">&para;</a></h3>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1">-- Check if an alife object ID is valid (not 65535 and exists in the simulator)</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">alife</span><span class="p">():</span><span class="nf">valid_object_id</span><span class="p">(</span><span class="nv">id</span><span class="p">)</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1">-- Get the numeric ID of the level currently hosting the actor</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="kd">local</span><span class="w"> </span><span class="nv">lid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">alife</span><span class="p">():</span><span class="nf">level_id</span><span class="p">()</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1">-- Get the name of a level by its numeric ID</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="kd">local</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">alife</span><span class="p">():</span><span class="nf">level_name</span><span class="p">(</span><span class="nv">level_id</span><span class="p">)</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="c1">-- Spawn by spawn_story_id (numeric ID defined in spawn files)</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="kd">local</span><span class="w"> </span><span class="nv">se_obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">alife</span><span class="p">():</span><span class="nf">spawn_id</span><span class="p">(</span><span class="nv">spawn_story_id_number</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="ammo-spawning">Ammo spawning<a class="headerlink" href="#ammo-spawning" title="Permanent link">&para;</a></h3>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1">-- Spawn a stack of ammo at a position</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="c1">-- alife():create_ammo(section, pos, level_vertex_id, game_vertex_id, parent_id, count)</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="kd">local</span><span class="w"> </span><span class="nv">se_ammo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">alife</span><span class="p">():</span><span class="nf">create_ammo</span><span class="p">(</span><span class="s2">&quot;ammo_9x18_fmj&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">pos</span><span class="p">,</span><span class="w"> </span><span class="nv">lvid</span><span class="p">,</span><span class="w"> </span><span class="nv">gvid</span><span class="p">,</span><span class="w"> </span><span class="mi">65535</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="restrictions-space-restrictors">Restrictions (space restrictors)<a class="headerlink" href="#restrictions-space-restrictors" title="Permanent link">&para;</a></h3>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1">-- Add/remove in-restriction (zone that keeps NPC inside)</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nf">alife</span><span class="p">():</span><span class="nf">add_in_restriction</span><span class="p">(</span><span class="nv">se_monster</span><span class="p">,</span><span class="w"> </span><span class="nv">restrictor_id</span><span class="p">)</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="nf">alife</span><span class="p">():</span><span class="nf">remove_in_restriction</span><span class="p">(</span><span class="nv">se_monster</span><span class="p">,</span><span class="w"> </span><span class="nv">restrictor_id</span><span class="p">)</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="c1">-- Add/remove out-restriction (zone that keeps NPC outside)</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="nf">alife</span><span class="p">():</span><span class="nf">add_out_restriction</span><span class="p">(</span><span class="nv">se_monster</span><span class="p">,</span><span class="w"> </span><span class="nv">restrictor_id</span><span class="p">)</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="nf">alife</span><span class="p">():</span><span class="nf">remove_out_restriction</span><span class="p">(</span><span class="nv">se_monster</span><span class="p">,</span><span class="w"> </span><span class="nv">restrictor_id</span><span class="p">)</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="c1">-- Remove all restrictions of a given type from an object</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="c1">-- types: RestrictionSpace.ERestrictorTypes constants</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="nf">alife</span><span class="p">():</span><span class="nf">remove_all_restrictions</span><span class="p">(</span><span class="nv">object_id</span><span class="p">,</span><span class="w"> </span><span class="nv">restrictor_type</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="kill-and-interactive">Kill and interactive<a class="headerlink" href="#kill-and-interactive" title="Permanent link">&para;</a></h3>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1">-- Kill a server entity (mark as dead in the simulation)</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nf">alife</span><span class="p">():</span><span class="nf">kill_entity</span><span class="p">(</span><span class="nv">se_monster</span><span class="p">)</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="nf">alife</span><span class="p">():</span><span class="nf">kill_entity</span><span class="p">(</span><span class="nv">se_monster</span><span class="p">,</span><span class="w"> </span><span class="nv">game_vertex_id</span><span class="p">)</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="c1">-- Mark an object as interactive (affects whether NPCs can interact with it)</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="nf">alife</span><span class="p">():</span><span class="nf">set_interactive</span><span class="p">(</span><span class="nv">object_id</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="info-portions-via-alife">Info portions via alife<a class="headerlink" href="#info-portions-via-alife" title="Permanent link">&para;</a></h3>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1">-- Check/give/disable info portions on any entity (identified by alife ID)</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">has</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">alife</span><span class="p">():</span><span class="nf">has_info</span><span class="p">(</span><span class="nv">entity_id</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;info_id_string&quot;</span><span class="p">)</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="nf">alife</span><span class="p">():</span><span class="nf">give_info</span><span class="p">(</span><span class="nv">entity_id</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;info_id_string&quot;</span><span class="p">)</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="nf">alife</span><span class="p">():</span><span class="nf">disable_info</span><span class="p">(</span><span class="nv">entity_id</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;info_id_string&quot;</span><span class="p">)</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="nf">alife</span><span class="p">():</span><span class="nf">dont_has_info</span><span class="p">(</span><span class="nv">entity_id</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;info_id_string&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1">-- returns true if entity does NOT have the info</span>
+</span></code></pre></div>
+<h3 id="children">Children<a class="headerlink" href="#children" title="Permanent link">&para;</a></h3>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1">-- Get all child objects of a server entity (e.g. items in an NPC&#39;s inventory)</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="c1">-- Returns an iterator</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="kr">for</span><span class="w"> </span><span class="nv">child</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nf">alife</span><span class="p">():</span><span class="nf">get_children</span><span class="p">(</span><span class="nv">se_obj</span><span class="p">)</span><span class="w"> </span><span class="kr">do</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;child id: %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">child</span><span class="p">.</span><span class="py">id</span><span class="p">)</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="kr">end</span>
 </span></code></pre></div>
 <hr />
 <h2 id="server-entity-se_abstract">Server entity (se_abstract)<a class="headerlink" href="#server-entity-se_abstract" title="Permanent link">&para;</a></h2>
 <p>Objects returned by <code>alife():object()</code> and <code>alife_object()</code> are server entities. They have a different (smaller) API than client <code>game_object</code>s.</p>
 <h3 id="common-properties">Common properties<a class="headerlink" href="#common-properties" title="Permanent link">&para;</a></h3>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nv">se_obj</span><span class="p">.</span><span class="py">id</span><span class="w">                  </span><span class="c1">-- numeric ID (same as client object&#39;s id())</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nv">se_obj</span><span class="p">.</span><span class="py">parent_id</span><span class="w">           </span><span class="c1">-- owner ID (65535 = no owner / world)</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="nv">se_obj</span><span class="p">.</span><span class="py">position</span><span class="w">            </span><span class="c1">-- vector3 world position</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="nv">se_obj</span><span class="p">.</span><span class="py">m_level_vertex_id</span><span class="w">   </span><span class="c1">-- nav mesh vertex</span>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="nv">se_obj</span><span class="p">.</span><span class="py">m_game_vertex_id</span><span class="w">    </span><span class="c1">-- game vertex (identifies the level)</span>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="nv">se_obj</span><span class="p">.</span><span class="py">group_id</span><span class="w">            </span><span class="c1">-- squad ID (for NPCs)</span>
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="nv">se_obj</span><span class="p">.</span><span class="py">remaining_uses</span><span class="w">      </span><span class="c1">-- for multi-use objects</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nv">se_obj</span><span class="p">.</span><span class="py">id</span><span class="w">                  </span><span class="c1">-- numeric ID (same as client object&#39;s id())</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nv">se_obj</span><span class="p">.</span><span class="py">parent_id</span><span class="w">           </span><span class="c1">-- owner ID (65535 = no owner / world)</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="nv">se_obj</span><span class="p">.</span><span class="py">position</span><span class="w">            </span><span class="c1">-- vector3 world position</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="nv">se_obj</span><span class="p">.</span><span class="py">m_level_vertex_id</span><span class="w">   </span><span class="c1">-- nav mesh vertex</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="nv">se_obj</span><span class="p">.</span><span class="py">m_game_vertex_id</span><span class="w">    </span><span class="c1">-- game vertex (identifies the level)</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="nv">se_obj</span><span class="p">.</span><span class="py">group_id</span><span class="w">            </span><span class="c1">-- squad ID (for NPCs)</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="nv">se_obj</span><span class="p">.</span><span class="py">remaining_uses</span><span class="w">      </span><span class="c1">-- for multi-use objects</span>
 </span></code></pre></div>
 <h3 id="common-methods">Common methods<a class="headerlink" href="#common-methods" title="Permanent link">&para;</a></h3>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nv">se_obj</span><span class="p">:</span><span class="nf">section_name</span><span class="p">()</span><span class="w">      </span><span class="c1">-- config section (e.g. &quot;stalker_bandit&quot;)</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nv">se_obj</span><span class="p">:</span><span class="nf">name</span><span class="p">()</span><span class="w">              </span><span class="c1">-- object name string</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="nv">se_obj</span><span class="p">:</span><span class="nf">clsid</span><span class="p">()</span><span class="w">             </span><span class="c1">-- class ID (use clsid constants from _g.script)</span>
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="nv">se_obj</span><span class="p">:</span><span class="nf">alive</span><span class="p">()</span><span class="w">             </span><span class="c1">-- is entity alive? (NPCs/creatures)</span>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="nv">se_obj</span><span class="p">:</span><span class="nf">community</span><span class="p">()</span><span class="w">         </span><span class="c1">-- faction string (NPCs)</span>
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="nv">se_obj</span><span class="p">:</span><span class="nf">level_id</span><span class="p">()</span><span class="w">          </span><span class="c1">-- which level this entity is on</span>
-</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="nv">se_obj</span><span class="p">:</span><span class="nf">level_vertex_id</span><span class="p">()</span><span class="w">   </span><span class="c1">-- nav vertex</span>
-</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="nv">se_obj</span><span class="p">:</span><span class="nf">game_vertex_id</span><span class="p">()</span><span class="w">    </span><span class="c1">-- game vertex</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nv">se_obj</span><span class="p">:</span><span class="nf">section_name</span><span class="p">()</span><span class="w">      </span><span class="c1">-- config section (e.g. &quot;stalker_bandit&quot;)</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="nv">se_obj</span><span class="p">:</span><span class="nf">name</span><span class="p">()</span><span class="w">              </span><span class="c1">-- object name string</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="nv">se_obj</span><span class="p">:</span><span class="nf">clsid</span><span class="p">()</span><span class="w">             </span><span class="c1">-- class ID (use clsid constants from _g.script)</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="nv">se_obj</span><span class="p">:</span><span class="nf">alive</span><span class="p">()</span><span class="w">             </span><span class="c1">-- is entity alive? (NPCs/creatures)</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="nv">se_obj</span><span class="p">:</span><span class="nf">community</span><span class="p">()</span><span class="w">         </span><span class="c1">-- faction string (NPCs)</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="nv">se_obj</span><span class="p">:</span><span class="nf">level_id</span><span class="p">()</span><span class="w">          </span><span class="c1">-- which level this entity is on</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="nv">se_obj</span><span class="p">:</span><span class="nf">level_vertex_id</span><span class="p">()</span><span class="w">   </span><span class="c1">-- nav vertex</span>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="nv">se_obj</span><span class="p">:</span><span class="nf">game_vertex_id</span><span class="p">()</span><span class="w">    </span><span class="c1">-- game vertex</span>
 </span></code></pre></div>
 <h3 id="squad-methods">Squad methods<a class="headerlink" href="#squad-methods" title="Permanent link">&para;</a></h3>
 <p>Squads are also server entities. Methods specific to squad objects:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kr">for</span><span class="w"> </span><span class="nv">member</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">se_squad</span><span class="p">:</span><span class="nf">squad_members</span><span class="p">()</span><span class="w"> </span><span class="kr">do</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;member id: %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">member</span><span class="p">.</span><span class="py">id</span><span class="p">)</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="kr">end</span>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="kd">local</span><span class="w"> </span><span class="nv">leader_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">se_squad</span><span class="p">:</span><span class="nf">commander_id</span><span class="p">()</span>
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="kd">local</span><span class="w"> </span><span class="nv">count</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nv">se_squad</span><span class="p">:</span><span class="nf">npc_count</span><span class="p">()</span>
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="nv">se_squad</span><span class="p">:</span><span class="nf">remove_npc</span><span class="p">(</span><span class="nv">npc_id</span><span class="p">)</span>
-</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="nv">se_squad</span><span class="p">:</span><span class="nf">remove_squad</span><span class="p">()</span><span class="w">     </span><span class="c1">-- disband the squad</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kr">for</span><span class="w"> </span><span class="nv">member</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">se_squad</span><span class="p">:</span><span class="nf">squad_members</span><span class="p">()</span><span class="w"> </span><span class="kr">do</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">    </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;member id: %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">member</span><span class="p">.</span><span class="py">id</span><span class="p">)</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="kr">end</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="kd">local</span><span class="w"> </span><span class="nv">leader_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">se_squad</span><span class="p">:</span><span class="nf">commander_id</span><span class="p">()</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="kd">local</span><span class="w"> </span><span class="nv">count</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nv">se_squad</span><span class="p">:</span><span class="nf">npc_count</span><span class="p">()</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="nv">se_squad</span><span class="p">:</span><span class="nf">remove_npc</span><span class="p">(</span><span class="nv">npc_id</span><span class="p">)</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="nv">se_squad</span><span class="p">:</span><span class="nf">remove_squad</span><span class="p">()</span><span class="w">     </span><span class="c1">-- disband the squad</span>
 </span></code></pre></div>
 <hr />
 <h2 id="common-patterns">Common patterns<a class="headerlink" href="#common-patterns" title="Permanent link">&para;</a></h2>
 <h3 id="spawn-loot-on-npc-death">Spawn loot on NPC death<a class="headerlink" href="#spawn-loot-on-npc-death" title="Permanent link">&para;</a></h3>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">npc_on_death_callback</span><span class="p">(</span><span class="nv">victim</span><span class="p">,</span><span class="w"> </span><span class="nv">who</span><span class="p">)</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">se_vic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">alife_object</span><span class="p">(</span><span class="nv">victim</span><span class="p">:</span><span class="nf">id</span><span class="p">())</span>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">se_vic</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="nf">alife_create_item</span><span class="p">(</span><span class="s2">&quot;bandage&quot;</span><span class="p">,</span><span class="w">    </span><span class="nv">victim</span><span class="p">)</span>
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">    </span><span class="nf">alife_create_item</span><span class="p">(</span><span class="s2">&quot;conserva&quot;</span><span class="p">,</span><span class="w">   </span><span class="nv">victim</span><span class="p">)</span>
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">npc_on_death_callback</span><span class="p">(</span><span class="nv">victim</span><span class="p">,</span><span class="w"> </span><span class="nv">who</span><span class="p">)</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">se_vic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">alife_object</span><span class="p">(</span><span class="nv">victim</span><span class="p">:</span><span class="nf">id</span><span class="p">())</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">se_vic</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">    </span><span class="nf">alife_create_item</span><span class="p">(</span><span class="s2">&quot;bandage&quot;</span><span class="p">,</span><span class="w">    </span><span class="nv">victim</span><span class="p">)</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">    </span><span class="nf">alife_create_item</span><span class="p">(</span><span class="s2">&quot;conserva&quot;</span><span class="p">,</span><span class="w">   </span><span class="nv">victim</span><span class="p">)</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="kr">end</span>
 </span></code></pre></div>
 <p>Note: items given to <code>victim</code> (the dying client object) before it goes offline end up on the ground at its position.</p>
 <h3 id="spawn-a-world-object-at-a-position">Spawn a world object at a position<a class="headerlink" href="#spawn-a-world-object-at-a-position" title="Permanent link">&para;</a></h3>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">spawn_at_actor</span><span class="p">(</span><span class="nv">section</span><span class="p">)</span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">pos</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">position</span><span class="p">()</span>
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">lvid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">level_vertex_id</span><span class="p">()</span>
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">gvid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">game_vertex_id</span><span class="p">()</span>
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="nf">alife_create</span><span class="p">(</span><span class="nv">section</span><span class="p">,</span><span class="w"> </span><span class="nv">pos</span><span class="p">,</span><span class="w"> </span><span class="nv">lvid</span><span class="p">,</span><span class="w"> </span><span class="nv">gvid</span><span class="p">)</span>
-</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">spawn_at_actor</span><span class="p">(</span><span class="nv">section</span><span class="p">)</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">pos</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">position</span><span class="p">()</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">lvid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">level_vertex_id</span><span class="p">()</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">gvid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">game_vertex_id</span><span class="p">()</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="nf">alife_create</span><span class="p">(</span><span class="nv">section</span><span class="p">,</span><span class="w"> </span><span class="nv">pos</span><span class="p">,</span><span class="w"> </span><span class="nv">lvid</span><span class="p">,</span><span class="w"> </span><span class="nv">gvid</span><span class="p">)</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="kr">end</span>
 </span></code></pre></div>
 <h3 id="check-if-entity-is-online-right-now">Check if entity is online right now<a class="headerlink" href="#check-if-entity-is-online-right-now" title="Permanent link">&para;</a></h3>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">is_online</span><span class="p">(</span><span class="nv">id</span><span class="p">)</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="c1">-- level.object_by_id only returns something if the entity is online</span>
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="nv">level</span><span class="p">.</span><span class="nf">object_by_id</span><span class="p">(</span><span class="nv">id</span><span class="p">)</span><span class="w"> </span><span class="o">~=</span><span class="w"> </span><span class="kc">nil</span>
-</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">is_online</span><span class="p">(</span><span class="nv">id</span><span class="p">)</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">    </span><span class="c1">-- level.object_by_id only returns something if the entity is online</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="nv">level</span><span class="p">.</span><span class="nf">object_by_id</span><span class="p">(</span><span class="nv">id</span><span class="p">)</span><span class="w"> </span><span class="o">~=</span><span class="w"> </span><span class="kc">nil</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="kr">end</span>
 </span></code></pre></div>
 <h3 id="teleport-an-item-to-the-player">Teleport an item to the player<a class="headerlink" href="#teleport-an-item-to-the-player" title="Permanent link">&para;</a></h3>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">pull_to_actor</span><span class="p">(</span><span class="nv">id</span><span class="p">)</span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">pos</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">position</span><span class="p">()</span>
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">lvid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">level_vertex_id</span><span class="p">()</span>
-</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">gvid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">game_vertex_id</span><span class="p">()</span>
-</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="w">    </span><span class="nf">alife</span><span class="p">():</span><span class="nf">teleport_object</span><span class="p">(</span><span class="nv">id</span><span class="p">,</span><span class="w"> </span><span class="nv">pos</span><span class="p">,</span><span class="w"> </span><span class="nv">lvid</span><span class="p">,</span><span class="w"> </span><span class="nv">gvid</span><span class="p">)</span>
-</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">pull_to_actor</span><span class="p">(</span><span class="nv">id</span><span class="p">)</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">pos</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">position</span><span class="p">()</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">lvid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">level_vertex_id</span><span class="p">()</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">gvid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">game_vertex_id</span><span class="p">()</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">    </span><span class="nf">alife</span><span class="p">():</span><span class="nf">teleport_object</span><span class="p">(</span><span class="nv">id</span><span class="p">,</span><span class="w"> </span><span class="nv">pos</span><span class="p">,</span><span class="w"> </span><span class="nv">lvid</span><span class="p">,</span><span class="w"> </span><span class="nv">gvid</span><span class="p">)</span>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="kr">end</span>
 </span></code></pre></div>
 <h3 id="give-an-item-only-if-the-player-doesnt-already-have-one">Give an item only if the player doesn't already have one<a class="headerlink" href="#give-an-item-only-if-the-player-doesnt-already-have-one" title="Permanent link">&para;</a></h3>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">ensure_has</span><span class="p">(</span><span class="nv">section</span><span class="p">)</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">object</span><span class="p">(</span><span class="nv">section</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span><span class="w">  </span><span class="c1">-- already has it</span>
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">    </span><span class="nf">alife_create_item</span><span class="p">(</span><span class="nv">section</span><span class="p">,</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">)</span>
-</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">ensure_has</span><span class="p">(</span><span class="nv">section</span><span class="p">)</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">object</span><span class="p">(</span><span class="nv">section</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span><span class="w">  </span><span class="c1">-- already has it</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">    </span><span class="nf">alife_create_item</span><span class="p">(</span><span class="nv">section</span><span class="p">,</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">)</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="kr">end</span>
 </span></code></pre></div>
 <hr />
 <h2 id="key-differences-from-client-objects">Key differences from client objects<a class="headerlink" href="#key-differences-from-client-objects" title="Permanent link">&para;</a></h2>

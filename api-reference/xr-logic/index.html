@@ -2695,6 +2695,10 @@
 </span></code></pre></div>
 <hr />
 <h2 id="state-machine-switching-sections">State machine: switching sections<a class="headerlink" href="#state-machine-switching-sections" title="Permanent link">&para;</a></h2>
+<div class="admonition abstract">
+<p class="admonition-title">Advanced — skip on first read</p>
+<p>This section and <a href="#scripted-creature-control">Scripted creature control</a> cover the NPC behaviour engine internals. Most mods only need <a href="#parsing-a-condlist"><code>parse_condlist</code> / <code>pick_section_from_condlist</code></a> and the custom conditions/effects pattern above.</p>
+</div>
 <p><code>xr_logic</code> drives NPC behavior by switching between named sections in <code>.ltx</code> config. Each section defines a behavior scheme (<code>walker</code>, <code>combat</code>, <code>patrol</code>, etc.) plus switch conditions.</p>
 <div class="language-lua highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">-- Force an NPC to switch to a new behavior section</span>
 </span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nv">xr_logic</span><span class="p">.</span><span class="nf">switch_to_section</span><span class="p">(</span><span class="nv">npc</span><span class="p">,</span><span class="w"> </span><span class="nv">st</span><span class="p">.</span><span class="py">ini</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;new_section_name&quot;</span><span class="p">)</span>
