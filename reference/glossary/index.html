@@ -1,0 +1,2897 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A comprehensive scripting and API reference for S.T.A.L.K.E.R. Anomaly modding — callbacks, engine bindings, config formats, and worked examples.">
+      
+      
+        <meta name="author" content="stalker-anomaly-modding-guide contributors">
+      
+      
+      
+        <link rel="prev" href="../../examples/mcm-options/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Glossary - S.T.A.L.K.E.R. Anomaly Modding Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#glossary" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="S.T.A.L.K.E.R. Anomaly Modding Guide" class="md-header__button md-logo" aria-label="S.T.A.L.K.E.R. Anomaly Modding Guide" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            S.T.A.L.K.E.R. Anomaly Modding Guide
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Glossary
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="orange"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../scripting/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Scripting
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api-reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../config-formats/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Config Formats
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../systems/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Systems
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../callbacks-reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Callbacks Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../examples/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Examples
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="S.T.A.L.K.E.R. Anomaly Modding Guide" class="md-nav__button md-logo" aria-label="S.T.A.L.K.E.R. Anomaly Modding Guide" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    S.T.A.L.K.E.R. Anomaly Modding Guide
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../getting-started/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/environment-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/gamedata-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gamedata Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/first-mod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Your First Mod
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/packaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packaging & Publishing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../scripting/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scripting
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Scripting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/lua-in-anomaly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua in Anomaly
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/lua-scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua Scope & Globals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/game-object/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is a game_object?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/db-storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is db.storage?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/object-binders/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Binders
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/script-lifecycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Script Lifecycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/callbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The Callback System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debugging & Logging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/save-load/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Save & Load State
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/engine-internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engine Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../api-reference/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/actor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    db.actor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/level/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    level
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/game/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    game
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/alife/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    alife
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/xr-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    xr_logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../config-formats/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Config Formats
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Config Formats
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config-formats/ltx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LTX Format
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config-formats/xml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XML Configs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config-formats/dxml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DXML (XML Patching)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config-formats/dltx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DLTX (LTX Patching)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../systems/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systems
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Systems
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/mcm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mod Configuration Menu
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/localization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Localization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/items/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Items & Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/npcs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NPCs & Factions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/ui-scripting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI Scripting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../callbacks-reference/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks Reference
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Callbacks Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../examples/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/keybind/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Keybind Action
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/item-use-effect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Item Use Effect
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/npc-death-reward/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NPC Death Reward
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/mcm-options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCM Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#alife" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        alife
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        binder
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        callback
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clsid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        clsid
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#community" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        community
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#condition-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        condition list
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dbactor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        db.actor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dbstorage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        db.storage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gamedata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gamedata
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#game_object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        game_object
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#game_vertex_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        game_vertex_id
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#info_portion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        info_portion
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level_vertex_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        level_vertex_id
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modded-exes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        modded exes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-binder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        object binder
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#online-offline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        online / offline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        section
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-entity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server entity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#smart-terrain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        smart terrain
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#squad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        squad
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#story_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        story_id
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#alife" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        alife
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#binder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        binder
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        callback
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clsid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        clsid
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#community" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        community
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#condition-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        condition list
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dbactor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        db.actor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dbstorage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        db.storage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gamedata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gamedata
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#game_object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        game_object
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#game_vertex_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        game_vertex_id
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#info_portion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        info_portion
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level_vertex_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        level_vertex_id
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modded-exes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        modded exes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-binder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        object binder
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#online-offline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        online / offline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        section
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-entity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        server entity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#smart-terrain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        smart terrain
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#squad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        squad
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#story_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        story_id
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="glossary">Glossary<a class="headerlink" href="#glossary" title="Permanent link">&para;</a></h1>
+<p>Anomaly modding uses a set of domain-specific terms that appear throughout the codebase. This page defines each one and links to more detailed coverage where it exists.</p>
+<hr />
+<h2 id="alife">alife<a class="headerlink" href="#alife" title="Permanent link">&para;</a></h2>
+<p>The <strong>alife</strong> ("artificial life") system is the offline simulation that manages all entities in the game world — squads, NPCs, anomalies, items — even when they are far from the player. When the player is nowhere near an entity, the alife simulator handles it: moving squads between <a href="#smart-terrain">smart terrains</a>, tracking deaths, running timed events.</p>
+<p>In scripts, <code>alife()</code> returns the <code>CALifeSimulator</code> singleton — the central registry of all server entities.</p>
+<p>See <a href="../../scripting/engine-internals/#the-alife-simulator">Engine Internals → The alife simulator</a>.</p>
+<hr />
+<h2 id="binder">binder<a class="headerlink" href="#binder" title="Permanent link">&para;</a></h2>
+<p>See <a href="#object-binder">object binder</a>.</p>
+<hr />
+<h2 id="callback">callback<a class="headerlink" href="#callback" title="Permanent link">&para;</a></h2>
+<p>A <strong>callback</strong> is a Lua function you register with the engine to be called when a specific event occurs — an NPC dies, the actor fires a weapon, a save is loaded. Anomaly's callback system is managed by <code>axr_main.script</code> via <code>RegisterScriptCallback</code> / <code>UnregisterScriptCallback</code>.</p>
+<p>See <a href="../../scripting/callbacks/">The Callback System</a> and the <a href="../../callbacks-reference/">Callbacks Reference</a>.</p>
+<hr />
+<h2 id="clsid">clsid<a class="headerlink" href="#clsid" title="Permanent link">&para;</a></h2>
+<p>A <strong>clsid</strong> (class ID) is an integer constant that identifies the C++ type of a game object or server entity. Type-checking in Lua is done by comparing <code>obj:clsid()</code> against constants in the global <code>clsid</code> table (e.g. <code>clsid.script_stalker</code>, <code>clsid.bloodsucker</code>). The <code>_g.script</code> helpers (<code>IsStalker()</code>, <code>IsMonster()</code>, etc.) wrap this pattern.</p>
+<p>Server-side entities follow the naming convention <code>clsid.typename_s</code> (e.g. <code>clsid.bloodsucker_s</code>, <code>clsid.online_offline_group_s</code>). Online (client-side) objects use the bare name (e.g. <code>clsid.bloodsucker</code>).</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">obj</span><span class="p">:</span><span class="nf">clsid</span><span class="p">()</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kr">if</span><span class="w"> </span><span class="nv">c</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">clsid</span><span class="p">.</span><span class="py">script_stalker</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="nv">c</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">clsid</span><span class="p">.</span><span class="py">script_actor</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="c1">-- human NPC or actor</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kr">end</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1">-- The helper functions in _g.script do this for you:</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="kr">if</span><span class="w"> </span><span class="nf">IsStalker</span><span class="p">(</span><span class="nv">obj</span><span class="p">,</span><span class="w"> </span><span class="nv">c</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="kr">end</span>
+</span></code></pre></div>
+<hr />
+<h2 id="community">community<a class="headerlink" href="#community" title="Permanent link">&para;</a></h2>
+<p>The <strong>community</strong> is the faction string used in scripts to identify which faction an NPC belongs to. Access it via <code>npc:character_community()</code>. Common values: <code>"stalker"</code>, <code>"freedom"</code>, <code>"duty"</code>, <code>"army"</code>, <code>"bandit"</code>, <code>"monolith"</code>, <code>"csky"</code>, <code>"ecolog"</code>, <code>"killer"</code>.</p>
+<p>This is the internal identifier used in config files and <a href="#condition-list">condition lists</a> — not the localised display name shown to the player.</p>
+<hr />
+<h2 id="condition-list">condition list<a class="headerlink" href="#condition-list" title="Permanent link">&para;</a></h2>
+<p>A <strong>condition list</strong> is a declarative mini-language embedded in LTX string fields. It lets AI logic, quest scripts, and NPC behaviour specify conditional transitions without writing Lua code.</p>
+<p>The format is:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>{+required_info -must_not_have =lua_check(arg)} target_section %+give_info =side_effect()%
+</span></code></pre></div>
+<ul>
+<li><code>{...}</code> — conditions evaluated to decide which entry matches</li>
+<li>The bare name after <code>}</code> — the value returned when conditions pass</li>
+<li><code>%...%</code> — effects applied when this entry is chosen (optional)</li>
+</ul>
+<p>Sigils inside <code>{...}</code> and <code>%...%</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Sigil</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+info_id</code></td>
+<td>Actor must have this <a href="#info_portion">info_portion</a></td>
+</tr>
+<tr>
+<td><code>-info_id</code></td>
+<td>Actor must <strong>not</strong> have this info_portion</td>
+</tr>
+<tr>
+<td><code>=func(args)</code></td>
+<td>Call <code>xr_conditions.func()</code> — must return true</td>
+</tr>
+<tr>
+<td><code>!func(args)</code></td>
+<td>Call <code>xr_conditions.func()</code> — must return false</td>
+</tr>
+<tr>
+<td><code>~N</code></td>
+<td>Random: N% probability</td>
+</tr>
+<tr>
+<td><code>+info_id</code> in <code>%...%</code></td>
+<td>Give this info_portion as a side-effect</td>
+</tr>
+<tr>
+<td><code>-info_id</code> in <code>%...%</code></td>
+<td>Remove this info_portion</td>
+</tr>
+<tr>
+<td><code>=func(args)</code> in <code>%...%</code></td>
+<td>Call <code>xr_effects.func()</code> as a side-effect</td>
+</tr>
+</tbody>
+</table>
+<p>Multiple entries are chained with commas — the first entry whose conditions all pass is used:</p>
+<div class="language-ini highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">; Switch to &quot;sr_idle@timer&quot; if both info_portions are set</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="na">on_info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">{+base_defense_enemy_1_killed +base_defense_enemy_2_killed} sr_idle@timer</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1">; Call a Lua function as a condition</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="na">on_info</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">{=surge_started} walker@surge, {=is_night} walker@sleep</span>
+</span></code></pre></div>
+<p>Condition lists are parsed once at load by <code>xr_logic.parse_condlist()</code> and evaluated by <code>xr_logic.pick_section_from_condlist()</code>.</p>
+<hr />
+<h2 id="dbactor">db.actor<a class="headerlink" href="#dbactor" title="Permanent link">&para;</a></h2>
+<p><code>db.actor</code> is the <a href="#game_object"><code>game_object</code></a> for the player's character. It is available from the <code>actor_on_first_update</code> callback onward and is <code>nil</code> before the first update tick.</p>
+<p>See <a href="../../api-reference/actor/">db.actor reference</a>.</p>
+<hr />
+<h2 id="dbstorage">db.storage<a class="headerlink" href="#dbstorage" title="Permanent link">&para;</a></h2>
+<p><code>db.storage</code> is a global Lua table that maps online object IDs to per-object state tables. <a href="#object-binder">Object binders</a> populate it when entities come online and clean it up when they go offline.</p>
+<p>See <a href="../../scripting/db-storage/">What is db.storage?</a>.</p>
+<hr />
+<h2 id="gamedata">gamedata<a class="headerlink" href="#gamedata" title="Permanent link">&para;</a></h2>
+<p><strong>gamedata</strong> is the directory that holds all modifiable game assets — scripts, configs, textures, sounds, UI definitions. Anomaly loads files from <code>gamedata/</code> in preference to the base archives. Mods ship their files inside a <code>gamedata/</code> subfolder within their archive.</p>
+<p>See <a href="../../getting-started/gamedata-structure/">Gamedata Structure</a>.</p>
+<hr />
+<h2 id="game_object">game_object<a class="headerlink" href="#game_object" title="Permanent link">&para;</a></h2>
+<p>A <strong>game_object</strong> is the Lua-side handle to an entity that is currently <strong>online</strong> (loaded near the player). It provides the full runtime API: position, animation, physics, AI state, and inventory. When an entity goes <a href="#online-offline">offline</a>, its <code>game_object</code> is destroyed — any stored reference becomes stale.</p>
+<p>See <a href="../../scripting/game-object/">What is a game_object?</a>.</p>
+<hr />
+<h2 id="game_vertex_id">game_vertex_id<a class="headerlink" href="#game_vertex_id" title="Permanent link">&para;</a></h2>
+<p>A <strong>game vertex</strong> is a node in the global navigation graph that spans all levels. Unlike <a href="#level_vertex_id">level vertices</a> (which are local to one map), game vertices allow the alife simulation to track entities across level boundaries. Access via <code>obj:game_vertex_id()</code> or <code>se_obj.m_game_vertex_id</code>.</p>
+<hr />
+<h2 id="info_portion">info_portion<a class="headerlink" href="#info_portion" title="Permanent link">&para;</a></h2>
+<p>An <strong>info_portion</strong> is a named boolean flag attached to the actor. It is either set or unset — there is no associated value. Info_portions are the primary mechanism for tracking quest state, dialog history, and one-time events.</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">give_info_portion</span><span class="p">(</span><span class="s2">&quot;my_quest_started&quot;</span><span class="p">)</span><span class="w">      </span><span class="c1">-- set the flag</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">has_info</span><span class="p">(</span><span class="s2">&quot;my_quest_started&quot;</span><span class="p">)</span><span class="w">               </span><span class="c1">-- check (returns bool)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">disable_info_portion</span><span class="p">(</span><span class="s2">&quot;my_quest_started&quot;</span><span class="p">)</span><span class="w">   </span><span class="c1">-- unset the flag</span>
+</span></code></pre></div>
+<p>Info_portions are declared in XML files under <code>configs/gameplay/</code> (e.g. <code>info_portions.xml</code>). They appear as <code>+name</code> / <code>-name</code> sigils inside <a href="#condition-list">condition list</a> blocks, and as <code>&lt;has_info&gt;</code> / <code>&lt;dont_has_info&gt;</code> / <code>&lt;give_info&gt;</code> tags in dialog XML files.</p>
+<hr />
+<h2 id="level_vertex_id">level_vertex_id<a class="headerlink" href="#level_vertex_id" title="Permanent link">&para;</a></h2>
+<p>A <strong>level vertex</strong> is a node in the AI navigation mesh (navmesh) for the current level. The navmesh is a graph of walkable positions — each vertex represents a point that AI can navigate to. <code>obj:level_vertex_id()</code> returns the ID of the navmesh node nearest to the object.</p>
+<hr />
+<h2 id="modded-exes">modded exes<a class="headerlink" href="#modded-exes" title="Permanent link">&para;</a></h2>
+<p>The <strong>modded exes</strong> are a community-maintained fork of the Anomaly engine by themrdemonized. They add Lua callbacks not present in vanilla Anomaly (<code>actor_on_weapon_fired</code>, <code>npc_shot_dispersion</code>, <code>bullet_on_hit</code>, <code>on_xml_read</code>, and several <code>actor_on_before_*</code> / <code>npc_on_before_*</code> variants), the <code>game_object:is_valid()</code> method, memory optimisations, and engine bug fixes.</p>
+<p>Source: <a href="https://github.com/themrdemonized/xray-monolith">xray-monolith on GitHub</a>.</p>
+<p>Features that require the modded exes are tagged <strong>Exes</strong> in the <a href="../../callbacks-reference/">Callbacks Reference</a>.</p>
+<hr />
+<h2 id="object-binder">object binder<a class="headerlink" href="#object-binder" title="Permanent link">&para;</a></h2>
+<p>An <strong>object binder</strong> is a Lua class (inheriting from <code>object_binder</code>) that attaches to a specific <a href="#game_object"><code>game_object</code></a> and receives per-object lifecycle callbacks: spawn, destroy, per-frame update, save, and load. The base game registers binders for all NPCs, monsters, the actor, helicopters, and anomaly zones.</p>
+<p>See <a href="../../scripting/object-binders/">Object Binders</a>.</p>
+<hr />
+<h2 id="online-offline">online / offline<a class="headerlink" href="#online-offline" title="Permanent link">&para;</a></h2>
+<p>Every entity in Anomaly exists in one of two states:</p>
+<ul>
+<li><strong>Online</strong> — the entity is within simulation distance of the player. A <a href="#game_object"><code>game_object</code></a> exists; the entity has physics, AI, and render presence.</li>
+<li><strong>Offline</strong> — the entity is beyond the switch distance. Only the <a href="#server-entity">server entity</a> exists; it is tracked by the alife simulator with no in-world representation.</li>
+</ul>
+<p>The default switch distance is 750m, with a hysteresis gap (online at 675m, offline at 825m) to prevent rapid flickering at the boundary.</p>
+<p>See <a href="../../scripting/engine-internals/#online-and-offline">Engine Internals → Online and offline</a>.</p>
+<hr />
+<h2 id="section">section<a class="headerlink" href="#section" title="Permanent link">&para;</a></h2>
+<p>"Section" has two distinct meanings in Anomaly, and both appear frequently in the codebase.</p>
+<p><strong>Sense 1 — LTX block:</strong> A <code>[section_name]</code> block in an LTX file. It is a named group of key-value pairs that defines something — an item, a weapon, a spawn template, AI logic. Example:</p>
+<div class="language-ini highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">[medkit]</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="na">cost</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s">850</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="na">inv_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">st_medkit</span>
+</span></code></pre></div>
+<p><strong>Sense 2 — entity config type:</strong> The config-section name of a specific object — the string returned by <code>obj:section()</code>. Every instance of a medkit returns <code>"medkit"</code> from <code>obj:section()</code>. This string is what you use to look up config data, check item type, or classify objects in script:</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">if</span><span class="w"> </span><span class="nv">obj</span><span class="p">:</span><span class="nf">section</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;medkit&quot;</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="c1">-- this is a medkit</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kr">end</span>
+</span></code></pre></div>
+<p>In both senses, a section is an identifier that maps to a block of config data. When reading code, "the object's section" usually means sense 2; "the LTX section" usually means sense 1.</p>
+<p>See <a href="../../config-formats/ltx/">LTX Format</a> for sense 1, and <a href="../../scripting/game-object/">What is a game_object?</a> for sense 2.</p>
+<hr />
+<h2 id="server-entity">server entity<a class="headerlink" href="#server-entity" title="Permanent link">&para;</a></h2>
+<p>The <strong>server entity</strong> (Lua base type: <code>se_abstract</code>) is the permanent alife-side record for every entity. It exists from creation until the entity is released, regardless of <a href="#online-offline">online/offline</a> state. Access it via <code>alife_object(id)</code>. It provides a limited API compared to <a href="#game_object"><code>game_object</code></a>: section, position, vertex IDs, and spawn data — but no physics, animation, or inventory.</p>
+<p>See <a href="../../scripting/game-object/#client-vs-server-two-representations-of-the-same-entity">What is a game_object? → Client vs server</a>.</p>
+<hr />
+<h2 id="smart-terrain">smart terrain<a class="headerlink" href="#smart-terrain" title="Permanent link">&para;</a></h2>
+<p>A <strong>smart terrain</strong> is a named alife zone that owns a set of <strong>jobs</strong> — scripted activities such as patrolling, sitting at a campfire, standing guard, or manning a post. NPCs do not pick destinations independently; the simulation board assigns <a href="#squad">squads</a> to smart terrains, and the terrain assigns each NPC to one of its jobs.</p>
+<p>From a modding perspective, smart terrains define where NPCs go and what they do when they get there. A terrain's LTX config specifies <code>max_population</code>, faction restrictions, job definitions (patrol paths, idle animations, etc.), and optional respawn behaviour.</p>
+<p>Access from scripts: <code>db.smart_terrain_by_id[id]</code> returns the server entity.</p>
+<hr />
+<h2 id="squad">squad<a class="headerlink" href="#squad" title="Permanent link">&para;</a></h2>
+<p>A <strong>squad</strong> is the atomic unit of NPC grouping in the alife simulation. It is a server-side object (<code>sim_squad_scripted</code>) that owns one or more NPC server entities and moves as a unit between <a href="#smart-terrain">smart terrains</a>. Individual NPCs do not navigate the alife simulation independently — their squad does.</p>
+<p>Squads have a faction, a current smart terrain, and a target smart terrain (evaluated as a <a href="#condition-list">condition list</a>). Members are iterated with <code>for k in squad:squad_members() do</code> — <code>k.id</code> is the alife ID of each NPC server entity.</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">-- Find a named squad and iterate its members</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">squad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">get_story_squad</span><span class="p">(</span><span class="s2">&quot;my_named_squad&quot;</span><span class="p">)</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kr">if</span><span class="w"> </span><span class="nv">squad</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="kr">for</span><span class="w"> </span><span class="nv">k</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">squad</span><span class="p">:</span><span class="nf">squad_members</span><span class="p">()</span><span class="w"> </span><span class="kr">do</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">        </span><span class="kd">local</span><span class="w"> </span><span class="nv">npc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">level</span><span class="p">.</span><span class="nf">object_by_id</span><span class="p">(</span><span class="nv">k</span><span class="p">.</span><span class="py">id</span><span class="p">)</span><span class="w">  </span><span class="c1">-- nil if offline</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">        </span><span class="kr">if</span><span class="w"> </span><span class="nv">npc</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">            </span><span class="c1">-- do something with the online NPC</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">        </span><span class="kr">end</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="kr">end</span>
+</span></code></pre></div>
+<hr />
+<h2 id="story_id">story_id<a class="headerlink" href="#story_id" title="Permanent link">&para;</a></h2>
+<p>A <strong>story_id</strong> is a stable, human-readable string alias permanently bound to a specific alife entity — an NPC, squad, item, or smart terrain. Because numeric alife IDs are volatile (they can be reused across saves), story_ids are the correct way to reference specific named entities across save/load boundaries.</p>
+<p>Story_ids are declared in spawn config LTX files:</p>
+<div class="language-ini highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">[story_object]</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="na">story_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">bar_barman</span>
+</span></code></pre></div>
+<p>Lookup functions in <code>_g.script</code>:</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nf">get_story_se_object</span><span class="p">(</span><span class="s2">&quot;bar_barman&quot;</span><span class="p">)</span><span class="w">   </span><span class="c1">-- server entity (always available)</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nf">get_story_object</span><span class="p">(</span><span class="s2">&quot;bar_barman&quot;</span><span class="p">)</span><span class="w">      </span><span class="c1">-- game_object (nil if offline)</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nf">get_story_object_id</span><span class="p">(</span><span class="s2">&quot;bar_barman&quot;</span><span class="p">)</span><span class="w">   </span><span class="c1">-- numeric alife ID</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nf">get_object_story_id</span><span class="p">(</span><span class="nv">obj_id</span><span class="p">)</span><span class="w">         </span><span class="c1">-- reverse lookup: numeric ID → story_id string</span>
+</span></code></pre></div>
+<p>Story_ids must be globally unique across all mods. If two objects claim the same story_id, <code>story_objects.script</code> logs a warning and the second registration wins.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../examples/mcm-options/" class="md-footer__link md-footer__link--prev" aria-label="Previous: MCM Options">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                MCM Options
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "toc.follow", "navigation.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

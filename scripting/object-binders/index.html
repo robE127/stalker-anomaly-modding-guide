@@ -364,6 +364,28 @@
   
 
       
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/glossary/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -904,6 +926,45 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="When to use a binder vs a global callback">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#situation-1-you-need-per-object-state-that-survives-saveload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Situation 1 — You need per-object state that survives save/load
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#situation-2-you-need-per-frame-update-on-specific-objects-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Situation 2 — You need per-frame update() on specific objects only
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#situation-3-youre-creating-an-entirely-new-entity-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Situation 3 — You're creating an entirely new entity type
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2157,6 +2218,99 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -2191,6 +2345,45 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="When to use a binder vs a global callback">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#situation-1-you-need-per-object-state-that-survives-saveload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Situation 1 — You need per-object state that survives save/load
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#situation-2-you-need-per-frame-update-on-specific-objects-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Situation 2 — You need per-frame update() on specific objects only
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#situation-3-youre-creating-an-entirely-new-entity-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Situation 3 — You're creating an entirely new entity type
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2365,48 +2558,88 @@
 <p>The base game uses binders for the actor (<code>bind_stalker.script</code>), all NPCs and monsters (<code>bind_monster.script</code>), crows, helicopters, and more.</p>
 <hr />
 <h2 id="when-to-use-a-binder-vs-a-global-callback">When to use a binder vs a global callback<a class="headerlink" href="#when-to-use-a-binder-vs-a-global-callback" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Object Binder</th>
-<th>Global Callback</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>State</td>
-<td>Per-object (binder instance owns it)</td>
-<td>Shared/centralised</td>
-</tr>
-<tr>
-<td>Lifecycle</td>
-<td>Hooks into spawn/destroy/update per object</td>
-<td>Hooks into engine-wide events</td>
-</tr>
-<tr>
-<td>Use for</td>
-<td>Per-NPC timers, AI extensions, custom save data</td>
-<td>Watching all objects of a type, cross-object logic</td>
-</tr>
-<tr>
-<td>Overhead</td>
-<td>Created per online object</td>
-<td>One handler regardless of object count</td>
-</tr>
-</tbody>
-</table>
-<p>For most mods, global callbacks are sufficient. Reach for a binder when you need state that lives and dies with a specific object.</p>
+<p>A binder is the <strong>OOP approach</strong>: each object gets its own class instance with private state and constructor/destructor semantics. A global callback is the <strong>procedural approach</strong>: one function handles all objects of a type, with a shared lookup table keyed by object ID.</p>
+<p>Both patterns can solve many of the same problems — but <strong>most mods don't need custom binders</strong>. Global callbacks are simpler to write and handle the vast majority of use cases. There are three situations where the binder approach wins clearly:</p>
+<h3 id="situation-1-you-need-per-object-state-that-survives-saveload">Situation 1 — You need per-object state that survives save/load<a class="headerlink" href="#situation-1-you-need-per-object-state-that-survives-saveload" title="Permanent link">&para;</a></h3>
+<p>Suppose you want each stalker trader to have their own independent restock cooldown: after buying them out, that specific trader won't restock for an hour. The state belongs to the trader, not to the actor.</p>
+<p>With a <strong>global callback</strong>, you'd maintain a table keyed by NPC ID, manually handle cleanup when NPCs go offline, and manually hook into <code>save_state</code>/<code>load_state</code> to persist the table:</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">-- Global callback approach</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">restock_timers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span><span class="w">  </span><span class="c1">-- keyed by NPC alife ID</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">npc_on_update</span><span class="p">(</span><span class="nv">npc</span><span class="p">)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">npc</span><span class="p">:</span><span class="nf">id</span><span class="p">()</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">restock_timers</span><span class="p">[</span><span class="nv">id</span><span class="p">]</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="nv">restock_timers</span><span class="p">[</span><span class="nv">id</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">restock_timers</span><span class="p">[</span><span class="nv">id</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="kr">end</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">save_state</span><span class="p">(</span><span class="nv">m_data</span><span class="p">)</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="nv">m_data</span><span class="p">.</span><span class="py">my_mod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nv">restock_timers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">restock_timers</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="kr">end</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">load_state</span><span class="p">(</span><span class="nv">m_data</span><span class="p">)</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="nv">restock_timers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nv">m_data</span><span class="p">.</span><span class="py">my_mod</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="p">{}).</span><span class="nv">restock_timers</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="kr">end</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">on_game_start</span><span class="p">()</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">    </span><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;npc_on_update&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">npc_on_update</span><span class="p">)</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">    </span><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;save_state&quot;</span><span class="p">,</span><span class="w">    </span><span class="nv">save_state</span><span class="p">)</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">    </span><span class="nf">RegisterScriptCallback</span><span class="p">(</span><span class="s2">&quot;load_state&quot;</span><span class="p">,</span><span class="w">    </span><span class="nv">load_state</span><span class="p">)</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="kr">end</span>
+</span></code></pre></div>
+<p>This works, but <code>restock_timers</code> accumulates entries for every NPC ever encountered, you need to remember to prune it, and the global <code>npc_on_update</code> runs for every NPC in the zone every frame — even the ones that don't need a restock check.</p>
+<p>With a <strong>binder</strong>, each trader instance owns its timer. The binder is created when the NPC comes online and destroyed when it goes offline — no manual cleanup:</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">-- Binder approach (per-NPC instance)</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kr">function</span><span class="w"> </span><span class="nc">trader_binder</span><span class="p">:</span><span class="nf">__init</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span><span class="w"> </span><span class="nf">super</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">restock_timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kr">end</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="kr">function</span><span class="w"> </span><span class="nc">trader_binder</span><span class="p">:</span><span class="nf">update</span><span class="p">(</span><span class="nv">delta</span><span class="p">)</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="nv">object_binder</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="nv">self</span><span class="p">,</span><span class="w"> </span><span class="nv">delta</span><span class="p">)</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">restock_timer</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">        </span><span class="nv">self</span><span class="p">.</span><span class="py">restock_timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">restock_timer</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">delta</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="kr">end</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="kr">function</span><span class="w"> </span><span class="nc">trader_binder</span><span class="p">:</span><span class="nf">save_state</span><span class="p">(</span><span class="nv">m_data</span><span class="p">)</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">alife_storage_manager</span><span class="p">.</span><span class="nf">get_game_object_state</span><span class="p">(</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span><span class="nv">state</span><span class="p">.</span><span class="py">restock_timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">restock_timer</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="kr">end</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="kr">function</span><span class="w"> </span><span class="nc">trader_binder</span><span class="p">:</span><span class="nf">load_state</span><span class="p">()</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">alife_storage_manager</span><span class="p">.</span><span class="nf">get_game_object_state</span><span class="p">(</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">)</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">restock_timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">state</span><span class="p">.</span><span class="py">restock_timer</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="mi">0</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="kr">end</span>
+</span></code></pre></div>
+<p>No global table, no cleanup, no running on the wrong NPCs.</p>
+<h3 id="situation-2-you-need-per-frame-update-on-specific-objects-only">Situation 2 — You need per-frame <code>update()</code> on specific objects only<a class="headerlink" href="#situation-2-you-need-per-frame-update-on-specific-objects-only" title="Permanent link">&para;</a></h3>
+<p>Global callbacks like <code>npc_on_update</code> fire for <strong>every</strong> online NPC every frame. If you only care about 3 specific entities, you're still running the check for every NPC in the zone.</p>
+<p>A binder's <code>update()</code> only runs for the objects you've attached a binder to. If you're adding a custom device, a trap, or any entity type you control, a binder is the only way to get a per-frame update hook without paying for a global scan.</p>
+<h3 id="situation-3-youre-creating-an-entirely-new-entity-type">Situation 3 — You're creating an entirely new entity type<a class="headerlink" href="#situation-3-youre-creating-an-entirely-new-entity-type" title="Permanent link">&para;</a></h3>
+<p>This is the clearest case. If you're adding a new type of interactive object — a placeable sensor, a drone, a custom container — it has no existing binder. You need a binder to give it:</p>
+<ul>
+<li><code>net_spawn</code> / <code>net_destroy</code> lifecycle</li>
+<li>Per-frame <code>update()</code></li>
+<li>Save/load via <code>save_state</code> / <code>load_state</code></li>
+<li>Per-object callbacks (<code>callback.hit</code>, <code>callback.use_object</code>, etc.)</li>
+</ul>
+<p>There is no alternative here — you must write a binder.</p>
+<hr />
+<div class="admonition warning">
+<p class="admonition-title">Don't replace the existing binders</p>
+<p>The base game registers binders for all NPCs (<code>bind_monster.script</code>), the actor (<code>bind_stalker.script</code>), and other entity types. If your <code>bind()</code> function replaces the one in those scripts, AI will break — the base binder sets up pathfinding, combat logic, and dozens of other systems.</p>
+<p><strong>In practice: extend via global callbacks, not by replacing binders.</strong> Writing a custom binder is primarily for new entity types you've added yourself. For modifying existing NPC behaviour, use <code>RegisterScriptCallback</code> with the NPC lifecycle callbacks instead.</p>
+</div>
 <hr />
 <h2 id="class-declaration">Class declaration<a class="headerlink" href="#class-declaration" title="Permanent link">&para;</a></h2>
 <p>Binders inherit from <code>object_binder</code>, a C++ base class provided by the engine:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nv">class</span><span class="w"> </span><span class="s2">&quot;my_binder&quot;</span><span class="w"> </span><span class="p">(</span><span class="nv">object_binder</span><span class="p">)</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">__init</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span><span class="w"> </span><span class="nf">super</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="c1">-- obj is the game_object this binder is attached to</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="c1">-- self.object is available from here onward</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">my_timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nv">class</span><span class="w"> </span><span class="s2">&quot;my_binder&quot;</span><span class="w"> </span><span class="p">(</span><span class="nv">object_binder</span><span class="p">)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">__init</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span><span class="w"> </span><span class="nf">super</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="c1">-- obj is the game_object this binder is attached to</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="c1">-- self.object is available from here onward</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">my_timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="kr">end</span>
 </span></code></pre></div>
 <p><code>super(obj)</code> must be called to initialise the base class. <code>self.object</code> is set by the base class constructor and is available in every lifecycle method.</p>
 <hr />
@@ -2414,88 +2647,88 @@
 <p>The engine calls these methods in order as an object moves through its lifecycle.</p>
 <h3 id="__initobj-construction"><code>__init(obj)</code> — construction<a class="headerlink" href="#__initobj-construction" title="Permanent link">&para;</a></h3>
 <p>Called once when the binder instance is created. <code>self.object</code> is already set by <code>super(obj)</code>. Use this for one-time variable initialisation.</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">__init</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span><span class="w"> </span><span class="nf">super</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;idle&quot;</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">__init</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span><span class="w"> </span><span class="nf">super</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;idle&quot;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kr">end</span>
 </span></code></pre></div>
 <hr />
 <h3 id="reinit-re-initialisation"><code>reinit()</code> — re-initialisation<a class="headerlink" href="#reinit-re-initialisation" title="Permanent link">&para;</a></h3>
 <p>Called after <code>__init</code> and also after level reloads. This is where you set up <code>db.storage</code>, register object-specific callbacks, and attach engine callbacks.</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">reinit</span><span class="p">()</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="nv">object_binder</span><span class="p">.</span><span class="nf">reinit</span><span class="p">(</span><span class="nv">self</span><span class="p">)</span><span class="w">                  </span><span class="c1">-- always call this first</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">id</span><span class="p">()]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">st</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">id</span><span class="p">()]</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">hit</span><span class="p">,</span><span class="w">   </span><span class="nv">self</span><span class="p">.</span><span class="py">on_hit</span><span class="p">,</span><span class="w">   </span><span class="nv">self</span><span class="p">)</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">death</span><span class="p">,</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">on_death</span><span class="p">,</span><span class="w"> </span><span class="nv">self</span><span class="p">)</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">reinit</span><span class="p">()</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="nv">object_binder</span><span class="p">.</span><span class="nf">reinit</span><span class="p">(</span><span class="nv">self</span><span class="p">)</span><span class="w">                  </span><span class="c1">-- always call this first</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">id</span><span class="p">()]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">st</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">id</span><span class="p">()]</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">hit</span><span class="p">,</span><span class="w">   </span><span class="nv">self</span><span class="p">.</span><span class="py">on_hit</span><span class="p">,</span><span class="w">   </span><span class="nv">self</span><span class="p">)</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">death</span><span class="p">,</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">on_death</span><span class="p">,</span><span class="w"> </span><span class="nv">self</span><span class="p">)</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="kr">end</span>
 </span></code></pre></div>
 <hr />
 <h3 id="net_spawnse_abstract-object-comes-online"><code>net_spawn(se_abstract)</code> — object comes online<a class="headerlink" href="#net_spawnse_abstract-object-comes-online" title="Permanent link">&para;</a></h3>
 <p>Called when the object transitions from offline (alife simulation) to online (loaded near the player). This is the right place to add the object to databases and finish AI setup.</p>
 <p><strong>Must return <code>true</code> on success.</strong> Returning <code>false</code> rejects the spawn.</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">net_spawn</span><span class="p">(</span><span class="nv">se_abstract</span><span class="p">)</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">object_binder</span><span class="p">.</span><span class="nf">net_spawn</span><span class="p">(</span><span class="nv">self</span><span class="p">,</span><span class="w"> </span><span class="nv">se_abstract</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">        </span><span class="kr">return</span><span class="w"> </span><span class="kc">false</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="kr">end</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="nv">db</span><span class="p">.</span><span class="nf">add_obj</span><span class="p">(</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">)</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="c1">-- object is fully online and db.storage entry exists</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="kc">true</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">net_spawn</span><span class="p">(</span><span class="nv">se_abstract</span><span class="p">)</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">object_binder</span><span class="p">.</span><span class="nf">net_spawn</span><span class="p">(</span><span class="nv">self</span><span class="p">,</span><span class="w"> </span><span class="nv">se_abstract</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">        </span><span class="kr">return</span><span class="w"> </span><span class="kc">false</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="nv">db</span><span class="p">.</span><span class="nf">add_obj</span><span class="p">(</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">)</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="c1">-- object is fully online and db.storage entry exists</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="kr">end</span>
 </span></code></pre></div>
 <hr />
 <h3 id="updatedelta-per-frame"><code>update(delta)</code> — per-frame<a class="headerlink" href="#updatedelta-per-frame" title="Permanent link">&para;</a></h3>
 <p>Called every frame while the object is online. <code>delta</code> is the elapsed time in milliseconds since the last call. Keep this fast — it runs every frame for every online object with a binder.</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">update</span><span class="p">(</span><span class="nv">delta</span><span class="p">)</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="nv">object_binder</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="nv">self</span><span class="p">,</span><span class="w"> </span><span class="nv">delta</span><span class="p">)</span><span class="w">   </span><span class="c1">-- always call this first</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">alive</span><span class="p">()</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">timer</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">delta</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">timer</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5000</span><span class="w"> </span><span class="kr">then</span><span class="w">           </span><span class="c1">-- every 5 seconds</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">        </span><span class="nv">self</span><span class="p">.</span><span class="py">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">        </span><span class="c1">-- do something periodic</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="kr">end</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">update</span><span class="p">(</span><span class="nv">delta</span><span class="p">)</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="nv">object_binder</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="nv">self</span><span class="p">,</span><span class="w"> </span><span class="nv">delta</span><span class="p">)</span><span class="w">   </span><span class="c1">-- always call this first</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">alive</span><span class="p">()</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">timer</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">delta</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">timer</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5000</span><span class="w"> </span><span class="kr">then</span><span class="w">           </span><span class="c1">-- every 5 seconds</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">        </span><span class="nv">self</span><span class="p">.</span><span class="py">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">        </span><span class="c1">-- do something periodic</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="kr">end</span>
 </span></code></pre></div>
 <hr />
 <h3 id="net_destroy-object-goes-offline"><code>net_destroy()</code> — object goes offline<a class="headerlink" href="#net_destroy-object-goes-offline" title="Permanent link">&para;</a></h3>
 <p>Called when the object leaves the online zone or is permanently removed. Clean up callbacks and db.storage here. Call <code>object_binder.net_destroy(self)</code> <strong>last</strong> — after this call <code>self.object</code> is no longer valid.</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">net_destroy</span><span class="p">()</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">hit</span><span class="p">,</span><span class="w">   </span><span class="kc">nil</span><span class="p">)</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">death</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="nv">db</span><span class="p">.</span><span class="nf">del_obj</span><span class="p">(</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">)</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="nv">object_binder</span><span class="p">.</span><span class="nf">net_destroy</span><span class="p">(</span><span class="nv">self</span><span class="p">)</span><span class="w">     </span><span class="c1">-- must be last</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">net_destroy</span><span class="p">()</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">hit</span><span class="p">,</span><span class="w">   </span><span class="kc">nil</span><span class="p">)</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">death</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="nv">db</span><span class="p">.</span><span class="nf">del_obj</span><span class="p">(</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">)</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="nv">object_binder</span><span class="p">.</span><span class="nf">net_destroy</span><span class="p">(</span><span class="nv">self</span><span class="p">)</span><span class="w">     </span><span class="c1">-- must be last</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="kr">end</span>
 </span></code></pre></div>
 <hr />
 <h3 id="net_save_relevant-should-this-object-be-saved"><code>net_save_relevant()</code> — should this object be saved?<a class="headerlink" href="#net_save_relevant-should-this-object-be-saved" title="Permanent link">&para;</a></h3>
 <p>Return <code>true</code> to include this object's state in the save file. Return <code>false</code> for transient objects whose state doesn't need to survive a reload. Most binders return <code>true</code>.</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">net_save_relevant</span><span class="p">()</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="kc">true</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">net_save_relevant</span><span class="p">()</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="kr">end</span>
 </span></code></pre></div>
 <hr />
 <h3 id="save_statem_data-and-load_state-saving-and-restoring-state"><code>save_state(m_data)</code> and <code>load_state()</code> — saving and restoring state<a class="headerlink" href="#save_statem_data-and-load_state-saving-and-restoring-state" title="Permanent link">&para;</a></h3>
 <p>Modern Anomaly uses marshal serialisation (<code>USE_MARSHAL = true</code>). Override these to persist your binder's data across saves.</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">save_state</span><span class="p">(</span><span class="nv">m_data</span><span class="p">)</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">alife_storage_manager</span><span class="p">.</span><span class="nf">get_game_object_state</span><span class="p">(</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nv">state</span><span class="p">.</span><span class="py">my_mod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">        </span><span class="nv">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">timer</span><span class="p">,</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">        </span><span class="nv">custom_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">st</span><span class="p">.</span><span class="py">custom_flag</span><span class="p">,</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="kr">end</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">load_state</span><span class="p">()</span>
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">alife_storage_manager</span><span class="p">.</span><span class="nf">get_game_object_state</span><span class="p">(</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">)</span>
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="p">(</span><span class="nv">state</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">state</span><span class="p">.</span><span class="py">my_mod</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
-</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
-</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">state</span><span class="p">.</span><span class="py">my_mod</span><span class="p">.</span><span class="py">timer</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="mi">0</span>
-</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">st</span><span class="p">.</span><span class="py">custom_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">state</span><span class="p">.</span><span class="py">my_mod</span><span class="p">.</span><span class="py">custom_flag</span>
-</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">save_state</span><span class="p">(</span><span class="nv">m_data</span><span class="p">)</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">alife_storage_manager</span><span class="p">.</span><span class="nf">get_game_object_state</span><span class="p">(</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="nv">state</span><span class="p">.</span><span class="py">my_mod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">        </span><span class="nv">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">timer</span><span class="p">,</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">        </span><span class="nv">custom_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">st</span><span class="p">.</span><span class="py">custom_flag</span><span class="p">,</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="kr">end</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_binder</span><span class="p">:</span><span class="nf">load_state</span><span class="p">()</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">alife_storage_manager</span><span class="p">.</span><span class="nf">get_game_object_state</span><span class="p">(</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">)</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="p">(</span><span class="nv">state</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">state</span><span class="p">.</span><span class="py">my_mod</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">timer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">state</span><span class="p">.</span><span class="py">my_mod</span><span class="p">.</span><span class="py">timer</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="mi">0</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">st</span><span class="p">.</span><span class="py">custom_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">state</span><span class="p">.</span><span class="py">my_mod</span><span class="p">.</span><span class="py">custom_flag</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="kr">end</span>
 </span></code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">save/load vs save_state/load_state</p>
@@ -2504,84 +2737,80 @@
 <hr />
 <h2 id="object-specific-engine-callbacks">Object-specific engine callbacks<a class="headerlink" href="#object-specific-engine-callbacks" title="Permanent link">&para;</a></h2>
 <p>Inside <code>reinit()</code> you can attach callbacks to <code>self.object</code> using <code>set_callback</code>. These fire on that object only, unlike the global <code>RegisterScriptCallback</code> which fires for all objects:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">-- Available callback types (from the callback.* enum)</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">hit</span><span class="p">,</span><span class="w">                    </span><span class="nv">self</span><span class="p">.</span><span class="py">on_hit</span><span class="p">,</span><span class="w">    </span><span class="nv">self</span><span class="p">)</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">death</span><span class="p">,</span><span class="w">                  </span><span class="nv">self</span><span class="p">.</span><span class="py">on_death</span><span class="p">,</span><span class="w">  </span><span class="nv">self</span><span class="p">)</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">patrol_path_in_point</span><span class="p">,</span><span class="w">   </span><span class="nv">self</span><span class="p">.</span><span class="py">on_waypoint</span><span class="p">,</span><span class="w"> </span><span class="nv">self</span><span class="p">)</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">sound</span><span class="p">,</span><span class="w">                  </span><span class="nv">self</span><span class="p">.</span><span class="py">on_sound</span><span class="p">,</span><span class="w">  </span><span class="nv">self</span><span class="p">)</span>
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">use_object</span><span class="p">,</span><span class="w">             </span><span class="nv">self</span><span class="p">.</span><span class="py">on_use</span><span class="p">,</span><span class="w">    </span><span class="nv">self</span><span class="p">)</span>
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="c1">-- Clear a callback in net_destroy</span>
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">hit</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">-- Available callback types (from the callback.* enum)</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">hit</span><span class="p">,</span><span class="w">                    </span><span class="nv">self</span><span class="p">.</span><span class="py">on_hit</span><span class="p">,</span><span class="w">    </span><span class="nv">self</span><span class="p">)</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">death</span><span class="p">,</span><span class="w">                  </span><span class="nv">self</span><span class="p">.</span><span class="py">on_death</span><span class="p">,</span><span class="w">  </span><span class="nv">self</span><span class="p">)</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">patrol_path_in_point</span><span class="p">,</span><span class="w">   </span><span class="nv">self</span><span class="p">.</span><span class="py">on_waypoint</span><span class="p">,</span><span class="w"> </span><span class="nv">self</span><span class="p">)</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">sound</span><span class="p">,</span><span class="w">                  </span><span class="nv">self</span><span class="p">.</span><span class="py">on_sound</span><span class="p">,</span><span class="w">  </span><span class="nv">self</span><span class="p">)</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">use_object</span><span class="p">,</span><span class="w">             </span><span class="nv">self</span><span class="p">.</span><span class="py">on_use</span><span class="p">,</span><span class="w">    </span><span class="nv">self</span><span class="p">)</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="c1">-- Clear a callback in net_destroy</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">set_callback</span><span class="p">(</span><span class="nv">callback</span><span class="p">.</span><span class="py">hit</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
 </span></code></pre></div>
 <p>The third argument (<code>self</code>) is passed as the first argument to the handler, making them proper methods.</p>
 <hr />
 <h2 id="complete-example-tracking-an-npc-thats-been-talked-to">Complete example — tracking an NPC that's been talked to<a class="headerlink" href="#complete-example-tracking-an-npc-thats-been-talked-to" title="Permanent link">&para;</a></h2>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">-- my_mod_binder.script</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nv">class</span><span class="w"> </span><span class="s2">&quot;my_npc_binder&quot;</span><span class="w"> </span><span class="p">(</span><span class="nv">object_binder</span><span class="p">)</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_npc_binder</span><span class="p">:</span><span class="nf">__init</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span><span class="w"> </span><span class="nf">super</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span>
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">greeted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="kr">end</span>
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_npc_binder</span><span class="p">:</span><span class="nf">reinit</span><span class="p">()</span>
-</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">    </span><span class="nv">object_binder</span><span class="p">.</span><span class="nf">reinit</span><span class="p">(</span><span class="nv">self</span><span class="p">)</span>
-</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">    </span><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">id</span><span class="p">()]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span>
-</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">st</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">id</span><span class="p">()]</span>
-</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="kr">end</span>
-</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>
-</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_npc_binder</span><span class="p">:</span><span class="nf">net_spawn</span><span class="p">(</span><span class="nv">se_abstract</span><span class="p">)</span>
-</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">object_binder</span><span class="p">.</span><span class="nf">net_spawn</span><span class="p">(</span><span class="nv">self</span><span class="p">,</span><span class="w"> </span><span class="nv">se_abstract</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="kr">end</span>
-</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="w">    </span><span class="nv">db</span><span class="p">.</span><span class="nf">add_obj</span><span class="p">(</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">)</span>
-</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="kc">true</span>
-</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="kr">end</span>
-</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>
-</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_npc_binder</span><span class="p">:</span><span class="nf">net_destroy</span><span class="p">()</span>
-</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="w">    </span><span class="nv">db</span><span class="p">.</span><span class="nf">del_obj</span><span class="p">(</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">)</span>
-</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a><span class="w">    </span><span class="nv">object_binder</span><span class="p">.</span><span class="nf">net_destroy</span><span class="p">(</span><span class="nv">self</span><span class="p">)</span>
-</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a><span class="kr">end</span>
-</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>
-</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_npc_binder</span><span class="p">:</span><span class="nf">net_save_relevant</span><span class="p">()</span>
-</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="kc">true</span>
-</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a><span class="kr">end</span>
-</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>
-</span><span id="__span-9-30"><a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_npc_binder</span><span class="p">:</span><span class="nf">save_state</span><span class="p">(</span><span class="nv">m_data</span><span class="p">)</span>
-</span><span id="__span-9-31"><a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">alife_storage_manager</span><span class="p">.</span><span class="nf">get_game_object_state</span><span class="p">(</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
-</span><span id="__span-9-32"><a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a><span class="w">    </span><span class="nv">state</span><span class="p">.</span><span class="py">my_npc_binder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nv">greeted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">greeted</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-9-33"><a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a><span class="kr">end</span>
-</span><span id="__span-9-34"><a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a>
-</span><span id="__span-9-35"><a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_npc_binder</span><span class="p">:</span><span class="nf">load_state</span><span class="p">()</span>
-</span><span id="__span-9-36"><a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">alife_storage_manager</span><span class="p">.</span><span class="nf">get_game_object_state</span><span class="p">(</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">)</span>
-</span><span id="__span-9-37"><a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">state</span><span class="p">.</span><span class="py">my_npc_binder</span><span class="w"> </span><span class="kr">then</span>
-</span><span id="__span-9-38"><a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a><span class="w">        </span><span class="nv">self</span><span class="p">.</span><span class="py">greeted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">state</span><span class="p">.</span><span class="py">my_npc_binder</span><span class="p">.</span><span class="py">greeted</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="kc">false</span>
-</span><span id="__span-9-39"><a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a><span class="w">    </span><span class="kr">end</span>
-</span><span id="__span-9-40"><a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a><span class="kr">end</span>
-</span><span id="__span-9-41"><a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a>
-</span><span id="__span-9-42"><a id="__codelineno-9-42" name="__codelineno-9-42" href="#__codelineno-9-42"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_npc_binder</span><span class="p">:</span><span class="nf">update</span><span class="p">(</span><span class="nv">delta</span><span class="p">)</span>
-</span><span id="__span-9-43"><a id="__codelineno-9-43" name="__codelineno-9-43" href="#__codelineno-9-43"></a><span class="w">    </span><span class="nv">object_binder</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="nv">self</span><span class="p">,</span><span class="w"> </span><span class="nv">delta</span><span class="p">)</span>
-</span><span id="__span-9-44"><a id="__codelineno-9-44" name="__codelineno-9-44" href="#__codelineno-9-44"></a><span class="kr">end</span>
-</span><span id="__span-9-45"><a id="__codelineno-9-45" name="__codelineno-9-45" href="#__codelineno-9-45"></a>
-</span><span id="__span-9-46"><a id="__codelineno-9-46" name="__codelineno-9-46" href="#__codelineno-9-46"></a><span class="c1">-- Attach the binder to all stalker NPCs</span>
-</span><span id="__span-9-47"><a id="__codelineno-9-47" name="__codelineno-9-47" href="#__codelineno-9-47"></a><span class="kr">function</span><span class="w"> </span><span class="nf">bind</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span>
-</span><span id="__span-9-48"><a id="__codelineno-9-48" name="__codelineno-9-48" href="#__codelineno-9-48"></a><span class="w">    </span><span class="nv">obj</span><span class="p">:</span><span class="nf">bind_object</span><span class="p">(</span><span class="nf">my_npc_binder</span><span class="p">(</span><span class="nv">obj</span><span class="p">))</span>
-</span><span id="__span-9-49"><a id="__codelineno-9-49" name="__codelineno-9-49" href="#__codelineno-9-49"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1">-- my_mod_binder.script</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="nv">class</span><span class="w"> </span><span class="s2">&quot;my_npc_binder&quot;</span><span class="w"> </span><span class="p">(</span><span class="nv">object_binder</span><span class="p">)</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_npc_binder</span><span class="p">:</span><span class="nf">__init</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span><span class="w"> </span><span class="nf">super</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">greeted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="kr">end</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_npc_binder</span><span class="p">:</span><span class="nf">reinit</span><span class="p">()</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">    </span><span class="nv">object_binder</span><span class="p">.</span><span class="nf">reinit</span><span class="p">(</span><span class="nv">self</span><span class="p">)</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">    </span><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">id</span><span class="p">()]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">    </span><span class="nv">self</span><span class="p">.</span><span class="py">st</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">id</span><span class="p">()]</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="kr">end</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_npc_binder</span><span class="p">:</span><span class="nf">net_spawn</span><span class="p">(</span><span class="nv">se_abstract</span><span class="p">)</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">object_binder</span><span class="p">.</span><span class="nf">net_spawn</span><span class="p">(</span><span class="nv">self</span><span class="p">,</span><span class="w"> </span><span class="nv">se_abstract</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="w">    </span><span class="nv">db</span><span class="p">.</span><span class="nf">add_obj</span><span class="p">(</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">)</span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="kr">end</span>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_npc_binder</span><span class="p">:</span><span class="nf">net_destroy</span><span class="p">()</span>
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="w">    </span><span class="nv">db</span><span class="p">.</span><span class="nf">del_obj</span><span class="p">(</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">)</span>
+</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a><span class="w">    </span><span class="nv">object_binder</span><span class="p">.</span><span class="nf">net_destroy</span><span class="p">(</span><span class="nv">self</span><span class="p">)</span>
+</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a><span class="kr">end</span>
+</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a>
+</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_npc_binder</span><span class="p">:</span><span class="nf">net_save_relevant</span><span class="p">()</span>
+</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a><span class="kr">end</span>
+</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a>
+</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_npc_binder</span><span class="p">:</span><span class="nf">save_state</span><span class="p">(</span><span class="nv">m_data</span><span class="p">)</span>
+</span><span id="__span-11-31"><a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">alife_storage_manager</span><span class="p">.</span><span class="nf">get_game_object_state</span><span class="p">(</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+</span><span id="__span-11-32"><a id="__codelineno-11-32" name="__codelineno-11-32" href="#__codelineno-11-32"></a><span class="w">    </span><span class="nv">state</span><span class="p">.</span><span class="py">my_npc_binder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nv">greeted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">greeted</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-11-33"><a id="__codelineno-11-33" name="__codelineno-11-33" href="#__codelineno-11-33"></a><span class="kr">end</span>
+</span><span id="__span-11-34"><a id="__codelineno-11-34" name="__codelineno-11-34" href="#__codelineno-11-34"></a>
+</span><span id="__span-11-35"><a id="__codelineno-11-35" name="__codelineno-11-35" href="#__codelineno-11-35"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_npc_binder</span><span class="p">:</span><span class="nf">load_state</span><span class="p">()</span>
+</span><span id="__span-11-36"><a id="__codelineno-11-36" name="__codelineno-11-36" href="#__codelineno-11-36"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">alife_storage_manager</span><span class="p">.</span><span class="nf">get_game_object_state</span><span class="p">(</span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">)</span>
+</span><span id="__span-11-37"><a id="__codelineno-11-37" name="__codelineno-11-37" href="#__codelineno-11-37"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">state</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">state</span><span class="p">.</span><span class="py">my_npc_binder</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-11-38"><a id="__codelineno-11-38" name="__codelineno-11-38" href="#__codelineno-11-38"></a><span class="w">        </span><span class="nv">self</span><span class="p">.</span><span class="py">greeted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">state</span><span class="p">.</span><span class="py">my_npc_binder</span><span class="p">.</span><span class="py">greeted</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="kc">false</span>
+</span><span id="__span-11-39"><a id="__codelineno-11-39" name="__codelineno-11-39" href="#__codelineno-11-39"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-11-40"><a id="__codelineno-11-40" name="__codelineno-11-40" href="#__codelineno-11-40"></a><span class="kr">end</span>
+</span><span id="__span-11-41"><a id="__codelineno-11-41" name="__codelineno-11-41" href="#__codelineno-11-41"></a>
+</span><span id="__span-11-42"><a id="__codelineno-11-42" name="__codelineno-11-42" href="#__codelineno-11-42"></a><span class="kr">function</span><span class="w"> </span><span class="nc">my_npc_binder</span><span class="p">:</span><span class="nf">update</span><span class="p">(</span><span class="nv">delta</span><span class="p">)</span>
+</span><span id="__span-11-43"><a id="__codelineno-11-43" name="__codelineno-11-43" href="#__codelineno-11-43"></a><span class="w">    </span><span class="nv">object_binder</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="nv">self</span><span class="p">,</span><span class="w"> </span><span class="nv">delta</span><span class="p">)</span>
+</span><span id="__span-11-44"><a id="__codelineno-11-44" name="__codelineno-11-44" href="#__codelineno-11-44"></a><span class="kr">end</span>
+</span><span id="__span-11-45"><a id="__codelineno-11-45" name="__codelineno-11-45" href="#__codelineno-11-45"></a>
+</span><span id="__span-11-46"><a id="__codelineno-11-46" name="__codelineno-11-46" href="#__codelineno-11-46"></a><span class="c1">-- Attach the binder to all stalker NPCs</span>
+</span><span id="__span-11-47"><a id="__codelineno-11-47" name="__codelineno-11-47" href="#__codelineno-11-47"></a><span class="kr">function</span><span class="w"> </span><span class="nf">bind</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span>
+</span><span id="__span-11-48"><a id="__codelineno-11-48" name="__codelineno-11-48" href="#__codelineno-11-48"></a><span class="w">    </span><span class="nv">obj</span><span class="p">:</span><span class="nf">bind_object</span><span class="p">(</span><span class="nf">my_npc_binder</span><span class="p">(</span><span class="nv">obj</span><span class="p">))</span>
+</span><span id="__span-11-49"><a id="__codelineno-11-49" name="__codelineno-11-49" href="#__codelineno-11-49"></a><span class="kr">end</span>
 </span></code></pre></div>
-<div class="admonition warning">
-<p class="admonition-title">Replacing vs extending base binders</p>
-<p>Defining a <code>bind()</code> function replaces the existing binder for that object type. The base game's <code>bind_monster.script</code> already registers a binder for all stalkers. If you replace it your NPC AI will break. In practice, mods extend behaviour through <a href="../callbacks/">global callbacks</a> rather than replacing base binders. Writing a custom binder is most useful for entirely new entity types you've added.</p>
-</div>
 <hr />
 <h2 id="how-binders-are-registered-with-the-engine">How binders are registered with the engine<a class="headerlink" href="#how-binders-are-registered-with-the-engine" title="Permanent link">&para;</a></h2>
 <p>The engine associates binder classes with entity types in <code>class_registrator.script</code>:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nf">cs_register</span><span class="p">(</span><span class="nv">object_factory</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CAI_Stalker&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;se_stalker.se_stalker&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;AI_STL_S&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;script_stalker&quot;</span><span class="p">)</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nf">cs_register</span><span class="p">(</span><span class="nv">object_factory</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CActor&quot;</span><span class="p">,</span><span class="w">      </span><span class="s2">&quot;se_actor.se_actor&quot;</span><span class="p">,</span><span class="w">     </span><span class="s2">&quot;S_ACTOR&quot;</span><span class="p">,</span><span class="w">  </span><span class="s2">&quot;script_actor&quot;</span><span class="p">)</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nf">cs_register</span><span class="p">(</span><span class="nv">object_factory</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CAI_Stalker&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;se_stalker.se_stalker&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;AI_STL_S&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;script_stalker&quot;</span><span class="p">)</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nf">cs_register</span><span class="p">(</span><span class="nv">object_factory</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CActor&quot;</span><span class="p">,</span><span class="w">      </span><span class="s2">&quot;se_actor.se_actor&quot;</span><span class="p">,</span><span class="w">     </span><span class="s2">&quot;S_ACTOR&quot;</span><span class="p">,</span><span class="w">  </span><span class="s2">&quot;script_actor&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <p>When an entity of a given type comes online, the engine calls the <code>bind(obj)</code> function in the script registered for that class. That function creates the binder and attaches it:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1">-- bind_monster.script</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="kr">function</span><span class="w"> </span><span class="nf">bind</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="nv">obj</span><span class="p">:</span><span class="nf">bind_object</span><span class="p">(</span><span class="nf">generic_object_binder</span><span class="p">(</span><span class="nv">obj</span><span class="p">))</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1">-- bind_monster.script</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="kr">function</span><span class="w"> </span><span class="nf">bind</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="nv">obj</span><span class="p">:</span><span class="nf">bind_object</span><span class="p">(</span><span class="nf">generic_object_binder</span><span class="p">(</span><span class="nv">obj</span><span class="p">))</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="kr">end</span>
 </span></code></pre></div>
 <p>You won't need to modify <code>class_registrator.script</code> unless you're creating a completely new entity type.</p>
 <hr />
