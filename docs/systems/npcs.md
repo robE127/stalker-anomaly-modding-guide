@@ -342,3 +342,11 @@ local function pacify_nearby(radius)
     end)
 end
 ```
+
+---
+
+## See also
+
+- [alife](../api-reference/alife.md) — spawning NPCs and working with server-side entities
+- [Engine Internals](../scripting/engine-internals.md) — online/offline lifecycle that governs when db.storage entries exist
+- [game_object](../scripting/game-object.md) — base methods available on all NPC game_objects

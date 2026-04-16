@@ -253,3 +253,10 @@ Most mod scripts don't need to call `xr_logic` directly. It's most relevant when
 - **Evaluating condlist strings dynamically** — when you want to check complex game state expressed as condlist syntax
 
 For simple checks (has info portion, has item, etc.) it's always cleaner to check directly in Lua rather than going through the condlist evaluator.
+
+---
+
+## See also
+
+- [Glossary: condition list](../reference/glossary.md#condition-list) — definition and syntax summary
+- [Systems: NPCs & Factions](../systems/npcs.md) — how condlists drive NPC behavior schemes

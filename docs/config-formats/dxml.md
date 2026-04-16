@@ -477,3 +477,9 @@ if is_not_empty(xml_obj:query("menu_main btn[name=btn_mcm]")) then return end
 
 !!! warning "DXML requires the modded exes"
     DXML is **not** part of vanilla Anomaly. Like DLTX, it is included in the community **modded exes** maintained by themrdemonized ([xray-monolith](https://github.com/themrdemonized/xray-monolith)). The `on_xml_read` callback does not exist in vanilla Anomaly's script engine — it is added by the modded exes. List them as a hard dependency in your README if your mod uses DXML.
+
+---
+
+## See also
+
+- [XML Configs](xml.md) — the base format DXML patches

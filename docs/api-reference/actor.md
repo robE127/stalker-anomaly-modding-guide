@@ -379,3 +379,11 @@ end
 - `db.actor` is the same object every time you access it during a session — you don't need to cache it, but you do need to guard against `nil`.
 - All `game_object` base methods (`id()`, `name()`, `section()`, `position()`, `alive()`, etc.) are available on `db.actor` since it is a `game_object`.
 - Condition properties (`.health`, `.radiation`, etc.) can technically be assigned directly, but this bypasses engine hooks. Prefer the `change_*` and `set_*_ex` methods.
+
+---
+
+## See also
+
+- [game_object](../scripting/game-object.md) — base methods available on db.actor
+- [alife](alife.md) — spawning items into the actor's inventory via alife_create_item
+- [Callbacks Reference](../callbacks-reference/index.md) — actor_on_first_update, actor_on_item_take, and other actor callbacks

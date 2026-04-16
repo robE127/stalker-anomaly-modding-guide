@@ -14,11 +14,7 @@ _Nothing currently in progress._
 
 ### P1 — High value, relatively quick
 
-- [ ] **Add vanilla/modded exes column to callbacks reference** — The full callbacks reference (`docs/callbacks-reference/index.md`) has no column indicating which callbacks require the modded exes. Add a column or tag to every entry.
-- [ ] **Glossary / jargon page** — A pass for undefined Anomaly-specific terms used throughout the guide. Define: section (LTX block, also used as entity config type), smart terrain, squad, info portion, condition list, binder, clsid, se_object vs game_object, online/offline, gamedata, and other domain terms. Link from first-use on each page.
-- [ ] **"What is a section?"** — The term "section" is used in two distinct senses in Anomaly: (1) an LTX block `[section_name]` and (2) the config type name of an entity (e.g. `obj:section()` returns `"wpn_ak74"`). Explain both usages, ideally in the glossary and in the LTX format page.
-- [ ] **Improve binders page** — Current page is too abstract. Add 2–3 concrete real-world scenarios ("you'd use a binder when…"), a relatable analogy for what a binder is, and contrast with the equivalent global callback approach side-by-side.
-- [ ] **Fix README** — ✅ Done: rewritten to lead with mission and live guide link, tooling moved to secondary.
+_(all done)_
 
 ### P2 — Medium effort, meaningful impact
 
@@ -52,6 +48,10 @@ _Nothing currently in progress._
 
 ## Completed
 
+- [x] Add vanilla/modded exes Req column to callbacks reference
+- [x] Glossary / jargon page — `docs/reference/glossary.md` with 20+ terms, added to nav
+- [x] "What is a section?" — both senses covered in glossary
+- [x] Improve binders page — analogy, 3 concrete scenarios, side-by-side comparison
 - [x] Fix .sav → .scop in engine-internals.md (save files are `.scop`/`.scoc`, not `.sav`)
 - [x] Update CLAUDE.md — xray-monolith is now cloned locally at `data/clones/xray-monolith/`
 - [x] Rewrite README — leads with mission and live guide link; tooling is secondary

@@ -325,3 +325,10 @@ local function give_quest_item_once()
     db.actor:give_info_portion("my_mod_item_given")
 end
 ```
+
+---
+
+## See also
+
+- [db.actor](../api-reference/actor.md) — inventory iteration methods and item slot constants
+- [game_object](../scripting/game-object.md) — base methods available on item game_objects

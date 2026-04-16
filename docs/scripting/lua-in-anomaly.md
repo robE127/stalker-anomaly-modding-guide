@@ -182,3 +182,10 @@ bit_or(a, b)
 -- You don't call this directly — the save/load callback system handles it.
 -- USE_MARSHAL = true when available (set in _g.script)
 ```
+
+---
+
+## See also
+
+- [Lua Scope & Globals](lua-scope.md) — avoiding global namespace collisions
+- [Script Lifecycle](script-lifecycle.md) — execution order and when engine globals become available

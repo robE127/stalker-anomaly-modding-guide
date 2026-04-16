@@ -8,14 +8,95 @@ The base game uses binders for the actor (`bind_stalker.script`), all NPCs and m
 
 ## When to use a binder vs a global callback
 
-| | Object Binder | Global Callback |
-|---|---|---|
-| State | Per-object (binder instance owns it) | Shared/centralised |
-| Lifecycle | Hooks into spawn/destroy/update per object | Hooks into engine-wide events |
-| Use for | Per-NPC timers, AI extensions, custom save data | Watching all objects of a type, cross-object logic |
-| Overhead | Created per online object | One handler regardless of object count |
+A binder is the **OOP approach**: each object gets its own class instance with private state and constructor/destructor semantics. A global callback is the **procedural approach**: one function handles all objects of a type, with a shared lookup table keyed by object ID.
 
-For most mods, global callbacks are sufficient. Reach for a binder when you need state that lives and dies with a specific object.
+Both patterns can solve many of the same problems — but **most mods don't need custom binders**. Global callbacks are simpler to write and handle the vast majority of use cases. There are three situations where the binder approach wins clearly:
+
+### Situation 1 — You need per-object state that survives save/load
+
+Suppose you want each stalker trader to have their own independent restock cooldown: after buying them out, that specific trader won't restock for an hour. The state belongs to the trader, not to the actor.
+
+With a **global callback**, you'd maintain a table keyed by NPC ID, manually handle cleanup when NPCs go offline, and manually hook into `save_state`/`load_state` to persist the table:
+
+```lua
+-- Global callback approach
+local restock_timers = {}  -- keyed by NPC alife ID
+
+local function npc_on_update(npc)
+    local id = npc:id()
+    if restock_timers[id] then
+        restock_timers[id] = restock_timers[id] - 1
+    end
+end
+
+local function save_state(m_data)
+    m_data.my_mod = { restock_timers = restock_timers }
+end
+
+local function load_state(m_data)
+    restock_timers = (m_data.my_mod or {}).restock_timers or {}
+end
+
+local function on_game_start()
+    RegisterScriptCallback("npc_on_update", npc_on_update)
+    RegisterScriptCallback("save_state",    save_state)
+    RegisterScriptCallback("load_state",    load_state)
+end
+```
+
+This works, but `restock_timers` accumulates entries for every NPC ever encountered, you need to remember to prune it, and the global `npc_on_update` runs for every NPC in the zone every frame — even the ones that don't need a restock check.
+
+With a **binder**, each trader instance owns its timer. The binder is created when the NPC comes online and destroyed when it goes offline — no manual cleanup:
+
+```lua
+-- Binder approach (per-NPC instance)
+function trader_binder:__init(obj) super(obj)
+    self.restock_timer = 0
+end
+
+function trader_binder:update(delta)
+    object_binder.update(self, delta)
+    if self.restock_timer > 0 then
+        self.restock_timer = self.restock_timer - delta
+    end
+end
+
+function trader_binder:save_state(m_data)
+    local state = alife_storage_manager.get_game_object_state(self.object, true)
+    state.restock_timer = self.restock_timer
+end
+
+function trader_binder:load_state()
+    local state = alife_storage_manager.get_game_object_state(self.object)
+    self.restock_timer = state and state.restock_timer or 0
+end
+```
+
+No global table, no cleanup, no running on the wrong NPCs.
+
+### Situation 2 — You need per-frame `update()` on specific objects only
+
+Global callbacks like `npc_on_update` fire for **every** online NPC every frame. If you only care about 3 specific entities, you're still running the check for every NPC in the zone.
+
+A binder's `update()` only runs for the objects you've attached a binder to. If you're adding a custom device, a trap, or any entity type you control, a binder is the only way to get a per-frame update hook without paying for a global scan.
+
+### Situation 3 — You're creating an entirely new entity type
+
+This is the clearest case. If you're adding a new type of interactive object — a placeable sensor, a drone, a custom container — it has no existing binder. You need a binder to give it:
+
+- `net_spawn` / `net_destroy` lifecycle
+- Per-frame `update()`
+- Save/load via `save_state` / `load_state`
+- Per-object callbacks (`callback.hit`, `callback.use_object`, etc.)
+
+There is no alternative here — you must write a binder.
+
+---
+
+!!! warning "Don't replace the existing binders"
+    The base game registers binders for all NPCs (`bind_monster.script`), the actor (`bind_stalker.script`), and other entity types. If your `bind()` function replaces the one in those scripts, AI will break — the base binder sets up pathfinding, combat logic, and dozens of other systems.
+
+    **In practice: extend via global callbacks, not by replacing binders.** Writing a custom binder is primarily for new entity types you've added yourself. For modifying existing NPC behaviour, use `RegisterScriptCallback` with the NPC lifecycle callbacks instead.
 
 ---
 
@@ -239,9 +320,6 @@ function bind(obj)
     obj:bind_object(my_npc_binder(obj))
 end
 ```
-
-!!! warning "Replacing vs extending base binders"
-    Defining a `bind()` function replaces the existing binder for that object type. The base game's `bind_monster.script` already registers a binder for all stalkers. If you replace it your NPC AI will break. In practice, mods extend behaviour through [global callbacks](callbacks.md) rather than replacing base binders. Writing a custom binder is most useful for entirely new entity types you've added.
 
 ---
 

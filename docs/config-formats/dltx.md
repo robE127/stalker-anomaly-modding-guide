@@ -391,6 +391,7 @@ local section_data = ini:dltx_get_section("wpn_ak74")
 
 ## DLTX vs editing files directly
 
+
 | | Edit file directly | DLTX patch |
 |--|--|--|
 | Other mods sharing the file | Conflict — one mod wins | All mods apply their patches |
@@ -400,3 +401,9 @@ local section_data = ini:dltx_get_section("wpn_ak74")
 
 !!! warning "DLTX requires the modded exes"
     DLTX is **not** part of vanilla Anomaly. It is included in the community **modded exes** maintained by themrdemonized ([xray-monolith](https://github.com/themrdemonized/xray-monolith)), which replace the vanilla engine binaries. Most active mods and all major modpacks (GAMMA, EFP, etc.) require these exes — if you're targeting a general audience, list them as a hard dependency in your README.
+
+---
+
+## See also
+
+- [LTX Format](ltx.md) — the base format DLTX patches

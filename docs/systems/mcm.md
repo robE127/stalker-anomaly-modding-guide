@@ -377,3 +377,9 @@ function on_game_end()
     UnregisterScriptCallback("on_option_change", on_option_change)
 end
 ```
+
+---
+
+## See also
+
+- [Examples: MCM Options](../examples/mcm-options.md) — complete worked example of an MCM-integrated mod

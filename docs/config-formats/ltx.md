@@ -209,3 +209,10 @@ end
 ```
 
 **Modding:** Don't edit base game LTX files directly — use [DLTX](dltx.md) to patch only the values you need to change.
+
+---
+
+## See also
+
+- [DLTX](dltx.md) — patch-based system for modifying LTX values without replacing files
+- [Glossary: section](../reference/glossary.md#section) — definition of LTX sections in the broader engine context

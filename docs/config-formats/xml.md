@@ -237,3 +237,9 @@ For runtime XML modification, use [DXML](dxml.md).
 Use [DXML](dxml.md) to apply targeted patches instead — it lets multiple mods modify the same XML file without conflicts.
 
 The exception is new files you create from scratch (new dialogs, new string tables, new UI windows). Those don't conflict with anything and can simply be placed in the appropriate folder.
+
+---
+
+## See also
+
+- [DXML](dxml.md) — patch-based system for modifying XML files without replacing them

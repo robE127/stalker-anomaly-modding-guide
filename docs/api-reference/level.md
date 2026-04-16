@@ -277,3 +277,10 @@ level.spawn_phantom(position)
 ```
 
 For spawning NPC and creature entities, prefer `alife_create` (see the [alife](alife.md) page).
+
+---
+
+## See also
+
+- [game_object](../scripting/game-object.md) — the type returned by level.object_by_id
+- [Engine Internals](../scripting/engine-internals.md) — the online/offline system that determines which objects level.object_by_id can find

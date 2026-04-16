@@ -177,3 +177,10 @@ local function actor_on_first_update()
     end
 end
 ```
+
+---
+
+## See also
+
+- [Engine Internals](engine-internals.md) — how the save file is structured and the marshal serialization system
+- [Object Binders](object-binders.md) — the per-object save/load pattern used by binders

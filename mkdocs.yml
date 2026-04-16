@@ -95,3 +95,6 @@ nav:
     - Item Use Effect: examples/item-use-effect.md
     - NPC Death Reward: examples/npc-death-reward.md
     - MCM Options: examples/mcm-options.md
+
+  - Reference:
+    - Glossary: reference/glossary.md

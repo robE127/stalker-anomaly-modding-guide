@@ -273,3 +273,11 @@ end
 
 !!! warning "Never mix the two"
     `level.object_by_id` returns a `game_object` or `nil`. `alife():object()` returns an `se_abstract` or `nil`. They are different types — methods from one will not work on the other.
+
+---
+
+## See also
+
+- [Systems: NPCs & Factions](../systems/npcs.md) — working with NPC squads and server entities
+- [Engine Internals](../scripting/engine-internals.md) — the online/offline lifecycle and alife simulation
+- [game_object](../scripting/game-object.md) — the client-side object type returned by level.object_by_id

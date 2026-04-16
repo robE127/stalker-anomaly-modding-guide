@@ -248,3 +248,10 @@ end
 
 !!! warning "Flag field names vary by callback"
     There is no single convention. Key callbacks use `flags.ret_value = false` to suppress. Surge/psi storm callbacks use `flags.allow = false`. Save/load callbacks use `flags.ret = true`. Always check the [Callbacks Reference](../callbacks-reference/index.md) for the correct field name — using the wrong one will silently do nothing.
+
+---
+
+## See also
+
+- [Callbacks Reference](../callbacks-reference/index.md) — full list of every callback with signatures and argument details
+- [Object Binders](object-binders.md) — the per-object callback system (set_callback) used inside binders

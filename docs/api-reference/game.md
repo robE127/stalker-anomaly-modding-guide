@@ -221,3 +221,9 @@ local function get_time_of_day()
     end
 end
 ```
+
+---
+
+## See also
+
+- [The Callback System](../scripting/callbacks.md) — timer patterns using game.time() inside callbacks
