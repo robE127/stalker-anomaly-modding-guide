@@ -65,11 +65,17 @@ nav:
   - API Reference:
     - api-reference/index.md
     - db.actor: api-reference/actor.md
+    - game_object: api-reference/game-object.md
     - level: api-reference/level.md
     - game: api-reference/game.md
     - alife: api-reference/alife.md
     - xr_logic: api-reference/xr-logic.md
     - UI Functions: api-reference/ui.md
+    - ini_file: api-reference/ini-file.md
+    - vector: api-reference/vector.md
+    - hit: api-reference/hit.md
+    - sound_object: api-reference/sound-object.md
+    - CTime: api-reference/ctime.md
 
   - Config Formats:
     - config-formats/index.md

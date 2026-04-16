@@ -402,19 +402,492 @@ These functions wrap `clsid` comparisons for common object types:
 
 ---
 
+## game_object (general)
+
+All in-world entities — NPCs, items, weapons, anomalies, the actor — are `game_object` instances. This section covers methods available on **any** game object. Actor-specific methods are in [db.actor](actor.md).
+
+**Full reference: [game_object](game-object.md)**
+
+| Method | Description |
+|--------|-------------|
+| `obj:alive()` | True if not dead |
+| `obj:bind_object(binder)` | Attach object_binder instance |
+| `obj:bone_position(name)` | World position of a named bone |
+| `obj:character_community()` | Faction string |
+| `obj:character_name()` | Display name |
+| `obj:clsid()` | Class ID — compare with `clsid.*` constants |
+| `obj:condition()` | Item durability (0–1) |
+| `obj:direction()` | Facing direction (radians) |
+| `obj:game_vertex_id()` | Global graph node |
+| `obj:get_ammo_in_magazine()` | Rounds in magazine |
+| `obj:get_ammo_total()` | Total ammo count |
+| `obj:give_money(n)` | Add RU |
+| `obj:hit(hit_obj)` | Apply a `hit` object for damage |
+| `obj:id()` | Alife ID |
+| `obj:invulnerable([bool])` | Get/set invulnerability |
+| `obj:iterate_inventory(fn, data)` | Iterate inventory items |
+| `obj:kill(who)` | Kill the object |
+| `obj:level_vertex_id()` | Local navmesh node |
+| `obj:max_health()` | Maximum health |
+| `obj:money()` | Current RU balance |
+| `obj:name()` | Internal name string |
+| `obj:object(section)` | First matching inventory item |
+| `obj:parent()` | Owner object if in an inventory |
+| `obj:position()` | World position (`vector`) |
+| `obj:relation(other)` | Relation enum toward `other` |
+| `obj:script(bool, name)` | Take/release scripted control |
+| `obj:section()` | Config section name |
+| `obj:see(other)` | True if NPC has LOS to `other` |
+| `obj:set_callback(type, fn)` | Register per-object callback |
+| `obj:set_condition(v)` | Set item durability |
+| `obj:spawn_ini()` | Spawn config as `ini_file` |
+| `obj:start_particles(effect, bone)` | Attach particle effect |
+| `obj:stop_particles(effect, bone)` | Remove particle effect |
+| `obj:story_id()` | Story ID, or -1 |
+
+Type-testing: `is_actor()`, `is_stalker()`, `is_monster()`, `is_weapon()`, `is_outfit()`, `is_artefact()`, `is_ammo()`, `is_anomaly()`, `is_inventory_box()`, `is_space_restrictor()`, and more — see [game_object](game-object.md#type-testing).
+
+---
+
+## ini_file
+
+Runtime LTX config reader. Returned by `system_ini()`, `game_ini()`, `create_ini_file(path)`, and `obj:spawn_ini()`.
+
+**Full reference: [ini_file](ini-file.md)**
+
+| Method | Description |
+|--------|-------------|
+| `ini:line_count(section)` | Number of keys in section |
+| `ini:line_exist(section, key)` | True if key exists in section |
+| `ini:r_bool(section, key)` | Read boolean value |
+| `ini:r_clsid(section, key)` | Read class ID |
+| `ini:r_float(section, key)` | Read float value |
+| `ini:r_line(ini, section, i, key_out, val_out)` | Read key+value at 0-based index `i` |
+| `ini:r_s32(section, key)` | Read signed integer |
+| `ini:r_string(section, key)` | Read string value |
+| `ini:r_u32(section, key)` | Read unsigned integer |
+| `ini:r_vector(section, key)` | Read vector (`x, y, z`) |
+| `ini:section_exist(section)` | True if section exists |
+
+---
+
+## vector
+
+3D vector — used for positions, directions, velocities.
+
+**Full reference: [vector](vector.md)**
+
+| Method | Description |
+|--------|-------------|
+| `v:add(other)` | Add component-wise (in place) |
+| `v:average(a, b)` | Midpoint |
+| `v:crossproduct(a, b)` | Cross product into `v` |
+| `v:distance_to(other)` | 3D distance |
+| `v:distance_to_sqr(other)` | Squared distance |
+| `v:distance_to_xz(other)` | 2D distance (ignoring Y) |
+| `v:div(n)` | Divide by scalar |
+| `v:dotproduct(other)` | Dot product |
+| `v:getH()` | Heading angle |
+| `v:lerp(a, b, t)` | Linear interpolate |
+| `v:magnitude()` | Length |
+| `v:mul(n)` | Multiply by scalar |
+| `v:normalize()` | Normalise to unit length |
+| `v:normalize_safe()` | Normalise or zero if zero-length |
+| `v:set(x, y, z)` | Set components |
+| `v:setHP(heading, pitch)` | Set from angles |
+| `v:sub(other)` | Subtract component-wise |
+| `vector()` | Construct `(0,0,0)` |
+
+---
+
+## hit
+
+Damage event object — create, fill, and pass to `obj:hit()`.
+
+**Full reference: [hit](hit.md)**
+
+| Property / Method | Description |
+|----------|-------------|
+| `h:bone(name)` | Target specific bone |
+| `h.direction` | Direction (`vector`) |
+| `h.draftsman` | Credit for the kill (`game_object`) |
+| `hit()` | Construct empty hit |
+| `h.impulse` | Physics impulse |
+| `h.power` | Damage amount (0–1+ fraction of max health) |
+| `h.type` | Damage type (`hit.wound`, `hit.burn`, etc.) |
+
+Hit type constants: `hit.burn`, `hit.shock`, `hit.chemical_burn`, `hit.radiation`, `hit.telepatic`, `hit.wound`, `hit.strike`, `hit.explosion`, `hit.fire_wound`, `hit.light_burn`, `hit.dummy`.
+
+---
+
+## sound_object
+
+Scripted sound playback — 3D positional or 2D non-positional.
+
+**Full reference: [sound_object](sound-object.md)**
+
+| Method | Description |
+|--------|-------------|
+| `snd.frequency` | Pitch multiplier |
+| `snd:length()` | Duration in seconds |
+| `snd.max_distance` | Inaudible distance |
+| `snd.min_distance` | Full-volume distance |
+| `snd:play(obj)` | Play at object's position |
+| `snd:play(obj, delay, flags)` | Play with delay / flags |
+| `snd:play_at_pos(obj, pos)` | Play at world position |
+| `snd:playing()` | True if currently playing |
+| `sound_object(path)` | Construct (path relative to `sounds/`, no extension) |
+| `snd:stop()` | Stop immediately |
+| `snd:stop_deffered()` | Stop after current loop |
+| `snd.volume` | Volume (0–1) |
+
+Flags: `sound_object.s3d` (default), `sound_object.s2d`, `sound_object.looped`.
+
+---
+
+## CTime
+
+In-game time object returned by `game.get_game_time()`.
+
+**Full reference: [CTime](ctime.md)**
+
+| Method | Description |
+|--------|-------------|
+| `t:add(other)` / `t:sub(other)` | Add/subtract CTimes |
+| `CTime()` | Construct zeroed time |
+| `t:dateToString(fmt)` | Format date as string |
+| `t:diffSec(other)` | Difference in game seconds |
+| `t:get(...)` | Returns year, month, day, h, m, s, ms |
+| `t:set(y, mo, d, h, m, s, ms)` | Set all components |
+| `t:setHMS(h, m, s)` | Set H:M:S |
+| `t:timeToString(fmt)` | Format time as string |
+
+Format constants: `CTime.TimeToHours`, `CTime.TimeToMinutes`, `CTime.TimeToSeconds`, `CTime.DateToDay`, `CTime.DateToMonth`, `CTime.DateToYear`.
+
+---
+
+## particles_object
+
+Script-controlled particle effect object.
+
+| Method | Description |
+|--------|-------------|
+| `po:load_path(path)` | Load a movement path |
+| `po:looped()` | True if looped effect |
+| `po:move_to(pos, dir)` | Move to position |
+| `particles_object(name)` | Construct with effect name |
+| `po:pause_path(bool)` | Pause/resume path |
+| `po:play()` | Start playing |
+| `po:play_at_pos(pos)` | Play at world position |
+| `po:playing()` | True if active |
+| `po:start_path(loop)` | Start path-following |
+| `po:stop()` | Stop |
+| `po:stop_deffered()` | Stop after current loop |
+| `po:stop_path()` | Stop path-following |
+
+For attaching effects to game objects, use `obj:start_particles(effect, bone)` instead.
+
+---
+
+## relation_registry namespace
+
+Community (faction-to-faction) relation management.
+
+| Function | Description |
+|----------|-------------|
+| `relation_registry.change_community_goodwill(faction, entity_id, delta)` | Adjust goodwill by delta |
+| `relation_registry.community_goodwill(faction, entity_id)` | Get goodwill of an entity toward a faction |
+| `relation_registry.community_relation(fac_a, fac_b)` | Get relation between two faction strings |
+| `relation_registry.set_community_goodwill(faction, entity_id, val)` | Set absolute goodwill |
+| `relation_registry.set_community_relation(fac_a, fac_b, val)` | Set faction-to-faction relation |
+
+---
+
+## actor_stats namespace
+
+Tracking and award statistics.
+
+| Function | Description |
+|----------|-------------|
+| `actor_stats.add_points(stat, id, score, amount)` | Add points to a stat |
+| `actor_stats.add_points_str(stat, id, string)` | Add string-keyed stat points |
+| `actor_stats.get_points(stat)` | Get current point value |
+
+---
+
+## weather namespace
+
+Fine-grained weather parameter control (modded exes).
+
+| Function | Description |
+|----------|-------------|
+| `weather.boost_reset()` | Reset all boosts |
+| `weather.boost_value(key, val)` | Temporarily boost a parameter |
+| `weather.get_value_numric(key)` | Get a numeric weather parameter |
+| `weather.get_value_string(key)` | Get a string weather parameter |
+| `weather.get_value_vector(key)` | Get a vector weather parameter |
+| `weather.is_paused()` | True if paused |
+| `weather.pause(bool)` | Pause/resume weather cycling |
+| `weather.reload()` | Reload weather config |
+| `weather.set_value_numric(key, val)` | Set a numeric weather parameter |
+| `weather.set_value_string(key, val)` | Set a string weather parameter |
+| `weather.set_value_vector(key, x, y, z, w)` | Set a vector weather parameter |
+
+---
+
+## Global functions
+
+Globally available functions that don't belong to a namespace:
+
+| Function | Description |
+|----------|-------------|
+| `db.actor` | The player `game_object` |
+| `alife()` | The `alife_simulator` singleton |
+| `app_ready()` | True once the engine is fully initialised |
+| `bit_and(a, b)` | Bitwise AND |
+| `bit_not(a)` | Bitwise NOT |
+| `bit_or(a, b)` | Bitwise OR |
+| `bit_xor(a, b)` | Bitwise XOR |
+| `command_line()` | Raw command line string |
+| `create_ini_file(path)` | Open any VFS file as `ini_file` |
+| `device()` | Render device object |
+| `dik_to_bind(dik)` | Convert `DIK_keys` constant to `key_bindings` |
+| `error_log(msg)` | Write `msg` to the error log |
+| `flush()` | Flush the log buffers |
+| `game_graph()` | Global navigation graph object |
+| `game_ini()` | Game config (includes AI files) |
+| `get_console()` | Console object |
+| `get_hud()` | HUD manager object |
+| `GetARGB(a, r, g, b)` | Pack colour channels into a single number |
+| `GetFontDI()` | DI font object |
+| `GetFontMedium()` | Medium UI font object |
+| `GetFontSmall()` | Small UI font object |
+| `getFS()` | File system object |
+| `IsDynamicMusic()` | True if dynamic music is active |
+| `IsGameTypeSingle()` | True in singleplayer mode |
+| `log(msg)` | Write `msg` to the script log |
+| `reload_system_ini()` | Reload `system_ini` in-game (Alundaio extension) |
+| `render_get_dx_level()` | Current DirectX renderer level (8/9) |
+| `system_ini()` | Global config `ini_file` |
+| `time_continual()` | Like `time_global()` but continues while paused |
+| `time_global()` | Real-time milliseconds since engine start |
+| `user_name()` | Current user name string |
+
+---
+
+## Constants
+
+### clsid
+
+`clsid` constants identify the class of a `game_object` or server entity. Compare with `obj:clsid()`.
+
+Key values:
+
+| Constant | Meaning |
+|----------|---------|
+| `clsid.actor` | Player actor |
+| `clsid.artefact` | Artefact |
+| `clsid.bloodsucker` … `clsid.zombie` | Mutant creatures |
+| `clsid.equ_stalker` / `clsid.equ_exo` | Armour suits |
+| `clsid.helmet` | Helmet |
+| `clsid.inventory_box` | Stash |
+| `clsid.obj_medkit` / `clsid.obj_food` / `clsid.obj_bandage` | Consumables |
+| `clsid.smart_terrain` | Smart terrain |
+| `clsid.space_restrictor` / `clsid.script_restr` | Zone/restrictor |
+| `clsid.stalker` / `clsid.script_stalker` | NPC stalker |
+| `clsid.trader` / `clsid.script_trader` | Trader NPC |
+| `clsid.wpn_ak74` … `clsid.wpn_walther` | Specific weapon types |
+| `clsid.wpn_ammo` | Ammo box |
+
+The full list (228+ values) is in `scripts/lua_help.script` in your unpacked Anomaly installation. Use `_g.script` type helpers (`IsStalker`, `IsMonster`, `IsWeapon`, etc.) instead of raw clsid comparisons where possible.
+
+---
+
+### callback
+
+Per-object callback type constants, used with `obj:set_callback(type, fn)`:
+
+| Constant | When it fires |
+|----------|--------------|
+| `callback.death` | Object dies |
+| `callback.hit` | Object receives a hit |
+| `callback.inventory_info` | Info portion state changes |
+| `callback.map_location_added` | Map marker added |
+| `callback.on_item_drop` | Item dropped |
+| `callback.on_item_take` | Item picked up |
+| `callback.patrol_path_in_point` | Patrol reaches a waypoint |
+| `callback.sound` | Object hears a sound |
+| `callback.take_item_from_box` | Item taken from box |
+| `callback.task_state` | Task state changed |
+| `callback.trade_sell_buy_item` | Item bought/sold |
+| `callback.trade_start` / `callback.trade_stop` | Trade opened/closed |
+| `callback.use_object` | Player uses object |
+| `callback.weapon_no_ammo` | Weapon runs out of ammo |
+| `callback.zone_enter` / `callback.zone_exit` | Zone entry/exit |
+
+The full list is in `scripts/lua_help.script` in your unpacked Anomaly installation.
+
+---
+
+### key_bindings
+
+Logical key binding constants, used with `level.hold_action()`, `level.press_action()`, `level.release_action()`:
+
+| Constant | Action |
+|----------|--------|
+| `key_bindings.kBACK` | Move backward |
+| `key_bindings.kCROUCH` | Crouch |
+| `key_bindings.kCUSTOM1` … `kCUSTOM25` | Custom keybinds (MCM) |
+| `key_bindings.kDROP` | Drop item |
+| `key_bindings.kFWD` | Move forward |
+| `key_bindings.kINVENTORY` | Inventory screen |
+| `key_bindings.kJUMP` | Jump |
+| `key_bindings.kLEFT` / `kRIGHT` | Strafe |
+| `key_bindings.kUSE` | Use / interact |
+| `key_bindings.kWPN_1` … `kWPN_6` | Weapon slots |
+| `key_bindings.kWPN_FIRE` | Fire weapon |
+| `key_bindings.kWPN_RELOAD` | Reload |
+| `key_bindings.kWPN_ZOOM` | Aim / zoom |
+
+---
+
+### DIK_keys
+
+Raw DirectInput keyboard constants. Used with MCM keybind settings. Convert to a logical bind with `dik_to_bind(dik)`.
+
+Common values: `DIK_keys.DIK_F1` … `DIK_F12`, `DIK_keys.DIK_A` … `DIK_Z`, `DIK_keys.MOUSE_1` / `MOUSE_2` / `MOUSE_3`.
+
+The full set is in `scripts/lua_help.script` in your unpacked Anomaly installation.
+
+---
+
+### game_difficulty
+
+| Constant | Value |
+|----------|-------|
+| `game_difficulty.master` | 3 |
+| `game_difficulty.novice` | 0 |
+| `game_difficulty.stalker` | 1 |
+| `game_difficulty.veteran` | 2 |
+
+Read with `level.get_game_difficulty()`.
+
+---
+
+### snd_type
+
+Sound category bitmasks. Used when registering sounds with `obj:add_sound()`.
+
+Key values: `snd_type.no_sound`, `snd_type.idle`, `snd_type.attack`, `snd_type.die`, `snd_type.injure`, `snd_type.talk`, `snd_type.step`, `snd_type.weapon`, `snd_type.item`, `snd_type.monster`, `snd_type.world`, `snd_type.ambient`.
+
+---
+
+### ui_events
+
+Event constants for UI element callbacks:
+
+| Constant | When |
+|----------|------|
+| `ui_events.BUTTON_CLICKED` | Button left-click |
+| `ui_events.BUTTON_DOWN` | Button pressed |
+| `ui_events.CHECK_BUTTON_RESET` | Checkbox unchecked |
+| `ui_events.CHECK_BUTTON_SET` | Checkbox checked |
+| `ui_events.EDIT_TEXT_COMMIT` | Edit box committed |
+| `ui_events.LIST_ITEM_CLICKED` | List item clicked |
+| `ui_events.LIST_ITEM_SELECT` | List item selected |
+| `ui_events.MESSAGE_BOX_NO_CLICKED` | Message box No |
+| `ui_events.MESSAGE_BOX_OK_CLICKED` | Message box OK |
+| `ui_events.MESSAGE_BOX_YES_CLICKED` | Message box Yes |
+| `ui_events.SCROLLBAR_VSCROLL` | Vertical scroll |
+| `ui_events.TAB_CHANGED` | Tab bar changed |
+| `ui_events.WINDOW_KEY_PRESSED` | Key pressed while window focused |
+
+---
+
+## Server entity classes (alife)
+
+The server-side entity hierarchy (accessible via `alife():object(id)`). Full coverage is in the [alife](alife.md) reference.
+
+| Class | Description |
+|-------|-------------|
+| `cse_abstract` | Base class: `id`, `position`, `angle`, `parent_id`, `section_name()`, `name()`, `clsid()`, `spawn_ini()` |
+| `cse_alife_creature_abstract` | Adds `health`, `group_id`, `rank` |
+| `cse_alife_creature_actor` | Server-side actor |
+| `cse_alife_dynamic_object` | Adds `can_switch_online/offline`, `switch_online/offline` |
+| `cse_alife_dynamic_object_visual` | Adds visual/model data |
+| `cse_alife_helicopter` | Helicopter |
+| `cse_alife_human_stalker` | Human NPC — adds `community`, dialog, rank, reputation |
+| `cse_alife_inventory_box` | Stash/box |
+| `cse_alife_item` | Base inventory item — adds `condition` |
+| `cse_alife_item_ammo` | Ammo — adds `ammo_type`, `elapsed` |
+| `cse_alife_item_artefact` | Artefact |
+| `cse_alife_item_custom_outfit` | Armour suit |
+| `cse_alife_item_detector` | Detector device |
+| `cse_alife_item_weapon` | Weapon server entity — adds ammo, upgrades |
+| `cse_alife_level_changer` | Level transition trigger |
+| `cse_alife_monster_abstract` | Monster base — adds restrictions, kill helpers |
+| `cse_alife_monster_base` | Physics-enabled monster |
+| `cse_alife_object` | Adds `m_game_vertex_id`, `m_level_vertex_id`, `m_story_id`, `online` |
+| `cse_alife_online_offline_group` | NPC squad group |
+| `cse_alife_smart_zone` | Smart terrain zone |
+| `cse_alife_space_restrictor` | Zone restrictor |
+
+---
+
+## CScriptXmlInit
+
+UI XML element initialiser. Instantiated in UI scripts to build HUD windows from XML definitions.
+
+| Method | Description |
+|--------|-------------|
+| `xml:Init(path, ...)` | Load an XML file |
+| `xml:InitButton(section, parent)` | Create a button |
+| `xml:InitCheck(section, parent)` | Create a checkbox |
+| `xml:InitComboBox(section, parent)` | Create a combo box |
+| `xml:InitEditBox(section, parent)` | Create an edit box |
+| `xml:InitFont(section, parent)` | Get a font from section |
+| `xml:InitFrame(section, parent)` | Create a frame |
+| `xml:InitFrameLine(section, parent)` | Create a frame line |
+| `xml:InitListBox(section, parent)` | Create a list box |
+| `xml:InitScrollView(section, parent)` | Create a scroll view |
+| `xml:InitStatic(section, parent)` | Create a static/label |
+| `xml:InitTab(section, parent)` | Create a tab control |
+| `xml:InitTextWnd(section, parent)` | Create a text window |
+| `xml:InitTrackBar(section, parent)` | Create a track bar |
+| `xml:InitWindow(section, parent)` | Create a basic window |
+
+See [UI Scripting](../systems/ui-scripting.md) for worked UI examples. The `CUIWindow` base class (from which all UI elements inherit) has ~100 methods for positioning, visibility, events, and child management — beyond the scope of this index.
+
+---
+
+## GOAP / action planner classes
+
+The engine's Goal-Oriented Action Planning system, used for advanced NPC AI scripting. Rarely needed unless you are writing custom NPC behaviour schemes.
+
+| Class | Description |
+|-------|-------------|
+| `action_base` | A single action in the planner |
+| `action_planner` | GOAP planner — manages actions and evaluators |
+| `planner_action` | Combined planner + action |
+| `property_evaluator` | Evaluates a world-state property (boolean) |
+| `property_evaluator_const` | Evaluator that always returns a constant |
+| `world_property` | Single property: condition ID + boolean value |
+| `world_state` | Set of world-state properties |
+
+These classes are used in base game scripts like `xr_combat.script`, `xr_stalker.script`, and similar NPC behaviour scheme scripts.
+
+---
+
 ## Not yet documented
 
-The following commonly used modules have partial or no documentation in this guide:
+The following modules are used in mods but not yet fully covered in this guide:
 
 | Module | Description |
 |--------|-------------|
 | `axr_task_manager` | Quest task creation and management |
-| `bind_stalker_ext` | Extended actor binder callbacks |
-| `CScriptXmlInit` | UI XML loading and element initialisation |
-| `particles_object` | Particle effect attachment |
+| `bind_stalker_ext` | Extended actor binder callbacks (see base game source) |
 | `sim_board` | Simulation board — squad/smart terrain matching |
-| `sound_object` | Positional and attached sound playback |
-| `story_objects` | story_id registration and lookup internals |
+| `story_objects` | `story_id` registration and lookup internals |
 
 ---
 
