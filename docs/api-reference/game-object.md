@@ -95,7 +95,7 @@ For incremental changes prefer the `change_*` methods:
 | `obj:change_power(delta)` | Add delta to stamina |
 | `obj:change_psy_health(delta)` | Add delta to psy health |
 | `obj:change_radiation(delta)` | Add delta to radiation |
-| `obj:change_bleeding(delta)` | Add delta to bleed rate |
+| `obj:change_bleeding(delta)` | Add delta to bleed rate — **NPCs/monsters only**; crashes with nil if called on `db.actor` |
 | `obj:change_morale(delta)` | Add delta to morale |
 | `obj:alive()` | Returns `true` if not dead |
 | `obj:max_health()` | Maximum health value |

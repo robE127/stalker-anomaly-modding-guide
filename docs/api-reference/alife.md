@@ -308,6 +308,36 @@ local function is_online(id)
 end
 ```
 
+### Wait for a newly spawned object to come online
+
+`alife_create` returns a server entity immediately, but the corresponding client-side object (`level.object_by_id(id)`) may not exist until the next simulation tick or two. Calling inventory methods like `transfer_item` before the object is online will fail silently.
+
+Poll using a `CreateTimeEvent` that returns `false` to keep firing:
+
+```lua
+local function wait_until_online(container_id)
+    local container = level.object_by_id(container_id)
+    if not container then
+        return false   -- keep polling
+    end
+
+    -- container is online — do work here
+    db.actor:transfer_item(some_item, container)
+    return true        -- remove the event
+end
+
+local se_box = alife_create("inv_backpack",
+    db.actor:position(),
+    db.actor:level_vertex_id(),
+    db.actor:game_vertex_id())
+
+if se_box then
+    CreateTimeEvent("my_mod", "wait_box", 0, wait_until_online, se_box.id)
+end
+```
+
+`"inv_backpack"` is the section name for the standard droppable backpack container used in the base game.
+
 ### Teleport an item to the player
 
 ```lua

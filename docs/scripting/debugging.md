@@ -6,13 +6,32 @@ Anomaly's Lua environment gives you no interactive debugger. Diagnosing problems
 
 ## The log file
 
-All `printf` output goes to the engine log at:
+All `printf` output goes to the engine log in the `appdata\logs\` subfolder of your Anomaly installation. The filename is `xray_<windows_username>.log`:
 
 ```
-<game install folder>\logs\xray_x64.log
+<Anomaly install folder>\appdata\logs\xray_roced.log   ← example
 ```
 
-This file is overwritten each launch. Open it in a text editor that handles large files (Notepad++, VS Code) and search for your mod's prefix. The log grows fast — tail the end or search for `!` which the base game uses to prefix errors.
+On each new launch the engine renames the previous session's log to `.bkp` before starting a fresh one:
+
+```
+xray_roced.log      ← current session (being written now)
+xray_roced.log.bkp  ← previous session (complete, safe to read)
+```
+
+Open these in a text editor that handles large files (Notepad++, VS Code) and search for your mod's prefix. The log grows fast — tail the end, or search for `!` which the base game uses to prefix errors.
+
+### Two requirements before printf writes anything
+
+Getting output into the log requires satisfying two separate conditions, both of which trip up new modders:
+
+**1. The game must be launched with `-dbg`.**
+In release builds, `printf` routes through `vscript_log()` in `script_storage.cpp`, which returns immediately without writing unless `-dbg` is present in the launch arguments. Only `printe` calls (errors) bypass this gate. Add `-dbg` to your MO2 launch arguments or shortcut while developing.
+
+**2. The log buffer must be flushed.**
+Even with `-dbg`, the engine holds log writes in a memory buffer and only commits them to disk when the process exits. This means `printf` output does **not** appear in `xray_<user>.log` while the game is running — it only shows up in the `.bkp` file from the previous session on the next launch.
+
+The `printf` implementation in `_g.script` has a `exec_console_cmd("flush")` call for exactly this purpose, but it is commented out for performance. The community norm is to accept the post-session workflow: play, close, read the `.bkp`. If you want output to appear in real-time while the game is running, you must call `flush()` yourself after each write.
 
 ---
 
@@ -22,7 +41,7 @@ Four logging functions are available globally (defined in `_g.script`):
 
 ### `printf(fmt, ...)` — standard output
 
-The workhorse. Formats a string and writes it to the log. Handles userdata (vectors, game objects) by converting them to readable strings automatically.
+Formats a string and writes it to the log. Handles userdata (vectors, game objects) by converting them to readable strings automatically.
 
 ```lua
 printf("player health: %s", db.actor.health)
@@ -30,16 +49,18 @@ printf("NPC %s killed by %s", victim:name(), who:name())
 printf("position: %s", db.actor:position())   -- vector prints as {x, y, z}
 ```
 
-Use `%s` for everything — Anomaly's `printf` only supports `%s`, not `%d` or `%f`.
+Use `%s` for everything — Anomaly's `printf` implements its own `%s` substitution via `string_gsub` and does not support `%d`, `%f`, or any other specifier. Passing them produces no substitution and the literal `%d` text appears in the output.
 
 ```lua
--- WRONG: %d is not supported, will produce garbled output
+-- WRONG: %d is not substituted, appears literally
 printf("count: %d", count)
 
 -- Correct
 printf("count: %s", count)
 printf("count: %s", tostring(count))
 ```
+
+See [DEV_DEBUG mode](#dev_debug-mode) below for how to use `string.format` safely in a debug helper.
 
 ### `printe(fmt, ...)` — error output
 
@@ -101,18 +122,40 @@ AnomalyDX11.exe -dbg
 
 In `_g.script` this sets the global `DEV_DEBUG = true`, which:
 
-- Enables `printdbg` output
+- **Enables `printf` output** — without `-dbg`, `printf` is silently discarded by the engine in release builds
+- Enables `printdbg` output (which also calls `printf`)
 - Activates the `printe` HUD overlay
 - Unlocks debug console commands
 - Enables additional validation checks in base game systems
 
-You can gate your own verbose logging behind the same flag:
+### Recommended debug helper
+
+Gate your own verbose logging behind `DEV_DEBUG` and use `string.format` for the interpolation — this lets you use `%d`, `%f`, and other specifiers that `printf` doesn't support natively:
+
+**Standard version** — output appears in the `.bkp` log after the session closes (community norm):
 
 ```lua
-if DEV_DEBUG then
-    printf("[my_mod] detailed state: active=%s, count=%s", tostring(active), count)
+local function dbg(fmt, ...)
+    if not DEV_DEBUG then return end
+    local ok, msg = pcall(string.format, fmt, ...)
+    printf("[my_mod] %s", ok and msg or ("(fmt error) " .. tostring(fmt)))
 end
 ```
+
+**Real-time version** — output appears in the live log immediately, at the cost of a `flush()` call per message:
+
+```lua
+local function dbg(fmt, ...)
+    if not DEV_DEBUG then return end
+    local ok, msg = pcall(string.format, fmt, ...)
+    printf("[my_mod] %s", ok and msg or ("(fmt error) " .. tostring(fmt)))
+    flush()  -- force log buffer to disk immediately
+end
+```
+
+`flush()` is a top-level engine function (bound in `lua_help.script`). It is equivalent to `exec_console_cmd("flush")` but avoids the overhead of console command parsing. The `printf` implementation in `_g.script` has this call commented out for performance — the community norm is to accept the post-session workflow and read the `.bkp`. Use the real-time version when you specifically need to watch the log while the game is running.
+
+Both versions are safe to leave in a released mod — the `if not DEV_DEBUG then return end` guard means they are completely inert without `-dbg`.
 
 ---
 

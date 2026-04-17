@@ -1,0 +1,598 @@
+-- extraction_mod.script
+-- Extraction Shooter Mode for S.T.A.L.K.E.R. Anomaly
+--
+-- Rules:
+--   1. Player can only save within a friendly base area.
+--   2. All saves (quicksave, menu save, autosave) are redirected to a single
+--      fixed file "extraction_save". Any save to a different name is deleted
+--      and replaced with the fixed file.
+--   3. On death: full inventory transferred into an inv_backpack stash spawned
+--      at the death location. Player teleports to the last recorded friendly base.
+--   4. Night respawn: if death occurs 20:00–08:00 advance time to 08:00.
+--
+-- REQUIREMENTS:
+--   Modded exes (xray-monolith) required for actor_on_before_death.
+--
+-- DOCUMENTATION GAPS (things that required reading community mod source):
+--   [GAP-1] exec_console_cmd — not in guide; confirmed by Jabbers Soulslike source.
+--   [GAP-2] "inv_backpack" section name — not in guide; confirmed by Jabbers source.
+--   [GAP-3] ui_load_dialog.delete_save_game(name) — not in guide; found in
+--           Jabbers Soulslike source. Takes lowercase filename without extension.
+--           Should be documented under a "save file management" API page.
+--   [GAP-4] db.actor_inside_zones — not in guide; found in Fair Fast Travel.
+--           Using distance check as fallback. Should be documented.
+--   [GAP-5] Level name strings not listed in guide. Using examples from level.md
+--           plus inference; names marked (?) are unverified.
+--
+-- KNOWN ISSUES:
+--   • Level names marked (?) below need in-game verification. Zones on those
+--     levels silently won't work if the name is wrong.
+--   • Cordon (l01_escape) is confirmed working — test there first.
+--   • Jupiter (k01_darkscape) is the most uncertain level name.
+--   • Late-game levels (Pripyat, Red Forest, Dead City) not included.
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Safe zone positions
+-- Coordinates from Fair Fast Travel (Catspaw) travel_zones.ltx.
+-- Format: {x, y, z, radius_metres}
+-- Level names confirmed from guide docs are noted; others are inferred.
+-- ─────────────────────────────────────────────────────────────────────────────
+
+local SAFE_ZONES      = {
+    -- ── Cordon — l01_escape (confirmed in guide's level.md) ───────────────
+    l01_escape = {
+        { -206.0193, -20.3856, -148.0225, 80 }, -- Rookie Village (stalker)
+        { 1.1010,    0.5372,   274.1233,  60 }, -- Northern Farm (stalker)
+        { -146.5695, -29.8804, -373.57,   80 }, -- Army Checkpoint (army)
+    },
+    -- ── Garbage — l02_garbage (?) ─────────────────────────────────────────
+    l02_garbage = {
+        { -92.8095, 10, -2.1873, 80 }, -- Stalker Hangar
+    },
+    -- ── Bar / Rostok — l03_bar (?) ────────────────────────────────────────
+    l03_bar = {
+        { 162.2871, 0, 70.5831, 100 }, -- 100 Rads Bar / Dolg HQ
+    },
+    -- ── Agroprom — l04_agroprom (?) ───────────────────────────────────────
+    l04_agroprom = {
+        { -152.3414, 0,  -181.0988, 80 }, -- Army base
+        { 9.5565,    10, 6.5732,    80 }, -- Factory
+    },
+    -- ── Great Swamp — l05_marsh (?) ───────────────────────────────────────
+    l05_marsh = {
+        { -154.05,   0.5899, -310.8667, 80 }, -- Clear Sky base
+        { -189.4919, 1.0513, 406.1832,  60 }, -- Renegade base
+        { 409.5656,  3.5093, 258.7098,  80 }, -- Army camp
+    },
+    -- ── Military Warehouses — l06_mil (?) ─────────────────────────────────
+    l06_mil = {
+        { -5.9021,  -6.1777, 37.5306,  121 }, -- Freedom Base (zone 1)
+        { -23.4858, -8.4476, -39.1581, 136 }, -- Freedom Base (zone 2)
+    },
+    -- ── Yantar — l08_yantar (confirmed in guide's level.md) ───────────────
+    l08_yantar = {
+        { 26.7268, -10.6048, -270.3784, 70 }, -- Ecologist mobile lab
+    },
+    -- ── Dark Valley — l12_darkvalley (?) ──────────────────────────────────
+    l12_darkvalley = {
+        { 161.9911, 5.8265, -256.5998, 80 }, -- Army outpost
+        { 8.5127,   0.0873, 31.7904,   80 }, -- Bandit base zone 1
+        { 0.0795,   1.1741, -8.066,    80 }, -- Bandit base zone 2
+        { 16.1829,  0.3825, -65.6342,  70 }, -- Bandit base zone 3
+    },
+    -- ── Zaton — k00_marsh (confirmed in guide's level.md) ─────────────────
+    k00_marsh = {
+        { 132.4929, -7.3461, 183.5880,  70 },  -- Skadovsk
+        { 325.2908, 35,      -388.2797, 110 }, -- Merc landfill
+    },
+    -- ── Jupiter — level name UNCONFIRMED (?), guessing k01_darkscape ──────
+    k01_darkscape = {
+        { -51.4095,  3.4869, 197.6493,  70 }, -- Yanov station zone 1
+        { -23.4957,  4.5931, 238.4627,  70 }, -- Yanov station zone 2
+        { -213.0871, 0,      74.1083,   55 }, -- Mobile lab (ecologist)
+        { -419.5993, 0.0112, -355.4865, 80 }, -- Bandit warehouse
+    },
+    -- ── Radar — l10_radar (confirmed in guide's level.md) ─────────────────
+    l10_radar = {
+        { 28.0392, -1.8515, 10.3282, 100 }, -- Monolith base
+    },
+    -- ── Limansk — l09_limansk (?) ─────────────────────────────────────────
+    l09_limansk = {
+        { 64.3670, 20,      286.9821, 80 }, -- Radio station
+        { 7.3627,  24.4966, 190.6140, 80 }, -- Construction site
+    },
+    -- NOTE: Pripyat, Red Forest, Dead City omitted — level names unconfirmed.
+}
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Configuration
+-- ─────────────────────────────────────────────────────────────────────────────
+
+local SAVE_FILENAME   = "extraction_save" -- the one and only save file
+local NIGHT_START     = 20
+local NIGHT_END       = 8
+local UPDATE_INTERVAL = 5000 -- ms between safe-zone checks
+local MOD_KEY         = "extraction_mod"
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Debug logging
+-- ─────────────────────────────────────────────────────────────────────────────
+
+-- dbg(fmt, ...) writes a formatted line to the log when the game is launched
+-- with -dbg (which sets the global DEV_DEBUG = true).
+--
+-- We gate on DEV_DEBUG rather than a local flag because printf() itself is a
+-- no-op in release builds unless -dbg is active: vscript_log() in
+-- script_storage.cpp returns 0 immediately without writing if "-dbg" is not
+-- in Core.Params. There is no point calling printf() when DEV_DEBUG is false.
+--
+-- Uses string.format() for interpolation because Anomaly's printf() only
+-- replaces %s (via string_gsub); %f and %d are silently dropped.
+local function dbg(fmt, ...)
+    if not DEV_DEBUG then return end
+    local ok, msg = pcall(string.format, fmt, ...)
+    printf("[EM] %s", ok and msg or ("(fmt error) " .. tostring(fmt)))
+    -- flush() forces the engine log buffer to disk immediately so output
+    -- appears in the live log file rather than only in the .bkp after the
+    -- session closes. It is a top-level engine function bound in lua_help.script.
+    -- printf() in _g.script has an equivalent exec_console_cmd("flush") call
+    -- that is commented out for performance — we reinstate it here since this
+    -- function is only active under -dbg anyway.
+    flush()
+end
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Persistent state   (docs: scripting/save-load.md)
+-- ─────────────────────────────────────────────────────────────────────────────
+
+local data = {
+    last_base_x     = nil,
+    last_base_y     = nil,
+    last_base_z     = nil,
+    last_base_lvid  = nil,
+    last_base_gvid  = nil,
+    last_base_level = nil,
+}
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Helpers
+-- ─────────────────────────────────────────────────────────────────────────────
+
+local function show_msg(text)
+    actor_menu.set_msg(1, "[Extraction] " .. text, 5)
+end
+
+local function is_in_safe_zone()
+    if not (db.actor and db.actor:alive()) then return false end
+    local level_name = level.name()
+    local zones = SAFE_ZONES[level_name]
+    if not zones then return false end
+    local actor_pos = db.actor:position()
+    for _, z in ipairs(zones) do
+        local zone_pos = vector():set(z[1], z[2], z[3])
+        -- returns the distance between actor/zone but squared as a performance trick, so we square the radius as well to compare
+        if actor_pos:distance_to_sqr(zone_pos) <= (z[4] * z[4]) then
+            return true
+        end
+    end
+    return false
+end
+
+local function is_night()
+    local h = level.get_time_hours()
+    return h >= NIGHT_START or h < NIGHT_END
+end
+
+local function hours_until_dawn()
+    local h = level.get_time_hours()
+    if h >= NIGHT_END and h < NIGHT_START then return 0 end
+    if h >= NIGHT_START then
+        -- this is for hours from NIGHT_START up to midnight (0)
+        return (24 - h) + NIGHT_END
+    else
+        -- this is for from midnight (hour 0) through NIGHT_END
+        return NIGHT_END - h
+    end
+end
+
+local function record_base_position()
+    if not (db.actor and db.actor:alive()) then return end
+    local pos            = db.actor:position()
+    data.last_base_x     = pos.x
+    data.last_base_y     = pos.y
+    data.last_base_z     = pos.z
+    data.last_base_lvid  = db.actor:level_vertex_id()
+    data.last_base_gvid  = db.actor:game_vertex_id()
+    data.last_base_level = level.name()
+
+    dbg("record_base_position: level=%s pos=(%.2f, %.2f, %.2f) lvid=%s gvid=%s",
+        data.last_base_level,
+        data.last_base_x, data.last_base_y, data.last_base_z,
+        tostring(data.last_base_lvid), tostring(data.last_base_gvid))
+end
+
+local function get_base_vector()
+    if not (data.last_base_x and data.last_base_y and data.last_base_z) then
+        return nil
+    end
+    return vector():set(data.last_base_x, data.last_base_y, data.last_base_z)
+end
+
+-- Set to true for the duration of our own exec_console_cmd("save ...") call.
+-- Lets on_console_execute skip the zone check only for saves WE triggered,
+-- not for any external call that happens to use our filename.
+local save_in_progress = false
+
+-- Trigger a save to our fixed file.
+-- [GAP-1] exec_console_cmd undocumented; confirmed by Jabbers Soulslike source.
+local function do_save()
+    dbg("do_save: writing %s", SAVE_FILENAME)
+    save_in_progress = true
+    exec_console_cmd("save " .. SAVE_FILENAME)
+    -- exec_console_cmd fires on_console_execute synchronously (SendScriptCallback
+    -- in _g.script is synchronous), so by the time we reach this line the
+    -- on_console_execute handler has already seen save_in_progress == true and
+    -- returned without any recursion.
+    save_in_progress = false
+end
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Save & load state
+-- ─────────────────────────────────────────────────────────────────────────────
+
+local function save_state(m_data)
+    m_data[MOD_KEY] = {
+        last_base_x     = data.last_base_x,
+        last_base_y     = data.last_base_y,
+        last_base_z     = data.last_base_z,
+        last_base_lvid  = data.last_base_lvid,
+        last_base_gvid  = data.last_base_gvid,
+        last_base_level = data.last_base_level,
+    }
+    dbg("save_state: level=%s pos=(%.2f, %.2f, %.2f)",
+        tostring(data.last_base_level),
+        data.last_base_x or 0, data.last_base_y or 0, data.last_base_z or 0)
+end
+
+local function load_state(m_data)
+    local saved          = m_data[MOD_KEY] or {}
+    data.last_base_x     = saved.last_base_x
+    data.last_base_y     = saved.last_base_y
+    data.last_base_z     = saved.last_base_z
+    data.last_base_lvid  = saved.last_base_lvid
+    data.last_base_gvid  = saved.last_base_gvid
+    data.last_base_level = saved.last_base_level
+    dbg("load_state: level=%s pos=(%.2f, %.2f, %.2f)",
+        tostring(data.last_base_level),
+        data.last_base_x or 0, data.last_base_y or 0, data.last_base_z or 0)
+end
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Periodic safe-zone tracking
+-- ─────────────────────────────────────────────────────────────────────────────
+
+local last_check_time = 0
+local was_in_safe_zone = false
+
+local function actor_on_update()
+    if not (db.actor and db.actor:alive()) then return end
+    local now = game.time()
+    if (now - last_check_time) < UPDATE_INTERVAL then return end
+    last_check_time = now
+
+    -- TODO: Might there be a callback that we can fire when we enter a certain area so we don't have to do this here (expensive)
+    local in_safe = is_in_safe_zone()
+
+    if in_safe ~= was_in_safe_zone then
+        dbg("actor_on_update: safe zone state changed -> %s (level=%s)",
+            tostring(in_safe), level.name())
+    end
+
+    if in_safe and not was_in_safe_zone then
+        -- First tick after entering a base zone: record position and save.
+        dbg("actor_on_update: entered base zone — recording position and saving")
+        record_base_position()
+        do_save()
+        show_msg("Base reached — game saved.")
+    end
+    was_in_safe_zone = in_safe
+end
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Save interception — TWO layers:
+--
+--   Layer 1: on_before_save_input (quicksave only)
+--     Cancels the quicksave before anything is written to disk.
+--     Gives immediate feedback and avoids the write-then-delete cycle.
+--
+--   Layer 2: on_console_execute (ALL save types)
+--     Fires after ANY save completes (quicksave that got through, menu save,
+--     autosave). Deletes saves outside base or with the wrong filename,
+--     then redirects to the fixed file.
+--     on_console_execute IS documented in the callbacks reference.
+--
+--   [GAP-3] ui_load_dialog.delete_save_game — not documented in guide.
+--           Found in Jabbers Soulslike source. Takes lowercase filename,
+--           no extension. Should be added to an API reference page.
+-- ─────────────────────────────────────────────────────────────────────────────
+
+-- Layer 1: block quicksave at the input level (no file is written).
+local function on_before_save_input(flags)
+    if not db.actor then return end
+    local in_safe = is_in_safe_zone()
+    dbg("on_before_save_input: in_safe=%s", tostring(in_safe))
+    if not in_safe then
+        flags.ret = true -- "ret = true" cancels per callbacks-reference docs
+        dbg("on_before_save_input: BLOCKED (not in safe zone)")
+        show_msg("Cannot save — not at a friendly base!")
+        return
+    end
+    -- In safe zone: cancel normal quicksave, redirect to our fixed file.
+    flags.ret = true
+    dbg("on_before_save_input: redirecting quicksave -> %s", SAVE_FILENAME)
+    do_save()
+    -- on_console_execute fires as part of do_save(), sees our filename, passes.
+end
+
+-- Layer 2: catch anything that slipped past Layer 1 (menu saves, autosaves).
+local function on_console_execute(cmd, ...)
+    if cmd ~= "save" then return end
+
+    -- Recursion guard: do_save() sets save_in_progress = true before calling
+    -- exec_console_cmd, which fires this callback synchronously. If the flag is
+    -- set we know this is our own intentional save — trust it and return.
+    if save_in_progress then
+        dbg("on_console_execute: save_in_progress flag set — this is our save, skipping")
+        return
+    end
+
+    local args = { ... }
+    local save_name = string.lower(table.concat(args, " "))
+
+    dbg("on_console_execute: external save cmd detected, name='%s'", save_name)
+
+    -- Detect engine-generated saves by substring: any save whose name contains
+    -- "autosave" or "quicksave" is treated as engine/mod-generated and silently
+    -- discarded without showing the player a message. This handles the base game
+    -- format ("<username> - autosave"), mods that add their own prefixes/suffixes,
+    -- and any future variations. The trade-off: a manually named save that happens
+    -- to contain these words won't show the "Cannot save outside a base" toast,
+    -- but the save is still correctly deleted/redirected regardless.
+    local is_engine_save = save_name:find("autosave", 1, true)
+        or save_name:find("quicksave", 1, true)
+
+    -- For any save we don't control:
+    if not is_in_safe_zone() then
+        dbg("on_console_execute: NOT in safe zone — deleting '%s'", save_name)
+        -- [GAP-3] ui_load_dialog.delete_save_game — undocumented.
+        ui_load_dialog.delete_save_game(save_name)
+        if not is_engine_save then
+            show_msg("Cannot save outside a friendly base! Save deleted.")
+        end
+        return
+    end
+
+    -- In safe zone but wrong name: delete and replace with our fixed file.
+    -- save_in_progress prevents on_console_execute from re-entering via do_save().
+    dbg("on_console_execute: in safe zone but external save '%s' — redirecting", save_name)
+    ui_load_dialog.delete_save_game(save_name)
+    do_save()
+end
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Death handling
+-- ─────────────────────────────────────────────────────────────────────────────
+
+local DEATH_FADE_ID = 5606 -- pp effector ID for death blackout (matches Jabbers)
+
+-- Heal using direct property setters (confirmed from Jabbers Soulslike source).
+-- change_bleeding() is NPC-only and crashes on db.actor; db.actor.bleeding = 0
+-- via direct assignment works correctly. set_health_ex requires modded exes.
+-- wounded(false) clears the wounded state set by the engine at the moment
+-- health hits 0 — without this, hurt sounds continue playing after respawn.
+-- Confirmed from lua_help.script: `function wounded(boolean)` is a setter.
+local function heal_actor()
+    dbg("heal_actor: restoring health/power/radiation/bleeding/psy_health/wounded")
+    db.actor:set_health_ex(1.0)
+    db.actor.power      = 1
+    db.actor.radiation  = 0
+    db.actor.bleeding   = 0
+    db.actor.psy_health = 1
+    db.actor:wounded(false)
+end
+
+-- Teleport and finalise the respawn. Called ~3s after inventory transfer completes.
+--
+-- TELEPORT STRATEGY — matches game_fast_travel.script:
+--   Same level  → set_actor_position(pos)
+--     ChangeLevel on the same level produces a "ghost camera" state — the level
+--     reloads but the actor binder does not reinitialise correctly. The base game
+--     uses set_actor_position for same-level travel.
+--   Cross-level → ChangeLevel(pos, lvid, gvid, VEC_ZERO, false)
+--     Required for inter-level teleportation. Nothing executes after it
+--     (_g.script:407), so save/message must come first.
+--
+-- WHY invulnerable_time IS EXPIRED HERE:
+--   While bind_stalker_ext.invulnerable_time is in the future, actor_on_update
+--   forces bleeding=1 every frame, causing hurt sounds even after healing.
+--   Setting it to time_global()+1 lets it expire immediately once the actor is
+--   safely at the base. Pattern from Jabbers Soulslike OnRespawn().
+local function do_respawn_deferred()
+    dbg("do_respawn_deferred: fired")
+    if not db.actor then
+        dbg("do_respawn_deferred: db.actor is nil — aborting")
+        return true
+    end
+
+    local hour = level.get_time_hours()
+    dbg("do_respawn_deferred: current hour=%d, is_night=%s", hour, tostring(is_night()))
+    if is_night() then
+        local hours = hours_until_dawn()
+        dbg("do_respawn_deferred: advancing time by %d hours to reach dawn", hours)
+        if hours > 0 then
+            level.change_game_time(0, hours, 0)
+        end
+    end
+
+    heal_actor()
+
+    local base_pos = get_base_vector()
+    if not (base_pos and data.last_base_lvid and data.last_base_gvid) then
+        dbg("do_respawn_deferred: NO BASE ON RECORD — staying at death location")
+        show_msg("WARNING: No base on record — you wake where you fell! Visit a base first.")
+        bind_stalker_ext.invulnerable_time = time_global() + 1
+        level.remove_pp_effector(DEATH_FADE_ID)
+        -- No save here: the player is at the death site, likely not in a safe zone.
+        -- actor_on_update will save automatically once they reach a base.
+        return true
+    end
+
+    local current_level = level.name()
+    dbg("do_respawn_deferred: current_level=%s, base_level=%s",
+        current_level, tostring(data.last_base_level))
+    dbg("do_respawn_deferred: base_pos=(%.2f, %.2f, %.2f) lvid=%s gvid=%s",
+        base_pos.x, base_pos.y, base_pos.z,
+        tostring(data.last_base_lvid), tostring(data.last_base_gvid))
+
+    if data.last_base_level == current_level then
+        dbg("do_respawn_deferred: SAME-LEVEL respawn — using set_actor_position")
+        db.actor:set_actor_position(base_pos)
+        bind_stalker_ext.invulnerable_time = time_global() + 1
+        dbg("do_respawn_deferred: invulnerable_time expired, removing fade, saving")
+        level.remove_pp_effector(DEATH_FADE_ID)
+        do_save()
+        show_msg("You have died. Your gear marks the site of your death.")
+    else
+        dbg("do_respawn_deferred: CROSS-LEVEL respawn — using ChangeLevel (nothing executes after)")
+        -- No do_save() here: the actor is still at the death location when this
+        -- runs, so saving would record the wrong position. actor_on_update will
+        -- trigger a save automatically when the player arrives at the base on
+        -- the destination level and is detected inside a safe zone.
+        show_msg("You have died. Your gear marks the site of your death.")
+        ChangeLevel(base_pos, data.last_base_lvid, data.last_base_gvid, VEC_ZERO, false)
+    end
+
+    return true
+end
+
+-- Polls each tick until the spawned stash object comes online, then transfers
+-- all actor inventory into it, then queues the respawn timer.
+-- Returns false to keep polling, true when done (CreateTimeEvent contract).
+-- Pattern confirmed from Jabbers Soulslike HandleItemsAndRespawn source.
+local function wait_for_stash_and_respawn(stash_id)
+    local stash = level.object_by_id(stash_id)
+    if not stash then
+        dbg("wait_for_stash_and_respawn: stash id=%s not online yet — polling", tostring(stash_id))
+        return false -- not online yet, poll again next tick
+    end
+
+    dbg("wait_for_stash_and_respawn: stash id=%s is ONLINE — transferring items", tostring(stash_id))
+
+    -- Transfer all items from actor into the stash container.
+    -- db.actor:transfer_item(item, container) confirmed from Jabbers source.
+    -- Collect into a table first to avoid modifying inventory mid-iteration.
+    local items = {}
+    db.actor:iterate_inventory(function(_, obj)
+        items[#items + 1] = obj
+    end, nil)
+
+    dbg("wait_for_stash_and_respawn: transferring %d items to stash", #items)
+    for _, item in ipairs(items) do
+        dbg("wait_for_stash_and_respawn: transferring item '%s'", item:section())
+        db.actor:transfer_item(item, stash)
+    end
+
+    dbg("wait_for_stash_and_respawn: transfer complete — queuing respawn in 3s")
+    -- Respawn 3 seconds after items are transferred — gives the fade time to play.
+    CreateTimeEvent("extraction_mod", "respawn", 3, do_respawn_deferred)
+    return true
+end
+
+-- Requires modded exes. flags.ret_value = false cancels the death event.
+local function actor_on_before_death(who_id, flags)
+    dbg("actor_on_before_death: fired — who_id=%s", tostring(who_id))
+    flags.ret_value = false
+    dbg("actor_on_before_death: flags.ret_value set to false (death cancelled)")
+
+    -- Invulnerability: actor_on_update forces health=1 while this is in the future,
+    -- preventing re-death from residual damage during the respawn sequence.
+    -- Pattern confirmed from Jabbers Soulslike OnDeath().
+    bind_stalker_ext.invulnerable_time = time_global() + 30000
+    dbg("actor_on_before_death: invulnerable_time set (+30s)")
+
+    -- Restore health immediately so g_Alive() returns true.
+    -- g_Alive() == `GetfHealth() > 0` (Entity.h:90) — health is 0 at this point.
+    db.actor:set_health_ex(1.0)
+    dbg("actor_on_before_death: health restored to 1.0")
+
+    -- Fade to black.
+    level.add_pp_effector("black_infinite.ppe", DEATH_FADE_ID, true)
+    dbg("actor_on_before_death: fade to black started (effector id=%d)", DEATH_FADE_ID)
+
+    -- Spawn stash at death position, poll until online, transfer items, respawn.
+    -- [GAP-2] "inv_backpack" section name confirmed from Jabbers source.
+    local death_pos  = db.actor:position()
+    local death_lvid = db.actor:level_vertex_id()
+    local death_gvid = db.actor:game_vertex_id()
+    dbg("actor_on_before_death: death pos=(%.2f, %.2f, %.2f) lvid=%s gvid=%s level=%s",
+        death_pos.x, death_pos.y, death_pos.z,
+        tostring(death_lvid), tostring(death_gvid), level.name())
+
+    local se_stash = alife_create("inv_backpack", death_pos, death_lvid, death_gvid)
+    if se_stash then
+        dbg("actor_on_before_death: stash created, server id=%s — polling for online", tostring(se_stash.id))
+        CreateTimeEvent("extraction_mod", "wait_stash", 0, wait_for_stash_and_respawn, se_stash.id)
+    else
+        dbg("actor_on_before_death: stash creation FAILED — skipping item transfer, respawn in 3s")
+        CreateTimeEvent("extraction_mod", "respawn", 3, do_respawn_deferred)
+    end
+end
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Initialisation
+-- ─────────────────────────────────────────────────────────────────────────────
+
+local first_update_done = false
+
+local function actor_on_first_update()
+    if first_update_done then return end
+    first_update_done = true
+    dbg("actor_on_first_update: first update fired")
+    if not data.last_base_x then
+        dbg("actor_on_first_update: no base on record — recording current position as fallback")
+        record_base_position()
+    else
+        dbg("actor_on_first_update: base already on record at level=%s", tostring(data.last_base_level))
+    end
+    show_msg("Extraction mode active. Saves only at friendly bases.")
+end
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Registration   (docs: scripting/callbacks.md)
+-- ─────────────────────────────────────────────────────────────────────────────
+
+function on_game_start()
+    dbg("on_game_start: registering callbacks")
+    RegisterScriptCallback("actor_on_first_update", actor_on_first_update)
+    RegisterScriptCallback("actor_on_update", actor_on_update)
+    RegisterScriptCallback("actor_on_before_death", actor_on_before_death)
+    RegisterScriptCallback("on_before_save_input", on_before_save_input)
+    RegisterScriptCallback("on_console_execute", on_console_execute)
+    RegisterScriptCallback("save_state", save_state)
+    RegisterScriptCallback("load_state", load_state)
+end
+
+function on_game_end()
+    dbg("on_game_end: unregistering callbacks and resetting state")
+    first_update_done = false
+    last_check_time   = 0
+    was_in_safe_zone  = false
+
+    UnregisterScriptCallback("actor_on_first_update", actor_on_first_update)
+    UnregisterScriptCallback("actor_on_update", actor_on_update)
+    UnregisterScriptCallback("actor_on_before_death", actor_on_before_death)
+    UnregisterScriptCallback("on_before_save_input", on_before_save_input)
+    UnregisterScriptCallback("on_console_execute", on_console_execute)
+    UnregisterScriptCallback("save_state", save_state)
+    UnregisterScriptCallback("load_state", load_state)
+end

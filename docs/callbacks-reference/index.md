@@ -86,8 +86,36 @@ UnregisterScriptCallback("callback_name", your_function)
 |----------|-----|------|--------|-------------|
 | `actor_on_before_hit` | **Exes** | 32 | `(shit: SHit, bone_id: number, flags: table)` | Actor is about to take damage. Modify `shit.power` to change damage. Set `flags.ret_value = false` to cancel the hit entirely. |
 | `actor_on_hit_callback` | | — | `(obj: game_object, amount: number, direction: vector, attacker: game_object, bone_id: number)` | Actor took damage (after the hit resolved). |
-| `actor_on_before_death` | **Exes** | 29 | `(who_id: number, flags: table)` | Actor is about to die. Set `flags.ret_value = false` to prevent death. |
+| `actor_on_before_death` | **Exes** | 29 | `(who_id: number, flags: table)` | Actor is about to die. Set `flags.ret_value = false` to prevent death. See critical notes below. |
 | `actor_on_feeling_anomaly` | | — | `(anomaly: game_object, flags: table)` | Actor entered an anomaly field. |
+
+### actor_on_before_death — critical timing notes
+
+!!! warning "Health is already 0 when this callback fires"
+    `db.actor:alive()` returns `false` inside and immediately after `actor_on_before_death` because `alive()` is `health > 0` at the C++ level, and health has already been set to 0 by the engine before the callback runs.
+
+    **Consequence:** any deferred function (`CreateTimeEvent`) that checks `db.actor:alive()` as a guard will silently bail out if health has not been restored first.
+
+    **Fix:** restore health immediately in the death callback itself, before queuing any deferred work:
+
+    ```lua
+    local function actor_on_before_death(who_id, flags)
+        flags.ret_value = false
+        db.actor:set_health_ex(1.0)   -- restore here, not in the deferred function
+        CreateTimeEvent("my_mod", "respawn", 1, do_respawn)
+    end
+    ```
+
+!!! warning "Defer all respawn logic — never teleport in the same frame"
+    Setting `flags.ret_value = false` cancels the `kill()` call, but the engine has already started death-related state (camera shift, ragdoll) before the Lua callback fires. Doing a teleport or state reset in the same frame produces a "hovering outside body" camera bug with no HUD and no input.
+
+    Defer all respawn logic with at least a 1-second delay:
+
+    ```lua
+    CreateTimeEvent("my_mod", "respawn", 1, do_respawn)
+    ```
+
+See [db.actor — Death cancellation & bind_stalker_ext integration](../api-reference/actor.md#death-cancellation-bind_stalker_ext-integration) for the full respawn pattern.
 
 ---
 

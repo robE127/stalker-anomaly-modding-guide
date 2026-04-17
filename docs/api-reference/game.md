@@ -222,6 +222,113 @@ local alcohol = game.get_actor_alcohol()
 
 ---
 
+## Console commands
+
+Any engine console command can be executed from Lua:
+
+```lua
+exec_console_cmd("save my_save_name")        -- trigger a named save
+exec_console_cmd("hud_draw 0")               -- hide the HUD
+exec_console_cmd("g_game_difficulty stalker") -- change difficulty
+```
+
+`exec_console_cmd` is a global helper defined in `_g.script`. It calls `get_console():execute(name)` and then fires the `on_console_execute` callback so other scripts can observe the command.
+
+To **read** a console variable:
+
+```lua
+-- get_console_cmd(type, name)
+-- type: 0=string, 1=bool, 2=float, other=token
+local snd_vol = get_console_cmd(2, "snd_volume_eff")   -- returns float
+local god_mode = get_console_cmd(1, "g_god")            -- returns bool
+```
+
+---
+
+## Save file management
+
+### Triggering a save
+
+The engine does not expose a direct Lua save function. Use `exec_console_cmd` to trigger saves via the console:
+
+```lua
+exec_console_cmd("save my_save_name")    -- writes <saves folder>/my_save_name.scop
+exec_console_cmd("save")                 -- quicksave (uses the current save name)
+```
+
+The save folder is typically `<game root>/appdata/savedgames/`. The filename is lowercase; do not include an extension.
+
+!!! note "Autosaves"
+    The base game's autosave system (`game_autosave_new.script`) uses this same pattern: `exec_console_cmd("save " .. (user_name() or "") .. " - tempsave")`. `user_name()` returns the Windows username.
+
+### Deleting a save file
+
+```lua
+-- ui_load_dialog.delete_save_game(filename)
+-- filename: lowercase, no extension (the .scop and .dds files are both removed)
+ui_load_dialog.delete_save_game("my_save_name")
+ui_load_dialog.delete_save_game("autosave")
+```
+
+Defined in `ui_load_dialog.script`. Deletes both the `.scop` save file and the associated `.dds` screenshot thumbnail.
+
+**Single-slot save pattern** (used by ironman / extraction-mode mods):
+
+```lua
+local SAVE_NAME = "my_mod_save"
+
+-- Flag set for the duration of our own exec_console_cmd call so that
+-- on_console_execute can tell the difference between our save and an
+-- external one that happens to use the same filename.
+local save_in_progress = false
+
+local function do_save()
+    save_in_progress = true
+    exec_console_cmd("save " .. SAVE_NAME)
+    -- exec_console_cmd fires on_console_execute synchronously via
+    -- SendScriptCallback, so save_in_progress is still true inside the
+    -- handler and is reset to false only after it returns.
+    save_in_progress = false
+end
+
+-- Intercept all saves and redirect to the single slot.
+-- on_console_execute receives ("save", name_part1, name_part2, ...).
+-- The save has already been written to disk when this fires.
+local function on_console_execute(cmd, ...)
+    if cmd ~= "save" then return end
+
+    -- Skip saves we triggered ourselves (recursion guard).
+    if save_in_progress then return end
+
+    local save_name = string.lower(table.concat({ ... }, " "))
+
+    -- Don't show UI warnings for engine/mod-generated autosaves or quicksaves.
+    -- Use substring matching to handle name variations from different mods
+    -- (e.g. "roced - autosave", "my_mod_autosave_slot1", etc.).
+    local is_silent = save_name:find("autosave", 1, true)
+                   or save_name:find("quicksave", 1, true)
+
+    -- At this point you can check a zone condition, and either:
+    --   (a) delete the save and warn the player, or
+    --   (b) delete the wrong-name save and replace it with yours
+    if not my_zone_check() then
+        ui_load_dialog.delete_save_game(save_name)
+        if not is_silent then
+            actor_menu.set_msg(1, "Cannot save here!", 3)
+        end
+        return
+    end
+
+    ui_load_dialog.delete_save_game(save_name)
+    do_save()
+end
+```
+
+!!! warning "Use a flag, not a filename check, as the recursion guard"
+    `exec_console_cmd` fires `on_console_execute` synchronously for every command it executes. If your handler calls `exec_console_cmd("save ...")`, the callback fires again immediately. **Do not guard against this by checking the save filename** — that would silently accept any external save that happens to use your slot name without checking your zone condition. Use a boolean flag set around the `exec_console_cmd` call instead, as shown above.
+
+---
+
 ## Common patterns
 
 ### Translate a format string with values

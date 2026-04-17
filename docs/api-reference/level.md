@@ -36,6 +36,40 @@ if is_in_zone(dead_city_levels) then
 end
 ```
 
+**Known level name strings** (Anomaly 1.5.x):
+
+| `level.name()` | Location | Notes |
+|----------------|----------|-------|
+| `l01_escape` | Cordon | |
+| `l02_garbage` | Garbage | |
+| `l03_bar` | Bar / Rostok | |
+| `l04_agroprom` | Agroprom | |
+| `l04u_agroprom_underground` | Agroprom Underground | |
+| `l05_marsh` | Great Swamp | |
+| `l06_mil` | Military Warehouses | |
+| `l07_military` | Army Warehouses (CoP) | |
+| `l08_yantar` | Yantar | |
+| `l08u_brainlab` | Yantar Underground | |
+| `l09_limansk` | Limansk | |
+| `l09u_hospital` | Limansk Hospital | |
+| `l10_radar` | Radar | |
+| `l10u_bunker` | Radar Bunker | |
+| `l11_pripyat` | Pripyat (CoP) | |
+| `l11u_pripyat` | Pripyat Underground | |
+| `l12_darkvalley` | Dark Valley | |
+| `l12u_control_monolith` | X18 Lab | |
+| `l13_generators` | Generators | |
+| `l13u_warlab` | War Lab | |
+| `k00_marsh` | Zaton | |
+| `k01_darkscape` | Jupiter | |
+| `k02_jungle` | Yanov / Pripyat (CoP) | |
+| `k03_agroprom` | Agroprom (CoP) | |
+| `fake_start` | Character creation / tutorial | Observed in logs; not a real level |
+
+These are taken from smart terrain prefixes, fast-travel config files, and confirmed game log output. A few have only been inferred from config data rather than direct observation — treat uncommon levels as approximate until you verify them in-game with `printf("[test] level: %s", level.name())`.
+
+---
+
 ---
 
 ## Object access
@@ -58,6 +92,24 @@ level.debug_actor()             -- returns the actor game_object (do not use in 
     `level.actor()` logs an engine error message every call. Use `db.actor` instead.
 
 `level.object_by_id` only works for **online** (client-side, currently simulated) objects. Use `alife():object(id)` for server-side (alife) entities.
+
+### Zone membership — db.actor_inside_zones
+
+`db.actor_inside_zones` is a table (defined in `db.script`) that tracks which space restrictor zones the actor is currently inside. Keys are zone names (strings), values are the zone `game_object`s. Updated automatically by `bind_restrictor.script`:
+
+```lua
+-- Check if the actor is inside a specific zone right now
+if db.actor_inside_zones["my_safe_zone_name"] then
+    -- actor is inside the zone
+end
+
+-- Iterate all zones the actor is currently in
+for zone_name, zone_obj in pairs(db.actor_inside_zones) do
+    printf("inside zone: %s", zone_name)
+end
+```
+
+This is more precise than a distance check because it respects the zone's actual shape (which may not be spherical). Zone names come from the level's `space_restrictor` objects, typically defined in `gamedata/levels/<level>/level.game`.
 
 ---
 
@@ -309,6 +361,63 @@ level.iterate_sounds("ambient\\zaton", 100, function(obj) ... end)
 ```
 
 For spawning NPC and creature entities, prefer `alife_create` (see the [alife](alife.md) page).
+
+---
+
+## Teleportation
+
+### Same-level — set_actor_position
+
+To move the actor to a different position **on the same level**, use the actor method directly:
+
+```lua
+db.actor:set_actor_position(new_position)  -- moves actor without a level reload
+```
+
+### Cross-level — ChangeLevel
+
+`ChangeLevel` is a global helper (defined in `_g.script`) that sends an `M_CHANGE_LEVEL` network packet, triggering a full level transition:
+
+```lua
+-- ChangeLevel(position, level_vertex_id, game_vertex_id, angle_vector, use_animation)
+ChangeLevel(target_pos, target_lvid, target_gvid, VEC_ZERO, false)
+```
+
+`VEC_ZERO` is a global constant (`vector():set(0,0,0)`) defined in `_g.script`.
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `position` | `vector` | World-space destination position |
+| `level_vertex_id` | `number` | Nav mesh vertex ID at the destination |
+| `game_vertex_id` | `number` | Game vertex identifying the destination level |
+| `angle` | `vector` | Facing direction at arrival (`VEC_ZERO` = default) |
+| `use_animation` | `boolean` | `true` = fade to black with `sleep_fade.ppe`, 3-second deferred travel; `false` = immediate |
+
+!!! warning "Execution stops immediately"
+    `ChangeLevel` sends a net packet that fires the level change right away. **Any Lua code after the `ChangeLevel` call in the same block will not execute.** Put saves, messages, and any other work *before* the call.
+
+    ```lua
+    -- WRONG — the save never runs
+    ChangeLevel(pos, lvid, gvid, VEC_ZERO, false)
+    exec_console_cmd("save my_save")   -- never reached
+
+    -- Correct
+    exec_console_cmd("save my_save")
+    ChangeLevel(pos, lvid, gvid, VEC_ZERO, false)
+    ```
+
+!!! warning "Do not use ChangeLevel for same-level travel"
+    `ChangeLevel` causes the level to reload. When the source and destination are the same level, the actor binder does not reinitialise correctly, leaving the player as a floating camera with no HUD, no shadow, and no input. Use `db.actor:set_actor_position(pos)` for same-level teleportation. This is the same split used by `game_fast_travel.script`.
+
+    ```lua
+    if destination_level == level.name() then
+        db.actor:set_actor_position(target_pos)
+    else
+        ChangeLevel(target_pos, target_lvid, target_gvid, VEC_ZERO, false)
+    end
+    ```
 
 ---
 
