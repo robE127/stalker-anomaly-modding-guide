@@ -115,7 +115,7 @@ UnregisterScriptCallback("callback_name", your_function)
     CreateTimeEvent("my_mod", "respawn", 1, do_respawn)
     ```
 
-See [db.actor — Death cancellation & bind_stalker_ext integration](../api-reference/actor.md#death-cancellation-bind_stalker_ext-integration) for the full respawn pattern.
+See [db.actor — Cancel death and respawn at a base](../api-reference/actor.md#cancel-death-and-respawn-at-a-base) for the full respawn pattern.
 
 ---
 

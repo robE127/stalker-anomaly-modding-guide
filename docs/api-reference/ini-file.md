@@ -1,6 +1,6 @@
 # ini_file
 
-`ini_file` is the Lua class for reading LTX config files at runtime. It is also the type of object returned by `game_ini()`, `system_ini()`, `obj:spawn_ini()`, and `create_ini_file()`.
+`ini_file` is the Lua class for reading LTX config files at runtime. It is also the type of object returned by `game_ini()`, `system_ini()`, and `obj:spawn_ini()`.
 
 LTX config reading is ubiquitous in mod code — anytime you want to look up a config value, check a section, or iterate a section's contents at runtime, you use an `ini_file`.
 
@@ -12,7 +12,7 @@ LTX config reading is ubiquitous in mod code — anytime you want to look up a c
 |--------|-----|
 | Game configs (`configs/system.ltx` and all `#include`d files) | `system_ini()` |
 | Game configs including AI-specific files | `game_ini()` |
-| Any single file by VFS path | `create_ini_file("configs\\path\\to\\file.ltx")` |
+| Any single file by VFS path | `ini_file("path\\to\\file.ltx")` |
 | Spawn data embedded in an entity | `obj:spawn_ini()` |
 
 ```lua
@@ -20,8 +20,8 @@ LTX config reading is ubiquitous in mod code — anytime you want to look up a c
 local ini = system_ini()
 local value = ini:r_float("my_section", "my_key")
 
--- Read from a specific file
-local custom_ini = create_ini_file("configs\\my_mod\\settings.ltx")
+-- Read from a specific file (path relative to gamedata/configs/)
+local custom_ini = ini_file("my_mod\\settings.ltx")
 
 -- Read from a spawned entity's config
 local spawn_ini = obj:spawn_ini()
@@ -29,6 +29,11 @@ if spawn_ini and spawn_ini:section_exist("story_object") then
     local sid = spawn_ini:r_string("story_object", "story_id")
 end
 ```
+
+!!! warning "ini_file vs create_ini_file"
+    `ini_file("path\\to\\file.ltx")` loads a file from the VFS by path (relative to `gamedata/configs/`).
+    `create_ini_file(string)` is a different function — it parses its argument as **inline LTX text**,
+    not as a file path. Passing a file path to `create_ini_file` returns an empty object with no sections.
 
 ---
 
