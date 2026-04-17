@@ -1518,6 +1518,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#cancel-death-and-respawn-at-a-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cancel death and respawn at a base
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1531,34 +1542,6 @@
       
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#death-cancellation-bind_stalker_ext-integration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Death cancellation &amp; bind_stalker_ext integration
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Death cancellation &amp; bind_stalker_ext integration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bind_stalker_extinvulnerable_time" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        bind_stalker_ext.invulnerable_time
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2597,6 +2580,8 @@
       
         
       
+        
+      
     
     
     
@@ -2659,6 +2644,34 @@
     
   
     Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/console-commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Console Commands
   
 
     
@@ -3037,6 +3050,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#cancel-death-and-respawn-at-a-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cancel death and respawn at a base
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3050,34 +3074,6 @@
       
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#death-cancellation-bind_stalker_ext-integration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Death cancellation &amp; bind_stalker_ext integration
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Death cancellation &amp; bind_stalker_ext integration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#bind_stalker_extinvulnerable_time" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        bind_stalker_ext.invulnerable_time
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -3500,6 +3496,44 @@
 </span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a><span class="w">    </span><span class="nv">actor_menu</span><span class="p">.</span><span class="nf">set_msg</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Quest started.&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span>
 </span><span id="__span-30-8"><a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a><span class="kr">end</span>
 </span></code></pre></div>
+<h3 id="cancel-death-and-respawn-at-a-base">Cancel death and respawn at a base<a class="headerlink" href="#cancel-death-and-respawn-at-a-base" title="Permanent link">&para;</a></h3>
+<p><code>actor_on_before_death</code> is a modded-exes callback that lets you intercept the death event before it completes.</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">death_hour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">nil</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">do_respawn</span><span class="p">()</span>
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">hour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">death_hour</span>
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="w">    </span><span class="nv">death_hour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">nil</span>
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>
+</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="w">    </span><span class="c1">-- night check, teleport, etc.</span>
+</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a><span class="w">    </span><span class="c1">-- ...</span>
+</span><span id="__span-31-9"><a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>
+</span><span id="__span-31-10"><a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a><span class="w">    </span><span class="c1">-- Expire the invulnerability window now that the actor is safe.</span>
+</span><span id="__span-31-11"><a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a><span class="w">    </span><span class="c1">-- While this is active, actor_on_update forces bleeding=1 every frame,</span>
+</span><span id="__span-31-12"><a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a><span class="w">    </span><span class="c1">-- which overrides db.actor.bleeding=0 and causes hurt sounds.</span>
+</span><span id="__span-31-13"><a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a><span class="w">    </span><span class="nv">bind_stalker_ext</span><span class="p">.</span><span class="py">invulnerable_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">time_global</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-31-14"><a id="__codelineno-31-14" name="__codelineno-31-14" href="#__codelineno-31-14"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-31-15"><a id="__codelineno-31-15" name="__codelineno-31-15" href="#__codelineno-31-15"></a><span class="kr">end</span>
+</span><span id="__span-31-16"><a id="__codelineno-31-16" name="__codelineno-31-16" href="#__codelineno-31-16"></a>
+</span><span id="__span-31-17"><a id="__codelineno-31-17" name="__codelineno-31-17" href="#__codelineno-31-17"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">actor_on_before_death</span><span class="p">(</span><span class="nv">who_id</span><span class="p">,</span><span class="w"> </span><span class="nv">flags</span><span class="p">)</span>
+</span><span id="__span-31-18"><a id="__codelineno-31-18" name="__codelineno-31-18" href="#__codelineno-31-18"></a><span class="w">    </span><span class="c1">-- Cache any values needed by the deferred function now. Some queries</span>
+</span><span id="__span-31-19"><a id="__codelineno-31-19" name="__codelineno-31-19" href="#__codelineno-31-19"></a><span class="w">    </span><span class="c1">-- (e.g. level.get_time_hours()) may return different values once</span>
+</span><span id="__span-31-20"><a id="__codelineno-31-20" name="__codelineno-31-20" href="#__codelineno-31-20"></a><span class="w">    </span><span class="c1">-- deferred callbacks fire.</span>
+</span><span id="__span-31-21"><a id="__codelineno-31-21" name="__codelineno-31-21" href="#__codelineno-31-21"></a><span class="w">    </span><span class="nv">death_hour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">level</span><span class="p">.</span><span class="nf">get_time_hours</span><span class="p">()</span>
+</span><span id="__span-31-22"><a id="__codelineno-31-22" name="__codelineno-31-22" href="#__codelineno-31-22"></a>
+</span><span id="__span-31-23"><a id="__codelineno-31-23" name="__codelineno-31-23" href="#__codelineno-31-23"></a><span class="w">    </span><span class="nv">flags</span><span class="p">.</span><span class="py">ret_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="w">           </span><span class="c1">-- cancel the death event (modded exes only)</span>
+</span><span id="__span-31-24"><a id="__codelineno-31-24" name="__codelineno-31-24" href="#__codelineno-31-24"></a><span class="w">    </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">set_health_ex</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span><span class="w">       </span><span class="c1">-- health is 0 here; restore it before deferring</span>
+</span><span id="__span-31-25"><a id="__codelineno-31-25" name="__codelineno-31-25" href="#__codelineno-31-25"></a><span class="w">                                      </span><span class="c1">-- or anything guarding on alive() will bail out</span>
+</span><span id="__span-31-26"><a id="__codelineno-31-26" name="__codelineno-31-26" href="#__codelineno-31-26"></a>
+</span><span id="__span-31-27"><a id="__codelineno-31-27" name="__codelineno-31-27" href="#__codelineno-31-27"></a><span class="w">    </span><span class="c1">-- Prevent re-death from residual damage during the respawn sequence.</span>
+</span><span id="__span-31-28"><a id="__codelineno-31-28" name="__codelineno-31-28" href="#__codelineno-31-28"></a><span class="w">    </span><span class="c1">-- bind_stalker_ext.invulnerable_time is a non-local variable; while it is</span>
+</span><span id="__span-31-29"><a id="__codelineno-31-29" name="__codelineno-31-29" href="#__codelineno-31-29"></a><span class="w">    </span><span class="c1">-- more than 7 seconds in the future, actor_on_update forces health=1 every frame.</span>
+</span><span id="__span-31-30"><a id="__codelineno-31-30" name="__codelineno-31-30" href="#__codelineno-31-30"></a><span class="w">    </span><span class="nv">bind_stalker_ext</span><span class="p">.</span><span class="py">invulnerable_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">time_global</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">30000</span><span class="w">  </span><span class="c1">-- 30 s window</span>
+</span><span id="__span-31-31"><a id="__codelineno-31-31" name="__codelineno-31-31" href="#__codelineno-31-31"></a>
+</span><span id="__span-31-32"><a id="__codelineno-31-32" name="__codelineno-31-32" href="#__codelineno-31-32"></a><span class="w">    </span><span class="c1">-- Do not teleport or change state here -- doing so in the same frame as the</span>
+</span><span id="__span-31-33"><a id="__codelineno-31-33" name="__codelineno-31-33" href="#__codelineno-31-33"></a><span class="w">    </span><span class="c1">-- death event produces a floating camera bug. Defer by at least 1 second.</span>
+</span><span id="__span-31-34"><a id="__codelineno-31-34" name="__codelineno-31-34" href="#__codelineno-31-34"></a><span class="w">    </span><span class="nf">CreateTimeEvent</span><span class="p">(</span><span class="s2">&quot;my_mod&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;respawn&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nv">do_respawn</span><span class="p">)</span>
+</span><span id="__span-31-35"><a id="__codelineno-31-35" name="__codelineno-31-35" href="#__codelineno-31-35"></a><span class="kr">end</span>
+</span></code></pre></div>
 <hr />
 <h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
 <ul>
@@ -3508,30 +3542,6 @@
 <li>Condition properties (<code>.health</code>, <code>.radiation</code>, <code>.power</code>, <code>.psy_health</code>) can be assigned directly as well as via <code>change_*</code> methods. Direct assignment bypasses some engine hooks, so prefer the <code>change_*</code> / <code>set_*_ex</code> methods for normal gameplay deltas. Direct assignment is the correct approach for bulk resets (e.g. after a respawn, when you want exact values immediately).</li>
 <li><strong><code>.bleeding</code> must be set via direct assignment</strong> (<code>db.actor.bleeding = 0</code>) — there is no <code>change_bleeding</code> method on the actor type.</li>
 </ul>
-<hr />
-<h2 id="death-cancellation-bind_stalker_ext-integration">Death cancellation &amp; bind_stalker_ext integration<a class="headerlink" href="#death-cancellation-bind_stalker_ext-integration" title="Permanent link">&para;</a></h2>
-<p><code>actor_on_before_death</code> (<strong>Exes</strong>) lets you cancel the actor's death by setting <code>flags.ret_value = false</code>. Two things to know about the engine state when this fires:</p>
-<ol>
-<li><strong>Health is already 0.</strong> <code>db.actor:alive()</code> returns <code>false</code> inside and immediately after the callback because <code>alive()</code> is simply <code>health &gt; 0</code> at the C++ level. Restore health immediately in the callback itself — before queuing any <code>CreateTimeEvent</code> — or deferred functions that guard on <code>alive()</code> will silently bail out.</li>
-<li><strong>Death effects have already started.</strong> Doing a teleport or state change in the same frame produces a "floating camera" bug. Defer all respawn logic by at least one second using <code>CreateTimeEvent</code>.</li>
-</ol>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">actor_on_before_death</span><span class="p">(</span><span class="nv">who_id</span><span class="p">,</span><span class="w"> </span><span class="nv">flags</span><span class="p">)</span>
-</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="w">    </span><span class="nv">flags</span><span class="p">.</span><span class="py">ret_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
-</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="w">    </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">set_health_ex</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span><span class="w">  </span><span class="c1">-- must happen here, not in the deferred function</span>
-</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="w">    </span><span class="nf">CreateTimeEvent</span><span class="p">(</span><span class="s2">&quot;my_mod&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;respawn&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nv">do_respawn</span><span class="p">)</span>
-</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="kr">end</span>
-</span></code></pre></div>
-<h3 id="bind_stalker_extinvulnerable_time">bind_stalker_ext.invulnerable_time<a class="headerlink" href="#bind_stalker_extinvulnerable_time" title="Permanent link">&para;</a></h3>
-<p><code>bind_stalker_ext</code> exposes a module-level (non-<code>local</code>) variable that activates a brief god-mode window:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="nv">bind_stalker_ext</span><span class="p">.</span><span class="py">invulnerable_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">time_global</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">30000</span><span class="w">  </span><span class="c1">-- 30 seconds</span>
-</span></code></pre></div>
-<p>While this value is more than 7 seconds in the future, <code>actor_on_update</code> forces <code>health = 1</code>, <code>bleeding = 1</code>, <code>psy_health = 1</code>, <code>radiation = 0</code> every frame. This is the standard pattern from <code>bind_stalker_ext</code> itself (and used by Jabbers Soulslike) to prevent re-death from residual damage ticks during a respawn sequence.</p>
-<div class="admonition warning">
-<p class="admonition-title">Expire it immediately after the actor is safe</p>
-<p>While <code>invulnerable_time</code> is active, <code>bleeding</code> is forced to <code>1</code> every frame. This overrides any <code>db.actor.bleeding = 0</code> call you make and causes hurt sounds. Expire the window as soon as the actor has teleported to safety:
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="nv">bind_stalker_ext</span><span class="p">.</span><span class="py">invulnerable_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">time_global</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w">  </span><span class="c1">-- expires in 1 ms</span>
-</span></code></pre></div></p>
-</div>
 <hr />
 <h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>
