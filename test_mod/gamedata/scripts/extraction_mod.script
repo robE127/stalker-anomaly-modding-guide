@@ -555,6 +555,19 @@ local function actor_on_before_death(who_id, flags)
     level.add_pp_effector("black_infinite.ppe", DEATH_FADE_ID, true)
     dbg("actor_on_before_death: fade to black started (effector id=%d)", DEATH_FADE_ID)
 
+    -- Count inventory items before deciding whether to spawn a stash.
+    local items = {}
+    db.actor:iterate_inventory(function(_, obj)
+        items[#items + 1] = obj
+    end, nil)
+    dbg("actor_on_before_death: inventory count=%d", #items)
+
+    if #items == 0 then
+        dbg("actor_on_before_death: inventory empty  -- skipping stash, respawn in 3s")
+        CreateTimeEvent("extraction_mod", "respawn", 3, do_respawn_deferred)
+        return
+    end
+
     -- Spawn stash at death position, poll until online, transfer items, respawn.
     -- [GAP-2] "inv_backpack" section name confirmed from Jabbers source.
     local death_pos  = db.actor:position()

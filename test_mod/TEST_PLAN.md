@@ -105,6 +105,8 @@ when the player dies.
 | 6.3 | After respawn, travel back to the death location. | A backpack item (`inv_backpack`) is present at or near the death site. |
 | 6.4 | Open the backpack. | All items from your inventory at time of death are inside it. |
 | 6.5 | Check the log. | `actor_on_before_death: stash created`, `wait_for_stash_and_respawn: stash id=... is ONLINE`, `transferring N items` all present. |
+| 6.6 | Drop all items so the inventory is empty. Die. | No backpack appears at the death site. |
+| 6.7 | Check the log for the empty-inventory case. | `inventory count=0` and `inventory empty -- skipping stash` present. No `stash created` line. |
 
 ---
 
