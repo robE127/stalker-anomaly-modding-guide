@@ -1626,6 +1626,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#wait-for-a-newly-spawned-object-to-come-online" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wait for a newly spawned object to come online
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#teleport-an-item-to-the-player" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3022,6 +3033,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#wait-for-a-newly-spawned-object-to-come-online" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wait for a newly spawned object to come online
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#teleport-an-item-to-the-player" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3328,19 +3350,43 @@
 </span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="nv">level</span><span class="p">.</span><span class="nf">object_by_id</span><span class="p">(</span><span class="nv">id</span><span class="p">)</span><span class="w"> </span><span class="o">~=</span><span class="w"> </span><span class="kc">nil</span>
 </span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="kr">end</span>
 </span></code></pre></div>
+<h3 id="wait-for-a-newly-spawned-object-to-come-online">Wait for a newly spawned object to come online<a class="headerlink" href="#wait-for-a-newly-spawned-object-to-come-online" title="Permanent link">&para;</a></h3>
+<p><code>alife_create</code> returns a server entity immediately, but the corresponding client-side object (<code>level.object_by_id(id)</code>) may not exist until the next simulation tick or two. Calling inventory methods like <code>transfer_item</code> before the object is online will fail silently.</p>
+<p>Poll using a <code>CreateTimeEvent</code> that returns <code>false</code> to keep firing:</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">wait_until_online</span><span class="p">(</span><span class="nv">container_id</span><span class="p">)</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">container</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">level</span><span class="p">.</span><span class="nf">object_by_id</span><span class="p">(</span><span class="nv">container_id</span><span class="p">)</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">container</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">        </span><span class="kr">return</span><span class="w"> </span><span class="kc">false</span><span class="w">   </span><span class="c1">-- keep polling</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="w">    </span><span class="c1">-- container is online — do work here</span>
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a><span class="w">    </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">transfer_item</span><span class="p">(</span><span class="nv">some_item</span><span class="p">,</span><span class="w"> </span><span class="nv">container</span><span class="p">)</span>
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="kc">true</span><span class="w">        </span><span class="c1">-- remove the event</span>
+</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a><span class="kr">end</span>
+</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>
+</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a><span class="kd">local</span><span class="w"> </span><span class="nv">se_box</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">alife_create</span><span class="p">(</span><span class="s2">&quot;inv_backpack&quot;</span><span class="p">,</span>
+</span><span id="__span-23-13"><a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a><span class="w">    </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">position</span><span class="p">(),</span>
+</span><span id="__span-23-14"><a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a><span class="w">    </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">level_vertex_id</span><span class="p">(),</span>
+</span><span id="__span-23-15"><a id="__codelineno-23-15" name="__codelineno-23-15" href="#__codelineno-23-15"></a><span class="w">    </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">game_vertex_id</span><span class="p">())</span>
+</span><span id="__span-23-16"><a id="__codelineno-23-16" name="__codelineno-23-16" href="#__codelineno-23-16"></a>
+</span><span id="__span-23-17"><a id="__codelineno-23-17" name="__codelineno-23-17" href="#__codelineno-23-17"></a><span class="kr">if</span><span class="w"> </span><span class="nv">se_box</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-23-18"><a id="__codelineno-23-18" name="__codelineno-23-18" href="#__codelineno-23-18"></a><span class="w">    </span><span class="nf">CreateTimeEvent</span><span class="p">(</span><span class="s2">&quot;my_mod&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;wait_box&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nv">wait_until_online</span><span class="p">,</span><span class="w"> </span><span class="nv">se_box</span><span class="p">.</span><span class="py">id</span><span class="p">)</span>
+</span><span id="__span-23-19"><a id="__codelineno-23-19" name="__codelineno-23-19" href="#__codelineno-23-19"></a><span class="kr">end</span>
+</span></code></pre></div>
+<p><code>"inv_backpack"</code> is the section name for the standard droppable backpack container used in the base game.</p>
 <h3 id="teleport-an-item-to-the-player">Teleport an item to the player<a class="headerlink" href="#teleport-an-item-to-the-player" title="Permanent link">&para;</a></h3>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">pull_to_actor</span><span class="p">(</span><span class="nv">id</span><span class="p">)</span>
-</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">pos</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">position</span><span class="p">()</span>
-</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">lvid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">level_vertex_id</span><span class="p">()</span>
-</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">gvid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">game_vertex_id</span><span class="p">()</span>
-</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">    </span><span class="nf">alife</span><span class="p">():</span><span class="nf">teleport_object</span><span class="p">(</span><span class="nv">id</span><span class="p">,</span><span class="w"> </span><span class="nv">pos</span><span class="p">,</span><span class="w"> </span><span class="nv">lvid</span><span class="p">,</span><span class="w"> </span><span class="nv">gvid</span><span class="p">)</span>
-</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">pull_to_actor</span><span class="p">(</span><span class="nv">id</span><span class="p">)</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">pos</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">position</span><span class="p">()</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">lvid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">level_vertex_id</span><span class="p">()</span>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">gvid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">game_vertex_id</span><span class="p">()</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="w">    </span><span class="nf">alife</span><span class="p">():</span><span class="nf">teleport_object</span><span class="p">(</span><span class="nv">id</span><span class="p">,</span><span class="w"> </span><span class="nv">pos</span><span class="p">,</span><span class="w"> </span><span class="nv">lvid</span><span class="p">,</span><span class="w"> </span><span class="nv">gvid</span><span class="p">)</span>
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="kr">end</span>
 </span></code></pre></div>
 <h3 id="give-an-item-only-if-the-player-doesnt-already-have-one">Give an item only if the player doesn't already have one<a class="headerlink" href="#give-an-item-only-if-the-player-doesnt-already-have-one" title="Permanent link">&para;</a></h3>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">ensure_has</span><span class="p">(</span><span class="nv">section</span><span class="p">)</span>
-</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">object</span><span class="p">(</span><span class="nv">section</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span><span class="w">  </span><span class="c1">-- already has it</span>
-</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">    </span><span class="nf">alife_create_item</span><span class="p">(</span><span class="nv">section</span><span class="p">,</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">)</span>
-</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">ensure_has</span><span class="p">(</span><span class="nv">section</span><span class="p">)</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">object</span><span class="p">(</span><span class="nv">section</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span><span class="w">  </span><span class="c1">-- already has it</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="w">    </span><span class="nf">alife_create_item</span><span class="p">(</span><span class="nv">section</span><span class="p">,</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">)</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="kr">end</span>
 </span></code></pre></div>
 <hr />
 <h2 id="key-differences-from-client-objects">Key differences from client objects<a class="headerlink" href="#key-differences-from-client-objects" title="Permanent link">&para;</a></h2>

@@ -1011,6 +1011,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="The log file">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-requirements-before-printf-writes-anything" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two requirements before printf writes anything
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1093,6 +1110,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="DEV_DEBUG mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommended-debug-helper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended debug helper
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2615,6 +2649,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="The log file">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#two-requirements-before-printf-writes-anything" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two requirements before printf writes anything
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2697,6 +2748,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="DEV_DEBUG mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommended-debug-helper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended debug helper
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2915,141 +2983,168 @@
 <p>Anomaly's Lua environment gives you no interactive debugger. Diagnosing problems means reading log output, using <code>pcall</code> to catch errors before they crash a callback, and knowing which silent failure modes to watch for.</p>
 <hr />
 <h2 id="the-log-file">The log file<a class="headerlink" href="#the-log-file" title="Permanent link">&para;</a></h2>
-<p>All <code>printf</code> output goes to the engine log at:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>&lt;game install folder&gt;\logs\xray_x64.log
+<p>All <code>printf</code> output goes to the engine log in the <code>appdata\logs\</code> subfolder of your Anomaly installation. The filename is <code>xray_&lt;windows_username&gt;.log</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>&lt;Anomaly install folder&gt;\appdata\logs\xray_roced.log   ← example
 </span></code></pre></div>
-<p>This file is overwritten each launch. Open it in a text editor that handles large files (Notepad++, VS Code) and search for your mod's prefix. The log grows fast — tail the end or search for <code>!</code> which the base game uses to prefix errors.</p>
+<p>On each new launch the engine renames the previous session's log to <code>.bkp</code> before starting a fresh one:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>xray_roced.log      ← current session (being written now)
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>xray_roced.log.bkp  ← previous session (complete, safe to read)
+</span></code></pre></div>
+<p>Open these in a text editor that handles large files (Notepad++, VS Code) and search for your mod's prefix. The log grows fast — tail the end, or search for <code>!</code> which the base game uses to prefix errors.</p>
+<h3 id="two-requirements-before-printf-writes-anything">Two requirements before printf writes anything<a class="headerlink" href="#two-requirements-before-printf-writes-anything" title="Permanent link">&para;</a></h3>
+<p>Getting output into the log requires satisfying two separate conditions, both of which trip up new modders:</p>
+<p><strong>1. The game must be launched with <code>-dbg</code>.</strong>
+In release builds, <code>printf</code> routes through <code>vscript_log()</code> in <code>script_storage.cpp</code>, which returns immediately without writing unless <code>-dbg</code> is present in the launch arguments. Only <code>printe</code> calls (errors) bypass this gate. Add <code>-dbg</code> to your MO2 launch arguments or shortcut while developing.</p>
+<p><strong>2. The log buffer must be flushed.</strong>
+Even with <code>-dbg</code>, the engine holds log writes in a memory buffer and only commits them to disk when the process exits. This means <code>printf</code> output does <strong>not</strong> appear in <code>xray_&lt;user&gt;.log</code> while the game is running — it only shows up in the <code>.bkp</code> file from the previous session on the next launch.</p>
+<p>The <code>printf</code> implementation in <code>_g.script</code> has a <code>exec_console_cmd("flush")</code> call for exactly this purpose, but it is commented out for performance. The community norm is to accept the post-session workflow: play, close, read the <code>.bkp</code>. If you want output to appear in real-time while the game is running, you must call <code>flush()</code> yourself after each write.</p>
 <hr />
 <h2 id="logging-functions">Logging functions<a class="headerlink" href="#logging-functions" title="Permanent link">&para;</a></h2>
 <p>Four logging functions are available globally (defined in <code>_g.script</code>):</p>
 <h3 id="printffmt-standard-output"><code>printf(fmt, ...)</code> — standard output<a class="headerlink" href="#printffmt-standard-output" title="Permanent link">&para;</a></h3>
-<p>The workhorse. Formats a string and writes it to the log. Handles userdata (vectors, game objects) by converting them to readable strings automatically.</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;player health: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">.</span><span class="py">health</span><span class="p">)</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;NPC %s killed by %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">victim</span><span class="p">:</span><span class="nf">name</span><span class="p">(),</span><span class="w"> </span><span class="nv">who</span><span class="p">:</span><span class="nf">name</span><span class="p">())</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;position: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">position</span><span class="p">())</span><span class="w">   </span><span class="c1">-- vector prints as {x, y, z}</span>
+<p>Formats a string and writes it to the log. Handles userdata (vectors, game objects) by converting them to readable strings automatically.</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;player health: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">.</span><span class="py">health</span><span class="p">)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;NPC %s killed by %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">victim</span><span class="p">:</span><span class="nf">name</span><span class="p">(),</span><span class="w"> </span><span class="nv">who</span><span class="p">:</span><span class="nf">name</span><span class="p">())</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;position: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">position</span><span class="p">())</span><span class="w">   </span><span class="c1">-- vector prints as {x, y, z}</span>
 </span></code></pre></div>
-<p>Use <code>%s</code> for everything — Anomaly's <code>printf</code> only supports <code>%s</code>, not <code>%d</code> or <code>%f</code>.</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">-- WRONG: %d is not supported, will produce garbled output</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;count: %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">count</span><span class="p">)</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1">-- Correct</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;count: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">count</span><span class="p">)</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;count: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">tostring</span><span class="p">(</span><span class="nv">count</span><span class="p">))</span>
+<p>Use <code>%s</code> for everything — Anomaly's <code>printf</code> implements its own <code>%s</code> substitution via <code>string_gsub</code> and does not support <code>%d</code>, <code>%f</code>, or any other specifier. Passing them produces no substitution and the literal <code>%d</code> text appears in the output.</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">-- WRONG: %d is not substituted, appears literally</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;count: %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">count</span><span class="p">)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1">-- Correct</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;count: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">count</span><span class="p">)</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;count: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">tostring</span><span class="p">(</span><span class="nv">count</span><span class="p">))</span>
 </span></code></pre></div>
+<p>See <a href="#dev_debug-mode">DEV_DEBUG mode</a> below for how to use <code>string.format</code> safely in a debug helper.</p>
 <h3 id="printefmt-error-output"><code>printe(fmt, ...)</code> — error output<a class="headerlink" href="#printefmt-error-output" title="Permanent link">&para;</a></h3>
 <p>Identical to <code>printf</code> but also shows a red HUD overlay when <code>DEV_DEBUG</code> is active. Use it for conditions that should never happen in a working mod:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="w"> </span><span class="kr">then</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="nf">printe</span><span class="p">(</span><span class="s2">&quot;![my_mod] actor_on_update fired but db.actor is nil&quot;</span><span class="p">)</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="kr">return</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="nf">printe</span><span class="p">(</span><span class="s2">&quot;![my_mod] actor_on_update fired but db.actor is nil&quot;</span><span class="p">)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="kr">return</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="kr">end</span>
 </span></code></pre></div>
 <p>The <code>!</code> prefix is a convention used throughout the base game — it makes errors easy to find with a text search in the log.</p>
 <h3 id="printdbgfmt-debug-only-output"><code>printdbg(fmt, ...)</code> — debug-only output<a class="headerlink" href="#printdbgfmt-debug-only-output" title="Permanent link">&para;</a></h3>
 <p>Only writes to the log when the game was launched with the <code>-dbg</code> flag. Use this for verbose tracing you want during development but don't want in a released mod:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nf">printdbg</span><span class="p">(</span><span class="s2">&quot;[my_mod] processing %s items in inventory&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">item_count</span><span class="p">)</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nf">printdbg</span><span class="p">(</span><span class="s2">&quot;[my_mod] processing %s items in inventory&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">item_count</span><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="abortmsg-critical-error"><code>abort(msg, ...)</code> — critical error<a class="headerlink" href="#abortmsg-critical-error" title="Permanent link">&para;</a></h3>
 <p>Logs the message and immediately prints a full callstack. Use when something is so wrong the current function cannot continue:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">st</span><span class="w"> </span><span class="kr">then</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="nf">abort</span><span class="p">(</span><span class="s2">&quot;![my_mod] storage entry missing for id %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">tostring</span><span class="p">(</span><span class="nv">id</span><span class="p">))</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="kr">return</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">st</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="nf">abort</span><span class="p">(</span><span class="s2">&quot;![my_mod] storage entry missing for id %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">tostring</span><span class="p">(</span><span class="nv">id</span><span class="p">))</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="kr">return</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="kr">end</span>
 </span></code></pre></div>
 <h3 id="callstack-print-a-stack-trace"><code>callstack()</code> — print a stack trace<a class="headerlink" href="#callstack-print-a-stack-trace" title="Permanent link">&para;</a></h3>
 <p>Writes the current call stack to the log. Useful standalone when you want to know how execution reached a certain point:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">-- Full stack trace</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nf">callstack</span><span class="p">()</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1">-- Caller-only (less noise)</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="nf">callstack</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1">-- Return as string instead of logging</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="kd">local</span><span class="w"> </span><span class="nv">trace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">callstack</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;![my_mod] unexpected state — %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">trace</span><span class="p">)</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">-- Full stack trace</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nf">callstack</span><span class="p">()</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1">-- Caller-only (less noise)</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="nf">callstack</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1">-- Return as string instead of logging</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="kd">local</span><span class="w"> </span><span class="nv">trace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">callstack</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;![my_mod] unexpected state — %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">trace</span><span class="p">)</span>
 </span></code></pre></div>
 <hr />
 <h2 id="dev_debug-mode">DEV_DEBUG mode<a class="headerlink" href="#dev_debug-mode" title="Permanent link">&para;</a></h2>
 <p>Launch the game with <code>-dbg</code> in the command line to enable debug mode:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>AnomalyDX11.exe -dbg
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>AnomalyDX11.exe -dbg
 </span></code></pre></div>
 <p>In <code>_g.script</code> this sets the global <code>DEV_DEBUG = true</code>, which:</p>
 <ul>
-<li>Enables <code>printdbg</code> output</li>
+<li><strong>Enables <code>printf</code> output</strong> — without <code>-dbg</code>, <code>printf</code> is silently discarded by the engine in release builds</li>
+<li>Enables <code>printdbg</code> output (which also calls <code>printf</code>)</li>
 <li>Activates the <code>printe</code> HUD overlay</li>
 <li>Unlocks debug console commands</li>
 <li>Enables additional validation checks in base game systems</li>
 </ul>
-<p>You can gate your own verbose logging behind the same flag:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kr">if</span><span class="w"> </span><span class="nv">DEV_DEBUG</span><span class="w"> </span><span class="kr">then</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;[my_mod] detailed state: active=%s, count=%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">tostring</span><span class="p">(</span><span class="nv">active</span><span class="p">),</span><span class="w"> </span><span class="nv">count</span><span class="p">)</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="kr">end</span>
+<h3 id="recommended-debug-helper">Recommended debug helper<a class="headerlink" href="#recommended-debug-helper" title="Permanent link">&para;</a></h3>
+<p>Gate your own verbose logging behind <code>DEV_DEBUG</code> and use <code>string.format</code> for the interpolation — this lets you use <code>%d</code>, <code>%f</code>, and other specifiers that <code>printf</code> doesn't support natively:</p>
+<p><strong>Standard version</strong> — output appears in the <code>.bkp</code> log after the session closes (community norm):</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">dbg</span><span class="p">(</span><span class="nv">fmt</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">DEV_DEBUG</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">ok</span><span class="p">,</span><span class="w"> </span><span class="nv">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pcall</span><span class="p">(</span><span class="nb">string.format</span><span class="p">,</span><span class="w"> </span><span class="nv">fmt</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;[my_mod] %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">ok</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">msg</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="p">(</span><span class="s2">&quot;(fmt error) &quot;</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="nb">tostring</span><span class="p">(</span><span class="nv">fmt</span><span class="p">)))</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="kr">end</span>
 </span></code></pre></div>
+<p><strong>Real-time version</strong> — output appears in the live log immediately, at the cost of a <code>flush()</code> call per message:</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">dbg</span><span class="p">(</span><span class="nv">fmt</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">DEV_DEBUG</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">ok</span><span class="p">,</span><span class="w"> </span><span class="nv">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pcall</span><span class="p">(</span><span class="nb">string.format</span><span class="p">,</span><span class="w"> </span><span class="nv">fmt</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;[my_mod] %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">ok</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">msg</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="p">(</span><span class="s2">&quot;(fmt error) &quot;</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="nb">tostring</span><span class="p">(</span><span class="nv">fmt</span><span class="p">)))</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="nf">flush</span><span class="p">()</span><span class="w">  </span><span class="c1">-- force log buffer to disk immediately</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="kr">end</span>
+</span></code></pre></div>
+<p><code>flush()</code> is a top-level engine function (bound in <code>lua_help.script</code>). It is equivalent to <code>exec_console_cmd("flush")</code> but avoids the overhead of console command parsing. The <code>printf</code> implementation in <code>_g.script</code> has this call commented out for performance — the community norm is to accept the post-session workflow and read the <code>.bkp</code>. Use the real-time version when you specifically need to watch the log while the game is running.</p>
+<p>Both versions are safe to leave in a released mod — the <code>if not DEV_DEBUG then return end</code> guard means they are completely inert without <code>-dbg</code>.</p>
 <hr />
 <h2 id="pcall-catching-errors">pcall — catching errors<a class="headerlink" href="#pcall-catching-errors" title="Permanent link">&para;</a></h2>
 <p><code>pcall</code> (protected call) runs a function and catches any Lua error it throws, returning a status flag instead of crashing. The callback system does <strong>not</strong> wrap your callbacks in pcall — an unhandled error in a callback propagates up and can freeze the game or corrupt state.</p>
 <h3 id="basic-form">Basic form<a class="headerlink" href="#basic-form" title="Permanent link">&para;</a></h3>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">ok</span><span class="p">,</span><span class="w"> </span><span class="nv">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pcall</span><span class="p">(</span><span class="kr">function</span><span class="p">()</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="nf">some_risky_operation</span><span class="p">()</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="kr">end</span><span class="p">)</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">ok</span><span class="w"> </span><span class="kr">then</span>
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="nf">printe</span><span class="p">(</span><span class="s2">&quot;![my_mod] error: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">tostring</span><span class="p">(</span><span class="nv">err</span><span class="p">))</span>
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">ok</span><span class="p">,</span><span class="w"> </span><span class="nv">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pcall</span><span class="p">(</span><span class="kr">function</span><span class="p">()</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="nf">some_risky_operation</span><span class="p">()</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="kr">end</span><span class="p">)</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">ok</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">    </span><span class="nf">printe</span><span class="p">(</span><span class="s2">&quot;![my_mod] error: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">tostring</span><span class="p">(</span><span class="nv">err</span><span class="p">))</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="kr">end</span>
 </span></code></pre></div>
 <h3 id="passing-arguments">Passing arguments<a class="headerlink" href="#passing-arguments" title="Permanent link">&para;</a></h3>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">ok</span><span class="p">,</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pcall</span><span class="p">(</span><span class="nv">dangerous_function</span><span class="p">,</span><span class="w"> </span><span class="nv">arg1</span><span class="p">,</span><span class="w"> </span><span class="nv">arg2</span><span class="p">)</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kr">if</span><span class="w"> </span><span class="nv">ok</span><span class="w"> </span><span class="kr">then</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="c1">-- result is the return value of dangerous_function</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="kr">else</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="c1">-- result is the error message string</span>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">ok</span><span class="p">,</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pcall</span><span class="p">(</span><span class="nv">dangerous_function</span><span class="p">,</span><span class="w"> </span><span class="nv">arg1</span><span class="p">,</span><span class="w"> </span><span class="nv">arg2</span><span class="p">)</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kr">if</span><span class="w"> </span><span class="nv">ok</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="c1">-- result is the return value of dangerous_function</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="kr">else</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="c1">-- result is the error message string</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="kr">end</span>
 </span></code></pre></div>
 <h3 id="wrapping-a-whole-callback">Wrapping a whole callback<a class="headerlink" href="#wrapping-a-whole-callback" title="Permanent link">&para;</a></h3>
 <p>The most important use of pcall in Anomaly is protecting a callback that does complex work:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">do_on_update</span><span class="p">(</span><span class="nv">delta</span><span class="p">)</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="c1">-- all the real work here</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">npc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">tracked_id</span><span class="p">]</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">tracked_id</span><span class="p">].</span><span class="nv">object</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">npc</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="c1">-- ... processing</span>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="kr">end</span>
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">actor_on_update</span><span class="p">(</span><span class="nv">delta</span><span class="p">)</span>
-</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">ok</span><span class="p">,</span><span class="w"> </span><span class="nv">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pcall</span><span class="p">(</span><span class="nv">do_on_update</span><span class="p">,</span><span class="w"> </span><span class="nv">delta</span><span class="p">)</span>
-</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">ok</span><span class="w"> </span><span class="kr">then</span>
-</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">        </span><span class="nf">printe</span><span class="p">(</span><span class="s2">&quot;![my_mod] actor_on_update error: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">tostring</span><span class="p">(</span><span class="nv">err</span><span class="p">))</span>
-</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">    </span><span class="kr">end</span>
-</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">do_on_update</span><span class="p">(</span><span class="nv">delta</span><span class="p">)</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="c1">-- all the real work here</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">npc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">tracked_id</span><span class="p">]</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">tracked_id</span><span class="p">].</span><span class="nv">object</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">npc</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="c1">-- ... processing</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="kr">end</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">actor_on_update</span><span class="p">(</span><span class="nv">delta</span><span class="p">)</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">ok</span><span class="p">,</span><span class="w"> </span><span class="nv">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pcall</span><span class="p">(</span><span class="nv">do_on_update</span><span class="p">,</span><span class="w"> </span><span class="nv">delta</span><span class="p">)</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">ok</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w">        </span><span class="nf">printe</span><span class="p">(</span><span class="s2">&quot;![my_mod] actor_on_update error: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">tostring</span><span class="p">(</span><span class="nv">err</span><span class="p">))</span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="kr">end</span>
 </span></code></pre></div>
 <p>Splitting the work into an inner function keeps the pcall wrapper clean and makes the error message point to the right place.</p>
 <h3 id="nested-pcall">Nested pcall<a class="headerlink" href="#nested-pcall" title="Permanent link">&para;</a></h3>
 <p>When one protected block calls another, each pcall only catches errors within its own call. An error in an inner pcall does not propagate to the outer one unless you re-raise it:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">risky_inner</span><span class="p">()</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="nb">error</span><span class="p">(</span><span class="s2">&quot;something went wrong&quot;</span><span class="p">)</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="kr">end</span>
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">outer_work</span><span class="p">()</span>
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">ok</span><span class="p">,</span><span class="w"> </span><span class="nv">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pcall</span><span class="p">(</span><span class="nv">risky_inner</span><span class="p">)</span>
-</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">ok</span><span class="w"> </span><span class="kr">then</span>
-</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">        </span><span class="c1">-- Handle or re-raise</span>
-</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">        </span><span class="nf">printe</span><span class="p">(</span><span class="s2">&quot;![my_mod] inner failed: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">err</span><span class="p">)</span>
-</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">        </span><span class="c1">-- To propagate: error(err)</span>
-</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">    </span><span class="kr">end</span>
-</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">    </span><span class="c1">-- Continues here even if risky_inner failed</span>
-</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">    </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;outer_work continues&quot;</span><span class="p">)</span>
-</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="kr">end</span>
-</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>
-</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="kd">local</span><span class="w"> </span><span class="nv">ok</span><span class="p">,</span><span class="w"> </span><span class="nv">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pcall</span><span class="p">(</span><span class="nv">outer_work</span><span class="p">)</span>
-</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="c1">-- outer_work never throws unless you re-raise, so ok is always true here</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">risky_inner</span><span class="p">()</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="nb">error</span><span class="p">(</span><span class="s2">&quot;something went wrong&quot;</span><span class="p">)</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="kr">end</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">outer_work</span><span class="p">()</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">ok</span><span class="p">,</span><span class="w"> </span><span class="nv">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pcall</span><span class="p">(</span><span class="nv">risky_inner</span><span class="p">)</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">ok</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">        </span><span class="c1">-- Handle or re-raise</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">        </span><span class="nf">printe</span><span class="p">(</span><span class="s2">&quot;![my_mod] inner failed: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">err</span><span class="p">)</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">        </span><span class="c1">-- To propagate: error(err)</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="w">    </span><span class="c1">-- Continues here even if risky_inner failed</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="w">    </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;outer_work continues&quot;</span><span class="p">)</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="kr">end</span>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="kd">local</span><span class="w"> </span><span class="nv">ok</span><span class="p">,</span><span class="w"> </span><span class="nv">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pcall</span><span class="p">(</span><span class="nv">outer_work</span><span class="p">)</span>
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="c1">-- outer_work never throws unless you re-raise, so ok is always true here</span>
 </span></code></pre></div>
 <h3 id="recovering-gracefully">Recovering gracefully<a class="headerlink" href="#recovering-gracefully" title="Permanent link">&para;</a></h3>
 <p>pcall is most useful when you can continue with a fallback rather than just logging and stopping:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">get_npc_name</span><span class="p">(</span><span class="nv">id</span><span class="p">)</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">ok</span><span class="p">,</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pcall</span><span class="p">(</span><span class="kr">function</span><span class="p">()</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">        </span><span class="kd">local</span><span class="w"> </span><span class="nv">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">level</span><span class="p">.</span><span class="nf">object_by_id</span><span class="p">(</span><span class="nv">id</span><span class="p">)</span>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">        </span><span class="kr">return</span><span class="w"> </span><span class="nv">obj</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">obj</span><span class="p">:</span><span class="nf">name</span><span class="p">()</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s2">&quot;unknown&quot;</span>
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="kr">end</span><span class="p">)</span>
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="nv">ok</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s2">&quot;error&quot;</span>
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">get_npc_name</span><span class="p">(</span><span class="nv">id</span><span class="p">)</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">ok</span><span class="p">,</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pcall</span><span class="p">(</span><span class="kr">function</span><span class="p">()</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">        </span><span class="kd">local</span><span class="w"> </span><span class="nv">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">level</span><span class="p">.</span><span class="nf">object_by_id</span><span class="p">(</span><span class="nv">id</span><span class="p">)</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">        </span><span class="kr">return</span><span class="w"> </span><span class="nv">obj</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">obj</span><span class="p">:</span><span class="nf">name</span><span class="p">()</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s2">&quot;unknown&quot;</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">    </span><span class="kr">end</span><span class="p">)</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="nv">ok</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s2">&quot;error&quot;</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="kr">end</span>
 </span></code></pre></div>
 <hr />
 <h2 id="common-silent-failure-modes">Common silent failure modes<a class="headerlink" href="#common-silent-failure-modes" title="Permanent link">&para;</a></h2>
@@ -3063,31 +3158,31 @@
 </ol>
 <h3 id="dbactor-is-nil">db.actor is nil<a class="headerlink" href="#dbactor-is-nil" title="Permanent link">&para;</a></h3>
 <p><code>db.actor</code> is nil until <code>actor_on_first_update</code> fires. Accessing it in <code>on_game_start</code>, <code>on_game_load</code>, or at module load time silently returns nil and any method call on it crashes silently (or loudly, depending on context):</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1">-- Crashes if called before actor_on_first_update</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">position</span><span class="p">()</span>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1">-- Safe</span>
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">actor_on_first_update</span><span class="p">()</span>
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">position</span><span class="p">()</span><span class="w">   </span><span class="c1">-- guaranteed non-nil here</span>
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1">-- Crashes if called before actor_on_first_update</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">position</span><span class="p">()</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1">-- Safe</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">actor_on_first_update</span><span class="p">()</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">position</span><span class="p">()</span><span class="w">   </span><span class="c1">-- guaranteed non-nil here</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="kr">end</span>
 </span></code></pre></div>
 <h3 id="levelobject_by_id-returns-nil">level.object_by_id returns nil<a class="headerlink" href="#levelobject_by_id-returns-nil" title="Permanent link">&para;</a></h3>
 <p>An object you tracked by ID has gone offline. Any method call on nil crashes:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1">-- CRASH if NPC went offline</span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">id</span><span class="p">].</span><span class="nv">object</span><span class="p">:</span><span class="nf">position</span><span class="p">()</span>
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1">-- Safe</span>
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="kd">local</span><span class="w"> </span><span class="nv">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">id</span><span class="p">]</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">id</span><span class="p">].</span><span class="nv">object</span>
-</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="kr">if</span><span class="w"> </span><span class="nv">obj</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="nv">obj</span><span class="p">:</span><span class="nf">position</span><span class="p">()</span><span class="w"> </span><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1">-- CRASH if NPC went offline</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">id</span><span class="p">].</span><span class="nv">object</span><span class="p">:</span><span class="nf">position</span><span class="p">()</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="c1">-- Safe</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="kd">local</span><span class="w"> </span><span class="nv">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">id</span><span class="p">]</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">storage</span><span class="p">[</span><span class="nv">id</span><span class="p">].</span><span class="nv">object</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="kr">if</span><span class="w"> </span><span class="nv">obj</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="nv">obj</span><span class="p">:</span><span class="nf">position</span><span class="p">()</span><span class="w"> </span><span class="kr">end</span>
 </span></code></pre></div>
 <h3 id="wrong-section-name-in-ini-lookup">Wrong section name in ini lookup<a class="headerlink" href="#wrong-section-name-in-ini-lookup" title="Permanent link">&para;</a></h3>
 <p><code>ini_sys:r_string_ex(section, key)</code> returns nil if either the section or key doesn't exist — no error, just nil. This propagates silently until something tries to use the result:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">heal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">ini_sys</span><span class="p">:</span><span class="nf">r_float_ex</span><span class="p">(</span><span class="s2">&quot;medkit&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;eat_health&quot;</span><span class="p">)</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="c1">-- If &quot;eat_health&quot; doesn&#39;t exist, heal is nil</span>
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="c1">-- Later: db.actor.health = db.actor.health + heal   → crash</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">heal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">ini_sys</span><span class="p">:</span><span class="nf">r_float_ex</span><span class="p">(</span><span class="s2">&quot;medkit&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;eat_health&quot;</span><span class="p">)</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="c1">-- If &quot;eat_health&quot; doesn&#39;t exist, heal is nil</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="c1">-- Later: db.actor.health = db.actor.health + heal   → crash</span>
 </span></code></pre></div>
 <p>Always nil-check ini results before using them:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">heal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">ini_sys</span><span class="p">:</span><span class="nf">r_float_ex</span><span class="p">(</span><span class="s2">&quot;medkit&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;eat_health&quot;</span><span class="p">)</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="mi">0</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">heal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">ini_sys</span><span class="p">:</span><span class="nf">r_float_ex</span><span class="p">(</span><span class="s2">&quot;medkit&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;eat_health&quot;</span><span class="p">)</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="mi">0</span>
 </span></code></pre></div>
 <h3 id="global-collision">Global collision<a class="headerlink" href="#global-collision" title="Permanent link">&para;</a></h3>
 <p>Two scripts define the same global name. The second overwrites the first silently. Symptoms: a variable has the wrong value, or a function that existed earlier is now a different function. Diagnose by printing <code>type(variable_name)</code> and its value at the start of your callback.</p>
@@ -3097,22 +3192,22 @@
 <p>Because the callback system (<code>make_callback</code> in <code>axr_main.script</code>) does not use pcall internally, an error in any registered callback propagates up and can affect other callbacks registered for the same event that haven't fired yet. If you see cascading errors from unrelated callbacks, look for the first error in the log — that's the real cause.</p>
 <h3 id="minimal-diagnostic-template">Minimal diagnostic template<a class="headerlink" href="#minimal-diagnostic-template" title="Permanent link">&para;</a></h3>
 <p>When something doesn't work and you don't know why, add this at the very top of the suspect callback:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">my_callback</span><span class="p">(...)</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">    </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;[my_mod] my_callback fired, args: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">tostring</span><span class="p">(</span><span class="nb">select</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="p">...)))</span>
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">ok</span><span class="p">,</span><span class="w"> </span><span class="nv">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pcall</span><span class="p">(</span><span class="kr">function</span><span class="p">(...)</span>
-</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">        </span><span class="c1">-- all your real code moved here</span>
-</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">    </span><span class="kr">end</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span>
-</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">ok</span><span class="w"> </span><span class="kr">then</span>
-</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="w">        </span><span class="nf">printe</span><span class="p">(</span><span class="s2">&quot;![my_mod] my_callback error: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">tostring</span><span class="p">(</span><span class="nv">err</span><span class="p">))</span>
-</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="w">        </span><span class="nf">callstack</span><span class="p">()</span>
-</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="w">    </span><span class="kr">end</span>
-</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">my_callback</span><span class="p">(...)</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">    </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;[my_mod] my_callback fired, args: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">tostring</span><span class="p">(</span><span class="nb">select</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="p">...)))</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">ok</span><span class="p">,</span><span class="w"> </span><span class="nv">err</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pcall</span><span class="p">(</span><span class="kr">function</span><span class="p">(...)</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">        </span><span class="c1">-- all your real code moved here</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">    </span><span class="kr">end</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">ok</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="w">        </span><span class="nf">printe</span><span class="p">(</span><span class="s2">&quot;![my_mod] my_callback error: %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">tostring</span><span class="p">(</span><span class="nv">err</span><span class="p">))</span>
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="w">        </span><span class="nf">callstack</span><span class="p">()</span>
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="kr">end</span>
 </span></code></pre></div>
 <p>This confirms the callback fires at all, shows you the arguments it received, and catches any error with a stack trace.</p>
 <hr />
 <h2 id="checking-for-syntax-errors">Checking for syntax errors<a class="headerlink" href="#checking-for-syntax-errors" title="Permanent link">&para;</a></h2>
 <p>Syntax errors in a <code>.script</code> file prevent the entire file from loading. The game continues without that script — no error popup, just silently missing functionality. Check the log on startup for lines like:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>[error][     LUA] ...scripts/my_mod.script:42: unexpected symbol near &#39;=&#39;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>[error][     LUA] ...scripts/my_mod.script:42: unexpected symbol near &#39;=&#39;
 </span></code></pre></div>
 <p>This points to the file and line. Fix the syntax, restart.</p>
 <hr />
