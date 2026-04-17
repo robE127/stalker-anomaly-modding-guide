@@ -223,6 +223,27 @@ end
 -- not for any external call that happens to use our filename.
 local save_in_progress = false
 
+-- Set of item section names to keep in the player's inventory on death.
+-- Populated from extraction_mod_config.ltx [keep_on_death] at game start.
+local keep_on_death = {}
+
+local function load_config()
+    local ini = ini_file("extraction_mod_config.ltx")
+    if not ini:section_exist("keep_on_death") then
+        dbg("load_config: [keep_on_death] section not found -- nothing kept on death")
+        return
+    end
+    local n = ini:line_count("keep_on_death")
+    for i = 0, n - 1 do
+        local _, key, _ = ini:r_line("keep_on_death", i, "", "")
+        if key and key ~= "" then
+            keep_on_death[key] = true
+            dbg("load_config: keep_on_death += %s", key)
+        end
+    end
+    dbg("load_config: %d section(s) configured to keep on death", n)
+end
+
 -- In-game hour captured at the moment actor_on_before_death fires.
 -- level.get_time_hours() can return a stale/reset value by the time
 -- do_respawn_deferred runs ~3 seconds later (the engine appears to restore
@@ -506,12 +527,15 @@ local function wait_for_stash_and_respawn(stash_id)
 
     dbg("wait_for_stash_and_respawn: stash id=%s is ONLINE  -- transferring items", tostring(stash_id))
 
-    -- Transfer all items from actor into the stash container.
+    -- Transfer all items from actor into the stash container, except those
+    -- listed in keep_on_death (e.g. the PDA).
     -- db.actor:transfer_item(item, container) confirmed from Jabbers source.
     -- Collect into a table first to avoid modifying inventory mid-iteration.
     local items = {}
     db.actor:iterate_inventory(function(_, obj)
-        items[#items + 1] = obj
+        if not keep_on_death[obj:section()] then
+            items[#items + 1] = obj
+        end
     end, nil)
 
     dbg("wait_for_stash_and_respawn: transferring %d items to stash", #items)
@@ -555,12 +579,17 @@ local function actor_on_before_death(who_id, flags)
     level.add_pp_effector("black_infinite.ppe", DEATH_FADE_ID, true)
     dbg("actor_on_before_death: fade to black started (effector id=%d)", DEATH_FADE_ID)
 
-    -- Count inventory items before deciding whether to spawn a stash.
+    -- Count transferable items (excluding keep_on_death sections) before
+    -- deciding whether to spawn a stash.
     local items = {}
     db.actor:iterate_inventory(function(_, obj)
-        items[#items + 1] = obj
+        if not keep_on_death[obj:section()] then
+            items[#items + 1] = obj
+        else
+            dbg("actor_on_before_death: keeping '%s' (in keep_on_death)", obj:section())
+        end
     end, nil)
-    dbg("actor_on_before_death: inventory count=%d", #items)
+    dbg("actor_on_before_death: transferable item count=%d", #items)
 
     if #items == 0 then
         dbg("actor_on_before_death: inventory empty  -- skipping stash, respawn in 3s")
@@ -612,6 +641,7 @@ end
 
 function on_game_start()
     dbg("on_game_start: registering callbacks")
+    load_config()
     RegisterScriptCallback("actor_on_first_update", actor_on_first_update)
     RegisterScriptCallback("actor_on_update", actor_on_update)
     RegisterScriptCallback("actor_on_before_death", actor_on_before_death)
