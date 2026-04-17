@@ -1,0 +1,6075 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A comprehensive scripting and API reference for S.T.A.L.K.E.R. Anomaly modding — callbacks, engine bindings, config formats, and worked examples.">
+      
+      
+        <meta name="author" content="stalker-anomaly-modding-guide contributors">
+      
+      
+      
+        <link rel="prev" href="../console-commands/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Item Sections - S.T.A.L.K.E.R. Anomaly Modding Guide</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#item-section-names" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="S.T.A.L.K.E.R. Anomaly Modding Guide" class="md-header__button md-logo" aria-label="S.T.A.L.K.E.R. Anomaly Modding Guide" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            S.T.A.L.K.E.R. Anomaly Modding Guide
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Item Sections
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="orange"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../scripting/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Scripting
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api-reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../config-formats/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Config Formats
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../systems/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Systems
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../callbacks-reference/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Callbacks Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../examples/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Examples
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../glossary/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="S.T.A.L.K.E.R. Anomaly Modding Guide" class="md-nav__button md-logo" aria-label="S.T.A.L.K.E.R. Anomaly Modding Guide" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    S.T.A.L.K.E.R. Anomaly Modding Guide
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../getting-started/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/environment-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/gamedata-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gamedata Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/first-mod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Your First Mod
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/packaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packaging & Publishing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../scripting/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scripting
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Scripting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/lua-in-anomaly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua in Anomaly
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/lua-scope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lua Scope & Globals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/game-object/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is a game_object?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/db-storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is db.storage?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/object-binders/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Object Binders
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/script-lifecycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Script Lifecycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/callbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The Callback System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Debugging & Logging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/save-load/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Save & Load State
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/engine-internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engine Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../api-reference/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/actor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    db.actor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/game-object/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    game_object
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/level/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    level
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/game/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    game
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/alife/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    alife
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/xr-logic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    xr_logic
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI Functions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/ini-file/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ini_file
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/vector/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    vector
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/hit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    hit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/sound-object/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    sound_object
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/ctime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CTime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../config-formats/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Config Formats
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Config Formats
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config-formats/ltx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LTX Format
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config-formats/xml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XML Configs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config-formats/dxml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DXML (XML Patching)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config-formats/dltx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DLTX (LTX Patching)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../systems/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systems
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Systems
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/mcm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mod Configuration Menu
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/localization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Localization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/items/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Items & Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/npcs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NPCs & Factions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/ui-scripting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI Scripting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../callbacks-reference/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callbacks Reference
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Callbacks Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../examples/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/keybind/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Keybind Action
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/item-use-effect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Item Use Effect
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/npc-death-reward/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NPC Death Reward
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/mcm-options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MCM Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../console-commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Console Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Item Sections
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Item Sections
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#using-section-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using section names
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#weapons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weapons
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Weapons">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rifles-and-smgs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rifles and SMGs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shotguns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shotguns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sniper-rifles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sniper Rifles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#heavy-weapons-and-launchers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heavy Weapons and Launchers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pistols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pistols
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#melee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Melee
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weapon-attachments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weapon Attachments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preset-variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preset Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ammunition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ammunition
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#armour" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Armour
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Armour">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#suits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Suits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helmets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Helmets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#artefacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artefacts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artefacts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mutant-hides-artefact-category" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mutant hides (artefact category)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#medical-and-consumables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Medical and Consumables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Medical and Consumables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#medical" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Medical
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#food-and-drink" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Food and Drink
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cookedprepared-food-fieldcooker-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cooked/prepared food (fieldcooker system)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cigarettes-and-recreational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cigarettes and Recreational
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#equipment-and-devices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Equipment and Devices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Equipment and Devices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#anomaly-detectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anomaly Detectors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pdas-and-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PDAs and Communication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repair-kits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repair Kits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tools-and-crafting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tools and Crafting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backpacks-and-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backpacks and Containers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fuel-and-explosives-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fuel and Explosives Containers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misc-devices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Misc Devices
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mutant-parts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mutant Parts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grenades-and-explosives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grenades and Explosives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#money" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Money
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quest-items-and-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quest Items and Documents
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quest Items and Documents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#letters-and-lore-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Letters and lore items
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faction-patches-and-miscellaneous" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Faction Patches and Miscellaneous
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#using-section-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using section names
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#weapons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weapons
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Weapons">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rifles-and-smgs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rifles and SMGs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shotguns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shotguns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sniper-rifles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sniper Rifles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#heavy-weapons-and-launchers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Heavy Weapons and Launchers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pistols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pistols
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#melee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Melee
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weapon-attachments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Weapon Attachments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preset-variants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preset Variants
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ammunition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ammunition
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#armour" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Armour
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Armour">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#suits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Suits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#helmets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Helmets
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#artefacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Artefacts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Artefacts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mutant-hides-artefact-category" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mutant hides (artefact category)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#medical-and-consumables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Medical and Consumables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Medical and Consumables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#medical" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Medical
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#food-and-drink" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Food and Drink
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cookedprepared-food-fieldcooker-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cooked/prepared food (fieldcooker system)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cigarettes-and-recreational" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cigarettes and Recreational
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#equipment-and-devices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Equipment and Devices
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Equipment and Devices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#anomaly-detectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anomaly Detectors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pdas-and-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PDAs and Communication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repair-kits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Repair Kits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tools-and-crafting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tools and Crafting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backpacks-and-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backpacks and Containers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fuel-and-explosives-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fuel and Explosives Containers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misc-devices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Misc Devices
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mutant-parts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mutant Parts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grenades-and-explosives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grenades and Explosives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#money" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Money
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quest-items-and-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quest Items and Documents
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Quest Items and Documents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#letters-and-lore-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Letters and lore items
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faction-patches-and-miscellaneous" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Faction Patches and Miscellaneous
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="item-section-names">Item Section Names<a class="headerlink" href="#item-section-names" title="Permanent link">&para;</a></h1>
+<p>Every spawnable item in Anomaly has a <strong>section name</strong> — the key used to identify it in LTX configs,
+<code>alife_create_item</code>, <code>alife_create</code>, and inventory lookups. This page lists all 1,030 spawnable
+sections from Anomaly 1.5.3, grouped by category.</p>
+<p>Section names are verified by the presence of a <code>$spawn</code> key in the configs under
+<code>configs/items/items/</code>, <code>configs/items/weapons/</code>, and <code>configs/items/outfits/</code>.</p>
+<hr />
+<h2 id="using-section-names">Using section names<a class="headerlink" href="#using-section-names" title="Permanent link">&para;</a></h2>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">-- Spawn an item at the player&#39;s position</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">pos</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">position</span><span class="p">()</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kd">local</span><span class="w"> </span><span class="nv">lvid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">level_vertex_id</span><span class="p">()</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kd">local</span><span class="w"> </span><span class="nv">gvid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">game_vertex_id</span><span class="p">()</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nf">alife_create_item</span><span class="p">(</span><span class="s2">&quot;medkit_army&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nv">pos</span><span class="o">=</span><span class="nv">pos</span><span class="p">,</span><span class="w"> </span><span class="nv">lvid</span><span class="o">=</span><span class="nv">lvid</span><span class="p">,</span><span class="w"> </span><span class="nv">gvid</span><span class="o">=</span><span class="nv">gvid</span><span class="p">})</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1">-- Check what section an object belongs to</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">actor_on_item_take</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">obj</span><span class="p">:</span><span class="nf">section</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;af_gravi&quot;</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">        </span><span class="c1">-- player picked up a Gravi artifact</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="kr">end</span>
+</span></code></pre></div>
+<hr />
+<h2 id="weapons">Weapons<a class="headerlink" href="#weapons" title="Permanent link">&para;</a></h2>
+<h3 id="rifles-and-smgs">Rifles and SMGs<a class="headerlink" href="#rifles-and-smgs" title="Permanent link">&para;</a></h3>
+<p>Sections with <code>weapon_class = assault_rifle</code> in the configs.</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wpn_9a91</code></td>
+<td>9A-91 compact assault rifle (9x39)</td>
+</tr>
+<tr>
+<td><code>wpn_abakan</code></td>
+<td>AN-94 Abakan</td>
+</tr>
+<tr>
+<td><code>wpn_aek</code></td>
+<td>AEK-971</td>
+</tr>
+<tr>
+<td><code>wpn_ak</code></td>
+<td>AK (generic base)</td>
+</tr>
+<tr>
+<td><code>wpn_ak101</code></td>
+<td>AK-101 (5.56x45)</td>
+</tr>
+<tr>
+<td><code>wpn_ak102</code></td>
+<td>AK-102 (5.56x45)</td>
+</tr>
+<tr>
+<td><code>wpn_ak103</code></td>
+<td>AK-103 (7.62x39)</td>
+</tr>
+<tr>
+<td><code>wpn_ak104</code></td>
+<td>AK-104 (7.62x39)</td>
+</tr>
+<tr>
+<td><code>wpn_ak105</code></td>
+<td>AK-105 (5.45x39)</td>
+</tr>
+<tr>
+<td><code>wpn_ak12</code></td>
+<td>AK-12</td>
+</tr>
+<tr>
+<td><code>wpn_ak74</code></td>
+<td>AK-74</td>
+</tr>
+<tr>
+<td><code>wpn_ak74m</code></td>
+<td>AK-74M</td>
+</tr>
+<tr>
+<td><code>wpn_ak74u</code></td>
+<td>AKS-74U</td>
+</tr>
+<tr>
+<td><code>wpn_akm</code></td>
+<td>AKM (7.62x39)</td>
+</tr>
+<tr>
+<td><code>wpn_aks74</code></td>
+<td>AKS-74</td>
+</tr>
+<tr>
+<td><code>wpn_ash12</code></td>
+<td>ASh-12.7 (12.7x55)</td>
+</tr>
+<tr>
+<td><code>wpn_aug</code></td>
+<td>AUG A1</td>
+</tr>
+<tr>
+<td><code>wpn_aug_a3</code></td>
+<td>AUG A3</td>
+</tr>
+<tr>
+<td><code>wpn_bizon</code></td>
+<td>PP-19 Bizon (9x18)</td>
+</tr>
+<tr>
+<td><code>wpn_fal</code></td>
+<td>FN FAL (7.62x51)</td>
+</tr>
+<tr>
+<td><code>wpn_famas3</code></td>
+<td>FAMAS G2 (5.56x45)</td>
+</tr>
+<tr>
+<td><code>wpn_fn2000</code></td>
+<td>FN F2000 (5.56x45)</td>
+</tr>
+<tr>
+<td><code>wpn_fnc</code></td>
+<td>FNC (5.56x45)</td>
+</tr>
+<tr>
+<td><code>wpn_g36</code></td>
+<td>G36 (5.56x45)</td>
+</tr>
+<tr>
+<td><code>wpn_g3sg1</code></td>
+<td>G3SG1 (7.62x51)</td>
+</tr>
+<tr>
+<td><code>wpn_g43</code></td>
+<td>Gewehr 43 (7.62x54, WW2)</td>
+</tr>
+<tr>
+<td><code>wpn_galil</code></td>
+<td>Galil (5.56x45)</td>
+</tr>
+<tr>
+<td><code>wpn_groza</code></td>
+<td>OTs-14 Groza (9x39)</td>
+</tr>
+<tr>
+<td><code>wpn_hk416</code></td>
+<td>HK416 (5.56x45)</td>
+</tr>
+<tr>
+<td><code>wpn_hk417</code></td>
+<td>HK417 (7.62x51)</td>
+</tr>
+<tr>
+<td><code>wpn_k98</code></td>
+<td>Karabiner 98k (7.62x54, WW2)</td>
+</tr>
+<tr>
+<td><code>wpn_kiparis</code></td>
+<td>PP-01 Kiparis (9x18)</td>
+</tr>
+<tr>
+<td><code>wpn_l85</code></td>
+<td>L85A2 (5.56x45)</td>
+</tr>
+<tr>
+<td><code>wpn_lr300</code></td>
+<td>LR-300 (5.56x45)</td>
+</tr>
+<tr>
+<td><code>wpn_m16</code></td>
+<td>M16A4 (5.56x45)</td>
+</tr>
+<tr>
+<td><code>wpn_m4</code></td>
+<td>M4 Carbine (5.56x45)</td>
+</tr>
+<tr>
+<td><code>wpn_m4a1</code></td>
+<td>M4A1 (5.56x45)</td>
+</tr>
+<tr>
+<td><code>wpn_m60</code></td>
+<td>M60 LMG (7.62x51)</td>
+</tr>
+<tr>
+<td><code>wpn_mk14</code></td>
+<td>Mk 14 EBR (7.62x51)</td>
+</tr>
+<tr>
+<td><code>wpn_mp5</code></td>
+<td>MP5 (9x19)</td>
+</tr>
+<tr>
+<td><code>wpn_mp7</code></td>
+<td>MP7 (4.6x30)</td>
+</tr>
+<tr>
+<td><code>wpn_oc33</code></td>
+<td>OTs-33 Pernach (9x18)</td>
+</tr>
+<tr>
+<td><code>wpn_p90</code></td>
+<td>FN P90 (5.7x28)</td>
+</tr>
+<tr>
+<td><code>wpn_pkm</code></td>
+<td>PKM LMG (7.62x54)</td>
+</tr>
+<tr>
+<td><code>wpn_pp2000</code></td>
+<td>PP-2000 (9x19)</td>
+</tr>
+<tr>
+<td><code>wpn_ppsh41</code></td>
+<td>PPSh-41 (7.62x25, WW2)</td>
+</tr>
+<tr>
+<td><code>wpn_rpd</code></td>
+<td>RPD LMG (7.62x39)</td>
+</tr>
+<tr>
+<td><code>wpn_rpk</code></td>
+<td>RPK LMG (7.62x39)</td>
+</tr>
+<tr>
+<td><code>wpn_scar</code></td>
+<td>FN SCAR (7.62x51)</td>
+</tr>
+<tr>
+<td><code>wpn_sig550</code></td>
+<td>SG 550 (5.56x45)</td>
+</tr>
+<tr>
+<td><code>wpn_sig552</code></td>
+<td>SG 552 (5.56x45)</td>
+</tr>
+<tr>
+<td><code>wpn_sr25</code></td>
+<td>SR-25 (7.62x51)</td>
+</tr>
+<tr>
+<td><code>wpn_ump45</code></td>
+<td>UMP45 (.45 ACP)</td>
+</tr>
+<tr>
+<td><code>wpn_val</code></td>
+<td>AS Val (9x39)</td>
+</tr>
+<tr>
+<td><code>wpn_vihr</code></td>
+<td>PP-19-01 Vityaz (9x19) — see also <code>wpn_vityaz</code></td>
+</tr>
+<tr>
+<td><code>wpn_vityaz</code></td>
+<td>PP-19-01 Vityaz variant</td>
+</tr>
+<tr>
+<td><code>wpn_vsk94</code></td>
+<td>VSK-94 (9x39)</td>
+</tr>
+<tr>
+<td><code>wpn_vz61</code></td>
+<td>Vz. 61 Skorpion (7.62x25)</td>
+</tr>
+<tr>
+<td><code>wpn_xm8</code></td>
+<td>XM8 (5.56x45)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="shotguns">Shotguns<a class="headerlink" href="#shotguns" title="Permanent link">&para;</a></h3>
+<p>Sections with <code>weapon_class = shotgun</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wpn_bm16</code></td>
+<td>IZh-58 double-barrel (12x70)</td>
+</tr>
+<tr>
+<td><code>wpn_fort500</code></td>
+<td>Fort-500 pump-action (12x70)</td>
+</tr>
+<tr>
+<td><code>wpn_mossberg590</code></td>
+<td>Mossberg 590 (12x70)</td>
+</tr>
+<tr>
+<td><code>wpn_mp133</code></td>
+<td>MP-133 (12x70)</td>
+</tr>
+<tr>
+<td><code>wpn_mp153</code></td>
+<td>MP-153 semi-auto (12x70)</td>
+</tr>
+<tr>
+<td><code>wpn_protecta</code></td>
+<td>Armsel Protecta revolver shotgun (12x70)</td>
+</tr>
+<tr>
+<td><code>wpn_remington870</code></td>
+<td>Remington 870 (12x70)</td>
+</tr>
+<tr>
+<td><code>wpn_saiga12s</code></td>
+<td>Saiga-12S semi-auto (12x70)</td>
+</tr>
+<tr>
+<td><code>wpn_spas12</code></td>
+<td>SPAS-12 (12x70)</td>
+</tr>
+<tr>
+<td><code>wpn_toz34</code></td>
+<td>TOZ-34 double-barrel (12x70)</td>
+</tr>
+<tr>
+<td><code>wpn_usas12</code></td>
+<td>USAS-12 semi-auto (12x76)</td>
+</tr>
+<tr>
+<td><code>wpn_vepr</code></td>
+<td>Vepr-12 semi-auto (12x70)</td>
+</tr>
+<tr>
+<td><code>wpn_wincheaster1300</code></td>
+<td>Winchester 1300 (12x70)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sniper-rifles">Sniper Rifles<a class="headerlink" href="#sniper-rifles" title="Permanent link">&para;</a></h3>
+<p>Sections with <code>weapon_class = sniper_rifle</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wpn_gauss</code></td>
+<td>Gauss rifle (special ammo)</td>
+</tr>
+<tr>
+<td><code>wpn_l96a1</code></td>
+<td>L96A1 (7.62x51)</td>
+</tr>
+<tr>
+<td><code>wpn_m24</code></td>
+<td>M24 SWS (7.62x51)</td>
+</tr>
+<tr>
+<td><code>wpn_m82</code></td>
+<td>M82 Barrett (12.7x55)</td>
+</tr>
+<tr>
+<td><code>wpn_m98b</code></td>
+<td>M98B (12.7x55)</td>
+</tr>
+<tr>
+<td><code>wpn_mosin</code></td>
+<td>Mosin-Nagant (7.62x54, WW2)</td>
+</tr>
+<tr>
+<td><code>wpn_remington700</code></td>
+<td>Remington 700 (7.62x51)</td>
+</tr>
+<tr>
+<td><code>wpn_sv98</code></td>
+<td>SV-98 (7.62x54)</td>
+</tr>
+<tr>
+<td><code>wpn_svd</code></td>
+<td>SVD Dragunov (7.62x54)</td>
+</tr>
+<tr>
+<td><code>wpn_svt40</code></td>
+<td>SVT-40 semi-auto (7.62x54, WW2)</td>
+</tr>
+<tr>
+<td><code>wpn_svu</code></td>
+<td>SVU bullpup Dragunov (7.62x54)</td>
+</tr>
+<tr>
+<td><code>wpn_trg</code></td>
+<td>TRG-42 (7.62x51)</td>
+</tr>
+<tr>
+<td><code>wpn_vintorez</code></td>
+<td>VSS Vintorez (9x39)</td>
+</tr>
+<tr>
+<td><code>wpn_vssk</code></td>
+<td>VSSK Vychlop (12.7x55)</td>
+</tr>
+<tr>
+<td><code>wpn_wa2000</code></td>
+<td>Walther WA 2000 (7.62x51)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="heavy-weapons-and-launchers">Heavy Weapons and Launchers<a class="headerlink" href="#heavy-weapons-and-launchers" title="Permanent link">&para;</a></h3>
+<p>Sections with <code>weapon_class = heavy_weapon</code> or standalone launcher C++ class.</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wpn_m249</code></td>
+<td>M249 SAW LMG (5.56x45)</td>
+</tr>
+<tr>
+<td><code>wpn_m79</code></td>
+<td>M79 grenade launcher (40mm)</td>
+</tr>
+<tr>
+<td><code>wpn_rg-6</code></td>
+<td>RG-6 revolver launcher (VOG-25)</td>
+</tr>
+<tr>
+<td><code>wpn_rpg7</code></td>
+<td>RPG-7 rocket launcher (OG-7B)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pistols">Pistols<a class="headerlink" href="#pistols" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wpn_aps</code></td>
+<td>Stechkin APS (9x18)</td>
+</tr>
+<tr>
+<td><code>wpn_beretta</code></td>
+<td>Beretta 92 (9x19)</td>
+</tr>
+<tr>
+<td><code>wpn_colt1911</code></td>
+<td>Colt 1911 (.45 ACP)</td>
+</tr>
+<tr>
+<td><code>wpn_cz52</code></td>
+<td>CZ 52 (7.62x25)</td>
+</tr>
+<tr>
+<td><code>wpn_cz75</code></td>
+<td>CZ 75 (9x19)</td>
+</tr>
+<tr>
+<td><code>wpn_desert_eagle</code></td>
+<td>Desert Eagle (.357 Magnum)</td>
+</tr>
+<tr>
+<td><code>wpn_fn57</code></td>
+<td>FN Five-seveN (5.7x28)</td>
+</tr>
+<tr>
+<td><code>wpn_fnp45</code></td>
+<td>FNP-45 (.45 ACP)</td>
+</tr>
+<tr>
+<td><code>wpn_fort</code></td>
+<td>Fort-12 (9x18)</td>
+</tr>
+<tr>
+<td><code>wpn_glock</code></td>
+<td>Glock 17 (9x19)</td>
+</tr>
+<tr>
+<td><code>wpn_gsh18</code></td>
+<td>GSh-18 (9x19)</td>
+</tr>
+<tr>
+<td><code>wpn_hpsa</code></td>
+<td>Browning HP (9x19)</td>
+</tr>
+<tr>
+<td><code>wpn_mp412</code></td>
+<td>MP-412 REX revolver (.357 Magnum)</td>
+</tr>
+<tr>
+<td><code>wpn_mp443</code></td>
+<td>MP-443 Grach (9x19)</td>
+</tr>
+<tr>
+<td><code>wpn_pb</code></td>
+<td>PB suppressed pistol (9x18)</td>
+</tr>
+<tr>
+<td><code>wpn_pm</code></td>
+<td>Makarov PM (9x18)</td>
+</tr>
+<tr>
+<td><code>wpn_sig220</code></td>
+<td>SIG P220 (.45 ACP)</td>
+</tr>
+<tr>
+<td><code>wpn_tt33</code></td>
+<td>Tokarev TT-33 (7.62x25)</td>
+</tr>
+<tr>
+<td><code>wpn_usp</code></td>
+<td>HK USP (.45 ACP)</td>
+</tr>
+<tr>
+<td><code>wpn_walther</code></td>
+<td>Walther P99 (9x19)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="melee">Melee<a class="headerlink" href="#melee" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wpn_knife</code></td>
+<td>Combat knife</td>
+</tr>
+<tr>
+<td><code>wpn_knife2</code></td>
+<td>Hunting knife</td>
+</tr>
+<tr>
+<td><code>wpn_knife3</code></td>
+<td>Machete</td>
+</tr>
+<tr>
+<td><code>wpn_knife4</code></td>
+<td>Cleaver</td>
+</tr>
+<tr>
+<td><code>wpn_knife5</code></td>
+<td>Kukri</td>
+</tr>
+<tr>
+<td><code>wpn_axe</code></td>
+<td>Fire axe</td>
+</tr>
+</tbody>
+</table>
+<h3 id="weapon-attachments">Weapon Attachments<a class="headerlink" href="#weapon-attachments" title="Permanent link">&para;</a></h3>
+<p>Standalone attachment items that can be added to compatible weapons.</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wpn_addon_grenade_launcher</code></td>
+<td>GP-25 underbarrel launcher</td>
+</tr>
+<tr>
+<td><code>wpn_addon_grenade_launcher_m203</code></td>
+<td>M203 underbarrel launcher</td>
+</tr>
+<tr>
+<td><code>wpn_addon_silencer</code></td>
+<td>Universal suppressor</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope</code></td>
+<td>Iron sights / basic scope</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_acog</code></td>
+<td>ACOG 4x scope</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_acog_night</code></td>
+<td>ACOG night scope</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_acog_trijicon</code></td>
+<td>Trijicon ACOG</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_detector</code></td>
+<td>Detector scope</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_g43</code></td>
+<td>Gewehr 43 scope</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_galil</code></td>
+<td>Galil scope</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_m24</code></td>
+<td>M24 scope</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_moist</code></td>
+<td>Weathered scope</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_mosin</code></td>
+<td>Mosin PU scope</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_night</code></td>
+<td>Night vision scope</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_po4x34</code></td>
+<td>PO 4x34 scope</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_pu</code></td>
+<td>PU 3.5x scope (WW2)</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_susat</code></td>
+<td>SUSAT 4x scope</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_susat_custom</code></td>
+<td>SUSAT custom variant</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_susat_dusk</code></td>
+<td>SUSAT dusk variant</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_susat_moist</code></td>
+<td>SUSAT weathered</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_susat_night</code></td>
+<td>SUSAT night</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_susat_worn</code></td>
+<td>SUSAT worn</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_susat_x1.6</code></td>
+<td>SUSAT 1.6x</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_sv98</code></td>
+<td>SV-98 scope</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_vsk</code></td>
+<td>VSK scope</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_worn</code></td>
+<td>Worn generic scope</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_ww2</code></td>
+<td>WW2 scope</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_ww2_moist</code></td>
+<td>WW2 scope weathered</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_ww2_worn</code></td>
+<td>WW2 scope worn</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_x2.7</code></td>
+<td>2.7x scope</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_zf4</code></td>
+<td>ZF 4 scope (WW2)</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_zf4_moist</code></td>
+<td>ZF 4 weathered</td>
+</tr>
+<tr>
+<td><code>wpn_addon_scope_zf4_worn</code></td>
+<td>ZF 4 worn</td>
+</tr>
+</tbody>
+</table>
+<h3 id="preset-variants">Preset Variants<a class="headerlink" href="#preset-variants" title="Permanent link">&para;</a></h3>
+<p>These sections are pre-configured weapon variants — either pre-upgraded ("nimble") or
+shipped with a specific scope attached. They use the same underlying weapon stats but
+start with a different condition or loadout. Spawn them the same way as the base weapon.</p>
+<p><strong>Nimble (pre-upgraded) variants:</strong>
+<code>wpn_desert_eagle_nimble</code>, <code>wpn_fn2000_nimble</code>, <code>wpn_g36_nimble</code>, <code>wpn_groza_nimble</code>,
+<code>wpn_mp5_nimble</code>, <code>wpn_protecta_nimble</code>, <code>wpn_sig220_nimble</code>, <code>wpn_spas12_nimble</code>,
+<code>wpn_svd_nimble</code>, <code>wpn_svu_nimble</code>, <code>wpn_usp_nimble</code>, <code>wpn_vintorez_nimble</code></p>
+<p><strong>Scoped/configured variants:</strong>
+<code>wpn_ak74u_snag</code>, <code>wpn_ash12_ac10632</code>, <code>wpn_ash12_acog</code>, <code>wpn_ash12_c-more</code>,
+<code>wpn_ash12_eot</code>, <code>wpn_aug_a3_ac10632</code>, <code>wpn_aug_a3_acog</code>, <code>wpn_aug_a3_c-more</code>,
+<code>wpn_aug_a3_eot</code>, <code>wpn_fal_ac10632</code>, <code>wpn_fal_acog</code>, <code>wpn_fal_c-more</code>, <code>wpn_fal_eot</code>,
+<code>wpn_famas3_eot</code>, <code>wpn_fort_snag</code>, <code>wpn_mk14_ac10632</code>, <code>wpn_mk14_acog</code>,
+<code>wpn_mk14_c-more</code>, <code>wpn_mk14_eot</code>, <code>wpn_pkm_zulus</code>, <code>wpn_remington870_ac10632</code>,
+<code>wpn_remington870_c-more</code>, <code>wpn_remington870_eot</code>, <code>wpn_sig550_luckygun</code>,
+<code>wpn_wincheaster1300_trapper</code></p>
+<hr />
+<h2 id="ammunition">Ammunition<a class="headerlink" href="#ammunition" title="Permanent link">&para;</a></h2>
+<p>Each base calibre has <code>_fmj</code>/<code>_ap</code>/<code>_hp</code> grade variants. Every grade also has <code>_bad</code>
+(worn) and <code>_verybad</code> (nearly spent) quality suffixes — e.g. <code>ammo_5.45x39_fmj_bad</code>.
+The table below lists only the base-quality sections; append <code>_bad</code> or <code>_verybad</code> as
+needed.</p>
+<table>
+<thead>
+<tr>
+<th>Calibre</th>
+<th>Sections</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5.45×39</td>
+<td><code>ammo_5.45x39_fmj</code>, <code>ammo_5.45x39_ap</code>, <code>ammo_5.45x39_ep</code></td>
+</tr>
+<tr>
+<td>5.56×45</td>
+<td><code>ammo_5.56x45_fmj</code>, <code>ammo_5.56x45_ap</code>, <code>ammo_5.56x45_ss190</code></td>
+</tr>
+<tr>
+<td>5.7×28</td>
+<td><code>ammo_5.7x28_ss190</code>, <code>ammo_5.7x28_ss195</code></td>
+</tr>
+<tr>
+<td>4.6×30</td>
+<td><code>ammo_4.6x30_fmj</code></td>
+</tr>
+<tr>
+<td>7.62×25</td>
+<td><code>ammo_7.62x25_p</code>, <code>ammo_7.62x25_ps</code></td>
+</tr>
+<tr>
+<td>7.62×39</td>
+<td><em>(loaded from weapons via magazine; use 5.45×39 sections for AKM family unless a mod adds explicit 7.62x39 ammo)</em></td>
+</tr>
+<tr>
+<td>7.62×51</td>
+<td><code>ammo_7.62x51_fmj</code>, <code>ammo_7.62x51_ap</code></td>
+</tr>
+<tr>
+<td>7.62×54</td>
+<td><code>ammo_7.62x54_7h1</code>, <code>ammo_7.62x54_7h14</code>, <code>ammo_7.62x54_ap</code></td>
+</tr>
+<tr>
+<td>9×18</td>
+<td><code>ammo_9x18_fmj</code>, <code>ammo_9x18_ap</code>, <code>ammo_9x18_pmm</code></td>
+</tr>
+<tr>
+<td>9×19</td>
+<td><code>ammo_9x19_fmj</code>, <code>ammo_9x19_ap</code>, <code>ammo_9x19_pbp</code></td>
+</tr>
+<tr>
+<td>9×39</td>
+<td><code>ammo_9x39_pab9</code>, <code>ammo_9x39_ap</code></td>
+</tr>
+<tr>
+<td>.45 ACP (11.43×23)</td>
+<td><code>ammo_11.43x23_fmj</code>, <code>ammo_11.43x23_hydro</code></td>
+</tr>
+<tr>
+<td>.357 Magnum</td>
+<td><code>ammo_357_hp_mag</code>, <code>ammo_magnum_300</code></td>
+</tr>
+<tr>
+<td>12.7×55</td>
+<td><code>ammo_12.7x55_fmj</code>, <code>ammo_12.7x55_ap</code></td>
+</tr>
+<tr>
+<td>.50 BMG</td>
+<td><code>ammo_50_bmg</code></td>
+</tr>
+<tr>
+<td>12×70 (buckshot)</td>
+<td><code>ammo_12x70_buck</code>, <code>ammo_12x70_buck_self</code></td>
+</tr>
+<tr>
+<td>12×76 (slug)</td>
+<td><code>ammo_12x76_zhekan</code>, <code>ammo_12x76_dart</code>, <code>ammo_12x76_bull</code></td>
+</tr>
+<tr>
+<td>40mm grenade</td>
+<td><code>ammo_m209</code>, <code>ammo_vog-25</code></td>
+</tr>
+<tr>
+<td>Rocket</td>
+<td><code>ammo_og-7b</code></td>
+</tr>
+<tr>
+<td>Gauss cell</td>
+<td><code>ammo_gauss</code>, <code>ammo_gauss_cardan</code></td>
+</tr>
+<tr>
+<td>PKM belt</td>
+<td><code>ammo_pkm_100</code></td>
+</tr>
+<tr>
+<td>Batteries</td>
+<td><code>ammo_batteries</code>, <code>ammo_batteries_ccell</code>, <code>ammo_batteries_dead</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="armour">Armour<a class="headerlink" href="#armour" title="Permanent link">&para;</a></h2>
+<h3 id="suits">Suits<a class="headerlink" href="#suits" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:9"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><input id="__tabbed_1_7" name="__tabbed_1" type="radio" /><input id="__tabbed_1_8" name="__tabbed_1" type="radio" /><input id="__tabbed_1_9" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Loner / Stalker</label><label for="__tabbed_1_2">Military</label><label for="__tabbed_1_3">Duty</label><label for="__tabbed_1_4">Freedom</label><label for="__tabbed_1_5">Bandit / Mercenary</label><label for="__tabbed_1_6">Ecologist / Scientific</label><label for="__tabbed_1_7">Clear Sky</label><label for="__tabbed_1_8">Monolith</label><label for="__tabbed_1_9">ISG / Other factions</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><code>novice_outfit</code>, <code>novice_outfit_camo</code>, <code>novice_outfit_tourist</code>,
+<code>stalker_outfit</code>, <code>stalker_autumn_outfit</code>, <code>stalker_bear_outfit</code>,
+<code>stalker_drought_outfit</code>, <code>stalker_graphite_outfit</code>, <code>stalker_predator_outfit</code>,
+<code>stalker_proto_exo_outfit</code>, <code>stalker_salamander_outfit</code>, <code>stalker_tigerstripe_outfit</code>,
+<code>light_loner_outfit</code>, <code>travel_outfit</code>, <code>hybrid_outfit</code>, <code>ghillie_outfit</code>,
+<code>trenchcoat_outfit</code>, <code>trenchcoat_brown_outfit</code>, <code>trenchcoat_green_outfit</code></p>
+</div>
+<div class="tabbed-block">
+<p><code>army_outfit</code>, <code>army_nosorog_outfit</code>, <code>military_outfit</code>, <code>military_exo_outfit</code>,
+<code>military_exolight_outfit</code>, <code>military_freedom_outfit</code>, <code>military_merc_outfit</code>,
+<code>military_monolit_outfit</code>, <code>military_proto_exo_outfit</code>, <code>military_sky_outfit</code>,
+<code>military_bandit_outfit</code>, <code>specops_outfit</code></p>
+</div>
+<div class="tabbed-block">
+<p><code>dolg_novice_outfit</code>, <code>dolg_outfit</code>, <code>dolg_voin_outfit</code>, <code>dolg_scout_outfit</code>,
+<code>dolg_heavy_outfit</code>, <code>dolg_red_outfit</code>, <code>dolg_scientific_outfit</code>,
+<code>dolg_exo_outfit</code>, <code>dolg_exolight_outfit</code>, <code>dolg_nosorog_outfit</code>,
+<code>dolg_proto_exo_outfit</code>, <code>dolg_heavy_proto_exo_outfit</code>,
+<code>dolg_specops_red_outfit</code>, <code>light_dolg_outfit</code>,
+<code>dolg_heavy_redline_outfit</code>, <code>dolg_scientific_red_outfit</code>,
+<code>dolg_scientific_wood_outfit</code>, <code>dolg_pantsir_outfit</code>,
+<code>nbc_dolg_outfit</code>, <code>specops_dolg_outfit</code></p>
+</div>
+<div class="tabbed-block">
+<p><code>svoboda_novice_outfit</code>, <code>svoboda_light_outfit</code>, <code>svoboda_heavy_outfit</code>,
+<code>svoboda_heavy_outfit_2</code>, <code>svoboda_scientific_outfit</code>, <code>svoboda_exo_outfit</code>,
+<code>svoboda_exolight_outfit</code>, <code>svoboda_light_proto_exo_outfit</code>,
+<code>freedom_nosorog_outfit</code>, <code>freedom_exo_vineleaf_outfit</code>,
+<code>light_freedom_outfit</code>, <code>nbc_freedom_outfit</code>, <code>military_freedom_outfit</code></p>
+</div>
+<div class="tabbed-block">
+<p><code>bandit_novice_outfit</code>, <code>bandit_novice_outfit_alt</code>, <code>bandit_sun_outfit</code>,
+<code>bandit_scientific_outfit</code>, <code>bandit_scientific_dark_outfit</code>,
+<code>bandit_nbc_outfit</code>, <code>bandit_ps5_outfit</code>, <code>bandit_exo_outfit</code>,
+<code>bandit_exolight_outfit</code>, <code>banditmerc_outfit</code>,
+<code>merc_outfit</code>, <code>merc_scout_outfit</code>, <code>merc_fighter_outfit</code>,
+<code>merc_scientific_outfit</code>, <code>merc_sun_outfit</code>, <code>merc_exo_outfit</code>,
+<code>merc_exolight_outfit</code>, <code>merc_nosorog_outfit</code>, <code>light_merc_outfit</code>,
+<code>nbc_merc_outfit</code>, <code>specops_merc_outfit</code>,
+<code>merc_ace_outfit</code>, <code>merc_coyote_outfit</code>, <code>merc_jackal_outfit</code>,
+<code>merc_nighthunter_outfit</code>, <code>merc_wolven_outfit</code>, <code>merc_sunset_outfit</code>,
+<code>merc_combat_scientific_outfit</code>, <code>merc_scientific_armored_outfit</code>,
+<code>renegade_scientific_outfit</code>, <code>renegademerc_outfit</code>,
+<code>exo_merc_grass_outfit</code>, <code>exo_merc_urban_outfit</code>, <code>exo_merc_wood_outfit</code></p>
+</div>
+<div class="tabbed-block">
+<p><code>scientific_outfit</code>, <code>ecolog_outfit_blue</code>, <code>ecolog_outfit_green</code>,
+<code>ecolog_outfit_orange</code>, <code>ecolog_outfit_red</code>, <code>ecolog_outfit_white</code>,
+<code>ecolog_outfit_yello</code>, <code>ecolog_guard_outfit</code>, <code>ecolog_exo_outfit</code>,
+<code>ecolog_proto_exo_outfit</code>, <code>nbc_outfit</code></p>
+</div>
+<div class="tabbed-block">
+<p><code>cs_novice_outfit</code>, <code>cs_light_novice_outfit</code>, <code>cs_light_outfit</code>,
+<code>cs_medium_outfit</code>, <code>cs_heavy_outfit</code>, <code>cs_stalker_outfit</code>,
+<code>cs_scientific_outfit</code>, <code>cs_scientific_outfit_good</code>, <code>cs_nbc_outfit</code>,
+<code>cs_exo_outfit</code>, <code>cs_exolight_outfit</code>, <code>cs_stalker_proto_exo_outfit</code></p>
+</div>
+<div class="tabbed-block">
+<p><code>monolith_outfit</code>, <code>monolith_nbc_outfit</code>, <code>monolith_trenchcoat_outfit</code>,
+<code>monolith_scientific_outfit</code>, <code>monolith_scientific_light_outfit</code>,
+<code>monolith_exo_outfit</code>, <code>monolith_exolight_outfit</code>,
+<code>monolith_nosorog_outfit</code>, <code>monolith_proto_exo_outfit</code>,
+<code>light_monolit_outfit</code></p>
+</div>
+<div class="tabbed-block">
+<p><code>isg_outfit</code>, <code>isg_camo_outfit</code>, <code>isg_lcs_outfit</code>, <code>isg_lcs_camo_outfit</code>,
+<code>isg_lcs_urban_outfit</code>, <code>isg_scientific_outfit</code>, <code>isg_exo_outfit</code>,
+<code>isg_exolight_outfit</code>, <code>isg_nosorog_outfit</code>, <code>isg_proto_exo_outfit</code>,
+<code>light_isg_outfit</code>,
+<code>greh_armored_outfit</code>, <code>greh_armored_camo_outfit</code>, <code>greh_trenchcoat_outfit</code>,
+<code>greh_exo_outfit</code>, <code>greh_ps5_outfit</code>,
+<code>nomad_outfit</code>, <code>wastelander_outfit</code>, <code>redline_novice_outfit</code>,
+<code>exo_outfit</code>, <code>exolight_outfit</code>, <code>exo_wood_outfit</code>,
+<code>exo_dolg_outfit</code>, <code>exo_dolg_red_outfit</code>, <code>exo_dolg_urban_outfit</code>,
+<code>exo_dolg_wood_outfit</code></p>
+</div>
+</div>
+</div>
+<h3 id="helmets">Helmets<a class="headerlink" href="#helmets" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>helm_bandana</code></td>
+<td>Bandana</td>
+</tr>
+<tr>
+<td><code>helm_cloth_mask</code></td>
+<td>Cloth mask</td>
+</tr>
+<tr>
+<td><code>helm_resp</code></td>
+<td>Basic respirator</td>
+</tr>
+<tr>
+<td><code>helm_respirator</code></td>
+<td>Full respirator</td>
+</tr>
+<tr>
+<td><code>helm_respirator_gp5</code></td>
+<td>GP-5 gas mask</td>
+</tr>
+<tr>
+<td><code>helm_respirator_old</code></td>
+<td>Worn gas mask</td>
+</tr>
+<tr>
+<td><code>helm_rp_bala</code></td>
+<td>Balaclava</td>
+</tr>
+<tr>
+<td><code>helm_hardhat</code></td>
+<td>Hard hat</td>
+</tr>
+<tr>
+<td><code>helm_hardhat_snag</code></td>
+<td>Hard hat variant</td>
+</tr>
+<tr>
+<td><code>helm_tactic</code></td>
+<td>Tactical helmet</td>
+</tr>
+<tr>
+<td><code>helm_battle</code></td>
+<td>Battle helmet</td>
+</tr>
+<tr>
+<td><code>helm_ranger</code></td>
+<td>Ranger helmet</td>
+</tr>
+<tr>
+<td><code>helm_spartan</code></td>
+<td>Spartan helmet</td>
+</tr>
+<tr>
+<td><code>helm_m40</code></td>
+<td>M40 gas mask</td>
+</tr>
+<tr>
+<td><code>helm_m50</code></td>
+<td>M50 gas mask</td>
+</tr>
+<tr>
+<td><code>helm_metro</code></td>
+<td>Metro gas mask</td>
+</tr>
+<tr>
+<td><code>helm_ppm88</code></td>
+<td>PPM-88</td>
+</tr>
+<tr>
+<td><code>helm_protective</code></td>
+<td>Protective helmet</td>
+</tr>
+<tr>
+<td><code>helm_ach7</code></td>
+<td>ACH-7 ballistic helmet</td>
+</tr>
+<tr>
+<td><code>helm_ach7ex</code></td>
+<td>ACH-7 extended</td>
+</tr>
+<tr>
+<td><code>helm_exo</code></td>
+<td>Exoskeleton helmet</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="artefacts">Artefacts<a class="headerlink" href="#artefacts" title="Permanent link">&para;</a></h2>
+<p>All artefact sections use the <code>af_</code> prefix.</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>af_aac</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>af_aam</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>af_atom</code></td>
+<td>Atom</td>
+</tr>
+<tr>
+<td><code>af_ball</code></td>
+<td>Ball of Fire</td>
+</tr>
+<tr>
+<td><code>af_baloon</code></td>
+<td>Balloon</td>
+</tr>
+<tr>
+<td><code>af_bat</code></td>
+<td>Bat</td>
+</tr>
+<tr>
+<td><code>af_black</code></td>
+<td>Black</td>
+</tr>
+<tr>
+<td><code>af_black_angel</code></td>
+<td>Black Angel</td>
+</tr>
+<tr>
+<td><code>af_black_spray</code></td>
+<td>Black Spray</td>
+</tr>
+<tr>
+<td><code>af_blood</code></td>
+<td>Blood</td>
+</tr>
+<tr>
+<td><code>af_bracelet</code></td>
+<td>Bracelet</td>
+</tr>
+<tr>
+<td><code>af_camelbak</code></td>
+<td>Camelbak</td>
+</tr>
+<tr>
+<td><code>af_camelbak_up</code></td>
+<td>Camelbak (upgraded)</td>
+</tr>
+<tr>
+<td><code>af_cell</code></td>
+<td>Cell</td>
+</tr>
+<tr>
+<td><code>af_chelust</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>af_cocoon</code></td>
+<td>Cocoon</td>
+</tr>
+<tr>
+<td><code>af_compass</code></td>
+<td>Compass</td>
+</tr>
+<tr>
+<td><code>af_cooler</code></td>
+<td>Cooler</td>
+</tr>
+<tr>
+<td><code>af_cooler_up</code></td>
+<td>Cooler (upgraded)</td>
+</tr>
+<tr>
+<td><code>af_cristall</code></td>
+<td>Crystal</td>
+</tr>
+<tr>
+<td><code>af_cristall_flower</code></td>
+<td>Crystal Flower</td>
+</tr>
+<tr>
+<td><code>af_death_lamp</code></td>
+<td>Death Lamp</td>
+</tr>
+<tr>
+<td><code>af_dragon_eye</code></td>
+<td>Dragon Eye</td>
+</tr>
+<tr>
+<td><code>af_dummy_battery</code></td>
+<td>Battery (generic)</td>
+</tr>
+<tr>
+<td><code>af_dummy_dummy</code></td>
+<td>Dummy</td>
+</tr>
+<tr>
+<td><code>af_dummy_glassbeads</code></td>
+<td>Glass Beads</td>
+</tr>
+<tr>
+<td><code>af_ear</code></td>
+<td>Ear</td>
+</tr>
+<tr>
+<td><code>af_electra_flash</code></td>
+<td>Electra Flash</td>
+</tr>
+<tr>
+<td><code>af_electra_moonlight</code></td>
+<td>Electra Moonlight</td>
+</tr>
+<tr>
+<td><code>af_electra_sparkler</code></td>
+<td>Electra Sparkler</td>
+</tr>
+<tr>
+<td><code>af_elektron</code></td>
+<td>Elektron</td>
+</tr>
+<tr>
+<td><code>af_empty</code></td>
+<td>Empty artefact</td>
+</tr>
+<tr>
+<td><code>af_eye</code></td>
+<td>Eye</td>
+</tr>
+<tr>
+<td><code>af_fire</code></td>
+<td>Fire</td>
+</tr>
+<tr>
+<td><code>af_fire_loop</code></td>
+<td>Fire Loop</td>
+</tr>
+<tr>
+<td><code>af_fireball</code></td>
+<td>Fireball</td>
+</tr>
+<tr>
+<td><code>af_fonar</code></td>
+<td>Flashlight</td>
+</tr>
+<tr>
+<td><code>af_fountain</code></td>
+<td>Fountain</td>
+</tr>
+<tr>
+<td><code>af_frames</code></td>
+<td>Frames</td>
+</tr>
+<tr>
+<td><code>af_frames_up</code></td>
+<td>Frames (upgraded)</td>
+</tr>
+<tr>
+<td><code>af_freon</code></td>
+<td>Freon</td>
+</tr>
+<tr>
+<td><code>af_freon_up</code></td>
+<td>Freon (upgraded)</td>
+</tr>
+<tr>
+<td><code>af_fuzz_kolobok</code></td>
+<td>Fuzz Kolobok</td>
+</tr>
+<tr>
+<td><code>af_geliy</code></td>
+<td>Geliy</td>
+</tr>
+<tr>
+<td><code>af_generator</code></td>
+<td>Generator</td>
+</tr>
+<tr>
+<td><code>af_gimlet</code></td>
+<td>Gimlet</td>
+</tr>
+<tr>
+<td><code>af_glass</code></td>
+<td>Glass</td>
+</tr>
+<tr>
+<td><code>af_gold_fish</code></td>
+<td>Gold Fish</td>
+</tr>
+<tr>
+<td><code>af_grapes</code></td>
+<td>Grapes</td>
+</tr>
+<tr>
+<td><code>af_gravi</code></td>
+<td>Gravi</td>
+</tr>
+<tr>
+<td><code>af_grid</code></td>
+<td>Grid</td>
+</tr>
+<tr>
+<td><code>af_grid_up</code></td>
+<td>Grid (upgraded)</td>
+</tr>
+<tr>
+<td><code>af_iam</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>af_ice</code></td>
+<td>Ice</td>
+</tr>
+<tr>
+<td><code>af_itcher</code></td>
+<td>Itcher</td>
+</tr>
+<tr>
+<td><code>af_kevlar</code></td>
+<td>Kevlar</td>
+</tr>
+<tr>
+<td><code>af_kevlar_up</code></td>
+<td>Kevlar (upgraded)</td>
+</tr>
+<tr>
+<td><code>af_kislushka</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>af_kogot</code></td>
+<td>Claw</td>
+</tr>
+<tr>
+<td><code>af_lighthouse</code></td>
+<td>Lighthouse</td>
+</tr>
+<tr>
+<td><code>af_lobster_eyes</code></td>
+<td>Lobster Eyes</td>
+</tr>
+<tr>
+<td><code>af_medallion</code></td>
+<td>Medallion</td>
+</tr>
+<tr>
+<td><code>af_medusa</code></td>
+<td>Medusa</td>
+</tr>
+<tr>
+<td><code>af_mincer_meat</code></td>
+<td>Mincer Meat</td>
+</tr>
+<tr>
+<td><code>af_misery_bread</code></td>
+<td>Bread</td>
+</tr>
+<tr>
+<td><code>af_moh</code></td>
+<td>Moh</td>
+</tr>
+<tr>
+<td><code>af_monolith</code></td>
+<td>Monolith</td>
+</tr>
+<tr>
+<td><code>af_night_star</code></td>
+<td>Night Star</td>
+</tr>
+<tr>
+<td><code>af_oasis_heart</code></td>
+<td>Oasis Heart</td>
+</tr>
+<tr>
+<td><code>af_peas</code></td>
+<td>Peas</td>
+</tr>
+<tr>
+<td><code>af_pin</code></td>
+<td>Pin</td>
+</tr>
+<tr>
+<td><code>af_plates</code></td>
+<td>Plates</td>
+</tr>
+<tr>
+<td><code>af_plates_up</code></td>
+<td>Plates (upgraded)</td>
+</tr>
+<tr>
+<td><code>af_quest_b14_twisted</code></td>
+<td>Twisted (quest)</td>
+</tr>
+<tr>
+<td><code>af_repei</code></td>
+<td>Repei</td>
+</tr>
+<tr>
+<td><code>af_ring</code></td>
+<td>Ring</td>
+</tr>
+<tr>
+<td><code>af_sandstone</code></td>
+<td>Sandstone</td>
+</tr>
+<tr>
+<td><code>af_serofim</code></td>
+<td>Serofim</td>
+</tr>
+<tr>
+<td><code>af_signet</code></td>
+<td>Signet</td>
+</tr>
+<tr>
+<td><code>af_skull_miser</code></td>
+<td>Skull Miser</td>
+</tr>
+<tr>
+<td><code>af_soul</code></td>
+<td>Soul</td>
+</tr>
+<tr>
+<td><code>af_spaika</code></td>
+<td>Spaika</td>
+</tr>
+<tr>
+<td><code>af_sponge</code></td>
+<td>Sponge</td>
+</tr>
+<tr>
+<td><code>af_star_phantom</code></td>
+<td>Star Phantom</td>
+</tr>
+<tr>
+<td><code>af_sun</code></td>
+<td>Sun</td>
+</tr>
+<tr>
+<td><code>af_surge</code></td>
+<td>Surge</td>
+</tr>
+<tr>
+<td><code>af_surge_up</code></td>
+<td>Surge (upgraded)</td>
+</tr>
+<tr>
+<td><code>af_tapeworm</code></td>
+<td>Tapeworm</td>
+</tr>
+<tr>
+<td><code>af_vaselisk</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>af_vyvert</code></td>
+<td>Vyvert</td>
+</tr>
+<tr>
+<td><code>af_zhelch</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>af_ameba_mica</code></td>
+<td>Ameba Mica</td>
+</tr>
+<tr>
+<td><code>af_ameba_slime</code></td>
+<td>Ameba Slime</td>
+</tr>
+<tr>
+<td><code>af_ameba_slug</code></td>
+<td>Ameba Slug</td>
+</tr>
+<tr>
+<td><code>af_drops</code></td>
+<td>Drops</td>
+</tr>
+<tr>
+<td><code>af_dummy_pellicle</code></td>
+<td>Pellicle</td>
+</tr>
+<tr>
+<td><code>af_dummy_spring</code></td>
+<td>Spring</td>
+</tr>
+<tr>
+<td><code>af_full_empty</code></td>
+<td>Full Empty</td>
+</tr>
+<tr>
+<td><code>af_rusty_kristall</code></td>
+<td>Rusty Crystal</td>
+</tr>
+<tr>
+<td><code>af_rusty_sea</code></td>
+<td>Rusty Sea</td>
+</tr>
+<tr>
+<td><code>af_rusty_thorn</code></td>
+<td>Rusty Thorn</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mutant-hides-artefact-category">Mutant hides (artefact category)<a class="headerlink" href="#mutant-hides-artefact-category" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>hide_bloodsucker</code></td>
+<td>Bloodsucker hide</td>
+</tr>
+<tr>
+<td><code>hide_boar</code></td>
+<td>Boar hide</td>
+</tr>
+<tr>
+<td><code>hide_burer</code></td>
+<td>Burer hide</td>
+</tr>
+<tr>
+<td><code>hide_chimera</code></td>
+<td>Chimera hide</td>
+</tr>
+<tr>
+<td><code>hide_controller</code></td>
+<td>Controller hide</td>
+</tr>
+<tr>
+<td><code>hide_flesh</code></td>
+<td>Flesh hide</td>
+</tr>
+<tr>
+<td><code>hide_lurker</code></td>
+<td>Lurker hide</td>
+</tr>
+<tr>
+<td><code>hide_pseudodog</code></td>
+<td>Pseudodog hide</td>
+</tr>
+<tr>
+<td><code>hide_pseudogiant</code></td>
+<td>Pseudogiant hide</td>
+</tr>
+<tr>
+<td><code>hide_psy_dog</code></td>
+<td>Psy-dog hide</td>
+</tr>
+<tr>
+<td><code>hide_psysucker</code></td>
+<td>Psysucker hide</td>
+</tr>
+<tr>
+<td><code>fieldcraft_plate_attch</code></td>
+<td>Fieldcraft plate attachment</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="medical-and-consumables">Medical and Consumables<a class="headerlink" href="#medical-and-consumables" title="Permanent link">&para;</a></h2>
+<h3 id="medical">Medical<a class="headerlink" href="#medical" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>medkit</code></td>
+<td>Standard medkit</td>
+</tr>
+<tr>
+<td><code>medkit_army</code></td>
+<td>Army medkit</td>
+</tr>
+<tr>
+<td><code>medkit_scientic</code></td>
+<td>Scientific medkit</td>
+</tr>
+<tr>
+<td><code>medkit_ai1</code></td>
+<td>AI medkit tier 1</td>
+</tr>
+<tr>
+<td><code>medkit_ai2</code></td>
+<td>AI medkit tier 2</td>
+</tr>
+<tr>
+<td><code>medkit_ai3</code></td>
+<td>AI medkit tier 3</td>
+</tr>
+<tr>
+<td><code>bandage</code></td>
+<td>Bandage</td>
+</tr>
+<tr>
+<td><code>survival_kit</code></td>
+<td>Survival kit</td>
+</tr>
+<tr>
+<td><code>stimpack</code></td>
+<td>Stimpack</td>
+</tr>
+<tr>
+<td><code>stimpack_army</code></td>
+<td>Army stimpack</td>
+</tr>
+<tr>
+<td><code>stimpack_scientic</code></td>
+<td>Scientific stimpack</td>
+</tr>
+<tr>
+<td><code>antirad</code></td>
+<td>Antirad</td>
+</tr>
+<tr>
+<td><code>antirad_cystamine</code></td>
+<td>Antirad (cystamine)</td>
+</tr>
+<tr>
+<td><code>antirad_kalium</code></td>
+<td>Antirad (potassium iodide)</td>
+</tr>
+<tr>
+<td><code>drug_radioprotector</code></td>
+<td>Radioprotector</td>
+</tr>
+<tr>
+<td><code>drug_anabiotic</code></td>
+<td>Anabiotic (used for emissions)</td>
+</tr>
+<tr>
+<td><code>drug_antidot</code></td>
+<td>Antidote</td>
+</tr>
+<tr>
+<td><code>drug_booster</code></td>
+<td>Booster</td>
+</tr>
+<tr>
+<td><code>drug_coagulant</code></td>
+<td>Coagulant</td>
+</tr>
+<tr>
+<td><code>drug_psy_blockade</code></td>
+<td>Psy blockade</td>
+</tr>
+<tr>
+<td><code>drug_sleepingpills</code></td>
+<td>Sleeping pills</td>
+</tr>
+<tr>
+<td><code>analgetic</code></td>
+<td>Analgesic</td>
+</tr>
+<tr>
+<td><code>adrenalin</code></td>
+<td>Adrenaline</td>
+</tr>
+<tr>
+<td><code>antibio_chlor</code></td>
+<td>Antibiotic (chloramphenicol)</td>
+</tr>
+<tr>
+<td><code>antibio_sulfad</code></td>
+<td>Antibiotic (sulfadiazine)</td>
+</tr>
+<tr>
+<td><code>antiemetic</code></td>
+<td>Antiemetic</td>
+</tr>
+<tr>
+<td><code>akvatab</code></td>
+<td>Purification tablet</td>
+</tr>
+<tr>
+<td><code>caffeine</code></td>
+<td>Caffeine</td>
+</tr>
+<tr>
+<td><code>glucose</code></td>
+<td>Glucose</td>
+</tr>
+<tr>
+<td><code>glucose_s</code></td>
+<td>Glucose shot</td>
+</tr>
+<tr>
+<td><code>morphine</code></td>
+<td>Morphine</td>
+</tr>
+<tr>
+<td><code>rebirth</code></td>
+<td>Rebirth</td>
+</tr>
+<tr>
+<td><code>tetanus</code></td>
+<td>Tetanus shot</td>
+</tr>
+<tr>
+<td><code>yadylin</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="food-and-drink">Food and Drink<a class="headerlink" href="#food-and-drink" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vodka</code></td>
+<td>Vodka</td>
+</tr>
+<tr>
+<td><code>vodka2</code></td>
+<td>Vodka variant</td>
+</tr>
+<tr>
+<td><code>vodka_quality</code></td>
+<td>Quality vodka</td>
+</tr>
+<tr>
+<td><code>beer</code></td>
+<td>Beer</td>
+</tr>
+<tr>
+<td><code>energy_drink</code></td>
+<td>Energy drink</td>
+</tr>
+<tr>
+<td><code>mineral_water</code></td>
+<td>Mineral water</td>
+</tr>
+<tr>
+<td><code>water_drink</code></td>
+<td>Water</td>
+</tr>
+<tr>
+<td><code>flask</code></td>
+<td>Flask</td>
+</tr>
+<tr>
+<td><code>tea</code></td>
+<td>Tea</td>
+</tr>
+<tr>
+<td><code>bread</code></td>
+<td>Bread</td>
+</tr>
+<tr>
+<td><code>breadold</code></td>
+<td>Stale bread</td>
+</tr>
+<tr>
+<td><code>kolbasa</code></td>
+<td>Sausage</td>
+</tr>
+<tr>
+<td><code>sausage</code></td>
+<td>Sausage</td>
+</tr>
+<tr>
+<td><code>tushonka</code></td>
+<td>Canned meat</td>
+</tr>
+<tr>
+<td><code>conserva</code></td>
+<td>Canned food</td>
+</tr>
+<tr>
+<td><code>beans</code></td>
+<td>Beans</td>
+</tr>
+<tr>
+<td><code>corn</code></td>
+<td>Corn</td>
+</tr>
+<tr>
+<td><code>nuts</code></td>
+<td>Nuts</td>
+</tr>
+<tr>
+<td><code>raisins</code></td>
+<td>Raisins</td>
+</tr>
+<tr>
+<td><code>salmon</code></td>
+<td>Canned salmon</td>
+</tr>
+<tr>
+<td><code>tomato</code></td>
+<td>Tomato</td>
+</tr>
+<tr>
+<td><code>chocolate</code></td>
+<td>Chocolate</td>
+</tr>
+<tr>
+<td><code>chili</code></td>
+<td>Chili</td>
+</tr>
+<tr>
+<td><code>mre</code></td>
+<td>MRE ration</td>
+</tr>
+<tr>
+<td><code>ration_ru</code></td>
+<td>Russian ration</td>
+</tr>
+<tr>
+<td><code>ration_ukr</code></td>
+<td>Ukrainian ration</td>
+</tr>
+<tr>
+<td><code>protein</code></td>
+<td>Protein bar</td>
+</tr>
+<tr>
+<td><code>mint</code></td>
+<td>Mint</td>
+</tr>
+<tr>
+<td><code>jgut</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="cookedprepared-food-fieldcooker-system">Cooked/prepared food (fieldcooker system)<a class="headerlink" href="#cookedprepared-food-fieldcooker-system" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>meat_bloodsucker</code></td>
+<td>Bloodsucker meat</td>
+</tr>
+<tr>
+<td><code>meat_boar</code></td>
+<td>Boar meat</td>
+</tr>
+<tr>
+<td><code>meat_chimera</code></td>
+<td>Chimera meat</td>
+</tr>
+<tr>
+<td><code>meat_dog</code></td>
+<td>Dog meat</td>
+</tr>
+<tr>
+<td><code>meat_flesh</code></td>
+<td>Flesh meat</td>
+</tr>
+<tr>
+<td><code>meat_lurker</code></td>
+<td>Lurker meat</td>
+</tr>
+<tr>
+<td><code>meat_pseudodog</code></td>
+<td>Pseudodog meat</td>
+</tr>
+<tr>
+<td><code>meat_psysucker</code></td>
+<td>Psysucker meat</td>
+</tr>
+<tr>
+<td><code>meat_snork</code></td>
+<td>Snork meat</td>
+</tr>
+<tr>
+<td><code>meat_tushkano</code></td>
+<td>Tushkano meat</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cigarettes-and-recreational">Cigarettes and Recreational<a class="headerlink" href="#cigarettes-and-recreational" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cigarettes</code></td>
+<td>Cigarettes</td>
+</tr>
+<tr>
+<td><code>cigarettes_lucky</code></td>
+<td>Lucky Strike cigarettes</td>
+</tr>
+<tr>
+<td><code>cigarettes_russian</code></td>
+<td>Russian cigarettes</td>
+</tr>
+<tr>
+<td><code>cigar</code></td>
+<td>Cigar</td>
+</tr>
+<tr>
+<td><code>cigar1</code></td>
+<td>Cigar variant</td>
+</tr>
+<tr>
+<td><code>cigar2</code></td>
+<td>Cigar variant</td>
+</tr>
+<tr>
+<td><code>cigar3</code></td>
+<td>Cigar variant</td>
+</tr>
+<tr>
+<td><code>tobacco</code></td>
+<td>Loose tobacco</td>
+</tr>
+<tr>
+<td><code>hand_rolling_tobacco</code></td>
+<td>Hand-rolling tobacco</td>
+</tr>
+<tr>
+<td><code>joint</code></td>
+<td>Joint</td>
+</tr>
+<tr>
+<td><code>marijuana</code></td>
+<td>Marijuana</td>
+</tr>
+<tr>
+<td><code>cocaine</code></td>
+<td>Cocaine</td>
+</tr>
+<tr>
+<td><code>guitar_a</code></td>
+<td>Guitar</td>
+</tr>
+<tr>
+<td><code>harmonica_a</code></td>
+<td>Harmonica</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="equipment-and-devices">Equipment and Devices<a class="headerlink" href="#equipment-and-devices" title="Permanent link">&para;</a></h2>
+<h3 id="anomaly-detectors">Anomaly Detectors<a class="headerlink" href="#anomaly-detectors" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>detector_simple</code></td>
+<td>Simple detector (Bear)</td>
+</tr>
+<tr>
+<td><code>detector_advanced</code></td>
+<td>Advanced detector (Veles)</td>
+</tr>
+<tr>
+<td><code>detector_elite</code></td>
+<td>Elite detector (Svarog)</td>
+</tr>
+<tr>
+<td><code>detector_scientific</code></td>
+<td>Scientific detector</td>
+</tr>
+<tr>
+<td><code>detector_geiger</code></td>
+<td>Geiger counter</td>
+</tr>
+<tr>
+<td><code>anomaly_scaner</code></td>
+<td>Anomaly scanner</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pdas-and-communication">PDAs and Communication<a class="headerlink" href="#pdas-and-communication" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>device_pda</code></td>
+<td>Abstract base / NPC PDA — the section NPCs carry. The player never holds this section directly.</td>
+</tr>
+<tr>
+<td><code>device_pda_1</code></td>
+<td>Player PDA tier 1 — the starting PDA given at new game.</td>
+</tr>
+<tr>
+<td><code>device_pda_2</code></td>
+<td>Player PDA tier 2 — crafted from <code>device_pda_1</code>. Unlocks allied squad visibility.</td>
+</tr>
+<tr>
+<td><code>device_pda_3</code></td>
+<td>Player PDA tier 3 — crafted from <code>device_pda_2</code>. Extended squad features.</td>
+</tr>
+<tr>
+<td><code>device_flashlight</code></td>
+<td>Standalone flashlight — the item players carry in inventory (class <code>D_FLALIT</code>).</td>
+</tr>
+<tr>
+<td><code>device_torch</code></td>
+<td>Abstract base torch (class <code>TORCH_S</code>) — used by NPCs and as base for NV variants. The player does not hold this section directly.</td>
+</tr>
+<tr>
+<td><code>device_torch_nv_1</code></td>
+<td>NV torch tier 1 — night vision attachment, inherits from <code>device_torch</code>.</td>
+</tr>
+<tr>
+<td><code>device_torch_nv_2</code></td>
+<td>NV torch tier 2 — improved night vision.</td>
+</tr>
+<tr>
+<td><code>device_torch_nv_3</code></td>
+<td>NV torch tier 3 — best night vision.</td>
+</tr>
+<tr>
+<td><code>dev_flash_1</code></td>
+<td>Flash drive 1</td>
+</tr>
+<tr>
+<td><code>dev_flash_2</code></td>
+<td>Flash drive 2</td>
+</tr>
+<tr>
+<td><code>itm_pda_personal</code></td>
+<td>Personal PDA</td>
+</tr>
+<tr>
+<td><code>radio2</code></td>
+<td>Radio</td>
+</tr>
+</tbody>
+</table>
+<h3 id="repair-kits">Repair Kits<a class="headerlink" href="#repair-kits" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>light_repair_kit</code></td>
+<td>Light repair kit (weapons)</td>
+</tr>
+<tr>
+<td><code>medium_repair_kit</code></td>
+<td>Medium repair kit</td>
+</tr>
+<tr>
+<td><code>heavy_repair_kit</code></td>
+<td>Heavy repair kit</td>
+</tr>
+<tr>
+<td><code>armor_repair_fa</code></td>
+<td>Armour repair kit</td>
+</tr>
+<tr>
+<td><code>helmet_repair_kit</code></td>
+<td>Helmet repair kit</td>
+</tr>
+<tr>
+<td><code>exo_repair_kit</code></td>
+<td>Exoskeleton repair kit</td>
+</tr>
+<tr>
+<td><code>cleaning_kit_p</code></td>
+<td>Cleaning kit (pistols)</td>
+</tr>
+<tr>
+<td><code>cleaning_kit_r5</code></td>
+<td>Cleaning kit (rifles, 5.45)</td>
+</tr>
+<tr>
+<td><code>cleaning_kit_r7</code></td>
+<td>Cleaning kit (rifles, 7.62)</td>
+</tr>
+<tr>
+<td><code>cleaning_kit_s</code></td>
+<td>Cleaning kit (shotguns)</td>
+</tr>
+<tr>
+<td><code>cleaning_kit_u</code></td>
+<td>Cleaning kit (universal)</td>
+</tr>
+<tr>
+<td><code>gun_oil</code></td>
+<td>Gun oil</td>
+</tr>
+<tr>
+<td><code>gun_oil_ru</code></td>
+<td>Gun oil (Russian)</td>
+</tr>
+<tr>
+<td><code>gun_oil_ru_d</code></td>
+<td>Gun oil variant</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tools-and-crafting">Tools and Crafting<a class="headerlink" href="#tools-and-crafting" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>toolkit_1</code></td>
+<td>Toolkit tier 1</td>
+</tr>
+<tr>
+<td><code>toolkit_2</code></td>
+<td>Toolkit tier 2</td>
+</tr>
+<tr>
+<td><code>toolkit_3</code></td>
+<td>Toolkit tier 3</td>
+</tr>
+<tr>
+<td><code>toolkit_p</code></td>
+<td>Toolkit (pistols)</td>
+</tr>
+<tr>
+<td><code>toolkit_r5</code></td>
+<td>Toolkit (rifles, 5.45)</td>
+</tr>
+<tr>
+<td><code>toolkit_r7</code></td>
+<td>Toolkit (rifles, 7.62)</td>
+</tr>
+<tr>
+<td><code>toolkit_s</code></td>
+<td>Toolkit (shotguns)</td>
+</tr>
+<tr>
+<td><code>itm_basickit</code></td>
+<td>Basic crafting kit</td>
+</tr>
+<tr>
+<td><code>itm_gunsmith_toolkit</code></td>
+<td>Gunsmith toolkit</td>
+</tr>
+<tr>
+<td><code>leatherman_tool</code></td>
+<td>Leatherman multi-tool</td>
+</tr>
+<tr>
+<td><code>swiss_knife</code></td>
+<td>Swiss army knife</td>
+</tr>
+<tr>
+<td><code>sharpening_stones</code></td>
+<td>Sharpening stones</td>
+</tr>
+<tr>
+<td><code>sewing_kit_a</code></td>
+<td>Sewing kit (armour)</td>
+</tr>
+<tr>
+<td><code>sewing_kit_b</code></td>
+<td>Sewing kit (boots)</td>
+</tr>
+<tr>
+<td><code>sewing_kit_h</code></td>
+<td>Sewing kit (helmet)</td>
+</tr>
+<tr>
+<td><code>charcoal</code></td>
+<td>Charcoal (filter material)</td>
+</tr>
+<tr>
+<td><code>glue_a</code></td>
+<td>Glue (armour)</td>
+</tr>
+<tr>
+<td><code>glue_b</code></td>
+<td>Glue (boots)</td>
+</tr>
+<tr>
+<td><code>glue_e</code></td>
+<td>Glue (electronics)</td>
+</tr>
+<tr>
+<td><code>solvent</code></td>
+<td>Solvent</td>
+</tr>
+<tr>
+<td><code>salicidic_acid</code></td>
+<td>Salicylic acid</td>
+</tr>
+<tr>
+<td><code>fieldcooker</code></td>
+<td>Fieldcooker</td>
+</tr>
+<tr>
+<td><code>cooking</code></td>
+<td>Cooking item</td>
+</tr>
+<tr>
+<td><code>box_matches</code></td>
+<td>Box of matches</td>
+</tr>
+<tr>
+<td><code>matches</code></td>
+<td>Matches</td>
+</tr>
+<tr>
+<td><code>kerosene</code></td>
+<td>Kerosene</td>
+</tr>
+<tr>
+<td><code>compression_bag</code></td>
+<td>Compression bag</td>
+</tr>
+</tbody>
+</table>
+<h3 id="backpacks-and-containers">Backpacks and Containers<a class="headerlink" href="#backpacks-and-containers" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>itm_backpack</code></td>
+<td>Backpack (stash container)</td>
+</tr>
+<tr>
+<td><code>itm_actor_backpack</code></td>
+<td>Actor backpack</td>
+</tr>
+<tr>
+<td><code>itm_actor_backpack_mlr</code></td>
+<td>Backpack (MLR variant)</td>
+</tr>
+<tr>
+<td><code>inventory_box</code></td>
+<td>Inventory box container</td>
+</tr>
+<tr>
+<td><code>equ_small_pack</code></td>
+<td>Small pack</td>
+</tr>
+<tr>
+<td><code>equ_small_military_pack</code></td>
+<td>Small military pack</td>
+</tr>
+<tr>
+<td><code>equ_military_pack</code></td>
+<td>Military pack</td>
+</tr>
+<tr>
+<td><code>equ_tourist_pack</code></td>
+<td>Tourist pack</td>
+</tr>
+<tr>
+<td><code>kit_hunt</code></td>
+<td>Hunting kit</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fuel-and-explosives-containers">Fuel and Explosives Containers<a class="headerlink" href="#fuel-and-explosives-containers" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>explo_jerrycan_fuel</code></td>
+<td>Fuel jerrycan (full)</td>
+</tr>
+<tr>
+<td><code>explo_jerrycan_fuel_empty</code></td>
+<td>Fuel jerrycan (empty)</td>
+</tr>
+<tr>
+<td><code>explo_balon_gas</code></td>
+<td>Gas canister (full)</td>
+</tr>
+<tr>
+<td><code>explo_balon_gas_empty</code></td>
+<td>Gas canister (empty)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="misc-devices">Misc Devices<a class="headerlink" href="#misc-devices" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>addon</code></td>
+<td>Addon item</td>
+</tr>
+<tr>
+<td><code>ammo_box</code></td>
+<td>Ammo box</td>
+</tr>
+<tr>
+<td><code>tch_detector</code></td>
+<td><strong>Base class</strong> — parent for <code>detector_geiger</code>. Do not spawn directly.</td>
+</tr>
+<tr>
+<td><code>tch_quest</code></td>
+<td><strong>Base class</strong> — parent for all quest items. Do not spawn directly.</td>
+</tr>
+<tr>
+<td><code>tch_money</code></td>
+<td><strong>Base class</strong> — parent for all money denominations. Do not spawn directly.</td>
+</tr>
+<tr>
+<td><code>tch_junk</code></td>
+<td><strong>Base class</strong> — parent for <code>radio2</code> and similar junk items. Do not spawn directly.</td>
+</tr>
+<tr>
+<td><code>decoder</code></td>
+<td>Decoder device</td>
+</tr>
+<tr>
+<td><code>stitch_decoder</code></td>
+<td>Stitch decoder</td>
+</tr>
+<tr>
+<td><code>decryption_radio</code></td>
+<td>Decryption radio</td>
+</tr>
+<tr>
+<td><code>monolith_shard</code></td>
+<td>Monolith shard</td>
+</tr>
+<tr>
+<td><code>itm_tent</code></td>
+<td>Tent</td>
+</tr>
+<tr>
+<td><code>itm_tent_bag</code></td>
+<td>Tent bag</td>
+</tr>
+<tr>
+<td><code>itm_sleepbag</code></td>
+<td>Sleeping bag</td>
+</tr>
+<tr>
+<td><code>itm_deployable_mgun</code></td>
+<td>Deployable machine gun</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="mutant-parts">Mutant Parts<a class="headerlink" href="#mutant-parts" title="Permanent link">&para;</a></h2>
+<p>Sold to traders and used in crafting. All use the <code>mutant_part_</code> prefix.</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Mutant</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mutant_part_boar_chop</code></td>
+<td>Boar</td>
+</tr>
+<tr>
+<td><code>mutant_part_boar_leg</code></td>
+<td>Boar</td>
+</tr>
+<tr>
+<td><code>mutant_part_tusk_boar</code></td>
+<td>Boar</td>
+</tr>
+<tr>
+<td><code>mutant_part_dog_heart</code></td>
+<td>Dog</td>
+</tr>
+<tr>
+<td><code>mutant_part_dog_liver</code></td>
+<td>Dog</td>
+</tr>
+<tr>
+<td><code>mutant_part_dog_meat</code></td>
+<td>Dog</td>
+</tr>
+<tr>
+<td><code>mutant_part_dog_tail</code></td>
+<td>Dog</td>
+</tr>
+<tr>
+<td><code>mutant_part_flesh_eye</code></td>
+<td>Flesh</td>
+</tr>
+<tr>
+<td><code>mutant_part_flesh_meat</code></td>
+<td>Flesh</td>
+</tr>
+<tr>
+<td><code>mutant_part_fang_psevdodog</code></td>
+<td>Pseudodog</td>
+</tr>
+<tr>
+<td><code>mutant_part_psevdodog_meat</code></td>
+<td>Pseudodog</td>
+</tr>
+<tr>
+<td><code>mutant_part_psevdodog_tail</code></td>
+<td>Pseudodog</td>
+</tr>
+<tr>
+<td><code>mutant_part_brain_burer</code></td>
+<td>Burer</td>
+</tr>
+<tr>
+<td><code>mutant_part_burer_hand</code></td>
+<td>Burer</td>
+</tr>
+<tr>
+<td><code>mutant_part_fracture_hand</code></td>
+<td>Poltergeist</td>
+</tr>
+<tr>
+<td><code>mutant_part_heart_bloodsucker</code></td>
+<td>Bloodsucker</td>
+</tr>
+<tr>
+<td><code>mutant_part_krovosos_jaw</code></td>
+<td>Bloodsucker</td>
+</tr>
+<tr>
+<td><code>mutant_part_krovosos_meat</code></td>
+<td>Bloodsucker</td>
+</tr>
+<tr>
+<td><code>mutant_part_controller_glass</code></td>
+<td>Controller</td>
+</tr>
+<tr>
+<td><code>mutant_part_controller_hand</code></td>
+<td>Controller</td>
+</tr>
+<tr>
+<td><code>mutant_part_cat_claw</code></td>
+<td>Cat</td>
+</tr>
+<tr>
+<td><code>mutant_part_cat_tail</code></td>
+<td>Cat</td>
+</tr>
+<tr>
+<td><code>mutant_part_cat_thyroid</code></td>
+<td>Cat</td>
+</tr>
+<tr>
+<td><code>mutant_part_lurker_eye</code></td>
+<td>Lurker</td>
+</tr>
+<tr>
+<td><code>mutant_part_lurker_meat</code></td>
+<td>Lurker</td>
+</tr>
+<tr>
+<td><code>mutant_part_lurker_tail</code></td>
+<td>Lurker</td>
+</tr>
+<tr>
+<td><code>mutant_part_chimera_claw</code></td>
+<td>Chimera</td>
+</tr>
+<tr>
+<td><code>mutant_part_chimera_kogot</code></td>
+<td>Chimera</td>
+</tr>
+<tr>
+<td><code>mutant_part_chimera_meat</code></td>
+<td>Chimera</td>
+</tr>
+<tr>
+<td><code>mutant_part_heart_chimera</code></td>
+<td>Chimera</td>
+</tr>
+<tr>
+<td><code>mutant_part_snork_hand</code></td>
+<td>Snork</td>
+</tr>
+<tr>
+<td><code>mutant_part_snork_leg</code></td>
+<td>Snork</td>
+</tr>
+<tr>
+<td><code>mutant_part_snork_mask</code></td>
+<td>Snork</td>
+</tr>
+<tr>
+<td><code>mutant_part_pseudogigant_eye</code></td>
+<td>Pseudogiant</td>
+</tr>
+<tr>
+<td><code>mutant_part_pseudogigant_hand</code></td>
+<td>Pseudogiant</td>
+</tr>
+<tr>
+<td><code>mutant_part_psysucker_hand</code></td>
+<td>Psysucker</td>
+</tr>
+<tr>
+<td><code>mutant_part_psysucker_meat</code></td>
+<td>Psysucker</td>
+</tr>
+<tr>
+<td><code>mutant_part_tushkano_head</code></td>
+<td>Tushkano</td>
+</tr>
+<tr>
+<td><code>mutant_part_tushkano_meat</code></td>
+<td>Tushkano</td>
+</tr>
+<tr>
+<td><code>mutant_part_zombi_hand</code></td>
+<td>Zombie</td>
+</tr>
+<tr>
+<td><code>mutant_part_crow_beak</code></td>
+<td>Crow</td>
+</tr>
+<tr>
+<td><code>mutant_part_general</code></td>
+<td><strong>Base class</strong> — parent for most specific mutant parts. Do not spawn directly.</td>
+</tr>
+<tr>
+<td><code>mutant_part_general_add</code></td>
+<td><strong>Base class</strong> — parent for secondary parts (claws, thyroid, etc.). Do not spawn directly.</td>
+</tr>
+<tr>
+<td><code>mutant_part_general_meat</code></td>
+<td><strong>Base class</strong> — parent for meat parts. Do not spawn directly.</td>
+</tr>
+<tr>
+<td><code>mutant_part_general_mlr</code></td>
+<td><strong>Base class</strong> — MLR variant base. Do not spawn directly.</td>
+</tr>
+<tr>
+<td><code>powder_poltergeist</code></td>
+<td>Poltergeist</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="grenades-and-explosives">Grenades and Explosives<a class="headerlink" href="#grenades-and-explosives" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>grenade_f1</code></td>
+<td>F1 fragmentation grenade</td>
+</tr>
+<tr>
+<td><code>grenade_rgd5</code></td>
+<td>RGD-5 grenade</td>
+</tr>
+<tr>
+<td><code>grenade_gd-05</code></td>
+<td>GD-05 grenade</td>
+</tr>
+<tr>
+<td><code>grenade_smoke</code></td>
+<td>Smoke grenade</td>
+</tr>
+<tr>
+<td><code>mine</code></td>
+<td>TM-46 anti-personnel mine</td>
+</tr>
+<tr>
+<td><code>mine_new</code></td>
+<td>Updated mine</td>
+</tr>
+<tr>
+<td><code>mine_proximity</code></td>
+<td>Proximity mine</td>
+</tr>
+<tr>
+<td><code>ied</code></td>
+<td>IED</td>
+</tr>
+<tr>
+<td><code>ied_new</code></td>
+<td>Updated IED</td>
+</tr>
+<tr>
+<td><code>ied_rpg</code></td>
+<td>RPG IED</td>
+</tr>
+<tr>
+<td><code>ied_rpg_new</code></td>
+<td>RPG IED updated</td>
+</tr>
+<tr>
+<td><code>explosive_dinamit</code></td>
+<td>Dynamite</td>
+</tr>
+<tr>
+<td><code>explo_metalcan_powder</code></td>
+<td>Metal can powder</td>
+</tr>
+<tr>
+<td><code>explosive_barrel</code></td>
+<td><strong>Base class / world object</strong> — parent for IED blow states and world barrels. Do not spawn as an inventory item.</td>
+</tr>
+<tr>
+<td><code>explosive_fuelcan</code></td>
+<td><strong>Base class / world object</strong> — parent for <code>explosive_gaz_balon</code>. Do not spawn as an inventory item.</td>
+</tr>
+<tr>
+<td><code>explosive_grenade</code></td>
+<td><strong>Base class / world object</strong> — parent for scripted grenade objects. Do not spawn as an inventory item.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="money">Money<a class="headerlink" href="#money" title="Permanent link">&para;</a></h2>
+<p>Currency items used in the in-game economy.</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>money_10</code></td>
+<td>10 RU</td>
+</tr>
+<tr>
+<td><code>money_50</code></td>
+<td>50 RU</td>
+</tr>
+<tr>
+<td><code>money_100</code></td>
+<td>100 RU</td>
+</tr>
+<tr>
+<td><code>money_500</code></td>
+<td>500 RU</td>
+</tr>
+<tr>
+<td><code>money_1000</code></td>
+<td>1,000 RU</td>
+</tr>
+<tr>
+<td><code>money_5000</code></td>
+<td>5,000 RU</td>
+</tr>
+<tr>
+<td><code>cash</code></td>
+<td>Cash (generic)</td>
+</tr>
+<tr>
+<td><code>tch_money</code></td>
+<td>Trader Caravan money</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="quest-items-and-documents">Quest Items and Documents<a class="headerlink" href="#quest-items-and-documents" title="Permanent link">&para;</a></h2>
+<p>These sections are used in specific quests. They typically cannot be sold and have
+no combat or utility value outside their quest context.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>broken_pda              chernobog_notes         cit_doctors_pda
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>cit_doctors_key         drekavac_notes          drx_sl_quest_item_1
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>drx_sl_quest_item_2     drx_sl_quest_item_3     jup_a9_conservation_info
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>jup_a9_delivery_info    jup_a9_evacuation_info  jup_a9_losses_info
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>jup_a9_meeting_info     jup_a9_power_info       jup_a9_way_info
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>jup_b1_half_artifact    jup_b10_notes_01        jup_b10_notes_02
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>jup_b10_notes_03        jup_b10_ufo_memory      jup_b10_ufo_memory_2
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>jup_b200_tech_materials_wire                    jup_b200_tech_materials_acetone
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>jup_b200_tech_materials_capacitor               jup_b200_tech_materials_textolite
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>jup_b200_tech_materials_transistor              jup_b202_bandit_pda
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>jup_b205_sokolov_note   jup_b206_plant          jup_b207_merc_pda_with_contract
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>jup_b209_monster_scanner jup_b32_scanner_device jup_b46_duty_founder_pda
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>jup_b47_jupiter_products_info jup_b47_merc_pda  jup_b9_blackbox
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>main_story_1_quest_case main_story_2_lab_x18_documents
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>main_story_3_lab_x16_documents main_story_4_lab_x10_documents
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>main_story_5_lab_x8_documents  main_story_6_jup_ug_documents
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>main_story_7_mon_con_documents
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>mar_base_owl_stalker_trader_task_1_pda
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>mlr_strelok_item_01     mlr_x8_copybook         mlr_x8_copybook_2
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>mlr_x8_documents        quest_package_1         quest_package_2
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>quest_package_3         quest_package_4         quest_package_5
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>quest_package_6         quest_package_7         quest_package_8
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>radio_connections_pda   special_delivery_case   strelok_notes
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>vodnik_notes            wpn_gauss_quest         yantar_deployable_mgun
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>zat_a23_access_card     zat_a23_gauss_rifle_docs zat_a23_labx8_key
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>zat_b12_documents_1     zat_b12_documents_2     zat_b12_key_1
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>zat_b12_key_2           zat_b20_noah_pda        zat_b22_medic_pda
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>zat_b33_safe_container  zat_b39_joker_pda       zat_b40_notebook
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>zat_b40_pda_1           zat_b40_pda_2           zat_b40_sarge_pda
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>zat_b44_barge_pda       zat_b57_gas             pri_a15_documents
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>pri_a19_american_experiment_info pri_a19_lab_x10_info
+</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>pri_a19_lab_x16_info    pri_a19_lab_x18_info    pri_a19_lab_x7_info
+</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>pri_b35_lab_x8_key      pri_b36_monolith_hiding_place_pda
+</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>lx8_service_instruction lx8_history_documents    lx8_history_2_documents
+</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>lx8_history_3_documents x8_documents             jupiter_documents
+</span><span id="__span-1-36"><a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>pri_decoder_documents   drx_agr_u_documents      drx_jup_u_documents
+</span><span id="__span-1-37"><a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>drx_x16_documents       drx_x18_documents        drx_x19_documents
+</span><span id="__span-1-38"><a id="__codelineno-1-38" name="__codelineno-1-38" href="#__codelineno-1-38"></a>drx_x8_documents        chernobog_notes          strelok_pendrive
+</span><span id="__span-1-39"><a id="__codelineno-1-39" name="__codelineno-1-39" href="#__codelineno-1-39"></a>army_isg_spy_pendrive   hb_isg_dushman_intel
+</span></code></pre></div>
+<h3 id="letters-and-lore-items">Letters and lore items<a class="headerlink" href="#letters-and-lore-items" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>letter_ecologist_report_1_of_3    letter_ecologist_report_2_of_3
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>letter_ecologist_report_3_of_3    letter_freedom_manual_1_of_2
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>letter_freedom_manual_2_of_2      letter_letter_to_outside
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>letter_memoirs_1_of_2             letter_memoirs_2_of_2
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>letter_mercenary                  letter_military_log
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>letter_military_stalker           letter_monolith_prayer_1_of_3
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>letter_monolith_prayer_2_of_3     letter_monolith_prayer_3_of_3
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>letter_monolithian_thoughts       letter_stalker_letter_1_of_2
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>letter_stalker_letter_2_of_2      letter_stalker_letter_3
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>journal
+</span></code></pre></div>
+<hr />
+<h2 id="faction-patches-and-miscellaneous">Faction Patches and Miscellaneous<a class="headerlink" href="#faction-patches-and-miscellaneous" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>csky_patch</code></td>
+<td>Clear Sky faction patch</td>
+</tr>
+<tr>
+<td><code>army_bowler</code></td>
+<td>Army mess tin</td>
+</tr>
+<tr>
+<td><code>bad_psy_helmet</code></td>
+<td>Psy-resistance helmet (degraded)</td>
+</tr>
+<tr>
+<td><code>good_psy_helmet</code></td>
+<td>Psy-resistance helmet</td>
+</tr>
+<tr>
+<td><code>grooming</code></td>
+<td>Grooming kit</td>
+</tr>
+<tr>
+<td><code>wpn_binoc</code></td>
+<td>Binoculars</td>
+</tr>
+<tr>
+<td><code>wpn_dynamo_hand</code></td>
+<td>Hand dynamo (power generator)</td>
+</tr>
+<tr>
+<td><code>wpn_upd</code></td>
+<td>UPD device</td>
+</tr>
+<tr>
+<td><code>tch_junk</code></td>
+<td>Trader Caravan junk</td>
+</tr>
+<tr>
+<td><code>tch_part</code></td>
+<td>Trader Caravan part</td>
+</tr>
+<tr>
+<td><code>tch_repair</code></td>
+<td>Trader Caravan repair item</td>
+</tr>
+<tr>
+<td><code>tch_repair0</code></td>
+<td>Trader Caravan repair item (base)</td>
+</tr>
+<tr>
+<td><code>tch_upgr</code></td>
+<td>Trader Caravan upgrade item</td>
+</tr>
+<tr>
+<td><code>tch_upgr_ico</code></td>
+<td>Trader Caravan upgrade (icon)</td>
+</tr>
+<tr>
+<td><code>blackbox_mlr</code></td>
+<td>Blackbox (MLR)</td>
+</tr>
+<tr>
+<td><code>item_pda_map_mlr</code></td>
+<td>PDA map (MLR)</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../console-commands/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Console Commands">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Console Commands
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "toc.follow", "navigation.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

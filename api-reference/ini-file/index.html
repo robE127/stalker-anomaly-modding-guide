@@ -2328,6 +2328,8 @@
       
         
       
+        
+      
     
     
     
@@ -2418,6 +2420,34 @@
     
   
     Console Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/item-sections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Item Sections
   
 
     
@@ -2598,7 +2628,7 @@
 
 
 <h1 id="ini_file">ini_file<a class="headerlink" href="#ini_file" title="Permanent link">&para;</a></h1>
-<p><code>ini_file</code> is the Lua class for reading LTX config files at runtime. It is also the type of object returned by <code>game_ini()</code>, <code>system_ini()</code>, <code>obj:spawn_ini()</code>, and <code>create_ini_file()</code>.</p>
+<p><code>ini_file</code> is the Lua class for reading LTX config files at runtime. It is also the type of object returned by <code>game_ini()</code>, <code>system_ini()</code>, and <code>obj:spawn_ini()</code>.</p>
 <p>LTX config reading is ubiquitous in mod code — anytime you want to look up a config value, check a section, or iterate a section's contents at runtime, you use an <code>ini_file</code>.</p>
 <hr />
 <h2 id="getting-an-ini_file-object">Getting an ini_file object<a class="headerlink" href="#getting-an-ini_file-object" title="Permanent link">&para;</a></h2>
@@ -2620,7 +2650,7 @@
 </tr>
 <tr>
 <td>Any single file by VFS path</td>
-<td><code>create_ini_file("configs\\path\\to\\file.ltx")</code></td>
+<td><code>ini_file("path\\to\\file.ltx")</code></td>
 </tr>
 <tr>
 <td>Spawn data embedded in an entity</td>
@@ -2632,8 +2662,8 @@
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">ini</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">system_ini</span><span class="p">()</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kd">local</span><span class="w"> </span><span class="nv">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">ini</span><span class="p">:</span><span class="nf">r_float</span><span class="p">(</span><span class="s2">&quot;my_section&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;my_key&quot;</span><span class="p">)</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1">-- Read from a specific file</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kd">local</span><span class="w"> </span><span class="nv">custom_ini</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">create_ini_file</span><span class="p">(</span><span class="s2">&quot;configs</span><span class="se">\\</span><span class="s2">my_mod</span><span class="se">\\</span><span class="s2">settings.ltx&quot;</span><span class="p">)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1">-- Read from a specific file (path relative to gamedata/configs/)</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kd">local</span><span class="w"> </span><span class="nv">custom_ini</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">ini_file</span><span class="p">(</span><span class="s2">&quot;my_mod</span><span class="se">\\</span><span class="s2">settings.ltx&quot;</span><span class="p">)</span>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1">-- Read from a spawned entity&#39;s config</span>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="kd">local</span><span class="w"> </span><span class="nv">spawn_ini</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">obj</span><span class="p">:</span><span class="nf">spawn_ini</span><span class="p">()</span>
@@ -2641,6 +2671,12 @@
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">spawn_ini</span><span class="p">:</span><span class="nf">r_string</span><span class="p">(</span><span class="s2">&quot;story_object&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;story_id&quot;</span><span class="p">)</span>
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="kr">end</span>
 </span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">ini_file vs create_ini_file</p>
+<p><code>ini_file("path\\to\\file.ltx")</code> loads a file from the VFS by path (relative to <code>gamedata/configs/</code>).
+<code>create_ini_file(string)</code> is a different function — it parses its argument as <strong>inline LTX text</strong>,
+not as a file path. Passing a file path to <code>create_ini_file</code> returns an empty object with no sections.</p>
+</div>
 <hr />
 <h2 id="checking-structure">Checking structure<a class="headerlink" href="#checking-structure" title="Permanent link">&para;</a></h2>
 <p>Before reading a value, it's good practice to verify the section and key exist — missing keys throw errors.</p>
