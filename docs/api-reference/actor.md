@@ -480,6 +480,48 @@ local function start_my_quest()
 end
 ```
 
+### Cancel death and respawn at a base
+
+`actor_on_before_death` is a modded-exes callback that lets you intercept the death event before it completes.
+
+```lua
+local death_hour = nil
+
+local function do_respawn()
+    local hour = death_hour
+    death_hour = nil
+
+    -- night check, teleport, etc.
+    -- ...
+
+    -- Expire the invulnerability window now that the actor is safe.
+    -- While this is active, actor_on_update forces bleeding=1 every frame,
+    -- which overrides db.actor.bleeding=0 and causes hurt sounds.
+    bind_stalker_ext.invulnerable_time = time_global() + 1
+    return true
+end
+
+local function actor_on_before_death(who_id, flags)
+    -- Cache any values needed by the deferred function now. Some queries
+    -- (e.g. level.get_time_hours()) may return different values once
+    -- deferred callbacks fire.
+    death_hour = level.get_time_hours()
+
+    flags.ret_value = false           -- cancel the death event (modded exes only)
+    db.actor:set_health_ex(1.0)       -- health is 0 here; restore it before deferring
+                                      -- or anything guarding on alive() will bail out
+
+    -- Prevent re-death from residual damage during the respawn sequence.
+    -- bind_stalker_ext.invulnerable_time is a non-local variable; while it is
+    -- more than 7 seconds in the future, actor_on_update forces health=1 every frame.
+    bind_stalker_ext.invulnerable_time = time_global() + 30000  -- 30 s window
+
+    -- Do not teleport or change state here -- doing so in the same frame as the
+    -- death event produces a floating camera bug. Defer by at least 1 second.
+    CreateTimeEvent("my_mod", "respawn", 1, do_respawn)
+end
+```
+
 ---
 
 ## Notes
@@ -488,39 +530,6 @@ end
 - All `game_object` base methods (`id()`, `name()`, `section()`, `position()`, `alive()`, etc.) are available on `db.actor` since it is a `game_object`.
 - Condition properties (`.health`, `.radiation`, `.power`, `.psy_health`) can be assigned directly as well as via `change_*` methods. Direct assignment bypasses some engine hooks, so prefer the `change_*` / `set_*_ex` methods for normal gameplay deltas. Direct assignment is the correct approach for bulk resets (e.g. after a respawn, when you want exact values immediately).
 - **`.bleeding` must be set via direct assignment** (`db.actor.bleeding = 0`) — there is no `change_bleeding` method on the actor type.
-
----
-
-## Death cancellation & bind_stalker_ext integration
-
-`actor_on_before_death` (**Exes**) lets you cancel the actor's death by setting `flags.ret_value = false`. Two things to know about the engine state when this fires:
-
-1. **Health is already 0.** `db.actor:alive()` returns `false` inside and immediately after the callback because `alive()` is simply `health > 0` at the C++ level. Restore health immediately in the callback itself — before queuing any `CreateTimeEvent` — or deferred functions that guard on `alive()` will silently bail out.
-2. **Death effects have already started.** Doing a teleport or state change in the same frame produces a "floating camera" bug. Defer all respawn logic by at least one second using `CreateTimeEvent`.
-
-```lua
-local function actor_on_before_death(who_id, flags)
-    flags.ret_value = false
-    db.actor:set_health_ex(1.0)  -- must happen here, not in the deferred function
-    CreateTimeEvent("my_mod", "respawn", 1, do_respawn)
-end
-```
-
-### bind_stalker_ext.invulnerable_time
-
-`bind_stalker_ext` exposes a module-level (non-`local`) variable that activates a brief god-mode window:
-
-```lua
-bind_stalker_ext.invulnerable_time = time_global() + 30000  -- 30 seconds
-```
-
-While this value is more than 7 seconds in the future, `actor_on_update` forces `health = 1`, `bleeding = 1`, `psy_health = 1`, `radiation = 0` every frame. This is the standard pattern from `bind_stalker_ext` itself (and used by Jabbers Soulslike) to prevent re-death from residual damage ticks during a respawn sequence.
-
-!!! warning "Expire it immediately after the actor is safe"
-    While `invulnerable_time` is active, `bleeding` is forced to `1` every frame. This overrides any `db.actor.bleeding = 0` call you make and causes hurt sounds. Expire the window as soon as the actor has teleported to safety:
-    ```lua
-    bind_stalker_ext.invulnerable_time = time_global() + 1  -- expires in 1 ms
-    ```
 
 ---
 

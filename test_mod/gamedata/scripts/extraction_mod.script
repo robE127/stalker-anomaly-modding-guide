@@ -14,12 +14,12 @@
 --   Modded exes (xray-monolith) required for actor_on_before_death.
 --
 -- DOCUMENTATION GAPS (things that required reading community mod source):
---   [GAP-1] exec_console_cmd — not in guide; confirmed by Jabbers Soulslike source.
---   [GAP-2] "inv_backpack" section name — not in guide; confirmed by Jabbers source.
---   [GAP-3] ui_load_dialog.delete_save_game(name) — not in guide; found in
+--   [GAP-1] exec_console_cmd  -- not in guide; confirmed by Jabbers Soulslike source.
+--   [GAP-2] "inv_backpack" section name  -- not in guide; confirmed by Jabbers source.
+--   [GAP-3] ui_load_dialog.delete_save_game(name)  -- not in guide; found in
 --           Jabbers Soulslike source. Takes lowercase filename without extension.
 --           Should be documented under a "save file management" API page.
---   [GAP-4] db.actor_inside_zones — not in guide; found in Fair Fast Travel.
+--   [GAP-4] db.actor_inside_zones  -- not in guide; found in Fair Fast Travel.
 --           Using distance check as fallback. Should be documented.
 --   [GAP-5] Level name strings not listed in guide. Using examples from level.md
 --           plus inference; names marked (?) are unverified.
@@ -27,7 +27,7 @@
 -- KNOWN ISSUES:
 --   • Level names marked (?) below need in-game verification. Zones on those
 --     levels silently won't work if the name is wrong.
---   • Cordon (l01_escape) is confirmed working — test there first.
+--   • Cordon (l01_escape) is confirmed working  -- test there first.
 --   • Jupiter (k01_darkscape) is the most uncertain level name.
 --   • Late-game levels (Pripyat, Red Forest, Dead City) not included.
 
@@ -39,69 +39,69 @@
 -- ─────────────────────────────────────────────────────────────────────────────
 
 local SAFE_ZONES      = {
-    -- ── Cordon — l01_escape (confirmed in guide's level.md) ───────────────
+    -- ── Cordon  -- l01_escape (confirmed in guide's level.md) ───────────────
     l01_escape = {
         { -206.0193, -20.3856, -148.0225, 80 }, -- Rookie Village (stalker)
         { 1.1010,    0.5372,   274.1233,  60 }, -- Northern Farm (stalker)
         { -146.5695, -29.8804, -373.57,   80 }, -- Army Checkpoint (army)
     },
-    -- ── Garbage — l02_garbage (?) ─────────────────────────────────────────
+    -- ── Garbage  -- l02_garbage (?) ─────────────────────────────────────────
     l02_garbage = {
         { -92.8095, 10, -2.1873, 80 }, -- Stalker Hangar
     },
-    -- ── Bar / Rostok — l03_bar (?) ────────────────────────────────────────
+    -- ── Bar / Rostok  -- l03_bar (?) ────────────────────────────────────────
     l03_bar = {
         { 162.2871, 0, 70.5831, 100 }, -- 100 Rads Bar / Dolg HQ
     },
-    -- ── Agroprom — l04_agroprom (?) ───────────────────────────────────────
+    -- ── Agroprom  -- l04_agroprom (?) ───────────────────────────────────────
     l04_agroprom = {
         { -152.3414, 0,  -181.0988, 80 }, -- Army base
         { 9.5565,    10, 6.5732,    80 }, -- Factory
     },
-    -- ── Great Swamp — l05_marsh (?) ───────────────────────────────────────
+    -- ── Great Swamp  -- l05_marsh (?) ───────────────────────────────────────
     l05_marsh = {
         { -154.05,   0.5899, -310.8667, 80 }, -- Clear Sky base
         { -189.4919, 1.0513, 406.1832,  60 }, -- Renegade base
         { 409.5656,  3.5093, 258.7098,  80 }, -- Army camp
     },
-    -- ── Military Warehouses — l06_mil (?) ─────────────────────────────────
+    -- ── Military Warehouses  -- l06_mil (?) ─────────────────────────────────
     l06_mil = {
         { -5.9021,  -6.1777, 37.5306,  121 }, -- Freedom Base (zone 1)
         { -23.4858, -8.4476, -39.1581, 136 }, -- Freedom Base (zone 2)
     },
-    -- ── Yantar — l08_yantar (confirmed in guide's level.md) ───────────────
+    -- ── Yantar  -- l08_yantar (confirmed in guide's level.md) ───────────────
     l08_yantar = {
         { 26.7268, -10.6048, -270.3784, 70 }, -- Ecologist mobile lab
     },
-    -- ── Dark Valley — l12_darkvalley (?) ──────────────────────────────────
+    -- ── Dark Valley  -- l12_darkvalley (?) ──────────────────────────────────
     l12_darkvalley = {
         { 161.9911, 5.8265, -256.5998, 80 }, -- Army outpost
         { 8.5127,   0.0873, 31.7904,   80 }, -- Bandit base zone 1
         { 0.0795,   1.1741, -8.066,    80 }, -- Bandit base zone 2
         { 16.1829,  0.3825, -65.6342,  70 }, -- Bandit base zone 3
     },
-    -- ── Zaton — k00_marsh (confirmed in guide's level.md) ─────────────────
+    -- ── Zaton  -- k00_marsh (confirmed in guide's level.md) ─────────────────
     k00_marsh = {
         { 132.4929, -7.3461, 183.5880,  70 },  -- Skadovsk
         { 325.2908, 35,      -388.2797, 110 }, -- Merc landfill
     },
-    -- ── Jupiter — level name UNCONFIRMED (?), guessing k01_darkscape ──────
+    -- ── Jupiter  -- level name UNCONFIRMED (?), guessing k01_darkscape ──────
     k01_darkscape = {
         { -51.4095,  3.4869, 197.6493,  70 }, -- Yanov station zone 1
         { -23.4957,  4.5931, 238.4627,  70 }, -- Yanov station zone 2
         { -213.0871, 0,      74.1083,   55 }, -- Mobile lab (ecologist)
         { -419.5993, 0.0112, -355.4865, 80 }, -- Bandit warehouse
     },
-    -- ── Radar — l10_radar (confirmed in guide's level.md) ─────────────────
+    -- ── Radar  -- l10_radar (confirmed in guide's level.md) ─────────────────
     l10_radar = {
         { 28.0392, -1.8515, 10.3282, 100 }, -- Monolith base
     },
-    -- ── Limansk — l09_limansk (?) ─────────────────────────────────────────
+    -- ── Limansk  -- l09_limansk (?) ─────────────────────────────────────────
     l09_limansk = {
         { 64.3670, 20,      286.9821, 80 }, -- Radio station
         { 7.3627,  24.4966, 190.6140, 80 }, -- Construction site
     },
-    -- NOTE: Pripyat, Red Forest, Dead City omitted — level names unconfirmed.
+    -- NOTE: Pripyat, Red Forest, Dead City omitted  -- level names unconfirmed.
 }
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -136,7 +136,7 @@ local function dbg(fmt, ...)
     -- appears in the live log file rather than only in the .bkp after the
     -- session closes. It is a top-level engine function bound in lua_help.script.
     -- printf() in _g.script has an equivalent exec_console_cmd("flush") call
-    -- that is commented out for performance — we reinstate it here since this
+    -- that is commented out for performance  -- we reinstate it here since this
     -- function is only active under -dbg anyway.
     flush()
 end
@@ -178,13 +178,13 @@ local function is_in_safe_zone()
     return false
 end
 
-local function is_night()
-    local h = level.get_time_hours()
+local function is_night(h)
+    h = h or level.get_time_hours()
     return h >= NIGHT_START or h < NIGHT_END
 end
 
-local function hours_until_dawn()
-    local h = level.get_time_hours()
+local function hours_until_dawn(h)
+    h = h or level.get_time_hours()
     if h >= NIGHT_END and h < NIGHT_START then return 0 end
     if h >= NIGHT_START then
         -- this is for hours from NIGHT_START up to midnight (0)
@@ -222,6 +222,13 @@ end
 -- Lets on_console_execute skip the zone check only for saves WE triggered,
 -- not for any external call that happens to use our filename.
 local save_in_progress = false
+
+-- In-game hour captured at the moment actor_on_before_death fires.
+-- level.get_time_hours() can return a stale/reset value by the time
+-- do_respawn_deferred runs ~3 seconds later (the engine appears to restore
+-- save-file time as part of processing the cancelled death). Caching here
+-- gives us the definitive time-of-death for the night-respawn check.
+local death_hour = nil
 
 -- Trigger a save to our fixed file.
 -- [GAP-1] exec_console_cmd undocumented; confirmed by Jabbers Soulslike source.
@@ -290,16 +297,16 @@ local function actor_on_update()
 
     if in_safe and not was_in_safe_zone then
         -- First tick after entering a base zone: record position and save.
-        dbg("actor_on_update: entered base zone — recording position and saving")
+        dbg("actor_on_update: entered base zone  -- recording position and saving")
         record_base_position()
         do_save()
-        show_msg("Base reached — game saved.")
+        show_msg("Base reached  -- game saved.")
     end
     was_in_safe_zone = in_safe
 end
 
 -- ─────────────────────────────────────────────────────────────────────────────
--- Save interception — TWO layers:
+-- Save interception  -- TWO layers:
 --
 --   Layer 1: on_before_save_input (quicksave only)
 --     Cancels the quicksave before anything is written to disk.
@@ -311,7 +318,7 @@ end
 --     then redirects to the fixed file.
 --     on_console_execute IS documented in the callbacks reference.
 --
---   [GAP-3] ui_load_dialog.delete_save_game — not documented in guide.
+--   [GAP-3] ui_load_dialog.delete_save_game  -- not documented in guide.
 --           Found in Jabbers Soulslike source. Takes lowercase filename,
 --           no extension. Should be added to an API reference page.
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -324,7 +331,7 @@ local function on_before_save_input(flags)
     if not in_safe then
         flags.ret = true -- "ret = true" cancels per callbacks-reference docs
         dbg("on_before_save_input: BLOCKED (not in safe zone)")
-        show_msg("Cannot save — not at a friendly base!")
+        show_msg("Cannot save  -- not at a friendly base!")
         return
     end
     -- In safe zone: cancel normal quicksave, redirect to our fixed file.
@@ -340,9 +347,9 @@ local function on_console_execute(cmd, ...)
 
     -- Recursion guard: do_save() sets save_in_progress = true before calling
     -- exec_console_cmd, which fires this callback synchronously. If the flag is
-    -- set we know this is our own intentional save — trust it and return.
+    -- set we know this is our own intentional save  -- trust it and return.
     if save_in_progress then
-        dbg("on_console_execute: save_in_progress flag set — this is our save, skipping")
+        dbg("on_console_execute: save_in_progress flag set  -- this is our save, skipping")
         return
     end
 
@@ -363,8 +370,8 @@ local function on_console_execute(cmd, ...)
 
     -- For any save we don't control:
     if not is_in_safe_zone() then
-        dbg("on_console_execute: NOT in safe zone — deleting '%s'", save_name)
-        -- [GAP-3] ui_load_dialog.delete_save_game — undocumented.
+        dbg("on_console_execute: NOT in safe zone  -- deleting '%s'", save_name)
+        -- [GAP-3] ui_load_dialog.delete_save_game  -- undocumented.
         ui_load_dialog.delete_save_game(save_name)
         if not is_engine_save then
             show_msg("Cannot save outside a friendly base! Save deleted.")
@@ -374,7 +381,7 @@ local function on_console_execute(cmd, ...)
 
     -- In safe zone but wrong name: delete and replace with our fixed file.
     -- save_in_progress prevents on_console_execute from re-entering via do_save().
-    dbg("on_console_execute: in safe zone but external save '%s' — redirecting", save_name)
+    dbg("on_console_execute: in safe zone but external save '%s'  -- redirecting", save_name)
     ui_load_dialog.delete_save_game(save_name)
     do_save()
 end
@@ -389,7 +396,7 @@ local DEATH_FADE_ID = 5606 -- pp effector ID for death blackout (matches Jabbers
 -- change_bleeding() is NPC-only and crashes on db.actor; db.actor.bleeding = 0
 -- via direct assignment works correctly. set_health_ex requires modded exes.
 -- wounded(false) clears the wounded state set by the engine at the moment
--- health hits 0 — without this, hurt sounds continue playing after respawn.
+-- health hits 0  -- without this, hurt sounds continue playing after respawn.
 -- Confirmed from lua_help.script: `function wounded(boolean)` is a setter.
 local function heal_actor()
     dbg("heal_actor: restoring health/power/radiation/bleeding/psy_health/wounded")
@@ -403,9 +410,9 @@ end
 
 -- Teleport and finalise the respawn. Called ~3s after inventory transfer completes.
 --
--- TELEPORT STRATEGY — matches game_fast_travel.script:
+-- TELEPORT STRATEGY  -- matches game_fast_travel.script:
 --   Same level  → set_actor_position(pos)
---     ChangeLevel on the same level produces a "ghost camera" state — the level
+--     ChangeLevel on the same level produces a "ghost camera" state  -- the level
 --     reloads but the actor binder does not reinitialise correctly. The base game
 --     uses set_actor_position for same-level travel.
 --   Cross-level → ChangeLevel(pos, lvid, gvid, VEC_ZERO, false)
@@ -420,14 +427,25 @@ end
 local function do_respawn_deferred()
     dbg("do_respawn_deferred: fired")
     if not db.actor then
-        dbg("do_respawn_deferred: db.actor is nil — aborting")
+        dbg("do_respawn_deferred: db.actor is nil  -- aborting")
         return true
     end
 
-    local hour = level.get_time_hours()
-    dbg("do_respawn_deferred: current hour=%d, is_night=%s", hour, tostring(is_night()))
-    if is_night() then
-        local hours = hours_until_dawn()
+    -- Use the hour cached at the moment of death in actor_on_before_death.
+    -- level.get_time_hours() is unreliable by the time this deferred function
+    -- fires -- the value observed in-game can differ from the time of death for
+    -- reasons that are not fully understood. death_hour should always be set here
+    -- because do_respawn_deferred is only ever reached via the stash-poll chain
+    -- started by actor_on_before_death, which sets death_hour first.
+    if not death_hour then
+        printe("![EM] do_respawn_deferred: death_hour is nil -- this should never happen")
+        return true
+    end
+    local hour = death_hour
+    death_hour = nil
+    dbg("do_respawn_deferred: hour at death=%d, is_night=%s", hour, tostring(is_night(hour)))
+    if is_night(hour) then
+        local hours = hours_until_dawn(hour)
         dbg("do_respawn_deferred: advancing time by %d hours to reach dawn", hours)
         if hours > 0 then
             level.change_game_time(0, hours, 0)
@@ -438,8 +456,8 @@ local function do_respawn_deferred()
 
     local base_pos = get_base_vector()
     if not (base_pos and data.last_base_lvid and data.last_base_gvid) then
-        dbg("do_respawn_deferred: NO BASE ON RECORD — staying at death location")
-        show_msg("WARNING: No base on record — you wake where you fell! Visit a base first.")
+        dbg("do_respawn_deferred: NO BASE ON RECORD  -- staying at death location")
+        show_msg("WARNING: No base on record  -- you wake where you fell! Visit a base first.")
         bind_stalker_ext.invulnerable_time = time_global() + 1
         level.remove_pp_effector(DEATH_FADE_ID)
         -- No save here: the player is at the death site, likely not in a safe zone.
@@ -455,7 +473,7 @@ local function do_respawn_deferred()
         tostring(data.last_base_lvid), tostring(data.last_base_gvid))
 
     if data.last_base_level == current_level then
-        dbg("do_respawn_deferred: SAME-LEVEL respawn — using set_actor_position")
+        dbg("do_respawn_deferred: SAME-LEVEL respawn  -- using set_actor_position")
         db.actor:set_actor_position(base_pos)
         bind_stalker_ext.invulnerable_time = time_global() + 1
         dbg("do_respawn_deferred: invulnerable_time expired, removing fade, saving")
@@ -463,7 +481,7 @@ local function do_respawn_deferred()
         do_save()
         show_msg("You have died. Your gear marks the site of your death.")
     else
-        dbg("do_respawn_deferred: CROSS-LEVEL respawn — using ChangeLevel (nothing executes after)")
+        dbg("do_respawn_deferred: CROSS-LEVEL respawn  -- using ChangeLevel (nothing executes after)")
         -- No do_save() here: the actor is still at the death location when this
         -- runs, so saving would record the wrong position. actor_on_update will
         -- trigger a save automatically when the player arrives at the base on
@@ -482,11 +500,11 @@ end
 local function wait_for_stash_and_respawn(stash_id)
     local stash = level.object_by_id(stash_id)
     if not stash then
-        dbg("wait_for_stash_and_respawn: stash id=%s not online yet — polling", tostring(stash_id))
+        dbg("wait_for_stash_and_respawn: stash id=%s not online yet  -- polling", tostring(stash_id))
         return false -- not online yet, poll again next tick
     end
 
-    dbg("wait_for_stash_and_respawn: stash id=%s is ONLINE — transferring items", tostring(stash_id))
+    dbg("wait_for_stash_and_respawn: stash id=%s is ONLINE  -- transferring items", tostring(stash_id))
 
     -- Transfer all items from actor into the stash container.
     -- db.actor:transfer_item(item, container) confirmed from Jabbers source.
@@ -502,15 +520,23 @@ local function wait_for_stash_and_respawn(stash_id)
         db.actor:transfer_item(item, stash)
     end
 
-    dbg("wait_for_stash_and_respawn: transfer complete — queuing respawn in 3s")
-    -- Respawn 3 seconds after items are transferred — gives the fade time to play.
+    dbg("wait_for_stash_and_respawn: transfer complete  -- queuing respawn in 3s")
+    -- Respawn 3 seconds after items are transferred  -- gives the fade time to play.
     CreateTimeEvent("extraction_mod", "respawn", 3, do_respawn_deferred)
     return true
 end
 
 -- Requires modded exes. flags.ret_value = false cancels the death event.
 local function actor_on_before_death(who_id, flags)
-    dbg("actor_on_before_death: fired — who_id=%s", tostring(who_id))
+    dbg("actor_on_before_death: fired  -- who_id=%s", tostring(who_id))
+
+    -- Cache the time of death NOW, before any engine state changes.
+    -- The engine appears to restore the last save's time as part of processing
+    -- the cancelled death, so level.get_time_hours() returns a stale/wrong value
+    -- by the time do_respawn_deferred fires a few seconds later.
+    death_hour = level.get_time_hours()
+    dbg("actor_on_before_death: death_hour=%d (cached before engine state changes)", death_hour)
+
     flags.ret_value = false
     dbg("actor_on_before_death: flags.ret_value set to false (death cancelled)")
 
@@ -521,7 +547,7 @@ local function actor_on_before_death(who_id, flags)
     dbg("actor_on_before_death: invulnerable_time set (+30s)")
 
     -- Restore health immediately so g_Alive() returns true.
-    -- g_Alive() == `GetfHealth() > 0` (Entity.h:90) — health is 0 at this point.
+    -- g_Alive() == `GetfHealth() > 0` (Entity.h:90)  -- health is 0 at this point.
     db.actor:set_health_ex(1.0)
     dbg("actor_on_before_death: health restored to 1.0")
 
@@ -540,10 +566,10 @@ local function actor_on_before_death(who_id, flags)
 
     local se_stash = alife_create("inv_backpack", death_pos, death_lvid, death_gvid)
     if se_stash then
-        dbg("actor_on_before_death: stash created, server id=%s — polling for online", tostring(se_stash.id))
+        dbg("actor_on_before_death: stash created, server id=%s  -- polling for online", tostring(se_stash.id))
         CreateTimeEvent("extraction_mod", "wait_stash", 0, wait_for_stash_and_respawn, se_stash.id)
     else
-        dbg("actor_on_before_death: stash creation FAILED — skipping item transfer, respawn in 3s")
+        dbg("actor_on_before_death: stash creation FAILED  -- skipping item transfer, respawn in 3s")
         CreateTimeEvent("extraction_mod", "respawn", 3, do_respawn_deferred)
     end
 end
@@ -559,7 +585,7 @@ local function actor_on_first_update()
     first_update_done = true
     dbg("actor_on_first_update: first update fired")
     if not data.last_base_x then
-        dbg("actor_on_first_update: no base on record — recording current position as fallback")
+        dbg("actor_on_first_update: no base on record  -- recording current position as fallback")
         record_base_position()
     else
         dbg("actor_on_first_update: base already on record at level=%s", tostring(data.last_base_level))
@@ -587,6 +613,7 @@ function on_game_end()
     first_update_done = false
     last_check_time   = 0
     was_in_safe_zone  = false
+    death_hour        = nil
 
     UnregisterScriptCallback("actor_on_first_update", actor_on_first_update)
     UnregisterScriptCallback("actor_on_update", actor_on_update)

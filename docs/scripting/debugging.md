@@ -33,6 +33,16 @@ Even with `-dbg`, the engine holds log writes in a memory buffer and only commit
 
 The `printf` implementation in `_g.script` has a `exec_console_cmd("flush")` call for exactly this purpose, but it is commented out for performance. The community norm is to accept the post-session workflow: play, close, read the `.bkp`. If you want output to appear in real-time while the game is running, you must call `flush()` yourself after each write.
 
+**3. String literals must be plain ASCII.**
+The X-Ray engine writes the log in Windows-1252. If your Lua source file is saved as UTF-8 (the default for every modern editor), any non-ASCII character in a string literal is stored as a multi-byte UTF-8 sequence but the log reader interprets each byte as a Windows-1252 codepoint. The result is garbled output:
+
+```
+-- Source file (UTF-8): "entered base zone — recording position"
+-- Log output (Windows-1252 reader): "entered base zone â€" recording position"
+```
+
+The fix is simple: stick to ASCII in any string that ends up in the log. Use ` -- ` instead of `—`, `>=` instead of `≥`, and so on. This applies to `printf` strings, `printe` strings, and `abort` messages. HUD messages shown to the player via `actor_menu.set_msg` or `give_game_news` are rendered by the UI layer and are not affected.
+
 ---
 
 ## Logging functions
@@ -345,6 +355,42 @@ Syntax errors in a `.script` file prevent the entire file from loading. The game
 ```
 
 This points to the file and line. Fix the syntax, restart.
+
+---
+
+## Testing in-game
+
+### run_string — execute Lua from the console
+
+The `run_string` console command evaluates an arbitrary Lua expression without modifying any script file. Open the console (`` ` `` by default) and type:
+
+```
+run_string <lua expression>
+```
+
+Useful examples:
+
+```
+run_string level.change_game_time(0,3,0)     -- advance time by 3 hours
+run_string level.change_game_time(0,-3,0)    -- go back 3 hours
+run_string printf("hour=%s", level.get_time_hours())
+run_string db.actor:set_health_ex(1.0)
+```
+
+This lets you trigger game state changes to test a feature without writing a temporary script or using the time factor setting.
+
+!!! note "Weather editor vs. game time"
+    The in-game weather editor changes the visual sky appearance but does **not** change the actual game clock that `level.get_time_hours()` reads. When testing time-based features, use `run_string level.change_game_time(0,h,0)` instead.
+
+### Debug HUD and other debug settings
+
+With `-dbg` active, the **Others** tab in the options menu exposes extra debug overlays:
+
+- **Debug HUD** — shows a real-time overlay including the current in-game time. Essential for testing any time-based feature (night respawn, day/night event triggers, etc.) because it reflects the actual clock rather than the visual sky.
+- **Debug map spots** — renders extra markers on the minimap for debug purposes.
+- **Debug error notifications** — shows error popups in the HUD when Lua errors occur, in addition to the log entries.
+
+Enable all three when actively developing and testing a mod. They have no effect when `-dbg` is not active.
 
 ---
 
