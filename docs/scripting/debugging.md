@@ -368,16 +368,38 @@ The `run_string` console command evaluates an arbitrary Lua expression without m
 run_string <lua expression>
 ```
 
-Useful examples:
+**Advance or rewind the game clock**
 
 ```
-run_string level.change_game_time(0,3,0)     -- advance time by 3 hours
-run_string level.change_game_time(0,-3,0)    -- go back 3 hours
+run_string level.change_game_time(0,3,0)
+run_string level.change_game_time(0,-3,0)
+```
+
+Advances or rewinds the in-game clock by the given number of hours. Affects the actual game clock that `level.get_time_hours()` reads — unlike the weather editor, which only changes the visual sky appearance.
+
+**Read the current hour**
+
+```
 run_string printf("hour=%s", level.get_time_hours())
+```
+
+Prints the current in-game hour to the log. Output appears in the live log immediately if `flush()` has been called; otherwise in the next session's `.bkp`.
+
+**Restore actor health**
+
+```
 run_string db.actor:set_health_ex(1.0)
 ```
 
-This lets you trigger game state changes to test a feature without writing a temporary script or using the time factor setting.
+Sets the actor to full health instantly. Useful when testing death and respawn logic without having to reload. Requires modded exes.
+
+**Teleport to a position**
+
+```
+run_string db.actor:set_actor_position(vector():set(-206.0193, -20.3856, -148.0225))
+```
+
+Moves the actor to the given world coordinates on the current level without a level reload. The actor snaps to the nearest navmesh vertex, so an imprecise Y value self-corrects on landing. This is the fastest way to reach a specific location to test zone detection, trigger logic, or reproduce a position-dependent bug.
 
 !!! note "Weather editor vs. game time"
     The in-game weather editor changes the visual sky appearance but does **not** change the actual game clock that `level.get_time_hours()` reads. When testing time-based features, use `run_string level.change_game_time(0,h,0)` instead.

@@ -26,12 +26,35 @@ These are the commands you will reach for most often when developing and testing
 
 **`run_string` examples:**
 
+**Advance the game clock**
 ```
 run_string level.change_game_time(0,3,0)
+```
+Advances the in-game clock by 3 hours. Affects the actual game time — unlike the weather editor, which only changes the visual sky.
+
+**Read the current hour**
+```
 run_string printf("hour=%s", level.get_time_hours())
+```
+Prints the current in-game hour to the log. Useful for verifying time-based logic.
+
+**Restore actor health**
+```
 run_string db.actor:set_health_ex(1.0)
+```
+Sets the actor to full health instantly. Requires modded exes.
+
+**Show a HUD message**
+```
 run_string db.actor:give_game_news("", "test message", "ui\\ui_iconsTotal", 0, 3000)
 ```
+Displays a notification in the HUD for 3000 ms. Useful for verifying that a UI call works before wiring it into a callback.
+
+**Teleport to a position**
+```
+run_string db.actor:set_actor_position(vector():set(-206.0193, -20.3856, -148.0225))
+```
+Moves the actor to the given world coordinates on the current level without a level reload. The actor snaps to the nearest navmesh vertex, so a slightly imprecise Y value self-corrects on landing. The coordinates above are Rookie Village on Cordon — useful for quickly reaching a safe zone to test zone detection or save logic.
 
 ---
 
