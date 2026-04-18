@@ -2652,11 +2652,26 @@
 </tbody>
 </table>
 <p><strong><code>run_string</code> examples:</strong></p>
+<p><strong>Advance the game clock</strong>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>run_string level.change_game_time(0,3,0)
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>run_string printf(&quot;hour=%s&quot;, level.get_time_hours())
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>run_string db.actor:set_health_ex(1.0)
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>run_string db.actor:give_game_news(&quot;&quot;, &quot;test message&quot;, &quot;ui\\ui_iconsTotal&quot;, 0, 3000)
 </span></code></pre></div>
+Advances the in-game clock by 3 hours. Affects the actual game time — unlike the weather editor, which only changes the visual sky.</p>
+<p><strong>Read the current hour</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>run_string printf(&quot;hour=%s&quot;, level.get_time_hours())
+</span></code></pre></div>
+Prints the current in-game hour to the log. Useful for verifying time-based logic.</p>
+<p><strong>Restore actor health</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>run_string db.actor:set_health_ex(1.0)
+</span></code></pre></div>
+Sets the actor to full health instantly. Requires modded exes.</p>
+<p><strong>Show a HUD message</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>run_string db.actor:give_game_news(&quot;&quot;, &quot;test message&quot;, &quot;ui\\ui_iconsTotal&quot;, 0, 3000)
+</span></code></pre></div>
+Displays a notification in the HUD for 3000 ms. Useful for verifying that a UI call works before wiring it into a callback.</p>
+<p><strong>Teleport to a position</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>run_string db.actor:set_actor_position(vector():set(-206.0193, -20.3856, -148.0225))
+</span></code></pre></div>
+Moves the actor to the given world coordinates on the current level without a level reload. The actor snaps to the nearest navmesh vertex, so a slightly imprecise Y value self-corrects on landing. The coordinates above are Rookie Village on Cordon — useful for quickly reaching a safe zone to test zone detection or save logic.</p>
 <hr />
 <h2 id="save-load">Save &amp; load<a class="headerlink" href="#save-load" title="Permanent link">&para;</a></h2>
 <table>
@@ -2908,10 +2923,10 @@
 <hr />
 <h2 id="using-commands-from-lua">Using commands from Lua<a class="headerlink" href="#using-commands-from-lua" title="Permanent link">&para;</a></h2>
 <p>Any console command can be triggered from a script using <code>exec_console_cmd</code>:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nf">exec_console_cmd</span><span class="p">(</span><span class="s2">&quot;save my_save_name&quot;</span><span class="p">)</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nf">exec_console_cmd</span><span class="p">(</span><span class="s2">&quot;hud_draw 0&quot;</span><span class="p">)</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nf">exec_console_cmd</span><span class="p">(</span><span class="s2">&quot;time_factor 5&quot;</span><span class="p">)</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nf">exec_console_cmd</span><span class="p">(</span><span class="s2">&quot;run_string level.change_game_time(0,3,0)&quot;</span><span class="p">)</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nf">exec_console_cmd</span><span class="p">(</span><span class="s2">&quot;save my_save_name&quot;</span><span class="p">)</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nf">exec_console_cmd</span><span class="p">(</span><span class="s2">&quot;hud_draw 0&quot;</span><span class="p">)</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="nf">exec_console_cmd</span><span class="p">(</span><span class="s2">&quot;time_factor 5&quot;</span><span class="p">)</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="nf">exec_console_cmd</span><span class="p">(</span><span class="s2">&quot;run_string level.change_game_time(0,3,0)&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <p><code>exec_console_cmd</code> is a global helper defined in <code>_g.script</code>. It calls <code>get_console():execute(cmd)</code> and also fires the <code>on_console_execute</code> callback, so other scripts can observe it. See <a href="../../api-reference/game/#console-commands">game — Console commands</a> for details.</p>
 <hr />

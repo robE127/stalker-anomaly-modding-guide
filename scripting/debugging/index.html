@@ -3360,13 +3360,23 @@ The X-Ray engine writes the log in Windows-1252. If your Lua source file is save
 <p>The <code>run_string</code> console command evaluates an arbitrary Lua expression without modifying any script file. Open the console (<code>`</code> by default) and type:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>run_string &lt;lua expression&gt;
 </span></code></pre></div>
-<p>Useful examples:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>run_string level.change_game_time(0,3,0)     -- advance time by 3 hours
-</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>run_string level.change_game_time(0,-3,0)    -- go back 3 hours
-</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>run_string printf(&quot;hour=%s&quot;, level.get_time_hours())
-</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>run_string db.actor:set_health_ex(1.0)
+<p><strong>Advance or rewind the game clock</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>run_string level.change_game_time(0,3,0)
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>run_string level.change_game_time(0,-3,0)
 </span></code></pre></div>
-<p>This lets you trigger game state changes to test a feature without writing a temporary script or using the time factor setting.</p>
+<p>Advances or rewinds the in-game clock by the given number of hours. Affects the actual game clock that <code>level.get_time_hours()</code> reads — unlike the weather editor, which only changes the visual sky appearance.</p>
+<p><strong>Read the current hour</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>run_string printf(&quot;hour=%s&quot;, level.get_time_hours())
+</span></code></pre></div>
+<p>Prints the current in-game hour to the log. Output appears in the live log immediately if <code>flush()</code> has been called; otherwise in the next session's <code>.bkp</code>.</p>
+<p><strong>Restore actor health</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>run_string db.actor:set_health_ex(1.0)
+</span></code></pre></div>
+<p>Sets the actor to full health instantly. Useful when testing death and respawn logic without having to reload. Requires modded exes.</p>
+<p><strong>Teleport to a position</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>run_string db.actor:set_actor_position(vector():set(-206.0193, -20.3856, -148.0225))
+</span></code></pre></div>
+<p>Moves the actor to the given world coordinates on the current level without a level reload. The actor snaps to the nearest navmesh vertex, so an imprecise Y value self-corrects on landing. This is the fastest way to reach a specific location to test zone detection, trigger logic, or reproduce a position-dependent bug.</p>
 <div class="admonition note">
 <p class="admonition-title">Weather editor vs. game time</p>
 <p>The in-game weather editor changes the visual sky appearance but does <strong>not</strong> change the actual game clock that <code>level.get_time_hours()</code> reads. When testing time-based features, use <code>run_string level.change_game_time(0,h,0)</code> instead.</p>

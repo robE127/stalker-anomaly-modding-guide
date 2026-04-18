@@ -1119,6 +1119,67 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#save-file-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Save file management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Save file management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#triggering-a-save-from-lua" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Triggering a save from Lua
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-file-names-and-user_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Save file names and user_name()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deleting-a-save-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deleting a save file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#level-transition-autosaves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level-transition autosaves
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#see-also" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2566,6 +2627,67 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#save-file-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Save file management
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Save file management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#triggering-a-save-from-lua" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Triggering a save from Lua
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#save-file-names-and-user_name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Save file names and user_name()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deleting-a-save-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deleting a save file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#level-transition-autosaves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level-transition autosaves
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#see-also" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2759,10 +2881,119 @@
 </span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="kr">end</span>
 </span></code></pre></div>
 <hr />
+<h2 id="save-file-management">Save file management<a class="headerlink" href="#save-file-management" title="Permanent link">&para;</a></h2>
+<p>The sections above cover <em>data</em> serialization — what gets written inside a save file. This section covers the save files themselves: triggering saves from Lua, naming them, and deleting them.</p>
+<h3 id="triggering-a-save-from-lua">Triggering a save from Lua<a class="headerlink" href="#triggering-a-save-from-lua" title="Permanent link">&para;</a></h3>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nf">exec_console_cmd</span><span class="p">(</span><span class="s2">&quot;save my_save_name&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<p><code>exec_console_cmd</code> is a global helper defined in <code>_g.script</code>. It calls <code>get_console():execute(cmd)</code> and also fires the <code>on_console_execute</code> callback synchronously, so any registered handler sees the save before the function returns. See <a href="../../reference/console-commands/">Console Commands</a> for the full reference.</p>
+<h3 id="save-file-names-and-user_name">Save file names and <code>user_name()</code><a class="headerlink" href="#save-file-names-and-user_name" title="Permanent link">&para;</a></h3>
+<p>Every save is identified by a plain string name. The file on disk is <code>&lt;name&gt;.scop</code> in the saves folder (<code>appdata\savedgames\</code>), alongside a <code>.scoc</code> (Marshal state data) and <code>.dds</code> (screenshot thumbnail) with the same stem.</p>
+<p><code>user_name()</code> is a global function that returns <code>Core.UserName</code>. It is the authoritative source of the user-specific prefix used by the base game's autosave and quicksave naming:</p>
+<table>
+<thead>
+<tr>
+<th>Save type</th>
+<th>Name formula</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Autosave (engine level-change)</td>
+<td><code>user_name() .. " - autosave"</code></td>
+</tr>
+<tr>
+<td>Autosave (new game, <code>itms_manager.script</code>)</td>
+<td><code>user_name() .. " - autosave"</code></td>
+</tr>
+<tr>
+<td>Quicksave (<code>level_input.script</code>)</td>
+<td><code>user_name() .. " - quicksave_" .. n</code></td>
+</tr>
+<tr>
+<td>Timer autosave (<code>game_autosave_new.script</code>)</td>
+<td><code>user_name() .. " - tempsave"</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title"><code>user_name()</code> does not reliably return the OS username</p>
+<p><code>Core.UserName</code> is initialised from the Windows <code>GetUserName()</code> API (the OS login name). However, xray-monolith overrides it to the hardcoded string <code>"Player"</code> when the <code>[string_table]</code> config section contains a <code>no_native_input</code> key (<code>x_ray.cpp</code>). Anomaly ships with this key set for CIS/Asian locale support, so on most installations <code>user_name()</code> returns <code>"Player"</code> regardless of the actual OS account name.</p>
+<p>The engine log file is named before this override runs, which is why the log is named <code>xray_&lt;OS-login&gt;.log</code> (e.g. <code>xray_roced.log</code>) while <code>user_name()</code> at runtime returns <code>"Player"</code>.</p>
+<p><code>character_name()</code> on <code>db.actor</code> returns the in-game character display name (settable in Options → Gameplay → Player Name, defaults to the stalker archetype). It is a reasonable choice for naming your own mod's save files when you want per-character save isolation across multiple playthroughs. Do not use it when you need to match or target the engine's own autosave files — those use <code>user_name()</code>, not <code>character_name()</code>.</p>
+</div>
+<h3 id="deleting-a-save-file">Deleting a save file<a class="headerlink" href="#deleting-a-save-file" title="Permanent link">&para;</a></h3>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nv">ui_load_dialog</span><span class="p">.</span><span class="nf">delete_save_game</span><span class="p">(</span><span class="nv">name</span><span class="p">)</span>
+</span></code></pre></div>
+<p><code>delete_save_game</code> is a function in the <code>ui_load_dialog</code> module. It removes the <code>.scop</code>, <code>.scoc</code>, and <code>.dds</code> files for the given save name. The name must be <strong>lowercase</strong> and must <strong>not</strong> include the <code>.scop</code> extension:</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">-- Delete a save named &quot;my_save&quot;</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nv">ui_load_dialog</span><span class="p">.</span><span class="nf">delete_save_game</span><span class="p">(</span><span class="s2">&quot;my_save&quot;</span><span class="p">)</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1">-- Delete the standard autosave for the current user</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="nv">ui_load_dialog</span><span class="p">.</span><span class="nf">delete_save_game</span><span class="p">(</span><span class="nb">string.lower</span><span class="p">(</span><span class="nf">user_name</span><span class="p">())</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="s2">&quot; - autosave&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Calling <code>delete_save_game</code> on a name that does not exist is a silent no-op.</p>
+<h3 id="level-transition-autosaves">Level-transition autosaves<a class="headerlink" href="#level-transition-autosaves" title="Permanent link">&para;</a></h3>
+<p>When the player crosses a level boundary, the engine automatically writes <code>user_name() .. " - autosave"</code> before unloading the old level. This save is generated by the C++ server (<code>alife_update_manager.cpp</code>) using <code>Core.UserName</code> directly, and the matching Lua path (<code>itms_manager.script</code>) uses <code>user_name()</code> for the same result.</p>
+<p>If your mod restricts saves to certain locations, this autosave can bypass your restrictions. There are two layers to be aware of:</p>
+<p><strong><code>on_console_execute</code> fires as a pre-notification.</strong> For level-change autosaves, the <code>on_console_execute</code> callback fires <em>before</em> the file is written to disk. Calling <code>delete_save_game</code> inside that callback attempts to delete a file that does not yet exist; the engine then writes it after the callback returns. The file persists despite the delete attempt.</p>
+<p><strong>The fix: write a flag file in <code>on_level_changing</code>, delete in <code>actor_on_first_update</code>.</strong> <code>on_level_changing</code> fires before the level unloads, so write a small marker file to the saves folder there. On the new level, <code>actor_on_first_update</code> checks for the marker: if it exists, this session caused the transition and the autosave belongs to it; if it does not exist, the file (if any) came from somewhere else and should not be touched.</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">TRANSITION_FLAG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;my_mod_transition_flag&quot;</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">get_flag_path</span><span class="p">()</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="nf">getFS</span><span class="p">():</span><span class="nf">update_path</span><span class="p">(</span><span class="s2">&quot;$game_saves$&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="nv">TRANSITION_FLAG</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="kr">end</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">on_level_changing</span><span class="p">()</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">io.open</span><span class="p">(</span><span class="nf">get_flag_path</span><span class="p">(),</span><span class="w"> </span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="nv">f</span><span class="p">:</span><span class="nf">write</span><span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="p">);</span><span class="w"> </span><span class="nv">f</span><span class="p">:</span><span class="nf">close</span><span class="p">()</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="kr">end</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">actor_on_first_update</span><span class="p">()</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">flag_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">get_flag_path</span><span class="p">()</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">io.open</span><span class="p">(</span><span class="nv">flag_path</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">flag_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">f</span><span class="p">:</span><span class="nf">read</span><span class="p">(</span><span class="s2">&quot;*l&quot;</span><span class="p">)</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s2">&quot;0&quot;</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="nv">f</span><span class="p">:</span><span class="nf">close</span><span class="p">()</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">flag_val</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="w">        </span><span class="c1">-- Consume the flag (os.remove is not available; overwrite instead).</span>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="w">        </span><span class="kd">local</span><span class="w"> </span><span class="nv">fw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">io.open</span><span class="p">(</span><span class="nv">flag_path</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="w">        </span><span class="kr">if</span><span class="w"> </span><span class="nv">fw</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="nv">fw</span><span class="p">:</span><span class="nf">write</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">);</span><span class="w"> </span><span class="nv">fw</span><span class="p">:</span><span class="nf">close</span><span class="p">()</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="w">        </span><span class="c1">-- This session triggered the transition, so the autosave on disk is ours.</span>
+</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a><span class="w">        </span><span class="kd">local</span><span class="w"> </span><span class="nv">autosave_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">string.lower</span><span class="p">(</span><span class="nf">user_name</span><span class="p">())</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="s2">&quot; - autosave&quot;</span>
+</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a><span class="w">        </span><span class="nv">ui_load_dialog</span><span class="p">.</span><span class="nf">delete_save_game</span><span class="p">(</span><span class="nv">autosave_name</span><span class="p">)</span>
+</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a><span class="w">    </span><span class="c1">-- ... rest of first-update logic</span>
+</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a><span class="kr">end</span>
+</span></code></pre></div>
+<p><code>getFS():update_path("$game_saves$", "")</code> returns the absolute path to the saves folder with a trailing separator. <code>io.open</code> is available in Anomaly's Lua environment (<code>alife_storage_manager.script</code> uses it), but <code>os.remove</code> is <strong>not</strong> — the <code>os</code> library's file-system functions are not exposed. Instead of deleting the flag file, overwrite it with <code>"0"</code> to consume it and check for <code>"1"</code> to distinguish a live flag from a previously-consumed one:</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">io.open</span><span class="p">(</span><span class="nv">flag_path</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">flag_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">f</span><span class="p">:</span><span class="nf">read</span><span class="p">(</span><span class="s2">&quot;*l&quot;</span><span class="p">)</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s2">&quot;0&quot;</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="kr">if</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="nv">f</span><span class="p">:</span><span class="nf">close</span><span class="p">()</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="kr">if</span><span class="w"> </span><span class="nv">flag_val</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="c1">-- Consume the flag</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">fw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">io.open</span><span class="p">(</span><span class="nv">flag_path</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">fw</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="nv">fw</span><span class="p">:</span><span class="nf">write</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">);</span><span class="w"> </span><span class="nv">fw</span><span class="p">:</span><span class="nf">close</span><span class="p">()</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">    </span><span class="c1">-- ... delete autosave</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="kr">end</span>
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Use a mod-specific prefix — <code>user_name()</code> alone is not sufficient</p>
+<p><code>user_name()</code> does not change between playthroughs. If two separate game sessions exist on the same machine (e.g. a vanilla playthrough and your modded one), both would write <code>user_name() .. " - autosave"</code> to the same filename. Deleting by that name would delete whichever file was written most recently, regardless of which session it belongs to.</p>
+<p>Scanning with <code>getFS():file_list_open_ex("$game_saves$", ..., "*autosave*")</code> is even more dangerous — it deletes every autosave in the folder unconditionally.</p>
+<p>The safe pattern is to give every save <em>your mod writes</em> a distinctive prefix so it can always be identified as yours:</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">SAVE_FILENAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;em_extraction_save&quot;</span><span class="w">  </span><span class="c1">-- &quot;em_&quot; = extraction mod</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nf">exec_console_cmd</span><span class="p">(</span><span class="s2">&quot;save &quot;</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="nv">SAVE_FILENAME</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Your mod still needs <code>user_name()</code> to delete the engine's level-transition autosave (since the engine names it that way and you cannot change it). Guard the delete with the flag-file pattern above so that it only runs when <em>this session</em> triggered the transition — not when a pre-existing autosave from another playthrough happens to be sitting in the saves folder. Everything your mod writes uses your prefixed name, and any file management that targets your mod's saves can do so safely by matching <code>"em_*"</code> (or whatever prefix you choose) rather than relying on the OS username.</p>
+</div>
+<hr />
 <h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="../engine-internals/">Engine Internals</a> — how the save file is structured and the marshal serialization system</li>
 <li><a href="../object-binders/">Object Binders</a> — the per-object save/load pattern used by binders</li>
+<li><a href="../../reference/console-commands/">Console Commands</a> — <code>save</code>, <code>load</code>, <code>flush</code> and other commands callable from Lua</li>
 </ul>
 
 
