@@ -2824,7 +2824,7 @@
 </span></code></pre></div>
 <hr />
 <h2 id="level-information">Level information<a class="headerlink" href="#level-information" title="Permanent link">&para;</a></h2>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">level</span><span class="p">.</span><span class="nf">name</span><span class="p">()</span><span class="w">       </span><span class="c1">-- current map name, e.g. &quot;l01_escape&quot;, &quot;k00_marsh&quot;, &quot;l08_yantar&quot;</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">level</span><span class="p">.</span><span class="nf">name</span><span class="p">()</span><span class="w">       </span><span class="c1">-- current map name, e.g. &quot;l01_escape&quot;, &quot;l05_bar&quot;, &quot;zaton&quot;</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nv">level</span><span class="p">.</span><span class="nf">present</span><span class="p">()</span><span class="w">    </span><span class="c1">-- true if a level is currently loaded (false on main menu)</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nv">level</span><span class="p">.</span><span class="nf">game_id</span><span class="p">()</span><span class="w">    </span><span class="c1">-- internal game ID</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nv">level</span><span class="p">.</span><span class="nf">get_game_difficulty</span><span class="p">()</span><span class="w">           </span><span class="c1">-- 0=novice, 1=stalker, 2=veteran, 3=master</span>
@@ -2855,131 +2855,181 @@
 <tr>
 <td><code>l01_escape</code></td>
 <td>Cordon</td>
-<td></td>
+<td>Confirmed</td>
 </tr>
 <tr>
 <td><code>l02_garbage</code></td>
 <td>Garbage</td>
-<td></td>
+<td>Confirmed</td>
 </tr>
 <tr>
-<td><code>l03_bar</code></td>
-<td>Bar / Rostok</td>
-<td></td>
-</tr>
-<tr>
-<td><code>l04_agroprom</code></td>
+<td><code>l03_agroprom</code></td>
 <td>Agroprom</td>
-<td></td>
+<td>Confirmed</td>
 </tr>
 <tr>
-<td><code>l04u_agroprom_underground</code></td>
+<td><code>l03u_agr_underground</code></td>
 <td>Agroprom Underground</td>
-<td></td>
+<td>Confirmed</td>
 </tr>
 <tr>
-<td><code>l05_marsh</code></td>
-<td>Great Swamp</td>
-<td></td>
+<td><code>l04_darkvalley</code></td>
+<td>Dark Valley</td>
+<td>Confirmed</td>
 </tr>
 <tr>
-<td><code>l06_mil</code></td>
-<td>Military Warehouses</td>
-<td></td>
+<td><code>l04u_labx18</code></td>
+<td>Lab X-18</td>
+<td>Confirmed</td>
+</tr>
+<tr>
+<td><code>l05_bar</code></td>
+<td>Rostok</td>
+<td>Confirmed</td>
+</tr>
+<tr>
+<td><code>l06_rostok</code></td>
+<td>Wild Territory</td>
+<td>Confirmed</td>
 </tr>
 <tr>
 <td><code>l07_military</code></td>
-<td>Army Warehouses (CoP)</td>
-<td></td>
+<td>Army Warehouses</td>
+<td>Confirmed</td>
 </tr>
 <tr>
 <td><code>l08_yantar</code></td>
 <td>Yantar</td>
-<td></td>
+<td>Confirmed</td>
 </tr>
 <tr>
 <td><code>l08u_brainlab</code></td>
-<td>Yantar Underground</td>
-<td></td>
+<td>Brain Scorcher (Yantar underground)</td>
+<td>Confirmed</td>
 </tr>
 <tr>
-<td><code>l09_limansk</code></td>
+<td><code>l09_deadcity</code></td>
+<td>Dead City</td>
+<td>Confirmed</td>
+</tr>
+<tr>
+<td><code>l10_limansk</code></td>
 <td>Limansk</td>
-<td></td>
-</tr>
-<tr>
-<td><code>l09u_hospital</code></td>
-<td>Limansk Hospital</td>
-<td></td>
+<td>Confirmed</td>
 </tr>
 <tr>
 <td><code>l10_radar</code></td>
-<td>Radar</td>
-<td></td>
+<td>Radar / CNPP</td>
+<td>Confirmed</td>
+</tr>
+<tr>
+<td><code>l10_red_forest</code></td>
+<td>Red Forest</td>
+<td>Confirmed</td>
 </tr>
 <tr>
 <td><code>l10u_bunker</code></td>
 <td>Radar Bunker</td>
-<td></td>
+<td>Confirmed</td>
+</tr>
+<tr>
+<td><code>l11_hospital</code></td>
+<td>Limansk Hospital</td>
+<td>Confirmed</td>
 </tr>
 <tr>
 <td><code>l11_pripyat</code></td>
-<td>Pripyat (CoP)</td>
-<td></td>
+<td>Pripyat (CoP south)</td>
+<td>Confirmed</td>
 </tr>
 <tr>
-<td><code>l11u_pripyat</code></td>
-<td>Pripyat Underground</td>
-<td></td>
+<td><code>l12_stancia</code></td>
+<td>Chernobyl NPP</td>
+<td>Confirmed</td>
 </tr>
 <tr>
-<td><code>l12_darkvalley</code></td>
-<td>Dark Valley</td>
-<td></td>
+<td><code>l12_stancia_2</code></td>
+<td>Chernobyl NPP (Sarcophagus approach)</td>
+<td>Confirmed</td>
 </tr>
 <tr>
 <td><code>l12u_control_monolith</code></td>
-<td>X18 Lab</td>
-<td></td>
+<td>Monolith Control (X18 Lab)</td>
+<td>Confirmed</td>
+</tr>
+<tr>
+<td><code>l12u_sarcofag</code></td>
+<td>Sarcophagus</td>
+<td>Confirmed</td>
 </tr>
 <tr>
 <td><code>l13_generators</code></td>
 <td>Generators</td>
-<td></td>
+<td>Confirmed</td>
 </tr>
 <tr>
 <td><code>l13u_warlab</code></td>
 <td>War Lab</td>
-<td></td>
+<td>Confirmed</td>
+</tr>
+<tr>
+<td><code>l23_x9</code></td>
+<td>Lab X-9</td>
+<td>Confirmed</td>
+</tr>
+<tr>
+<td><code>labx8</code></td>
+<td>Lab X-8</td>
+<td>Confirmed</td>
 </tr>
 <tr>
 <td><code>k00_marsh</code></td>
-<td>Zaton</td>
-<td></td>
+<td>Great Swamp</td>
+<td>Confirmed</td>
 </tr>
 <tr>
 <td><code>k01_darkscape</code></td>
+<td>Darkscape</td>
+<td>Confirmed</td>
+</tr>
+<tr>
+<td><code>k02_trucks_cemetery</code></td>
+<td>Truck Cemetery</td>
+<td>Confirmed</td>
+</tr>
+<tr>
+<td><code>zaton</code></td>
+<td>Zaton</td>
+<td>Confirmed</td>
+</tr>
+<tr>
+<td><code>jupiter</code></td>
 <td>Jupiter</td>
-<td></td>
+<td>Confirmed</td>
 </tr>
 <tr>
-<td><code>k02_jungle</code></td>
-<td>Yanov / Pripyat (CoP)</td>
-<td></td>
+<td><code>jupiter_underground</code></td>
+<td>Jupiter Underground</td>
+<td>Confirmed</td>
 </tr>
 <tr>
-<td><code>k03_agroprom</code></td>
-<td>Agroprom (CoP)</td>
-<td></td>
+<td><code>pripyat</code></td>
+<td>Pripyat (CoP north)</td>
+<td>Confirmed</td>
+</tr>
+<tr>
+<td><code>y04_pole</code></td>
+<td>Meadow</td>
+<td>Confirmed</td>
 </tr>
 <tr>
 <td><code>fake_start</code></td>
-<td>Character creation / tutorial</td>
-<td>Observed in logs; not a real level</td>
+<td>Floating Test Level</td>
+<td>Confirmed</td>
 </tr>
 </tbody>
 </table>
-<p>These are taken from smart terrain prefixes, fast-travel config files, and confirmed game log output. A few have only been inferred from config data rather than direct observation — treat uncommon levels as approximate until you verify them in-game with <code>printf("[test] level: %s", level.name())</code>.</p>
+<p>Level names partly sourced from Fair Fast Travel <code>travel_destinations.ltx</code> <code>[northern_maps]</code> section and confirmed against in-game testing. Use <code>printf("[test] level: %s", level.name())</code> to verify level in game.</p>
 <hr />
 <hr />
 <h2 id="object-access">Object access<a class="headerlink" href="#object-access" title="Permanent link">&para;</a></h2>

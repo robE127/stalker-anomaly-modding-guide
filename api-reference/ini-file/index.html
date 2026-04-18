@@ -1450,6 +1450,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#enumerate-named-sections-using-an-index-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enumerate named sections using an index section
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#read-a-section-that-inherits-from-a-base" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2562,6 +2573,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#enumerate-named-sections-using-an-index-section" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enumerate named sections using an index section
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#read-a-section-that-inherits-from-a-base" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2819,28 +2841,59 @@ not as a file path. Passing a file path to <code>create_ini_file</code> returns 
 </span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="kr">end</span>
 </span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="kr">end</span>
 </span></code></pre></div>
+<h3 id="enumerate-named-sections-using-an-index-section">Enumerate named sections using an index section<a class="headerlink" href="#enumerate-named-sections-using-an-index-section" title="Permanent link">&para;</a></h3>
+<p><code>ini_file</code> has no function to list all section names in a file. If your config has a variable number of named sections that a script needs to discover at runtime, the standard workaround is an explicit index section whose <strong>keys</strong> are the section names:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>[zones]
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>rookie_village  = true
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>northern_farm   = true
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>army_checkpoint = true
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>[rookie_village]
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>level  = l01_escape
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>x      = -206.0193
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>; ...
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>[northern_farm]
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>level  = l01_escape
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>x      = 1.1010
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>; ...
+</span></code></pre></div>
+<p>The <code>= true</code> values are placeholders — only the key names matter. The script iterates <code>[zones]</code> to discover which named sections exist, then reads each one:</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">ini</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">ini_file</span><span class="p">(</span><span class="s2">&quot;my_mod_zones.ltx&quot;</span><span class="p">)</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="kr">if</span><span class="w"> </span><span class="nv">ini</span><span class="p">:</span><span class="nf">section_exist</span><span class="p">(</span><span class="s2">&quot;zones&quot;</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="kr">for</span><span class="w"> </span><span class="nv">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nv">ini</span><span class="p">:</span><span class="nf">line_count</span><span class="p">(</span><span class="s2">&quot;zones&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="kr">do</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">        </span><span class="kd">local</span><span class="w"> </span><span class="nv">_</span><span class="p">,</span><span class="w"> </span><span class="nv">name</span><span class="p">,</span><span class="w"> </span><span class="nv">_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">ini</span><span class="p">:</span><span class="nf">r_line</span><span class="p">(</span><span class="s2">&quot;zones&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">i</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">        </span><span class="kr">if</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">~=</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">ini</span><span class="p">:</span><span class="nf">section_exist</span><span class="p">(</span><span class="nv">name</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">            </span><span class="kd">local</span><span class="w"> </span><span class="nv">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">ini</span><span class="p">:</span><span class="nf">r_string</span><span class="p">(</span><span class="nv">name</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;level&quot;</span><span class="p">)</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">            </span><span class="c1">-- read the rest of the section ...</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">        </span><span class="kr">end</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="kr">end</span>
+</span></code></pre></div>
+<p>The downside is that the index must be kept in sync manually — a section added to the file but omitted from the index is silently ignored. This pattern appears throughout the base game (<code>system.ltx</code>, various manager configs) and community mods (Fair Fast Travel <code>travel_zones.ltx</code>).</p>
 <h3 id="read-a-section-that-inherits-from-a-base">Read a section that inherits from a base<a class="headerlink" href="#read-a-section-that-inherits-from-a-base" title="Permanent link">&para;</a></h3>
 <p>LTX uses <code>[child] : parent</code> inheritance. <code>system_ini()</code> already flattens inheritance for you — when you read <code>r_string("child_section", "inherited_key")</code>, it walks the inheritance chain automatically.</p>
 <h3 id="check-item-config">Check item config<a class="headerlink" href="#check-item-config" title="Permanent link">&para;</a></h3>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">get_item_weight</span><span class="p">(</span><span class="nv">section</span><span class="p">)</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">ini</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">system_ini</span><span class="p">()</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">ini</span><span class="p">:</span><span class="nf">section_exist</span><span class="p">(</span><span class="nv">section</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="kr">end</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">ini</span><span class="p">:</span><span class="nf">line_exist</span><span class="p">(</span><span class="nv">section</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;inv_weight&quot;</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="kr">end</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="nv">ini</span><span class="p">:</span><span class="nf">r_float</span><span class="p">(</span><span class="nv">section</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;inv_weight&quot;</span><span class="p">)</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="kr">end</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="kd">local</span><span class="w"> </span><span class="nv">weight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">get_item_weight</span><span class="p">(</span><span class="s2">&quot;bandage&quot;</span><span class="p">)</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">get_item_weight</span><span class="p">(</span><span class="nv">section</span><span class="p">)</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">ini</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">system_ini</span><span class="p">()</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">ini</span><span class="p">:</span><span class="nf">section_exist</span><span class="p">(</span><span class="nv">section</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">ini</span><span class="p">:</span><span class="nf">line_exist</span><span class="p">(</span><span class="nv">section</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;inv_weight&quot;</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kr">return</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="nv">ini</span><span class="p">:</span><span class="nf">r_float</span><span class="p">(</span><span class="nv">section</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;inv_weight&quot;</span><span class="p">)</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="kr">end</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="kd">local</span><span class="w"> </span><span class="nv">weight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">get_item_weight</span><span class="p">(</span><span class="s2">&quot;bandage&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="read-spawn-time-data">Read spawn-time data<a class="headerlink" href="#read-spawn-time-data" title="Permanent link">&para;</a></h3>
 <p>Objects in <code>.spawn</code> files or spawned via scripts can carry embedded LTX data accessible via <code>spawn_ini()</code>:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">-- In a binder&#39;s reinit or net_spawn:</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kr">function</span><span class="w"> </span><span class="nc">MyBinder</span><span class="p">:</span><span class="nf">net_spawn</span><span class="p">(</span><span class="nv">data</span><span class="p">)</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">si</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">spawn_ini</span><span class="p">()</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">si</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">si</span><span class="p">:</span><span class="nf">section_exist</span><span class="p">(</span><span class="s2">&quot;logic&quot;</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">        </span><span class="nv">self</span><span class="p">.</span><span class="py">custom_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">si</span><span class="p">:</span><span class="nf">r_bool</span><span class="p">(</span><span class="s2">&quot;logic&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;my_flag&quot;</span><span class="p">)</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="kr">end</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="kc">true</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">-- In a binder&#39;s reinit or net_spawn:</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kr">function</span><span class="w"> </span><span class="nc">MyBinder</span><span class="p">:</span><span class="nf">net_spawn</span><span class="p">(</span><span class="nv">data</span><span class="p">)</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">si</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">self</span><span class="p">.</span><span class="py">object</span><span class="p">:</span><span class="nf">spawn_ini</span><span class="p">()</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">si</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">si</span><span class="p">:</span><span class="nf">section_exist</span><span class="p">(</span><span class="s2">&quot;logic&quot;</span><span class="p">)</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">        </span><span class="nv">self</span><span class="p">.</span><span class="py">custom_flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">si</span><span class="p">:</span><span class="nf">r_bool</span><span class="p">(</span><span class="s2">&quot;logic&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;my_flag&quot;</span><span class="p">)</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="kr">end</span>
 </span></code></pre></div>
 <hr />
 <h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
