@@ -78,6 +78,15 @@ showing the player a warning message (since autosaves are not player-initiated).
 | 4.1 | Walk outside any safe zone. Trigger an autosave by sleeping at a campfire or using a debug console command: `save roced - autosave`. | No HUD toast shown to the player. |
 | 4.2 | Check the saves folder. | The autosave file does not persist. `extraction_save.scop` unchanged. |
 | 4.3 | Check the log. | `on_console_execute: NOT in safe zone — deleting` is logged but no `show_msg` call (because `is_engine_save` was true). |
+| 4.4 | Travel to a level transition (e.g. Cordon → Garbage or any other level change). Allow the loading screen to complete. | No HUD toast for the transition. |
+| 4.5 | Check the saves folder immediately after the new level loads. | The transition autosave (e.g. `player - autosave.scop`) does **not** exist. Only `extraction_save.scop` is present (if one was written before the transition). |
+| 4.6 | Check the log on the new level. | `[EM] actor_on_first_update: deleting transition autosave '<user_name> - autosave' if present` present. No autosave file remains. |
+
+**Note on 4.4–4.6:** the engine writes `<user_name> - autosave` as part of every level transition (C++ `Core.UserName + " - autosave"`). `on_console_execute` fires as a pre-notification before the file is written, so the delete there is a no-op. The fix uses two callbacks:
+- `on_level_changing` (fires before the level unloads): writes `em_transition_flag` to the saves folder.
+- `actor_on_first_update` (fires after the new level loads): checks for the flag. If present — this session caused the transition — deletes `user_name() .. " - autosave"` and removes the flag. If absent — no transition was triggered by this session (e.g. fresh game start or load from menu) — skips the delete to preserve any pre-existing autosave from another playthrough.
+
+**`Core.UserName` is not reliably the OS username** — xray-monolith overrides it to the hardcoded string `"Player"` when `[string_table]` contains `no_native_input` (Anomaly ships with this set). On most installs `user_name()` returns `"Player"` regardless of the actual Windows account. The log file is named before this override runs, so it uses the real OS login name.
 
 ---
 

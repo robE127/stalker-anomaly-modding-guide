@@ -28,6 +28,12 @@
 --   [GAP-7] get_actor_true_community() -- global in _g.script; calls
 --           gameplay_disguise.get_default_comm(). Returns the player's true faction
 --           string regardless of current disguise.
+--   [GAP-8] Level transition autosaves: on_console_execute fires BEFORE the file
+--           is written during level changes (pre-notification, not post). Calling
+--           delete_save_game inside that callback deletes a file that doesn't
+--           exist yet; the engine then writes it after the callback returns.
+--           Fix: delete the expected autosave name in actor_on_first_update,
+--           which fires after the new level fully loads and the file is on disk.
 --
 -- KNOWN ISSUES:
 --   • Level names sourced from Fair Fast Travel travel_destinations.ltx
@@ -50,7 +56,28 @@ local SAFE_ZONES = {}
 -- Configuration
 -- ─────────────────────────────────────────────────────────────────────────────
 
-local SAVE_FILENAME   = "extraction_save" -- the one and only save file
+-- All save files written by this mod use this name. The "em_" prefix makes them
+-- clearly identifiable as belonging to this mod so file-management operations
+-- (delete, list) can target them without risking saves from other playthroughs.
+-- The engine writes its own autosaves using user_name() as the prefix; those are
+-- intercepted and replaced with this file -- see actor_on_first_update and
+-- on_console_execute.
+local SAVE_FILENAME   = "em_extraction_save"
+
+-- Flag file written by on_level_changing to mark that THIS session triggered a
+-- level transition. actor_on_first_update checks for this flag before deleting
+-- the engine's autosave. Without the flag, a pre-existing "player - autosave"
+-- from a separate playthrough would be silently deleted on the first transition.
+-- The file is written to the saves folder (same dir as .scop files) and removed
+-- immediately after being read.
+local TRANSITION_FLAG = "em_transition_flag"
+
+local function get_flag_path()
+    -- getFS():update_path("$game_saves$", "") returns the absolute path to the
+    -- saves folder with a trailing separator (e.g. "C:\...\savedgames\").
+    -- Confirmed: alife_storage_manager.script uses the same pattern for io.open.
+    return getFS():update_path("$game_saves$", "") .. TRANSITION_FLAG
+end
 local NIGHT_START     = 20
 local NIGHT_END       = 8
 local UPDATE_INTERVAL = 5000 -- ms between safe-zone checks
@@ -427,6 +454,7 @@ local function on_console_execute(cmd, ...)
     -- but the save is still correctly deleted/redirected regardless.
     local is_engine_save = save_name:find("autosave", 1, true)
         or save_name:find("quicksave", 1, true)
+        or save_name:find("tempsave", 1, true)
 
     -- For any save we don't control:
     if not is_in_safe_zone() then
@@ -692,6 +720,33 @@ local function actor_on_before_death(who_id, flags)
 end
 
 -- ─────────────────────────────────────────────────────────────────────────────
+-- Level transition tracking
+-- ─────────────────────────────────────────────────────────────────────────────
+
+-- Fires before the level unloads. We write a flag file here so that
+-- actor_on_first_update on the new level knows THIS session caused the
+-- transition and can safely delete the engine's autosave.
+--
+-- The flag is a plain file in the saves folder ("em_transition_flag").
+-- actor_on_first_update deletes it after reading it, so it never accumulates.
+local function on_level_changing()
+    -- Write "1" to the flag file. actor_on_first_update reads this and resets
+    -- it to "0" after consuming it, so the file persists as a persistent
+    -- on/off indicator across level transitions.
+    -- NOTE: os.remove is not available in Anomaly's Lua sandbox, so we cannot
+    -- delete the file. We use content ("1"/"0") to track state instead.
+    local flag_path = get_flag_path()
+    dbg("on_level_changing: writing transition flag to '%s'", flag_path)
+    local f = io.open(flag_path, "w")
+    if f then
+        f:write("1")
+        f:close()
+    else
+        printe("![EM] on_level_changing: failed to write transition flag to '%s'", flag_path)
+    end
+end
+
+-- ─────────────────────────────────────────────────────────────────────────────
 -- Initialisation
 -- ─────────────────────────────────────────────────────────────────────────────
 
@@ -700,7 +755,47 @@ local first_update_done = false
 local function actor_on_first_update()
     if first_update_done then return end
     first_update_done = true
-    dbg("actor_on_first_update: first update fired")
+    dbg("actor_on_first_update: first update fired (level=%s)", level.name())
+
+    -- [GAP-8] Level-transition autosave cleanup.
+    -- The C++ engine writes user_name() .. " - autosave" during every level
+    -- transition (alife_update_manager.cpp:219). on_console_execute fires as a
+    -- pre-notification before the file exists, so delete_save_game there is a
+    -- no-op. By the time actor_on_first_update fires the file is on disk.
+    --
+    -- We only delete the engine's autosave when we know THIS session triggered
+    -- the transition. on_level_changing writes a flag file to the saves folder
+    -- before the transition; we check for it here and remove it.
+    --
+    -- Why the flag is necessary: user_name() returns the Windows display name
+    -- (Core.UserName), which does not change between playthroughs. A pre-existing
+    -- "player - autosave" from a different playthrough would be silently deleted
+    -- if we always called delete_save_game unconditionally on first update.
+    -- The flag proves that the current session is responsible for the file.
+    do
+        -- Read the flag file. "1" means on_level_changing wrote it this session.
+        -- os.remove is not available in Anomaly's Lua sandbox, so we reset the
+        -- flag by overwriting with "0" rather than deleting the file.
+        local flag_path = get_flag_path()
+        local f = io.open(flag_path, "r")
+        local flag_val = f and f:read("*l") or "0"
+        if f then f:close() end
+
+        if flag_val == "1" then
+            -- Consume the flag.
+            local fw = io.open(flag_path, "w")
+            if fw then fw:write("0"); fw:close() end
+            local autosave_name = string.lower(user_name()) .. " - autosave"
+            dbg("actor_on_first_update: transition flag found -- deleting engine autosave '%s'", autosave_name)
+            ui_load_dialog.delete_save_game(autosave_name)
+        else
+            dbg("actor_on_first_update: no transition flag (val='%s') -- skipping autosave cleanup", flag_val)
+        end
+        -- No do_save() here: the existing em_extraction_save from before the
+        -- transition is still valid. actor_on_update will write a new save the
+        -- next time the player is in a safe zone on this level.
+    end
+
     if not data.last_base_x then
         dbg("actor_on_first_update: no base on record  -- recording current position as fallback")
         record_base_position()
@@ -723,6 +818,7 @@ function on_game_start()
     RegisterScriptCallback("actor_on_item_take_from_box", actor_on_item_take_from_box)
     RegisterScriptCallback("on_before_save_input", on_before_save_input)
     RegisterScriptCallback("on_console_execute", on_console_execute)
+    RegisterScriptCallback("on_level_changing", on_level_changing)
     RegisterScriptCallback("save_state", save_state)
     RegisterScriptCallback("load_state", load_state)
 end
@@ -742,6 +838,7 @@ function on_game_end()
     UnregisterScriptCallback("actor_on_item_take_from_box", actor_on_item_take_from_box)
     UnregisterScriptCallback("on_before_save_input", on_before_save_input)
     UnregisterScriptCallback("on_console_execute", on_console_execute)
+    UnregisterScriptCallback("on_level_changing", on_level_changing)
     UnregisterScriptCallback("save_state", save_state)
     UnregisterScriptCallback("load_state", load_state)
 end

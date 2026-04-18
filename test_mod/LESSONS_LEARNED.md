@@ -211,6 +211,97 @@ end
 
 ---
 
+### Level-transition autosaves bypass `on_console_execute`
+The engine writes `<character_name> - autosave` on every level transition via an
+internal path. `on_console_execute` **does** fire for this save, but as a
+pre-notification — before the file is written to disk. Calling
+`ui_load_dialog.delete_save_game` inside that callback attempts to delete a file
+that does not yet exist; the engine then writes it after the callback returns.
+
+Consequence: the player sees the "Cannot save outside a friendly base!" UI message
+(from `is_engine_save` detection), but the file persists on disk.
+
+Fix: in `actor_on_first_update`, delete the specific autosave name the engine
+would have written, constructed using `user_name()`:
+```lua
+local autosave_name = string.lower(user_name()) .. " - autosave"
+ui_load_dialog.delete_save_game(autosave_name)
+```
+`delete_save_game` on a non-existent file is a silent no-op.
+
+**Source of the save name:** both the C++ engine (`alife_update_manager.cpp:219`:
+`strconcat(buf, Core.UserName, " - ", "autosave")`) and base-game Lua scripts
+(`itms_manager.script`: `exec_console_cmd("save " .. user_name() .. " - autosave")`)
+use `Core.UserName` as the prefix. `user_name()` is the Lua binding to
+`Core.UserName` (`script_engine_script.cpp`: `def("user_name", &user_name)`).
+
+**`Core.UserName` is NOT reliably the OS username.** It is initialised from the
+Windows `GetUserName()` API, but xray-monolith overrides it to the hardcoded
+string `"Player"` when the `[string_table]` config section contains `no_native_input`
+(see `x_ray.cpp` line 1071). Anomaly ships with this key for CIS/Asian locale
+support, so on most installations `user_name()` returns `"Player"` regardless of
+the actual Windows account.
+
+The engine log file is named at startup BEFORE this override runs, which is why
+the log is `xray_roced.log` (OS login = "roced") while `user_name()` returns
+"Player" at runtime. `character_name()` is unrelated — it returns the in-game
+actor display name (faction archetype, e.g. "stalker"), not any OS or save-file
+identity.
+
+**`character_name()` is not the same as `user_name()`:** `character_name()` returns
+the NPC/actor display name used in UI (settable via Options → Gameplay → Player
+Name). `user_name()` returns the OS-level username used for save file naming.
+
+**A glob scan (`*autosave*`) works but is unsafe** — it would delete autosave
+files from other playthroughs or characters sharing the same Anomaly install.
+
+**`user_name()` alone is also not safe** — it doesn't change between playthroughs,
+so `user_name() .. " - autosave"` is the same filename for every playthrough on
+the same machine. A pre-existing "player - autosave" from a different playthrough
+would be deleted unconditionally on the first level transition with the mod.
+
+**Recommended pattern: flag file + mod-specific save prefix.** Write a flag file
+to the saves folder in `on_level_changing`; check for it in `actor_on_first_update`.
+Only delete `user_name() .. " - autosave"` when the flag is present — meaning THIS
+session triggered the transition. Name all mod-owned saves with a distinctive
+prefix (e.g. `"em_"`) so they can be identified without relying on `user_name()`
+or broad globs:
+```lua
+local TRANSITION_FLAG = "em_transition_flag"
+local SAVE_FILENAME   = "em_extraction_save"
+
+local function get_flag_path()
+    return getFS():update_path("$game_saves$", "") .. TRANSITION_FLAG
+end
+
+local function on_level_changing()
+    local f = io.open(get_flag_path(), "w")
+    if f then f:write("1"); f:close() end
+end
+
+local function actor_on_first_update()
+    local f = io.open(get_flag_path(), "r")
+    if f then
+        f:close()
+        os.remove(get_flag_path())
+        ui_load_dialog.delete_save_game(string.lower(user_name()) .. " - autosave")
+    end
+    -- ...
+end
+```
+`io.open` is available in Anomaly's Lua (`alife_storage_manager.script` uses it).
+**`os.remove` is NOT available** — it crashes with `attempt to call field 'remove'
+(a nil value)`. The `os` library's file-system functions are not exposed in the
+sandbox. To consume the flag file, overwrite it with `"0"` and check for `"1"` on
+read rather than deleting it. `getFS():update_path` returns the absolute path to
+the saves folder with a trailing separator. `on_level_changing` is a real callback
+in `axr_main.script` line 53.
+**Should be added to:** debugging guide (silent failure modes) — `os.remove` looks
+like it should work but crashes immediately.
+**Should be added to:** a save-file management API page.
+
+---
+
 ### Stash objects are not immediately online after `alife_create`
 `alife_create("inv_backpack", pos, lvid, gvid)` returns a server-side object
 immediately, but the corresponding client-side object (accessible via
@@ -281,3 +372,9 @@ Note: `k00_marsh` is Great Swamp (not Zaton). `k01_darkscape` is Darkscape
   untested.
 - Late-game levels (Pripyat, Red Forest, Dead City, Limansk continuation) have no
   safe zone data.
+- Level-transition autosave bypass: **fixed** using flag file + `on_level_changing`.
+  `on_level_changing` writes `em_transition_flag` to the saves folder before the
+  level unloads. `actor_on_first_update` on the new level checks for the flag:
+  if present, deletes `user_name() .. " - autosave"` (which is now on disk) and
+  removes the flag; if absent, skips the delete (preserves pre-existing files from
+  other playthroughs). All mod-owned saves use the `"em_"` prefix.
