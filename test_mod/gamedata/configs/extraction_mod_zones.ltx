@@ -1,0 +1,279 @@
+; extraction_mod_zones.ltx
+; Safe zone definitions for Extraction Mode.
+; Adapted from Fair Fast Travel (Catspaw) travel_zones.ltx structure.
+;
+; [zones] lists every zone section name.
+; Each zone section defines one area:
+;
+;   level  = level name string (e.g. l01_escape)
+;   owner  = faction community string  -- OPTIONAL; omit for zones open to all
+;   x, y, z = world position of the zone centre
+;   radius  = detection radius in metres
+;
+; owner values must match community strings used by game_relations:
+;   stalker, army, freedom, dolg, csky, renegade, killer, ecologist,
+;   monolith, bandit, greh, isg, zombied
+;
+; Faction ownership sourced from Fair Fast Travel travel_zones.ltx (Catspaw).
+; Zones without an explicit owner are neutral -- accessible to all factions.
+; Level names marked (?) are inferred and have not been verified in-game.
+
+[zones]
+rookie_village          = true
+northern_farm           = true
+army_cordon             = true
+stalker_hangar          = true
+dolg_hq                 = true
+army_agroprom           = true
+agro_factory            = true
+csky_base               = true
+renegade_base           = true
+army_marsh              = true
+freedom_base_1          = true
+freedom_base_2          = true
+ecologist_yantar        = true
+army_darkvalley         = true
+bandit_dv_1             = true
+bandit_dv_2             = true
+bandit_dv_3             = true
+skadovsk                = true
+merc_waste              = true
+yanov_1                 = true
+yanov_2                 = true
+ecologist_jupiter       = true
+bandit_warehouse        = true
+monolith_radar          = true
+limansk_radio           = true
+limansk_construction    = true
+
+; ── Cordon  (l01_escape) ─────────────────────────────────────────────────────
+
+[rookie_village]
+level  = l01_escape
+owner  = stalker
+x      = -206.0193
+y      = -20.3856
+z      = -148.0225
+radius = 80
+
+[northern_farm]
+level  = l01_escape
+owner  = stalker
+x      = 1.1010
+y      = 0.5372
+z      = 274.1233
+radius = 60
+
+[army_cordon]
+level  = l01_escape
+owner  = army
+x      = -146.5695
+y      = -29.8804
+z      = -373.57
+radius = 80
+
+; ── Garbage  (l02_garbage) ───────────────────────────────────────────────
+
+[stalker_hangar]
+level  = l02_garbage
+; no owner — mixed presence; open to all
+x      = -92.8095
+y      = 10
+z      = -2.1873
+radius = 80
+
+; ── Rostok  (l05_bar) ───────────────────────────────────────────────────────
+
+[dolg_hq]
+level  = l05_bar
+owner  = dolg
+x      = 162.2871
+y      = 0
+z      = 70.5831
+radius = 100
+
+; ── Agroprom  (l03_agroprom) ─────────────────────────────────────────────
+
+[army_agroprom]
+level  = l03_agroprom
+owner  = army
+x      = -152.3414
+y      = 0
+z      = -181.0988
+radius = 80
+
+[agro_factory]
+level  = l03_agroprom
+; no owner — open to all
+x      = 9.5565
+y      = 10
+z      = 6.5732
+radius = 80
+
+; ── Great Swamp  (k00_marsh) ─────────────────────────────────────────────
+
+[csky_base]
+level  = k00_marsh
+owner  = csky
+x      = -154.05
+y      = 0.5899
+z      = -310.8667
+radius = 80
+
+[renegade_base]
+level  = k00_marsh
+owner  = renegade
+x      = -189.4919
+y      = 1.0513
+z      = 406.1832
+radius = 60
+
+[army_marsh]
+level  = k00_marsh
+owner  = army
+x      = 409.5656
+y      = 3.5093
+z      = 258.7098
+radius = 80
+
+; ── Army Warehouses  (l07_military) ─────────────────────────────────────
+
+[freedom_base_1]
+level  = l07_military
+owner  = freedom
+x      = -5.9021
+y      = -6.1777
+z      = 37.5306
+radius = 121
+
+[freedom_base_2]
+level  = l07_military
+owner  = freedom
+x      = -23.4858
+y      = -8.4476
+z      = -39.1581
+radius = 136
+
+; ── Yantar  (l08_yantar) ─────────────────────────────────────────────────────
+
+[ecologist_yantar]
+level  = l08_yantar
+owner  = ecologist
+x      = 26.7268
+y      = -10.6048
+z      = -270.3784
+radius = 70
+
+; ── Dark Valley  (l04_darkvalley) ───────────────────────────────────────────
+
+[army_darkvalley]
+level  = l04_darkvalley
+owner  = army
+x      = 161.9911
+y      = 5.8265
+z      = -256.5998
+radius = 80
+
+[bandit_dv_1]
+level  = l04_darkvalley
+owner  = bandit
+x      = 8.5127
+y      = 0.0873
+z      = 31.7904
+radius = 80
+
+[bandit_dv_2]
+level  = l04_darkvalley
+owner  = bandit
+x      = 0.0795
+y      = 1.1741
+z      = -8.066
+radius = 80
+
+[bandit_dv_3]
+level  = l04_darkvalley
+owner  = bandit
+x      = 16.1829
+y      = 0.3825
+z      = -65.6342
+radius = 70
+
+; ── Zaton  (zaton) ───────────────────────────────────────────────────────────
+
+[skadovsk]
+level  = zaton
+owner  = stalker
+x      = 132.4929
+y      = -7.3461
+z      = 183.5880
+radius = 70
+
+[merc_waste]
+level  = zaton
+owner  = killer
+x      = 325.2908
+y      = 35
+z      = -388.2797
+radius = 110
+
+; ── Jupiter  (jupiter) ───────────────────────────────────────────────────────
+
+[yanov_1]
+level  = jupiter
+owner  = freedom
+x      = -51.4095
+y      = 3.4869
+z      = 197.6493
+radius = 70
+
+[yanov_2]
+level  = jupiter
+owner  = freedom
+x      = -23.4957
+y      = 4.5931
+z      = 238.4627
+radius = 70
+
+[ecologist_jupiter]
+level  = jupiter
+owner  = ecologist
+x      = -213.0871
+y      = 0
+z      = 74.1083
+radius = 55
+
+[bandit_warehouse]
+level  = jupiter
+owner  = bandit
+x      = -419.5993
+y      = 0.0112
+z      = -355.4865
+radius = 80
+
+; ── Radar  (l10_radar) ───────────────────────────────────────────────────────
+
+[monolith_radar]
+level  = l10_radar
+owner  = monolith
+x      = 28.0392
+y      = -1.8515
+z      = 10.3282
+radius = 100
+
+; ── Limansk  (l10_limansk) ───────────────────────────────────────────────────
+
+[limansk_radio]
+level  = l10_limansk
+; no owner — coordinates unconfirmed (?)
+x      = 64.3670
+y      = 20
+z      = 286.9821
+radius = 80
+
+[limansk_construction]
+level  = l10_limansk
+; no owner — coordinates unconfirmed (?)
+x      = 7.3627
+y      = 24.4966
+z      = 190.6140
+radius = 80

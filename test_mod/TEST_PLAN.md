@@ -200,6 +200,28 @@ and the marker disappears when the stash is looted.
 
 ---
 
+## Feature 13 — Faction-aware safe zones
+
+**Goal:** verify the mod only accepts a zone as safe when the player's faction is
+friendly with the zone's owner, and that neutral (ownerless) zones are always
+accessible.
+
+**Test character faction:** check with console `get_actor_true_community` or look
+at the character info screen. Default new-game faction is `stalker`.
+
+| # | Steps | Expected result |
+|---|-------|-----------------|
+| 13.1 | As a loner (`stalker`), enter Rookie Village. | Toast: **"Base reached — game saved."** (stalker zone, player is stalker — friendly). |
+| 13.2 | As a loner, walk to the Army Checkpoint on Cordon. | **No** toast. Save is NOT triggered. Log: `is_in_safe_zone` returns false because `stalker` is not friends with `army`. |
+| 13.3 | As a loner, walk to the Garbage Stalker Hangar (ownerless zone). | Toast fires. Confirms neutral zones work regardless of faction. |
+| 13.4 | Check the log for a faction-gated rejection (step 13.2). | `safe zone state changed -> false` or no `entered base zone` line for the army checkpoint visit. |
+| 13.5 | Reload as a different faction (use MCM or a save where you play as Army). Enter the Army Checkpoint. | Toast fires. Confirms faction check is symmetric. |
+
+**Note:** changing faction mid-game (via `set_actor_true_community`) should take effect
+immediately on the next `actor_on_update` poll cycle (within 5 seconds).
+
+---
+
 ## Known limitations — not tested here
 
 These are out of scope for the current implementation and tracked as known issues:
@@ -207,7 +229,6 @@ These are out of scope for the current implementation and tracked as known issue
 | Limitation | Reason not tested |
 |------------|-------------------|
 | Cross-level respawn (die on Level A, base on Level B) | Implemented but untested — requires playing through to a level transition |
-| Level names marked `(?)` in the script | Coordinates inferred; not verified in-game. Test by visiting each level and checking the log for `safe zone state changed`. |
-| Jupiter (`k01_darkscape`) | Most uncertain level name — zones may silently not work |
+| Limansk (`l10_limansk`) zone coordinates | Level name confirmed; coordinates for `limansk_radio` and `limansk_construction` are inferred and have not been verified in-game. |
 | Late-game levels (Pripyat, Red Forest, Dead City, Limansk continuation) | No safe zone data; player would respawn at last known valid base from a different level |
 | Autosave trigger verification | Tested via manual console command; full campfire/blowout autosave cycle not exercised |

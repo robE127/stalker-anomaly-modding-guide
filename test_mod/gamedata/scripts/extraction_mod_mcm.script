@@ -15,6 +15,13 @@ function on_mcm_load()
                 def     = true,
                 text    = "ui_mcm_extraction_mod_show_stash_marker",
             },
+            {
+                id      = "allow_neutral_bases",
+                type    = "check",
+                val     = 1,
+                def     = false,
+                text    = "ui_mcm_extraction_mod_allow_neutral_bases",
+            },
         }
     }
 end

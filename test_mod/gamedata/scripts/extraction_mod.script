@@ -23,86 +23,28 @@
 --           Using distance check as fallback. Should be documented.
 --   [GAP-5] Level name strings not listed in guide. Using examples from level.md
 --           plus inference; names marked (?) are unverified.
+--   [GAP-6] game_relations.is_factions_friends(f1, f2) -- not in guide; confirmed
+--           from game_relations.script. Returns true if community_relation >= FRIENDS.
+--   [GAP-7] get_actor_true_community() -- global in _g.script; calls
+--           gameplay_disguise.get_default_comm(). Returns the player's true faction
+--           string regardless of current disguise.
 --
 -- KNOWN ISSUES:
---   • Level names marked (?) below need in-game verification. Zones on those
---     levels silently won't work if the name is wrong.
---   • Cordon (l01_escape) is confirmed working  -- test there first.
---   • Jupiter (k01_darkscape) is the most uncertain level name.
+--   • Level names sourced from Fair Fast Travel travel_destinations.ltx
+--     [northern_maps] section -- all main-game levels now confirmed.
+--   • Limansk (l10_limansk) zone coordinates are unconfirmed (?); level name
+--     itself is confirmed from travel_destinations.ltx.
 --   • Late-game levels (Pripyat, Red Forest, Dead City) not included.
 
 -- ─────────────────────────────────────────────────────────────────────────────
--- Safe zone positions
--- Coordinates from Fair Fast Travel (Catspaw) travel_zones.ltx.
--- Format: {x, y, z, radius_metres}
--- Level names confirmed from guide docs are noted; others are inferred.
+-- Safe zone table
+-- Populated at game start by load_config() from extraction_mod_zones.ltx.
+-- Format after loading:
+--   SAFE_ZONES[level_name] = { {x, y, z, radius, owner}, ... }
+-- owner is a faction community string or nil (nil = open to all factions).
 -- ─────────────────────────────────────────────────────────────────────────────
 
-local SAFE_ZONES      = {
-    -- ── Cordon  -- l01_escape (confirmed in guide's level.md) ───────────────
-    l01_escape = {
-        { -206.0193, -20.3856, -148.0225, 80 }, -- Rookie Village (stalker)
-        { 1.1010,    0.5372,   274.1233,  60 }, -- Northern Farm (stalker)
-        { -146.5695, -29.8804, -373.57,   80 }, -- Army Checkpoint (army)
-    },
-    -- ── Garbage  -- l02_garbage (?) ─────────────────────────────────────────
-    l02_garbage = {
-        { -92.8095, 10, -2.1873, 80 }, -- Stalker Hangar
-    },
-    -- ── Bar / Rostok  -- l03_bar (?) ────────────────────────────────────────
-    l03_bar = {
-        { 162.2871, 0, 70.5831, 100 }, -- 100 Rads Bar / Dolg HQ
-    },
-    -- ── Agroprom  -- l04_agroprom (?) ───────────────────────────────────────
-    l04_agroprom = {
-        { -152.3414, 0,  -181.0988, 80 }, -- Army base
-        { 9.5565,    10, 6.5732,    80 }, -- Factory
-    },
-    -- ── Great Swamp  -- l05_marsh (?) ───────────────────────────────────────
-    l05_marsh = {
-        { -154.05,   0.5899, -310.8667, 80 }, -- Clear Sky base
-        { -189.4919, 1.0513, 406.1832,  60 }, -- Renegade base
-        { 409.5656,  3.5093, 258.7098,  80 }, -- Army camp
-    },
-    -- ── Military Warehouses  -- l06_mil (?) ─────────────────────────────────
-    l06_mil = {
-        { -5.9021,  -6.1777, 37.5306,  121 }, -- Freedom Base (zone 1)
-        { -23.4858, -8.4476, -39.1581, 136 }, -- Freedom Base (zone 2)
-    },
-    -- ── Yantar  -- l08_yantar (confirmed in guide's level.md) ───────────────
-    l08_yantar = {
-        { 26.7268, -10.6048, -270.3784, 70 }, -- Ecologist mobile lab
-    },
-    -- ── Dark Valley  -- l12_darkvalley (?) ──────────────────────────────────
-    l12_darkvalley = {
-        { 161.9911, 5.8265, -256.5998, 80 }, -- Army outpost
-        { 8.5127,   0.0873, 31.7904,   80 }, -- Bandit base zone 1
-        { 0.0795,   1.1741, -8.066,    80 }, -- Bandit base zone 2
-        { 16.1829,  0.3825, -65.6342,  70 }, -- Bandit base zone 3
-    },
-    -- ── Zaton  -- k00_marsh (confirmed in guide's level.md) ─────────────────
-    k00_marsh = {
-        { 132.4929, -7.3461, 183.5880,  70 },  -- Skadovsk
-        { 325.2908, 35,      -388.2797, 110 }, -- Merc landfill
-    },
-    -- ── Jupiter  -- level name UNCONFIRMED (?), guessing k01_darkscape ──────
-    k01_darkscape = {
-        { -51.4095,  3.4869, 197.6493,  70 }, -- Yanov station zone 1
-        { -23.4957,  4.5931, 238.4627,  70 }, -- Yanov station zone 2
-        { -213.0871, 0,      74.1083,   55 }, -- Mobile lab (ecologist)
-        { -419.5993, 0.0112, -355.4865, 80 }, -- Bandit warehouse
-    },
-    -- ── Radar  -- l10_radar (confirmed in guide's level.md) ─────────────────
-    l10_radar = {
-        { 28.0392, -1.8515, 10.3282, 100 }, -- Monolith base
-    },
-    -- ── Limansk  -- l09_limansk (?) ─────────────────────────────────────────
-    l09_limansk = {
-        { 64.3670, 20,      286.9821, 80 }, -- Radio station
-        { 7.3627,  24.4966, 190.6140, 80 }, -- Construction site
-    },
-    -- NOTE: Pripyat, Red Forest, Dead City omitted  -- level names unconfirmed.
-}
+local SAFE_ZONES = {}
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Configuration
@@ -120,7 +62,8 @@ local MOD_KEY         = "extraction_mod"
 
 -- Default values used when MCM is not installed.
 local MCM_DEFAULTS = {
-    show_stash_marker = true,
+    show_stash_marker    = true,
+    allow_neutral_bases  = false,
 }
 
 -- Read an MCM option by key. Falls back to MCM_DEFAULTS if MCM is not
@@ -192,11 +135,30 @@ local function is_in_safe_zone()
     local zones = SAFE_ZONES[level_name]
     if not zones then return false end
     local actor_pos = db.actor:position()
+    -- [GAP-7] get_actor_true_community() -- global in _g.script.
+    local player_faction = get_actor_true_community()
     for _, z in ipairs(zones) do
-        local zone_pos = vector():set(z[1], z[2], z[3])
-        -- returns the distance between actor/zone but squared as a performance trick, so we square the radius as well to compare
-        if actor_pos:distance_to_sqr(zone_pos) <= (z[4] * z[4]) then
-            return true
+        local zone_pos = vector():set(z.x, z.y, z.z)
+        -- Use distance_to_sqr (cheaper) and compare against radius squared.
+        if actor_pos:distance_to_sqr(zone_pos) <= (z.radius * z.radius) then
+            if not z.owner then
+                -- No owner: zone is neutral, open to all factions.
+                return true
+            end
+            -- [GAP-6] game_relations.is_factions_friends / is_factions_neutrals
+            if player_faction then
+                if game_relations.is_factions_friends(player_faction, z.owner) then
+                    return true
+                end
+                if cfg("allow_neutral_bases")
+                    and game_relations.is_factions_neutrals(player_faction, z.owner) then
+                    return true
+                end
+            end
+            -- Player is inside zone radius but their faction is not friendly
+            -- (or neutral, if that option is off) with the zone owner.
+            -- Keep checking other zones on this level in case one of them
+            -- has a different (or no) owner.
         end
     end
     return false
@@ -252,20 +214,64 @@ local save_in_progress = false
 local keep_on_death = {}
 
 local function load_config()
+    -- ── Keep-on-death list ────────────────────────────────────────────────────
     local ini = ini_file("extraction_mod_config.ltx")
     if not ini:section_exist("keep_on_death") then
         dbg("load_config: [keep_on_death] section not found -- nothing kept on death")
+    else
+        local n = ini:line_count("keep_on_death")
+        for i = 0, n - 1 do
+            local _, key, _ = ini:r_line("keep_on_death", i, "", "")
+            if key and key ~= "" then
+                keep_on_death[key] = true
+                dbg("load_config: keep_on_death += %s", key)
+            end
+        end
+        dbg("load_config: %d section(s) configured to keep on death", n)
+    end
+
+    -- ── Safe zones ────────────────────────────────────────────────────────────
+    -- Rebuild from scratch each time so a reload always reflects the LTX.
+    SAFE_ZONES = {}
+    local zones_ini = ini_file("extraction_mod_zones.ltx")
+    if not zones_ini:section_exist("zones") then
+        dbg("load_config: [zones] section not found in extraction_mod_zones.ltx -- no safe zones")
         return
     end
-    local n = ini:line_count("keep_on_death")
+    local zone_count = 0
+    local n = zones_ini:line_count("zones")
     for i = 0, n - 1 do
-        local _, key, _ = ini:r_line("keep_on_death", i, "", "")
-        if key and key ~= "" then
-            keep_on_death[key] = true
-            dbg("load_config: keep_on_death += %s", key)
+        local _, zone_name, _ = zones_ini:r_line("zones", i, "", "")
+        if zone_name and zone_name ~= "" then
+            if not zones_ini:section_exist(zone_name) then
+                dbg("load_config: zone '%s' listed in [zones] but has no section -- skipping", zone_name)
+            else
+                local level_name = zones_ini:r_string(zone_name, "level")
+                -- owner is optional; line_exist guards against r_string failing
+                -- on a missing key.
+                local owner = zones_ini:line_exist(zone_name, "owner")
+                    and zones_ini:r_string(zone_name, "owner")
+                    or nil
+                local x      = zones_ini:r_float(zone_name, "x")
+                local y      = zones_ini:r_float(zone_name, "y")
+                local z      = zones_ini:r_float(zone_name, "z")
+                local radius = zones_ini:r_float(zone_name, "radius")
+
+                if not SAFE_ZONES[level_name] then
+                    SAFE_ZONES[level_name] = {}
+                end
+                table.insert(SAFE_ZONES[level_name], {
+                    x = x, y = y, z = z, radius = radius, owner = owner
+                })
+                zone_count = zone_count + 1
+                dbg("load_config: zone '%s' level=%s owner=%s pos=(%.2f,%.2f,%.2f) r=%.0f",
+                    zone_name, level_name, tostring(owner), x, y, z, radius)
+            end
         end
     end
-    dbg("load_config: %d section(s) configured to keep on death", n)
+    dbg("load_config: loaded %d safe zones across %d levels", zone_count, (function()
+        local c = 0; for _ in pairs(SAFE_ZONES) do c = c + 1 end; return c
+    end)())
 end
 
 -- In-game hour captured at the moment actor_on_before_death fires.
@@ -285,7 +291,7 @@ local death_label = nil
 -- Trigger a save to our fixed file.
 -- [GAP-1] exec_console_cmd undocumented; confirmed by Jabbers Soulslike source.
 local function do_save()
-    dbg("do_save: writing %s", SAVE_FILENAME)
+    dbg("do_save: writing %s (level=%s)", SAVE_FILENAME, level.name())
     save_in_progress = true
     exec_console_cmd("save " .. SAVE_FILENAME)
     -- exec_console_cmd fires on_console_execute synchronously (SendScriptCallback
@@ -381,16 +387,16 @@ end
 local function on_before_save_input(flags)
     if not db.actor then return end
     local in_safe = is_in_safe_zone()
-    dbg("on_before_save_input: in_safe=%s", tostring(in_safe))
+    dbg("on_before_save_input: in_safe=%s level=%s", tostring(in_safe), level.name())
     if not in_safe then
         flags.ret = true -- "ret = true" cancels per callbacks-reference docs
-        dbg("on_before_save_input: BLOCKED (not in safe zone)")
+        dbg("on_before_save_input: BLOCKED (not in safe zone) level=%s", level.name())
         show_msg("Cannot save  -- not at a friendly base!")
         return
     end
     -- In safe zone: cancel normal quicksave, redirect to our fixed file.
     flags.ret = true
-    dbg("on_before_save_input: redirecting quicksave -> %s", SAVE_FILENAME)
+    dbg("on_before_save_input: redirecting quicksave -> %s (level=%s)", SAVE_FILENAME, level.name())
     do_save()
     -- on_console_execute fires as part of do_save(), sees our filename, passes.
 end
@@ -410,7 +416,7 @@ local function on_console_execute(cmd, ...)
     local args = { ... }
     local save_name = string.lower(table.concat(args, " "))
 
-    dbg("on_console_execute: external save cmd detected, name='%s'", save_name)
+    dbg("on_console_execute: external save cmd detected, name='%s' level=%s", save_name, level.name())
 
     -- Detect engine-generated saves by substring: any save whose name contains
     -- "autosave" or "quicksave" is treated as engine/mod-generated and silently
@@ -424,7 +430,7 @@ local function on_console_execute(cmd, ...)
 
     -- For any save we don't control:
     if not is_in_safe_zone() then
-        dbg("on_console_execute: NOT in safe zone  -- deleting '%s'", save_name)
+        dbg("on_console_execute: NOT in safe zone  -- deleting '%s' (level=%s)", save_name, level.name())
         -- [GAP-3] ui_load_dialog.delete_save_game  -- undocumented.
         ui_load_dialog.delete_save_game(save_name)
         if not is_engine_save then

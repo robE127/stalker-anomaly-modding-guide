@@ -234,27 +234,30 @@ Pattern confirmed from Jabbers Soulslike `HandleItemsAndRespawn`.
 
 ## 4. Level name strings
 
-The guide does not list level name strings. The following were confirmed or
-inferred during this session (confirmed = seen in guide examples or game output;
-inferred = taken from smart terrain prefixes and Fair Fast Travel data):
+All level name strings have been confirmed in-game and documented in
+`docs/api-reference/level.md`. Several names we originally inferred from smart
+terrain prefixes were wrong — the authoritative source is Fair Fast Travel
+`travel_destinations.ltx` `[northern_maps]`, cross-checked against in-game
+`level.name()` output.
 
-| Level name      | Location         | Status    |
-|-----------------|------------------|-----------|
-| `l01_escape`    | Cordon           | Confirmed |
-| `l02_garbage`   | Garbage          | Inferred  |
-| `l03_bar`       | Rostok / Bar     | Inferred  |
-| `l04_agroprom`  | Agroprom         | Inferred  |
-| `l05_marsh`     | Great Swamp      | Inferred  |
-| `l06_mil`       | Mil. Warehouses  | Inferred  |
-| `l08_yantar`    | Yantar           | Confirmed |
-| `l09_limansk`   | Limansk          | Inferred  |
-| `l10_radar`     | Radar            | Confirmed |
-| `l12_darkvalley`| Dark Valley      | Inferred  |
-| `k00_marsh`     | Zaton            | Confirmed |
-| `k01_darkscape` | Jupiter          | Uncertain |
-| `fake_start`    | Character creation / tutorial | Observed in log |
+Key corrections from the original inferred list:
 
-**Should be added to:** a level reference page or the `level.name()` API entry.
+| Was (wrong)      | Correct          | Location        |
+|------------------|------------------|-----------------|
+| `l03_bar`        | `l05_bar`        | Rostok          |
+| `l04_agroprom`   | `l03_agroprom`   | Agroprom        |
+| `l05_marsh`      | `k00_marsh`      | Great Swamp     |
+| `l06_mil`        | `l07_military`   | Army Warehouses |
+| `l09_limansk`    | `l10_limansk`    | Limansk         |
+| `l12_darkvalley` | `l04_darkvalley` | Dark Valley     |
+| `k00_marsh`      | `zaton`          | Zaton           |
+| `k01_darkscape`  | `jupiter`        | Jupiter         |
+
+Note: `k00_marsh` is Great Swamp (not Zaton). `k01_darkscape` is Darkscape
+(a separate map — not Jupiter). The CoP maps use plain names: `zaton`,
+`jupiter`, `pripyat`.
+
+**See:** `docs/api-reference/level.md` for the full confirmed list.
 
 ---
 
@@ -269,7 +272,7 @@ inferred = taken from smart terrain prefixes and Fair Fast Travel data):
 
 ## 6. Remaining known issues in the mod itself
 
-- Level names marked "Inferred" in the table above need in-game verification.
+- All level names have been confirmed in-game and corrected in `extraction_mod_zones.ltx`.
 - Debug logging (`DEBUG = true` in the script) produces no output for unknown
   reasons even with the `string.format` pre-processing fix applied. Needs further
   investigation — may be a MO2 load order issue where an older version of the
