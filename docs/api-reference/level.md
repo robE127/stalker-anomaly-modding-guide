@@ -14,7 +14,7 @@ end
 ## Level information
 
 ```lua
-level.name()       -- current map name, e.g. "l01_escape", "k00_marsh", "l08_yantar"
+level.name()       -- current map name, e.g. "l01_escape", "l05_bar", "zaton"
 level.present()    -- true if a level is currently loaded (false on main menu)
 level.game_id()    -- internal game ID
 level.get_game_difficulty()           -- 0=novice, 1=stalker, 2=veteran, 3=master
@@ -40,33 +40,43 @@ end
 
 | `level.name()` | Location | Notes |
 |----------------|----------|-------|
-| `l01_escape` | Cordon | |
-| `l02_garbage` | Garbage | |
-| `l03_bar` | Bar / Rostok | |
-| `l04_agroprom` | Agroprom | |
-| `l04u_agroprom_underground` | Agroprom Underground | |
-| `l05_marsh` | Great Swamp | |
-| `l06_mil` | Military Warehouses | |
-| `l07_military` | Army Warehouses (CoP) | |
-| `l08_yantar` | Yantar | |
-| `l08u_brainlab` | Yantar Underground | |
-| `l09_limansk` | Limansk | |
-| `l09u_hospital` | Limansk Hospital | |
-| `l10_radar` | Radar | |
-| `l10u_bunker` | Radar Bunker | |
-| `l11_pripyat` | Pripyat (CoP) | |
-| `l11u_pripyat` | Pripyat Underground | |
-| `l12_darkvalley` | Dark Valley | |
-| `l12u_control_monolith` | X18 Lab | |
-| `l13_generators` | Generators | |
-| `l13u_warlab` | War Lab | |
-| `k00_marsh` | Zaton | |
-| `k01_darkscape` | Jupiter | |
-| `k02_jungle` | Yanov / Pripyat (CoP) | |
-| `k03_agroprom` | Agroprom (CoP) | |
-| `fake_start` | Character creation / tutorial | Observed in logs; not a real level |
+| `l01_escape` | Cordon | Confirmed |
+| `l02_garbage` | Garbage | Confirmed |
+| `l03_agroprom` | Agroprom | Confirmed |
+| `l03u_agr_underground` | Agroprom Underground | Confirmed |
+| `l04_darkvalley` | Dark Valley | Confirmed |
+| `l04u_labx18` | Lab X-18 | Confirmed |
+| `l05_bar` | Rostok | Confirmed |
+| `l06_rostok` | Wild Territory | Confirmed |
+| `l07_military` | Army Warehouses | Confirmed |
+| `l08_yantar` | Yantar | Confirmed |
+| `l08u_brainlab` | Brain Scorcher (Yantar underground) | Confirmed |
+| `l09_deadcity` | Dead City | Confirmed |
+| `l10_limansk` | Limansk | Confirmed |
+| `l10_radar` | Radar / CNPP | Confirmed |
+| `l10_red_forest` | Red Forest | Confirmed |
+| `l10u_bunker` | Radar Bunker | Confirmed |
+| `l11_hospital` | Limansk Hospital | Confirmed |
+| `l11_pripyat` | Pripyat (CoP south) | Confirmed |
+| `l12_stancia` | Chernobyl NPP | Confirmed |
+| `l12_stancia_2` | Chernobyl NPP (Sarcophagus approach) | Confirmed |
+| `l12u_control_monolith` | Monolith Control (X18 Lab) | Confirmed |
+| `l12u_sarcofag` | Sarcophagus | Confirmed |
+| `l13_generators` | Generators | Confirmed |
+| `l13u_warlab` | War Lab | Confirmed |
+| `l23_x9` | Lab X-9 | Confirmed |
+| `labx8` | Lab X-8 | Confirmed |
+| `k00_marsh` | Great Swamp | Confirmed |
+| `k01_darkscape` | Darkscape | Confirmed |
+| `k02_trucks_cemetery` | Truck Cemetery | Confirmed |
+| `zaton` | Zaton | Confirmed |
+| `jupiter` | Jupiter | Confirmed |
+| `jupiter_underground` | Jupiter Underground | Confirmed |
+| `pripyat` | Pripyat (CoP north) | Confirmed |
+| `y04_pole` | Meadow | Confirmed |
+| `fake_start` | Floating Test Level | Confirmed |
 
-These are taken from smart terrain prefixes, fast-travel config files, and confirmed game log output. A few have only been inferred from config data rather than direct observation — treat uncommon levels as approximate until you verify them in-game with `printf("[test] level: %s", level.name())`.
+Level names partly sourced from Fair Fast Travel `travel_destinations.ltx` `[northern_maps]` section and confirmed against in-game testing. Use `printf("[test] level: %s", level.name())` to verify level in game.
 
 ---
 

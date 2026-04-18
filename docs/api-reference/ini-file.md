@@ -137,6 +137,45 @@ if ini:section_exist(section) then
 end
 ```
 
+### Enumerate named sections using an index section
+
+`ini_file` has no function to list all section names in a file. If your config has a variable number of named sections that a script needs to discover at runtime, the standard workaround is an explicit index section whose **keys** are the section names:
+
+```ltx
+[zones]
+rookie_village  = true
+northern_farm   = true
+army_checkpoint = true
+
+[rookie_village]
+level  = l01_escape
+x      = -206.0193
+; ...
+
+[northern_farm]
+level  = l01_escape
+x      = 1.1010
+; ...
+```
+
+The `= true` values are placeholders — only the key names matter. The script iterates `[zones]` to discover which named sections exist, then reads each one:
+
+```lua
+local ini = ini_file("my_mod_zones.ltx")
+
+if ini:section_exist("zones") then
+    for i = 0, ini:line_count("zones") - 1 do
+        local _, name, _ = ini:r_line("zones", i, "", "")
+        if name and name ~= "" and ini:section_exist(name) then
+            local level = ini:r_string(name, "level")
+            -- read the rest of the section ...
+        end
+    end
+end
+```
+
+The downside is that the index must be kept in sync manually — a section added to the file but omitted from the index is silently ignored. This pattern appears throughout the base game (`system.ltx`, various manager configs) and community mods (Fair Fast Travel `travel_zones.ltx`).
+
 ### Read a section that inherits from a base
 
 LTX uses `[child] : parent` inheritance. `system_ini()` already flattens inheritance for you — when you read `r_string("child_section", "inherited_key")`, it walks the inheritance chain automatically.
