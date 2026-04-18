@@ -1,0 +1,20 @@
+-- extraction_mod_mcm.script
+-- MCM registration for Extraction Mod.
+-- MCM scans all scripts at startup for files ending in _mcm.script and calls
+-- on_mcm_load(). The returned table defines the settings UI.
+
+function on_mcm_load()
+    return {
+        id = "extraction_mod",
+        sh = true,
+        gr = {
+            {
+                id      = "show_stash_marker",
+                type    = "check",
+                val     = 1,       -- 1 = boolean type
+                def     = true,
+                text    = "ui_mcm_extraction_mod_show_stash_marker",
+            },
+        }
+    }
+end

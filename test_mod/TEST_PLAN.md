@@ -181,6 +181,25 @@ reaching a base.
 
 ---
 
+## Feature 12 — PDA stash marker
+
+**Goal:** verify the death stash appears on the PDA map, can be toggled via MCM,
+and the marker disappears when the stash is looted.
+
+**Requires MCM to be installed.**
+
+| # | Steps | Expected result |
+|---|-------|-----------------|
+| 12.1 | Open MCM → Extraction Mod. Confirm the "Show death stash location on PDA" checkbox is present and defaults to enabled. | Checkbox visible and ticked. |
+| 12.2 | With the option enabled, die with items in your inventory. After respawn, open the PDA map. | A secondary task marker appears at the death location, labelled **"Death: DD.MM.YYYY HH:MM"** using the in-game date and time of death. |
+| 12.3 | Travel to the stash. Take any one item from it. Open the PDA map. | The marker is removed immediately after taking the first item. |
+| 12.4 | Check the log. | `added PDA marker for stash id=...` on death, `removed stash marker for id=...` on loot. |
+| 12.5 | Save and reload. Check the PDA map before visiting the stash. | Marker is still present after reload (persisted by `map_add_object_spot_ser`). |
+| 12.6 | In MCM, disable "Show death stash location on PDA". Die with items. | No marker appears on the PDA map after respawn. |
+| 12.7 | Die with no items (empty inventory). | No marker appears regardless of MCM setting (no stash was created). |
+
+---
+
 ## Known limitations — not tested here
 
 These are out of scope for the current implementation and tracked as known issues:

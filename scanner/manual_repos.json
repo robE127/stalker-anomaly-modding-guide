@@ -12,6 +12,14 @@
     {
       "full_name": "TheParaziT/anomaly-modding-book",
       "note": "Existing community modding reference. Credited in the guide."
+    },
+    {
+      "full_name": "CatspawMods/Anomaly-Addon-Archive",
+      "note": "Collection of great mods, including Fair Fast Travel from a well respected modder. Implemented travel to defined bases if friendly."
+    },
+    {
+      "full_name": "fdsprod/Jabbers-Soulslike-Anomaly-Mod",
+      "note": "Implements stash creation, inventory loss, PDA location, and teleportation on death interception"
     }
   ]
 }

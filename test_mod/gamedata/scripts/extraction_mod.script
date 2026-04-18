@@ -115,6 +115,27 @@ local UPDATE_INTERVAL = 5000 -- ms between safe-zone checks
 local MOD_KEY         = "extraction_mod"
 
 -- ─────────────────────────────────────────────────────────────────────────────
+-- MCM
+-- ─────────────────────────────────────────────────────────────────────────────
+
+-- Default values used when MCM is not installed.
+local MCM_DEFAULTS = {
+    show_stash_marker = true,
+}
+
+-- Read an MCM option by key. Falls back to MCM_DEFAULTS if MCM is not
+-- installed or the key has not been set yet.
+-- MCM stores values under "<mod_id>/<key>" in ui_mcm.get().
+-- Pattern confirmed from soulslike_mcm.script get_config().
+local function cfg(key)
+    if ui_mcm then
+        local v = ui_mcm.get(MOD_KEY .. "/" .. key)
+        if v ~= nil then return v end
+    end
+    return MCM_DEFAULTS[key]
+end
+
+-- ─────────────────────────────────────────────────────────────────────────────
 -- Debug logging
 -- ─────────────────────────────────────────────────────────────────────────────
 
@@ -152,6 +173,9 @@ local data = {
     last_base_lvid  = nil,
     last_base_gvid  = nil,
     last_base_level = nil,
+    -- Set of server IDs for death stashes that currently have a PDA marker.
+    -- Persisted so markers survive save/load. Keyed by ID (number -> true).
+    stash_ids       = {},
 }
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -251,6 +275,13 @@ end
 -- gives us the definitive time-of-death for the night-respawn check.
 local death_hour = nil
 
+-- Formatted in-game date/time string captured at the moment of death, e.g.
+-- "Death: 14.04.2012 21:33". Used as the PDA stash marker label.
+-- Captured alongside death_hour using CTime:get() to avoid the same stale-time
+-- problem (game.get_game_time() returns the restored save time by the time
+-- wait_for_stash_and_respawn runs). Pattern: utils_data.CTime_to_table().
+local death_label = nil
+
 -- Trigger a save to our fixed file.
 -- [GAP-1] exec_console_cmd undocumented; confirmed by Jabbers Soulslike source.
 local function do_save()
@@ -276,6 +307,7 @@ local function save_state(m_data)
         last_base_lvid  = data.last_base_lvid,
         last_base_gvid  = data.last_base_gvid,
         last_base_level = data.last_base_level,
+        stash_ids       = data.stash_ids,
     }
     dbg("save_state: level=%s pos=(%.2f, %.2f, %.2f)",
         tostring(data.last_base_level),
@@ -290,6 +322,7 @@ local function load_state(m_data)
     data.last_base_lvid  = saved.last_base_lvid
     data.last_base_gvid  = saved.last_base_gvid
     data.last_base_level = saved.last_base_level
+    data.stash_ids       = saved.stash_ids or {}
     dbg("load_state: level=%s pos=(%.2f, %.2f, %.2f)",
         tostring(data.last_base_level),
         data.last_base_x or 0, data.last_base_y or 0, data.last_base_z or 0)
@@ -463,7 +496,8 @@ local function do_respawn_deferred()
         return true
     end
     local hour = death_hour
-    death_hour = nil
+    death_hour  = nil
+    death_label = nil
     dbg("do_respawn_deferred: hour at death=%d, is_night=%s", hour, tostring(is_night(hour)))
     if is_night(hour) then
         local hours = hours_until_dawn(hour)
@@ -545,9 +579,33 @@ local function wait_for_stash_and_respawn(stash_id)
     end
 
     dbg("wait_for_stash_and_respawn: transfer complete  -- queuing respawn in 3s")
+
+    -- Add a PDA map marker so the player can find their stash after respawn.
+    -- Uses "secondary_task_location" spot type (confirmed from soulslike_scenarios.script).
+    -- map_add_object_spot_ser persists the marker in the save file.
+    -- The marker is removed in actor_on_item_take_from_box when the player loots the stash.
+    if cfg("show_stash_marker") then
+        -- Use the in-game date/time captured at the moment of death (e.g.
+        -- "Death: 14.04.2012 21:33"). Falls back to a generic label if somehow
+        -- death_label was not set (should not happen in normal flow).
+        local label = death_label or "Death stash"
+        level.map_add_object_spot_ser(stash_id, "secondary_task_location", label)
+        data.stash_ids[stash_id] = true
+        dbg("wait_for_stash_and_respawn: added PDA marker for stash id=%d label='%s'", stash_id, label)
+    end
+
     -- Respawn 3 seconds after items are transferred  -- gives the fade time to play.
     CreateTimeEvent("extraction_mod", "respawn", 3, do_respawn_deferred)
     return true
+end
+
+-- Remove the PDA marker when the player takes any item from one of our stashes.
+local function actor_on_item_take_from_box(box, obj)
+    local id = box:id()
+    if not data.stash_ids[id] then return end
+    level.map_remove_object_spot(id, "secondary_task_location")
+    data.stash_ids[id] = nil
+    dbg("actor_on_item_take_from_box: removed stash marker for id=%d", id)
 end
 
 -- Requires modded exes. flags.ret_value = false cancels the death event.
@@ -560,6 +618,17 @@ local function actor_on_before_death(who_id, flags)
     -- by the time do_respawn_deferred fires a few seconds later.
     death_hour = level.get_time_hours()
     dbg("actor_on_before_death: death_hour=%d (cached before engine state changes)", death_hour)
+
+    -- Build a human-readable in-game date/time label for the PDA stash marker.
+    -- CTime:get() returns Y,M,D,h,m,s,ms (all as numbers).
+    -- Pattern from utils_data.CTime_to_table().
+    do
+        local t = game.get_game_time()
+        local Y, Mo, D, h, m, s, ms = 0, 0, 0, 0, 0, 0, 0
+        Y, Mo, D, h, m, s, ms = t:get(Y, Mo, D, h, m, s, ms)
+        death_label = string.format("Death: %02d.%02d.%04d %02d:%02d", D, Mo, Y, h, m)
+        dbg("actor_on_before_death: death_label='%s'", death_label)
+    end
 
     flags.ret_value = false
     dbg("actor_on_before_death: flags.ret_value set to false (death cancelled)")
@@ -645,6 +714,7 @@ function on_game_start()
     RegisterScriptCallback("actor_on_first_update", actor_on_first_update)
     RegisterScriptCallback("actor_on_update", actor_on_update)
     RegisterScriptCallback("actor_on_before_death", actor_on_before_death)
+    RegisterScriptCallback("actor_on_item_take_from_box", actor_on_item_take_from_box)
     RegisterScriptCallback("on_before_save_input", on_before_save_input)
     RegisterScriptCallback("on_console_execute", on_console_execute)
     RegisterScriptCallback("save_state", save_state)
@@ -657,10 +727,13 @@ function on_game_end()
     last_check_time   = 0
     was_in_safe_zone  = false
     death_hour        = nil
+    death_label       = nil
+    data.stash_ids    = {}
 
     UnregisterScriptCallback("actor_on_first_update", actor_on_first_update)
     UnregisterScriptCallback("actor_on_update", actor_on_update)
     UnregisterScriptCallback("actor_on_before_death", actor_on_before_death)
+    UnregisterScriptCallback("actor_on_item_take_from_box", actor_on_item_take_from_box)
     UnregisterScriptCallback("on_before_save_input", on_before_save_input)
     UnregisterScriptCallback("on_console_execute", on_console_execute)
     UnregisterScriptCallback("save_state", save_state)
