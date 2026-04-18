@@ -21,21 +21,15 @@ local t3 = CTime()
 
 ## Reading date and time
 
-### `get` — all components at once
+### Extracting components with `t:get()`
 
 ```lua
--- Returns: year, month, day, hours, minutes, seconds, milliseconds
-local Y, Mo, D, H, Mi, S, Ms = 0, 0, 0, 0, 0, 0, 0
-t:get(Y, Mo, D, H, Mi, S, Ms)
+local t = game.get_game_time()
+local Y, Mo, D, H, Mi, S, Ms = t:get(0, 0, 0, 0, 0, 0, 0)
+-- Y=2012, Mo=4, D=14, H=21, Mi=33, S=7, Ms=0 (for example)
 ```
 
-!!! note "Lua quirk"
-    In Lua the `get` method returns the values rather than writing through the parameters. Use it as:
-
-    ```lua
-    local Y, Mo, D, H, Mi, S, Ms = t:get(0, 0, 0, 0, 0, 0, 0)
-    printf("Date: %d-%02d-%02d %02d:%02d", Y, Mo, D, H, Mi)
-    ```
+The C++ binding uses output-by-reference parameters, but in Lua `get` works by **return value** — capture the seven return values as shown above. The arguments themselves are ignored; passing zeros is the idiomatic pattern (used throughout the base game in `utils_data.CTime_to_table`).
 
 ### Setting components
 
@@ -118,6 +112,19 @@ local function is_daytime()
     return h >= 6 and h < 21
 end
 ```
+
+### Format a combined date and time string
+
+`timeToString` and `dateToString` each cover part of the picture. When you need a single string with both date and time (for a log line, a PDA marker label, etc.), use `get` and `string.format`:
+
+```lua
+local t = game.get_game_time()
+local Y, Mo, D, H, Mi = t:get(0, 0, 0, 0, 0, 0, 0)
+local label = string.format("Death: %02d.%02d.%04d %02d:%02d", D, Mo, Y, H, Mi)
+-- e.g. "Death: 14.04.2012 21:33"
+```
+
+---
 
 ### Store a timestamp and check elapsed time later
 

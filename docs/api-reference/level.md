@@ -213,21 +213,31 @@ level.remove_complex_effector(1999)
 
 ## Minimap markers
 
-```lua
--- Add a marker to the minimap and full map
--- spot_type determines the icon (defined in map_spots.xml)
-level.map_add_object_spot(obj_id, "secondary_object", "hint text")
-level.map_add_object_spot_ser(obj_id, "treasure", "Stash text")  -- serialised (persists through save/load)
+Two variants exist, distinguished by the `_ser` suffix:
 
--- Check if a marker exists (returns 0 or 1 as a number, not boolean)
-if level.map_has_object_spot(obj_id, "treasure") ~= 0 then
+| Function | Persistence |
+|----------|-------------|
+| `level.map_add_object_spot(id, type, label)` | **Session only** — removed when the game exits or the save is reloaded. |
+| `level.map_add_object_spot_ser(id, type, label)` | **Serialised** — written into the save file and restored on load. Use this whenever the marker should survive a save/reload cycle. |
+
+`id` must be the **server object ID** (from `alife_create(...).id` or `obj:id()` on a server object). Both functions accept the same spot type strings.
+
+```lua
+-- Session-only marker (disappears on reload)
+level.map_add_object_spot(obj_id, "secondary_object", "hint text")
+
+-- Persistent marker (survives save/load)
+level.map_add_object_spot_ser(obj_id, "secondary_task_location", "Death: 14.04.2012 21:33")
+
+-- Check if a marker exists (returns 0 or 1 as a number, not a boolean)
+if level.map_has_object_spot(obj_id, "secondary_task_location") ~= 0 then
     -- marker is present
 end
 
 -- Remove a marker
-level.map_remove_object_spot(obj_id, "treasure")
+level.map_remove_object_spot(obj_id, "secondary_task_location")
 
--- Update the hint text of an existing marker
+-- Update the hint text of an existing marker in place
 level.map_change_spot_hint(obj_id, "secondary_object", "New hint text")
 ```
 
@@ -236,10 +246,13 @@ level.map_change_spot_hint(obj_id, "secondary_object", "New hint text")
 | Spot type | Description |
 |-----------|-------------|
 | `"primary_object"` | Primary quest marker (large icon) |
-| `"secondary_object"` | Secondary marker |
+| `"secondary_object"` | Secondary marker (smaller icon) |
+| `"secondary_task_location"` | Secondary task location marker — used for custom markers such as death stash locations. Confirmed from community mods (Jabbers Soulslike, extraction_mod). |
 | `"treasure"` | Stash marker |
 | `"fast_travel"` | Fast travel point |
 | `"ui_pda2_mechanic_location"` | Mechanic location |
+
+Spot type strings are defined in `configs/ui/map_spots.xml`. That file lists every icon and its display name — grep it when you need an icon that isn't in the table above.
 
 ---
 
