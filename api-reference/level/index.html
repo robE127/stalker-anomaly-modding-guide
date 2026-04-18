@@ -3089,21 +3089,42 @@
 </span></code></pre></div>
 <hr />
 <h2 id="minimap-markers">Minimap markers<a class="headerlink" href="#minimap-markers" title="Permanent link">&para;</a></h2>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">-- Add a marker to the minimap and full map</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="c1">-- spot_type determines the icon (defined in map_spots.xml)</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="nv">level</span><span class="p">.</span><span class="nf">map_add_object_spot</span><span class="p">(</span><span class="nv">obj_id</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;secondary_object&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;hint text&quot;</span><span class="p">)</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="nv">level</span><span class="p">.</span><span class="nf">map_add_object_spot_ser</span><span class="p">(</span><span class="nv">obj_id</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;treasure&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Stash text&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1">-- serialised (persists through save/load)</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="c1">-- Check if a marker exists (returns 0 or 1 as a number, not boolean)</span>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="kr">if</span><span class="w"> </span><span class="nv">level</span><span class="p">.</span><span class="nf">map_has_object_spot</span><span class="p">(</span><span class="nv">obj_id</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;treasure&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">~=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="kr">then</span>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="c1">-- marker is present</span>
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="kr">end</span>
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>
-</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="c1">-- Remove a marker</span>
-</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="nv">level</span><span class="p">.</span><span class="nf">map_remove_object_spot</span><span class="p">(</span><span class="nv">obj_id</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;treasure&quot;</span><span class="p">)</span>
-</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>
-</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="c1">-- Update the hint text of an existing marker</span>
-</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="nv">level</span><span class="p">.</span><span class="nf">map_change_spot_hint</span><span class="p">(</span><span class="nv">obj_id</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;secondary_object&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;New hint text&quot;</span><span class="p">)</span>
+<p>Two variants exist, distinguished by the <code>_ser</code> suffix:</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Persistence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>level.map_add_object_spot(id, type, label)</code></td>
+<td><strong>Session only</strong> — removed when the game exits or the save is reloaded.</td>
+</tr>
+<tr>
+<td><code>level.map_add_object_spot_ser(id, type, label)</code></td>
+<td><strong>Serialised</strong> — written into the save file and restored on load. Use this whenever the marker should survive a save/reload cycle.</td>
+</tr>
+</tbody>
+</table>
+<p><code>id</code> must be the <strong>server object ID</strong> (from <code>alife_create(...).id</code> or <code>obj:id()</code> on a server object). Both functions accept the same spot type strings.</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">-- Session-only marker (disappears on reload)</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nv">level</span><span class="p">.</span><span class="nf">map_add_object_spot</span><span class="p">(</span><span class="nv">obj_id</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;secondary_object&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;hint text&quot;</span><span class="p">)</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1">-- Persistent marker (survives save/load)</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="nv">level</span><span class="p">.</span><span class="nf">map_add_object_spot_ser</span><span class="p">(</span><span class="nv">obj_id</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;secondary_task_location&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Death: 14.04.2012 21:33&quot;</span><span class="p">)</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1">-- Check if a marker exists (returns 0 or 1 as a number, not a boolean)</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="kr">if</span><span class="w"> </span><span class="nv">level</span><span class="p">.</span><span class="nf">map_has_object_spot</span><span class="p">(</span><span class="nv">obj_id</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;secondary_task_location&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">~=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="c1">-- marker is present</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="kr">end</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="c1">-- Remove a marker</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="nv">level</span><span class="p">.</span><span class="nf">map_remove_object_spot</span><span class="p">(</span><span class="nv">obj_id</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;secondary_task_location&quot;</span><span class="p">)</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="c1">-- Update the hint text of an existing marker in place</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="nv">level</span><span class="p">.</span><span class="nf">map_change_spot_hint</span><span class="p">(</span><span class="nv">obj_id</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;secondary_object&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;New hint text&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <p><strong>Common spot types:</strong></p>
 <table>
@@ -3120,7 +3141,11 @@
 </tr>
 <tr>
 <td><code>"secondary_object"</code></td>
-<td>Secondary marker</td>
+<td>Secondary marker (smaller icon)</td>
+</tr>
+<tr>
+<td><code>"secondary_task_location"</code></td>
+<td>Secondary task location marker — used for custom markers such as death stash locations. Confirmed from community mods (Jabbers Soulslike, extraction_mod).</td>
 </tr>
 <tr>
 <td><code>"treasure"</code></td>
@@ -3136,6 +3161,7 @@
 </tr>
 </tbody>
 </table>
+<p>Spot type strings are defined in <code>configs/ui/map_spots.xml</code>. That file lists every icon and its display name — grep it when you need an icon that isn't in the table above.</p>
 <hr />
 <h2 id="navigation-mesh">Navigation mesh<a class="headerlink" href="#navigation-mesh" title="Permanent link">&para;</a></h2>
 <div class="language-lua highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1">-- Get the 3D world position of a nav mesh vertex</span>
