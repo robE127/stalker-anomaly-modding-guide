@@ -46,11 +46,13 @@
 -- Safe zone table
 -- Populated at game start by load_config() from extraction_mod_zones.ltx.
 -- Format after loading:
---   SAFE_ZONES[level_name] = { {x, y, z, radius, owner}, ... }
+--   SAFE_ZONES[level_name] = { {name, x, y, z, radius, owner, respawn_x, ...}, ... }
 -- owner is a faction community string or nil (nil = open to all factions).
+-- SAFE_ZONES_BY_NAME[zone_name] holds the same table reference for O(1) lookup.
 -- ─────────────────────────────────────────────────────────────────────────────
 
-local SAFE_ZONES = {}
+local SAFE_ZONES         = {}
+local SAFE_ZONES_BY_NAME = {}  -- zone_name -> zone table (same refs as SAFE_ZONES)
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Configuration
@@ -63,6 +65,10 @@ local SAFE_ZONES = {}
 -- intercepted and replaced with this file -- see actor_on_first_update and
 -- on_console_execute.
 local SAVE_FILENAME   = "em_extraction_save"
+
+-- Dev-tool overrides file (saves folder). Written by set_spawn(); read by
+-- load_config() so overrides survive game restarts without touching the LTX.
+local OVERRIDES_FILE  = "em_spawn_overrides.ltx"
 
 -- Flag file written by on_level_changing to mark that THIS session triggered a
 -- level transition. actor_on_first_update checks for this flag before deleting
@@ -77,6 +83,10 @@ local function get_flag_path()
     -- saves folder with a trailing separator (e.g. "C:\...\savedgames\").
     -- Confirmed: alife_storage_manager.script uses the same pattern for io.open.
     return getFS():update_path("$game_saves$", "") .. TRANSITION_FLAG
+end
+
+local function get_overrides_path()
+    return getFS():update_path("$game_saves$", "") .. OVERRIDES_FILE
 end
 local NIGHT_START     = 20
 local NIGHT_END       = 8
@@ -137,12 +147,17 @@ end
 -- ─────────────────────────────────────────────────────────────────────────────
 
 local data = {
-    last_base_x     = nil,
-    last_base_y     = nil,
-    last_base_z     = nil,
+    -- Name of the last safe zone entered (e.g. "rookie_village"). Used at
+    -- respawn time to look up the current respawn coords from SAFE_ZONES_BY_NAME,
+    -- so a set_spawn() change takes effect on the next death without needing
+    -- the player to re-enter the zone.
+    last_base_name  = nil,
+    last_base_level = nil,   -- level name at the time of entry
+    -- Navigation vertices captured when the player entered the zone. These
+    -- cannot be derived from a world position in Lua and are required by
+    -- ChangeLevel for cross-level respawn.
     last_base_lvid  = nil,
     last_base_gvid  = nil,
-    last_base_level = nil,
     -- Set of server IDs for death stashes that currently have a PDA marker.
     -- Persisted so markers survive save/load. Keyed by ID (number -> true).
     stash_ids       = {},
@@ -156,11 +171,15 @@ local function show_msg(text)
     actor_menu.set_msg(1, "[Extraction] " .. text, 5)
 end
 
+-- Returns the matched zone table (truthy) when the actor is inside a friendly
+-- safe zone, nil otherwise. Callers that only need a boolean can use the return
+-- value directly in an `if` test; callers that need zone data (e.g. to read the
+-- configured respawn position) can use the returned table directly.
 local function is_in_safe_zone()
-    if not (db.actor and db.actor:alive()) then return false end
+    if not (db.actor and db.actor:alive()) then return nil end
     local level_name = level.name()
     local zones = SAFE_ZONES[level_name]
-    if not zones then return false end
+    if not zones then return nil end
     local actor_pos = db.actor:position()
     -- [GAP-7] get_actor_true_community() -- global in _g.script.
     local player_faction = get_actor_true_community()
@@ -170,16 +189,16 @@ local function is_in_safe_zone()
         if actor_pos:distance_to_sqr(zone_pos) <= (z.radius * z.radius) then
             if not z.owner then
                 -- No owner: zone is neutral, open to all factions.
-                return true
+                return z
             end
             -- [GAP-6] game_relations.is_factions_friends / is_factions_neutrals
             if player_faction then
                 if game_relations.is_factions_friends(player_faction, z.owner) then
-                    return true
+                    return z
                 end
                 if cfg("allow_neutral_bases")
                     and game_relations.is_factions_neutrals(player_faction, z.owner) then
-                    return true
+                    return z
                 end
             end
             -- Player is inside zone radius but their faction is not friendly
@@ -188,7 +207,7 @@ local function is_in_safe_zone()
             -- has a different (or no) owner.
         end
     end
-    return false
+    return nil
 end
 
 local function is_night(h)
@@ -208,27 +227,22 @@ local function hours_until_dawn(h)
     end
 end
 
-local function record_base_position()
+-- Record which safe zone the player last entered. The zone name is persisted
+-- so that at respawn time we can look up the current respawn coords from
+-- SAFE_ZONES_BY_NAME -- meaning a set_spawn() change takes effect on the next
+-- death without needing to re-enter the zone.
+-- Navigation vertices (lvid/gvid) are captured from the actor here because
+-- there is no engine API to derive them from a world position later; they are
+-- needed by ChangeLevel for cross-level respawn.
+local function set_last_base(zone)
     if not (db.actor and db.actor:alive()) then return end
-    local pos            = db.actor:position()
-    data.last_base_x     = pos.x
-    data.last_base_y     = pos.y
-    data.last_base_z     = pos.z
+    data.last_base_name  = zone.name
+    data.last_base_level = level.name()
     data.last_base_lvid  = db.actor:level_vertex_id()
     data.last_base_gvid  = db.actor:game_vertex_id()
-    data.last_base_level = level.name()
-
-    dbg("record_base_position: level=%s pos=(%.2f, %.2f, %.2f) lvid=%s gvid=%s",
-        data.last_base_level,
-        data.last_base_x, data.last_base_y, data.last_base_z,
+    dbg("set_last_base: name=%s level=%s lvid=%s gvid=%s",
+        zone.name, data.last_base_level,
         tostring(data.last_base_lvid), tostring(data.last_base_gvid))
-end
-
-local function get_base_vector()
-    if not (data.last_base_x and data.last_base_y and data.last_base_z) then
-        return nil
-    end
-    return vector():set(data.last_base_x, data.last_base_y, data.last_base_z)
 end
 
 -- Set to true for the duration of our own exec_console_cmd("save ...") call.
@@ -239,6 +253,12 @@ local save_in_progress = false
 -- Set of item section names to keep in the player's inventory on death.
 -- Populated from extraction_mod_config.ltx [keep_on_death] at game start.
 local keep_on_death = {}
+
+-- Forward declaration: load_spawn_overrides is defined after load_config but
+-- called from within it. Lua resolves the local variable at call time, so
+-- declaring it here lets load_config capture it as an upvalue rather than
+-- falling back to a (non-existent) global lookup.
+local load_spawn_overrides
 
 local function load_config()
     -- ── Keep-on-death list ────────────────────────────────────────────────────
@@ -259,7 +279,8 @@ local function load_config()
 
     -- ── Safe zones ────────────────────────────────────────────────────────────
     -- Rebuild from scratch each time so a reload always reflects the LTX.
-    SAFE_ZONES = {}
+    SAFE_ZONES         = {}
+    SAFE_ZONES_BY_NAME = {}
     local zones_ini = ini_file("extraction_mod_zones.ltx")
     if not zones_ini:section_exist("zones") then
         dbg("load_config: [zones] section not found in extraction_mod_zones.ltx -- no safe zones")
@@ -284,21 +305,192 @@ local function load_config()
                 local z      = zones_ini:r_float(zone_name, "z")
                 local radius = zones_ini:r_float(zone_name, "radius")
 
+                -- respawn_x/y/z default to the zone centre when omitted.
+                local rx = zones_ini:line_exist(zone_name, "respawn_x")
+                    and zones_ini:r_float(zone_name, "respawn_x") or x
+                local ry = zones_ini:line_exist(zone_name, "respawn_y")
+                    and zones_ini:r_float(zone_name, "respawn_y") or y
+                local rz = zones_ini:line_exist(zone_name, "respawn_z")
+                    and zones_ini:r_float(zone_name, "respawn_z") or z
+
+                -- respawn_dir is optional; nil means "leave facing unchanged".
+                local rdir = zones_ini:line_exist(zone_name, "respawn_dir")
+                    and zones_ini:r_float(zone_name, "respawn_dir")
+                    or nil
+
                 if not SAFE_ZONES[level_name] then
                     SAFE_ZONES[level_name] = {}
                 end
-                table.insert(SAFE_ZONES[level_name], {
-                    x = x, y = y, z = z, radius = radius, owner = owner
-                })
+                local zone_entry = {
+                    name = zone_name,
+                    x = x, y = y, z = z, radius = radius, owner = owner,
+                    respawn_x = rx, respawn_y = ry, respawn_z = rz,
+                    respawn_dir = rdir,
+                }
+                table.insert(SAFE_ZONES[level_name], zone_entry)
+                SAFE_ZONES_BY_NAME[zone_name] = zone_entry
                 zone_count = zone_count + 1
-                dbg("load_config: zone '%s' level=%s owner=%s pos=(%.2f,%.2f,%.2f) r=%.0f",
-                    zone_name, level_name, tostring(owner), x, y, z, radius)
+                dbg("load_config: zone '%s' level=%s owner=%s centre=(%.2f,%.2f,%.2f) r=%.0f respawn=(%.2f,%.2f,%.2f) dir=%s",
+                    zone_name, level_name, tostring(owner), x, y, z, radius, rx, ry, rz,
+                    rdir and string.format("%.4f", rdir) or "nil")
             end
         end
     end
     dbg("load_config: loaded %d safe zones across %d levels", zone_count, (function()
         local c = 0; for _ in pairs(SAFE_ZONES) do c = c + 1 end; return c
     end)())
+
+    -- Apply any dev-tool overrides written by set_spawn().
+    load_spawn_overrides()
+end
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Dev-tool spawn overrides  (set_spawn)
+--
+-- set_spawn(zone_name) records the actor's current position and facing as the
+-- respawn point for a named zone. It is intended for use during development:
+-- position yourself in-game, then run from the console:
+--
+--   run_string extraction_mod.set_spawn("rookie_village")
+--
+-- The override is applied to SAFE_ZONES immediately (no restart needed) and
+-- written to em_spawn_overrides.ltx in the saves folder so it survives game
+-- restarts. load_config() merges this file on every game start.
+--
+-- To commit the values permanently, copy the section printed to the log into
+-- extraction_mod_zones.ltx and delete the matching section from the overrides
+-- file (or simply delete the file to revert all overrides).
+--
+-- Requires: -dbg launch flag (printf output is suppressed without it).
+-- ─────────────────────────────────────────────────────────────────────────────
+
+-- Read em_spawn_overrides.ltx from the saves folder and apply any recognised
+-- fields (respawn_x/y/z/dir) to the in-memory SAFE_ZONES_BY_NAME entries.
+-- Called at the end of load_config() so overrides layer on top of the LTX.
+load_spawn_overrides = function()
+    local path = get_overrides_path()
+    local f = io.open(path, "r")
+    if not f then return end  -- no overrides yet; normal on first run
+
+    local current_section = nil
+    local updates = 0
+    for line in f:lines() do
+        -- Strip ; comments and trim surrounding whitespace.
+        line = line:gsub(";.*$", ""):match("^%s*(.-)%s*$")
+        if line ~= "" then
+            local section = line:match("^%[(.-)%]$")
+            if section then
+                current_section = section
+            elseif current_section then
+                -- Match key = <signed float/int>
+                local key, val = line:match("^([%w_]+)%s*=%s*([%-%.%d]+)")
+                if key and val then
+                    local zone = SAFE_ZONES_BY_NAME[current_section]
+                    if zone then
+                        zone[key]        = tonumber(val)
+                        zone._overridden = true  -- mark so save_spawn_overrides writes it back
+                        updates = updates + 1
+                        dbg("load_spawn_overrides: zone '%s' %s = %s", current_section, key, val)
+                    else
+                        dbg("load_spawn_overrides: zone '%s' not in SAFE_ZONES_BY_NAME -- skipping", current_section)
+                    end
+                end
+            end
+        end
+    end
+    f:close()
+    dbg("load_spawn_overrides: applied %d field(s) from %s", updates, path)
+end
+
+-- Write all zones flagged _overridden = true to em_spawn_overrides.ltx.
+-- Returns true on success, false on IO failure.
+local function save_spawn_overrides()
+    local path = get_overrides_path()
+    local f = io.open(path, "w")
+    if not f then
+        printe("![EM] save_spawn_overrides: cannot open '%s' for writing", path)
+        return false
+    end
+    f:write("; em_spawn_overrides.ltx -- written by extraction_mod.set_spawn()\n")
+    f:write("; copy section contents to extraction_mod_zones.ltx to make permanent\n\n")
+    for name, z in pairs(SAFE_ZONES_BY_NAME) do
+        if z._overridden then
+            f:write("[" .. name .. "]\n")
+            f:write(string.format("respawn_x   = %.4f\n", z.respawn_x))
+            f:write(string.format("respawn_y   = %.4f\n", z.respawn_y))
+            f:write(string.format("respawn_z   = %.4f\n", z.respawn_z))
+            if z.respawn_dir then
+                f:write(string.format("respawn_dir = %.4f\n", z.respawn_dir))
+            end
+            f:write("\n")
+        end
+    end
+    f:close()
+    return true
+end
+
+-- Public function accessible as extraction_mod.set_spawn("zone_name").
+-- See the section header above for usage instructions.
+function set_spawn(zone_name)
+    if not (db.actor and db.actor:alive()) then
+        printf("[EM] set_spawn: actor not available")
+        flush()
+        return
+    end
+
+    local zone
+    if zone_name then
+        zone = SAFE_ZONES_BY_NAME[zone_name]
+        if not zone then
+            printf("[EM] set_spawn: zone '%s' not found. Available zones:", tostring(zone_name))
+            for name, _ in pairs(SAFE_ZONES_BY_NAME) do
+                printf("[EM]   %s", name)
+            end
+            flush()
+            return
+        end
+    else
+        -- No argument: use whichever safe zone the actor is currently inside.
+        zone = is_in_safe_zone()
+        if not zone then
+            printf("[EM] set_spawn: not currently inside any safe zone.")
+            printf("[EM] Either move into a zone or pass the zone name explicitly:")
+            printf("[EM]   run_string extraction_mod.set_spawn(\"zone_name\")")
+            flush()
+            return
+        end
+        zone_name = zone.name
+    end
+
+    local pos = db.actor:position()
+    -- Direction convention from base game scripts (sr_teleport.script,
+    -- dialogs_warlab.script): angle = -dir:getH(). This is the value that
+    -- set_actor_direction() and the ChangeLevel angle vector both expect.
+    local dir = -db.actor:direction():getH()
+
+    zone.respawn_x   = pos.x
+    zone.respawn_y   = pos.y
+    zone.respawn_z   = pos.z
+    zone.respawn_dir = dir
+    zone._overridden = true
+
+    -- Refresh the last-base record so do_respawn_deferred picks up the new
+    -- coords on the next death without requiring a zone re-entry.
+    set_last_base(zone)
+
+    local saved = save_spawn_overrides()
+
+    printf("[EM] set_spawn: zone '%s' updated (level=%s)", zone_name, level.name())
+    printf("[EM]   respawn_x   = %s", string.format("%.4f", pos.x))
+    printf("[EM]   respawn_y   = %s", string.format("%.4f", pos.y))
+    printf("[EM]   respawn_z   = %s", string.format("%.4f", pos.z))
+    printf("[EM]   respawn_dir = %s", string.format("%.4f", dir))
+    if saved then
+        printf("[EM] Written to: %s", get_overrides_path())
+        printf("[EM] To make permanent, copy the [%s] section from that file", zone_name)
+        printf("[EM] into extraction_mod_zones.ltx.")
+    end
+    flush()
 end
 
 -- In-game hour captured at the moment actor_on_before_death fires.
@@ -332,33 +524,66 @@ end
 -- Save & load state
 -- ─────────────────────────────────────────────────────────────────────────────
 
+-- Scan the saves folder for any .scop file that is not our fixed save and
+-- delete it. Called with a short delay after save_state detects an external
+-- save, giving the engine time to finish writing the file to disk first.
+-- Pattern for file_list_open_ex confirmed from ui_load_dialog.script.
+-- NOTE: flist:GetAt(i) returns a file object (userdata), NOT a plain string.
+-- Call :NameFull() to get the filename string (confirmed from FillList in
+-- ui_load_dialog.script which does the same).
+local function cleanup_unauthorized_saves()
+    local flist = getFS():file_list_open_ex(
+        "$game_saves$",
+        bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
+        "*.scop"
+    )
+    local n = flist:Size()
+    dbg("cleanup_unauthorized_saves: scanning %s .scop files", n)
+    for i = 0, n - 1 do
+        local file      = flist:GetAt(i)
+        local fullname  = file:NameFull()   -- e.g. "player - quicksave.scop"
+        -- Strip .scop extension to get the name delete_save_game expects.
+        local save_name = fullname:match("^(.+)%.scop$") or fullname
+        if save_name ~= SAVE_FILENAME then
+            dbg("cleanup_unauthorized_saves: deleting unauthorized save '%s'", save_name)
+            ui_load_dialog.delete_save_game(save_name)
+        end
+    end
+    return true
+end
+
 local function save_state(m_data)
     m_data[MOD_KEY] = {
-        last_base_x     = data.last_base_x,
-        last_base_y     = data.last_base_y,
-        last_base_z     = data.last_base_z,
+        last_base_name  = data.last_base_name,
+        last_base_level = data.last_base_level,
         last_base_lvid  = data.last_base_lvid,
         last_base_gvid  = data.last_base_gvid,
-        last_base_level = data.last_base_level,
         stash_ids       = data.stash_ids,
     }
-    dbg("save_state: level=%s pos=(%.2f, %.2f, %.2f)",
-        tostring(data.last_base_level),
-        data.last_base_x or 0, data.last_base_y or 0, data.last_base_z or 0)
+    dbg("save_state: base=%s level=%s",
+        tostring(data.last_base_name), tostring(data.last_base_level))
+
+    -- on_console_execute only fires when saves are triggered through Lua's
+    -- exec_console_cmd wrapper. Saves typed directly into the C++ console
+    -- bypass it entirely. save_state fires for ALL saves (C++ calls it), so
+    -- we use it as a catch-all: if save_in_progress is false this is an
+    -- external save we didn't initiate, so schedule a scan to remove any
+    -- unauthorized files after the engine finishes writing them.
+    if not save_in_progress then
+        dbg("save_state: external save detected -- scheduling cleanup scan")
+        CreateTimeEvent("extraction_mod", "save_cleanup", 1, cleanup_unauthorized_saves)
+    end
 end
 
 local function load_state(m_data)
     local saved          = m_data[MOD_KEY] or {}
-    data.last_base_x     = saved.last_base_x
-    data.last_base_y     = saved.last_base_y
-    data.last_base_z     = saved.last_base_z
+    data.last_base_name  = saved.last_base_name
+    data.last_base_level = saved.last_base_level
     data.last_base_lvid  = saved.last_base_lvid
     data.last_base_gvid  = saved.last_base_gvid
-    data.last_base_level = saved.last_base_level
     data.stash_ids       = saved.stash_ids or {}
-    dbg("load_state: level=%s pos=(%.2f, %.2f, %.2f)",
-        tostring(data.last_base_level),
-        data.last_base_x or 0, data.last_base_y or 0, data.last_base_z or 0)
+    dbg("load_state: base=%s level=%s",
+        tostring(data.last_base_name), tostring(data.last_base_level))
 end
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -375,7 +600,9 @@ local function actor_on_update()
     last_check_time = now
 
     -- TODO: Might there be a callback that we can fire when we enter a certain area so we don't have to do this here (expensive)
-    local in_safe = is_in_safe_zone()
+    -- is_in_safe_zone() returns the matched zone table (truthy) or nil.
+    local zone    = is_in_safe_zone()
+    local in_safe = zone ~= nil
 
     if in_safe ~= was_in_safe_zone then
         dbg("actor_on_update: safe zone state changed -> %s (level=%s)",
@@ -383,11 +610,10 @@ local function actor_on_update()
     end
 
     if in_safe and not was_in_safe_zone then
-        -- First tick after entering a base zone: record position and save.
-        dbg("actor_on_update: entered base zone  -- recording position and saving")
-        record_base_position()
-        do_save()
-        show_msg("Base reached  -- game saved.")
+        -- First tick after entering a base zone: record which zone this is.
+        dbg("actor_on_update: entered base zone -- recording last base")
+        set_last_base(zone)
+        show_msg("Safe zone reached -- you will respawn here on death. Save your game!")
     end
     was_in_safe_zone = in_safe
 end
@@ -413,7 +639,7 @@ end
 -- Layer 1: block quicksave at the input level (no file is written).
 local function on_before_save_input(flags)
     if not db.actor then return end
-    local in_safe = is_in_safe_zone()
+    local in_safe = is_in_safe_zone() ~= nil
     dbg("on_before_save_input: in_safe=%s level=%s", tostring(in_safe), level.name())
     if not in_safe then
         flags.ret = true -- "ret = true" cancels per callbacks-reference docs
@@ -428,7 +654,12 @@ local function on_before_save_input(flags)
     -- on_console_execute fires as part of do_save(), sees our filename, passes.
 end
 
--- Layer 2: catch anything that slipped past Layer 1 (menu saves, autosaves).
+-- Layer 2: redirect any Lua-initiated save that slipped past Layer 1.
+-- Deletion of unauthorised saves (including raw C++ console saves) is handled
+-- entirely by cleanup_unauthorized_saves, which is scheduled from save_state
+-- and runs 1 second after any save we did not initiate ourselves.
+-- This callback only fires for saves initiated via exec_console_cmd (the Lua
+-- wrapper in _g.script) -- direct C++ console input never reaches it.
 local function on_console_execute(cmd, ...)
     if cmd ~= "save" then return end
 
@@ -436,42 +667,19 @@ local function on_console_execute(cmd, ...)
     -- exec_console_cmd, which fires this callback synchronously. If the flag is
     -- set we know this is our own intentional save  -- trust it and return.
     if save_in_progress then
-        dbg("on_console_execute: save_in_progress flag set  -- this is our save, skipping")
+        dbg("on_console_execute: save_in_progress flag set -- this is our save, skipping")
         return
     end
 
-    local args = { ... }
-    local save_name = string.lower(table.concat(args, " "))
-
-    dbg("on_console_execute: external save cmd detected, name='%s' level=%s", save_name, level.name())
-
-    -- Detect engine-generated saves by substring: any save whose name contains
-    -- "autosave" or "quicksave" is treated as engine/mod-generated and silently
-    -- discarded without showing the player a message. This handles the base game
-    -- format ("<username> - autosave"), mods that add their own prefixes/suffixes,
-    -- and any future variations. The trade-off: a manually named save that happens
-    -- to contain these words won't show the "Cannot save outside a base" toast,
-    -- but the save is still correctly deleted/redirected regardless.
-    local is_engine_save = save_name:find("autosave", 1, true)
-        or save_name:find("quicksave", 1, true)
-        or save_name:find("tempsave", 1, true)
-
-    -- For any save we don't control:
-    if not is_in_safe_zone() then
-        dbg("on_console_execute: NOT in safe zone  -- deleting '%s' (level=%s)", save_name, level.name())
-        -- [GAP-3] ui_load_dialog.delete_save_game  -- undocumented.
-        ui_load_dialog.delete_save_game(save_name)
-        if not is_engine_save then
-            show_msg("Cannot save outside a friendly base! Save deleted.")
-        end
-        return
+    -- Any external Lua save (e.g. another mod calling exec_console_cmd("save ...")).
+    -- If we are in a safe zone, redirect to our fixed filename; the subsequent
+    -- cleanup_unauthorized_saves will delete any wrong-named file that was written.
+    if is_in_safe_zone() then
+        dbg("on_console_execute: external save in safe zone -- redirecting to %s", SAVE_FILENAME)
+        do_save()
     end
-
-    -- In safe zone but wrong name: delete and replace with our fixed file.
-    -- save_in_progress prevents on_console_execute from re-entering via do_save().
-    dbg("on_console_execute: in safe zone but external save '%s'  -- redirecting", save_name)
-    ui_load_dialog.delete_save_game(save_name)
-    do_save()
+    -- Outside a safe zone: do nothing here. cleanup_unauthorized_saves will
+    -- delete whatever file the engine wrote.
 end
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -543,27 +751,37 @@ local function do_respawn_deferred()
 
     heal_actor()
 
-    local base_pos = get_base_vector()
-    if not (base_pos and data.last_base_lvid and data.last_base_gvid) then
-        dbg("do_respawn_deferred: NO BASE ON RECORD  -- staying at death location")
-        show_msg("WARNING: No base on record  -- you wake where you fell! Visit a base first.")
-        bind_stalker_ext.invulnerable_time = time_global() + 1
+    -- Look up the zone by name to get current respawn coords. This means a
+    -- set_spawn() change takes effect on the next death without re-entering.
+    -- actor_on_before_death already verified a valid base exists before queuing
+    -- this deferred call, so base_zone should never be nil here.
+    local base_zone = data.last_base_name and SAFE_ZONES_BY_NAME[data.last_base_name]
+    if not base_zone then
+        printe("![EM] do_respawn_deferred: base_zone is nil -- this should not happen")
         level.remove_pp_effector(DEATH_FADE_ID)
-        -- No save here: the player is at the death site, likely not in a safe zone.
-        -- actor_on_update will save automatically once they reach a base.
         return true
     end
 
+    local base_pos = vector():set(base_zone.respawn_x, base_zone.respawn_y, base_zone.respawn_z)
+    local base_dir = base_zone.respawn_dir  -- nil = no direction override
+
     local current_level = level.name()
-    dbg("do_respawn_deferred: current_level=%s, base_level=%s",
-        current_level, tostring(data.last_base_level))
-    dbg("do_respawn_deferred: base_pos=(%.2f, %.2f, %.2f) lvid=%s gvid=%s",
+    dbg("do_respawn_deferred: base=%s current_level=%s base_level=%s",
+        data.last_base_name, current_level, tostring(data.last_base_level))
+    dbg("do_respawn_deferred: respawn=(%.2f, %.2f, %.2f) dir=%s lvid=%s gvid=%s",
         base_pos.x, base_pos.y, base_pos.z,
+        base_dir and string.format("%.4f", base_dir) or "nil",
         tostring(data.last_base_lvid), tostring(data.last_base_gvid))
 
     if data.last_base_level == current_level then
         dbg("do_respawn_deferred: SAME-LEVEL respawn  -- using set_actor_position")
         db.actor:set_actor_position(base_pos)
+        -- Apply configured facing direction, if any.
+        -- set_actor_direction(number) confirmed on db.actor from sr_teleport.script.
+        if base_dir then
+            dbg("do_respawn_deferred: setting direction to %.4f rad", base_dir)
+            db.actor:set_actor_direction(base_dir)
+        end
         bind_stalker_ext.invulnerable_time = time_global() + 1
         dbg("do_respawn_deferred: invulnerable_time expired, removing fade, saving")
         level.remove_pp_effector(DEATH_FADE_ID)
@@ -571,12 +789,13 @@ local function do_respawn_deferred()
         show_msg("You have died. Your gear marks the site of your death.")
     else
         dbg("do_respawn_deferred: CROSS-LEVEL respawn  -- using ChangeLevel (nothing executes after)")
-        -- No do_save() here: the actor is still at the death location when this
-        -- runs, so saving would record the wrong position. actor_on_update will
-        -- trigger a save automatically when the player arrives at the base on
-        -- the destination level and is detected inside a safe zone.
+        -- Pass the configured heading as a HPB vector (x = heading, y/z = 0).
+        -- All existing base-game ChangeLevel calls use VEC_ZERO; we only deviate
+        -- when a respawn_dir is configured for the zone.
+        local angle = base_dir and vector():set(base_dir, 0, 0) or VEC_ZERO
+        dbg("do_respawn_deferred: angle=(%s, 0, 0)", base_dir and string.format("%.4f", base_dir) or "0")
         show_msg("You have died. Your gear marks the site of your death.")
-        ChangeLevel(base_pos, data.last_base_lvid, data.last_base_gvid, VEC_ZERO, false)
+        ChangeLevel(base_pos, data.last_base_lvid, data.last_base_gvid, angle, false)
     end
 
     return true
@@ -645,6 +864,16 @@ end
 -- Requires modded exes. flags.ret_value = false cancels the death event.
 local function actor_on_before_death(who_id, flags)
     dbg("actor_on_before_death: fired  -- who_id=%s", tostring(who_id))
+
+    -- If the player has never reached a safe zone there is no respawn point.
+    -- Delete any existing mod save before allowing the death so the player
+    -- cannot cheat by deliberately unsetting their spawn to reload an old save.
+    local base_zone = data.last_base_name and SAFE_ZONES_BY_NAME[data.last_base_name]
+    if not base_zone then
+        dbg("actor_on_before_death: no base on record -- deleting save and allowing death (game over)")
+        ui_load_dialog.delete_save_game(SAVE_FILENAME)
+        return
+    end
 
     -- Cache the time of death NOW, before any engine state changes.
     -- The engine appears to restore the last save's time as part of processing
@@ -796,11 +1025,11 @@ local function actor_on_first_update()
         -- next time the player is in a safe zone on this level.
     end
 
-    if not data.last_base_x then
-        dbg("actor_on_first_update: no base on record  -- recording current position as fallback")
-        record_base_position()
+    if not data.last_base_name then
+        dbg("actor_on_first_update: no base on record -- player must visit a safe zone")
     else
-        dbg("actor_on_first_update: base already on record at level=%s", tostring(data.last_base_level))
+        dbg("actor_on_first_update: base on record: %s (level=%s)",
+            data.last_base_name, tostring(data.last_base_level))
     end
     show_msg("Extraction mode active. Saves only at friendly bases.")
 end

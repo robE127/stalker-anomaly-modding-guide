@@ -147,6 +147,11 @@ exec_console_cmd("run_string level.change_game_time(0,3,0)")
 
 `exec_console_cmd` is a global helper defined in `_g.script`. It calls `get_console():execute(cmd)` and also fires the `on_console_execute` callback, so other scripts can observe it. See [game — Console commands](../api-reference/game.md#console-commands) for details.
 
+!!! warning "`on_console_execute` only fires from Lua — not from direct console input"
+    `on_console_execute` is triggered by the `exec_console_cmd` Lua wrapper only (`_g.script` line 751). When the player types a command directly into the in-game console (the C++ console opened with the backtick key), the callback does **not** fire. This is a common trap when intercepting saves: typing `save` in the console bypasses `on_console_execute` entirely.
+
+    The reliable catch-all for every save — regardless of how it was initiated — is `save_state`. The engine calls it from C++ for all saves, including console-typed saves, menu saves, and autosaves. If you need to detect or react to saves you did not trigger yourself, hook `save_state` rather than `on_console_execute`.
+
 ---
 
 ## See also

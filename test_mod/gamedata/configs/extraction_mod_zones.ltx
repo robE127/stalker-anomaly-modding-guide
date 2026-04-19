@@ -5,10 +5,23 @@
 ; [zones] lists every zone section name.
 ; Each zone section defines one area:
 ;
-;   level  = level name string (e.g. l01_escape)
-;   owner  = faction community string  -- OPTIONAL; omit for zones open to all
-;   x, y, z = world position of the zone centre
-;   radius  = detection radius in metres
+;   level             = level name string (e.g. l01_escape)
+;   owner             = faction community string  -- OPTIONAL; omit for zones open to all
+;   x, y, z           = world position of the zone centre (used for entry detection)
+;   radius            = detection radius in metres
+;   respawn_x         = OPTIONAL; world X of the respawn point. Defaults to x (zone centre).
+;   respawn_y         = OPTIONAL; world Y of the respawn point. Defaults to y (zone centre).
+;   respawn_z         = OPTIONAL; world Z of the respawn point. Defaults to z (zone centre).
+;   respawn_dir       = OPTIONAL; heading angle in radians (0 to 6.283). Sets the direction
+;                       the player faces after respawning. Omit to leave facing unchanged.
+;                       Can be set independently of respawn_x/y/z.
+;                       Values: 0.0 = engine default, ~1.571 = 90 deg, ~3.142 = 180 deg, ~4.712 = 270 deg.
+;                       Tip: use run_string printf("dir=%s", db.actor:direction():getH()) in
+;                       the console to read your current facing and copy that value here.
+;
+; When respawn_x/y/z are omitted the player respawns at the zone centre.
+; Override them when the centre is inside geometry, on a roof, or otherwise
+; unreachable -- set them to a clear ground point inside the zone.
 ;
 ; owner values must match community strings used by game_relations:
 ;   stalker, army, freedom, dolg, csky, renegade, killer, ecologist,
@@ -55,6 +68,10 @@ x      = -206.0193
 y      = -20.3856
 z      = -148.0225
 radius = 80
+respawn_x   = -212.2264
+respawn_y   = -23.1946
+respawn_z   = -122.9806
+respawn_dir = -3.2040
 
 [northern_farm]
 level  = l01_escape
@@ -63,6 +80,10 @@ x      = 1.1010
 y      = 0.5372
 z      = 274.1233
 radius = 60
+respawn_x   = 4.9146
+respawn_y   = 0.8727
+respawn_z   = 259.7740
+respawn_dir = -2.5392
 
 [army_cordon]
 level  = l01_escape
@@ -81,6 +102,10 @@ x      = -92.8095
 y      = 10
 z      = -2.1873
 radius = 80
+respawn_x   = -73.5994
+respawn_y   = -2.3771
+respawn_z   = 19.2166
+respawn_dir = -3.4650
 
 ; ── Rostok  (l05_bar) ───────────────────────────────────────────────────────
 
@@ -91,6 +116,10 @@ x      = 162.2871
 y      = 0
 z      = 70.5831
 radius = 100
+respawn_x   = 128.9972
+respawn_y   = 0.0942
+respawn_z   = 61.3840
+respawn_dir = -3.8170
 
 ; ── Agroprom  (l03_agroprom) ─────────────────────────────────────────────
 
@@ -109,6 +138,10 @@ x      = 9.5565
 y      = 10
 z      = 6.5732
 radius = 80
+respawn_x   = 19.2228
+respawn_y   = -0.0007
+respawn_z   = 10.2786
+respawn_dir = -1.5811
 
 ; ── Great Swamp  (k00_marsh) ─────────────────────────────────────────────
 
@@ -145,6 +178,10 @@ x      = -5.9021
 y      = -6.1777
 z      = 37.5306
 radius = 121
+respawn_x   = 15.2301
+respawn_y   = -7.3230
+respawn_z   = 13.0992
+respawn_dir = 0.2041
 
 [freedom_base_2]
 level  = l07_military
@@ -163,6 +200,10 @@ x      = 26.7268
 y      = -10.6048
 z      = -270.3784
 radius = 70
+respawn_x   = 29.0309
+respawn_y   = -11.7034
+respawn_z   = -279.2034
+respawn_dir = -3.2180
 
 ; ── Dark Valley  (l04_darkvalley) ───────────────────────────────────────────
 

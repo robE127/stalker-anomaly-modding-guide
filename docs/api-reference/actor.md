@@ -87,11 +87,31 @@ local bone_id  = db.actor:get_bone_id("bip01_head")  -- numeric bone ID for a na
 
 -- Teleport the actor (use with caution)
 db.actor:set_actor_position(new_position)
-db.actor:set_actor_direction(angle_radians)
+db.actor:set_actor_direction(angle_radians)  -- see angle convention below
 
 -- Lighting (useful for stealth/visibility systems) *(modded exes)*
 local light = db.actor:get_luminocity()       -- direct illumination level (0–1)
 local hemi  = db.actor:get_luminocity_hemi()  -- ambient hemisphere illumination (0–1)
+```
+
+**`set_actor_direction` angle convention**
+
+`set_actor_direction` takes a heading in radians, but the value returned by `direction():getH()` uses the opposite sign convention. Always negate it when copying a recorded heading back:
+
+```lua
+-- Record the player's current facing
+local heading = -db.actor:direction():getH()   -- negate: converts engine heading to set_actor_direction angle
+
+-- Apply it after a teleport
+db.actor:set_actor_direction(heading)
+```
+
+The negation is confirmed from `sr_teleport.script` and `dialogs_warlab.script` in the base game. If you skip it, the player will face the wrong direction after the teleport.
+
+To read your current heading from the console for use in config files:
+
+```
+run_string printf("heading=%s", -db.actor:direction():getH())
 ```
 
 **Distance checks** are done on the returned vector:
