@@ -1,6 +1,6 @@
 # Lua Scope & Globals
 
-Understanding scope in Lua is critical in Anomaly modding because **all scripts share a single global namespace**. A variable you accidentally declare as global in your mod is visible — and writable — by every other script in the game. This page explains how scoping works, what variables are visible from inside a function, and how to share state safely.
+Understanding scope in Lua is critical in Anomaly modding because scripts share a global namespace for **reading** — any name not found locally falls through to the engine's shared `_G` table. However, globals you *write* are stored in your script's own private environment, not in `_G` directly. This asymmetry matters when hooking base game code. This page explains how scoping works, what is actually shared between scripts, and how to modify base game behaviour correctly.
 
 ---
 
@@ -16,7 +16,7 @@ enemy_count = 0
 local enemy_count = 0
 ```
 
-In Anomaly, all `.script` files are loaded into the same Lua state. Every global you create becomes part of the shared `_G` table. If two mods both declare a global called `enemy_count`, the second one to load silently overwrites the first.
+In Anomaly, all `.script` files are loaded into the same Lua state and share a single `_G` table for **reading** globals. However, global **writes** in your script only affect your script's own private environment — they do not propagate to `_G` and other scripts will not see the change. (The mechanics behind this are explained in [Per-script environments](#per-script-environments) below.) If two mods both declare a global called `enemy_count`, the second one to load silently overwrites the first **within its own script**, but neither mod can change the other's `enemy_count`.
 
 **Always use `local` for everything in your mod.** The only exceptions are the specific entry-point functions the engine looks for by name: `on_game_start`, `on_game_end`, `on_game_load`, and `bind` (for object binders).
 
@@ -253,6 +253,91 @@ The `my_mod = my_mod or {}` pattern is important — if the scripts load in an o
 
 ---
 
+## Per-script environments
+
+Every `.script` file except `_g.script` is wrapped with a small header at load time by the engine (confirmed in `script_storage.cpp`):
+
+```lua
+local this = {}
+my_script = this                          -- registers this script's env as a global table
+setmetatable(this, {__index = _G})        -- reads fall through to _G if not found locally
+setfenv(1, this)                          -- this file's global environment is now 'this'
+```
+
+This has two practical consequences:
+
+**Reads fall through to `_G`.**  When your code reads `db.actor` or calls `RegisterScriptCallback`, the name isn't in `this`, so Lua looks in `_G` via `__index` and finds it. All engine globals and `_g.script` functions are visible everywhere.
+
+**Writes go to `this`, not `_G`.**  When your code writes `some_function = new_version`, it stores the new value in `this`. The `_G` entry is unchanged. Any other script that reads `some_function` checks its own `this`, doesn't find it, falls through to `_G`, and gets the original.
+
+This is why `this` in a script refers to the script's own module table — it *is* the script's global environment. The line `my_script = this` puts that table into `_G` under the script's name, which is why `my_script.my_function()` works from other scripts.
+
+!!! warning "You cannot override a global function for other scripts"
+    Reassigning a global function in your script only shadows it within your own script:
+
+    ```lua
+    -- my_mod.script — on_game_start
+    exec_console_cmd = function(cmd, ...)     -- writes to THIS script's env only
+        printf("intercepted: %s", cmd)
+        orig(cmd, ...)
+    end
+    ```
+
+    Other scripts still call the original `exec_console_cmd` from `_G`. The override is invisible to them. If you need to intercept calls made by base game code, use the class-table patching technique below.
+
+The exception is `_g.script` itself — it runs without this wrapper and writes directly to `_G`. Functions defined there (`exec_console_cmd`, `RegisterScriptCallback`, `alife_create`, etc.) are genuinely global.
+
+---
+
+## Patching class methods
+
+When you need to hook or replace base game behaviour defined in a Lua class (such as `UILoadDialog.load_game_internal`), patch the method on the shared class table at runtime. Class tables are plain Lua objects in `_G`; modifying them is visible to all callers regardless of which script the call comes from.
+
+```lua
+-- Correct pattern: save, replace, restore
+local orig_method = nil
+
+function on_game_start()
+    local cls = some_script.SomeClass    -- forces the script to load if not yet loaded
+    if cls and not orig_method then
+        orig_method = cls.the_method
+        cls.the_method = function(self, ...)
+            -- your logic here
+            if should_block then return end
+            return orig_method(self, ...)   -- call through to the original
+        end
+    end
+end
+
+function on_game_end()
+    if orig_method then
+        local cls = some_script and some_script.SomeClass
+        if cls then cls.the_method = orig_method end
+        orig_method = nil
+    end
+end
+```
+
+This works because the class table (e.g., `ui_load_dialog.UILoadDialog`) is a single Lua table object shared in `_G`. All script environments read it via `__index = _G`, so your replacement is seen by every caller — even those in other scripts.
+
+**Always restore in `on_game_end`.**  If you don't restore, the patched method persists across session boundaries (the intercepts table survives between sessions). The second session will try to save `orig_method` again but the `if not orig_method` guard will prevent reinstalling the patch — the already-patched method stays in place without issue, but it's cleaner to restore.
+
+**Contrast with global function replacement** (which does *not* work cross-script):
+
+```lua
+-- Does NOT intercept calls from other scripts:
+exec_console_cmd = function(cmd, ...)   -- only affects this script's env
+    ...
+end
+
+-- DOES intercept calls from all scripts:
+ui_load_dialog.UILoadDialog.load_game_internal = function(self)
+    ...
+end
+```
+
+---
+
 ## Common mistakes
 
 ### Forgetting `local` on a loop variable
@@ -315,3 +400,4 @@ end
 - [Script Lifecycle](script-lifecycle.md) — when module-level code runs vs `on_game_start`
 - [The Callback System](callbacks.md) — why anonymous callbacks can't be unregistered (closure mechanics)
 - [Debugging & Logging](debugging.md) — how to diagnose global namespace collisions
+- [Lua in Anomaly](lua-in-anomaly.md) — the `class` keyword and how UI classes are defined
