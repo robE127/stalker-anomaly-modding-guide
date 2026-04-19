@@ -2929,6 +2929,11 @@ Moves the actor to the given world coordinates on the current level without a le
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="nf">exec_console_cmd</span><span class="p">(</span><span class="s2">&quot;run_string level.change_game_time(0,3,0)&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <p><code>exec_console_cmd</code> is a global helper defined in <code>_g.script</code>. It calls <code>get_console():execute(cmd)</code> and also fires the <code>on_console_execute</code> callback, so other scripts can observe it. See <a href="../../api-reference/game/#console-commands">game — Console commands</a> for details.</p>
+<div class="admonition warning">
+<p class="admonition-title"><code>on_console_execute</code> only fires from Lua — not from direct console input</p>
+<p><code>on_console_execute</code> is triggered by the <code>exec_console_cmd</code> Lua wrapper only (<code>_g.script</code> line 751). When the player types a command directly into the in-game console (the C++ console opened with the backtick key), the callback does <strong>not</strong> fire. This is a common trap when intercepting saves: typing <code>save</code> in the console bypasses <code>on_console_execute</code> entirely.</p>
+<p>The reliable catch-all for every save — regardless of how it was initiated — is <code>save_state</code>. The engine calls it from C++ for all saves, including console-typed saves, menu saves, and autosaves. If you need to detect or react to saves you did not trigger yourself, hook <code>save_state</code> rather than <code>on_console_execute</code>.</p>
+</div>
 <hr />
 <h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>
