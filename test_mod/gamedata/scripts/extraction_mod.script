@@ -13,7 +13,8 @@
 -- REQUIREMENTS:
 --   Modded exes (xray-monolith) required for actor_on_before_death.
 --
--- DOCUMENTATION GAPS (things that required reading community mod source):
+-- DOCUMENTATION GAPS (things that required reading community mod source or engine
+-- source to discover):
 --   [GAP-1] exec_console_cmd  -- not in guide; confirmed by Jabbers Soulslike source.
 --   [GAP-2] "inv_backpack" section name  -- not in guide; confirmed by Jabbers source.
 --   [GAP-3] ui_load_dialog.delete_save_game(name)  -- not in guide; found in
@@ -34,6 +35,15 @@
 --           exist yet; the engine then writes it after the callback returns.
 --           Fix: delete the expected autosave name in actor_on_first_update,
 --           which fires after the new level fully loads and the file is on disk.
+--   [GAP-9] Per-script environments (confirmed in script_storage.cpp): each
+--           .script file runs in its own environment table (`this`) with
+--           setmetatable(this, {__index = _G}) + setfenv(1, this). Reads fall
+--           through to _G; writes only affect `this`. Consequence: reassigning
+--           a global function (e.g. exec_console_cmd = wrapped) only affects your
+--           own script -- other scripts still see the original from _G. To hook
+--           base game class behaviour, patch the class table directly:
+--           cls.method = new_fn (visible to all, because the class table IS in _G).
+--           Now documented in docs/scripting/lua-scope.md.
 --
 -- KNOWN ISSUES:
 --   • Level names sourced from Fair Fast Travel travel_destinations.ltx
@@ -74,8 +84,8 @@ local OVERRIDES_FILE  = "em_spawn_overrides.ltx"
 -- level transition. actor_on_first_update checks for this flag before deleting
 -- the engine's autosave. Without the flag, a pre-existing "player - autosave"
 -- from a separate playthrough would be silently deleted on the first transition.
--- The file is written to the saves folder (same dir as .scop files) and removed
--- immediately after being read.
+-- The file is written to the saves folder (same dir as .scop files) and consumed
+-- (overwritten with "0") immediately after being read.
 local TRANSITION_FLAG = "em_transition_flag"
 
 local function get_flag_path()
@@ -619,6 +629,41 @@ local function actor_on_update()
 end
 
 -- ─────────────────────────────────────────────────────────────────────────────
+-- Load blocking
+--
+-- In Extraction Mode loading a save mid-session lets the player undo bad
+-- decisions (taking damage, losing a fight) without the gear-loss penalty.
+-- We block ALL loads while a game session is active (db.actor alive).
+-- When the player is at the main menu db.actor is nil, so loads are free.
+--
+-- Two paths are covered:
+--
+--   on_before_load_input -- F9 quickload keybind.
+--     Fires from level_input.script. flags.ret = true cancels it entirely.
+--
+--   UILoadDialog.load_game_internal patch -- ESC menu load dialog.
+--     Replaces the method on the shared class table so all dialog instances
+--     go through our check. The original is saved and restored on on_game_end.
+--     The patch is installed in on_game_start by forcing ui_load_dialog.script
+--     to load (if it hasn't already) and then overwriting the method.
+--     Main-menu loads go through the same method but db.actor is nil there,
+--     so they are always allowed through.
+--
+-- C++ console "load" typed directly bypasses all Lua hooks and is out of scope.
+-- ─────────────────────────────────────────────────────────────────────────────
+
+-- Saved when the UILoadDialog class is patched; restored in on_game_end.
+local orig_load_game_internal = nil
+
+local function on_before_load_input(dik, bind, flags)
+    -- db.actor is nil at the main menu (no session active) -- allow load.
+    if not db.actor then return end
+    flags.ret = true
+    dbg("on_before_load_input: BLOCKED -- session active")
+    show_msg("Cannot load -- extraction mode is active!")
+end
+
+-- ─────────────────────────────────────────────────────────────────────────────
 -- Save interception  -- TWO layers:
 --
 --   Layer 1: on_before_save_input (quicksave only)
@@ -979,7 +1024,7 @@ end
 -- Initialisation
 -- ─────────────────────────────────────────────────────────────────────────────
 
-local first_update_done = false
+local first_update_done    = false
 
 local function actor_on_first_update()
     if first_update_done then return end
@@ -1041,10 +1086,41 @@ end
 function on_game_start()
     dbg("on_game_start: registering callbacks")
     load_config()
+
+    -- Patch UILoadDialog.load_game_internal to block in-game loads.
+    -- We replace the method on the class table directly rather than wrapping
+    -- exec_console_cmd globally, because xray-monolith gives each script its
+    -- own environment table -- our module's assignment to exec_console_cmd is
+    -- not visible to ui_load_dialog.script's global lookup.
+    -- Replacing the method on the shared class object is visible to all callers.
+    -- Guard against double-patching if on_game_start fires more than once.
+    if not orig_load_game_internal then
+        -- Referencing ui_load_dialog.UILoadDialog forces the script to load if
+        -- it hasn't been loaded yet. After this line the class table exists.
+        local cls = ui_load_dialog.UILoadDialog
+        if cls then
+            orig_load_game_internal = cls.load_game_internal
+            cls.load_game_internal = function(self_dlg)
+                -- Block only when a live session is active. db.actor is nil at
+                -- the main menu, so loads from there are always allowed through.
+                if db.actor and db.actor:alive() then
+                    show_msg("Cannot load -- extraction mode is active!")
+                    dbg("UILoadDialog.load_game_internal: BLOCKED")
+                    return
+                end
+                return orig_load_game_internal(self_dlg)
+            end
+            dbg("on_game_start: UILoadDialog.load_game_internal patched")
+        else
+            printe("![EM] on_game_start: ui_load_dialog.UILoadDialog not found -- ESC menu load blocking unavailable")
+        end
+    end
+
     RegisterScriptCallback("actor_on_first_update", actor_on_first_update)
     RegisterScriptCallback("actor_on_update", actor_on_update)
     RegisterScriptCallback("actor_on_before_death", actor_on_before_death)
     RegisterScriptCallback("actor_on_item_take_from_box", actor_on_item_take_from_box)
+    RegisterScriptCallback("on_before_load_input", on_before_load_input)
     RegisterScriptCallback("on_before_save_input", on_before_save_input)
     RegisterScriptCallback("on_console_execute", on_console_execute)
     RegisterScriptCallback("on_level_changing", on_level_changing)
@@ -1061,10 +1137,20 @@ function on_game_end()
     death_label       = nil
     data.stash_ids    = {}
 
+    -- Restore UILoadDialog.load_game_internal to the original method.
+    if orig_load_game_internal then
+        local cls = ui_load_dialog and ui_load_dialog.UILoadDialog
+        if cls then
+            cls.load_game_internal = orig_load_game_internal
+        end
+        orig_load_game_internal = nil
+    end
+
     UnregisterScriptCallback("actor_on_first_update", actor_on_first_update)
     UnregisterScriptCallback("actor_on_update", actor_on_update)
     UnregisterScriptCallback("actor_on_before_death", actor_on_before_death)
     UnregisterScriptCallback("actor_on_item_take_from_box", actor_on_item_take_from_box)
+    UnregisterScriptCallback("on_before_load_input", on_before_load_input)
     UnregisterScriptCallback("on_before_save_input", on_before_save_input)
     UnregisterScriptCallback("on_console_execute", on_console_execute)
     UnregisterScriptCallback("on_level_changing", on_level_changing)
