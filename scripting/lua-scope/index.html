@@ -915,6 +915,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Accessing other scripts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#not-every-engine-type-is-a-lua-global" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Not every engine type is a Lua global
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1906,6 +1923,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -2061,6 +2082,62 @@
     
   
     NPCs & Factions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/space-restrictors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Space Restrictors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/smart-terrains/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Smart Terrains
   
 
     
@@ -2636,6 +2713,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Accessing other scripts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#not-every-engine-type-is-a-lua-global" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Not every engine type is a Lua global
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2912,6 +3006,9 @@
 </span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="nf">IsWeapon</span><span class="p">(</span><span class="nv">obj</span><span class="p">)</span>
 </span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="nf">alife_create</span><span class="p">(</span><span class="s2">&quot;medkit&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">pos</span><span class="p">)</span>
 </span></code></pre></div>
+<h3 id="not-every-engine-type-is-a-lua-global">Not every engine type is a Lua global<a class="headerlink" href="#not-every-engine-type-is-a-lua-global" title="Permanent link">&para;</a></h3>
+<p>Reads from your script fall through to <code>_G</code>, but <strong>bindings are curated</strong>: some C++ APIs exist only as <strong>methods on userdata</strong> returned by a factory (for example <code>game.get_game_time()</code>), not as a freestanding global you can call. A common pitfall is assuming a <strong>constructor</strong> such as <code>CTime()</code> or <code>CTime(copy)</code> exists because it appears in generic X-Ray Lua examples — in Anomaly mod scripts it is often <strong>nil</strong>, which fails at runtime with <code>attempt to call global 'CTime' (a nil value)</code>.</p>
+<p>Prefer engine entry points (<code>game.get_game_time()</code>, <code>game.time()</code>, etc.) and see <a href="../../api-reference/ctime/#getting-a-ctime-userdata">CTime — getting userdata</a>.</p>
 <hr />
 <h2 id="sharing-state-between-scripts">Sharing state between scripts<a class="headerlink" href="#sharing-state-between-scripts" title="Permanent link">&para;</a></h2>
 <p>If two of your own scripts need to share state, the cleanest approach is a dedicated state module:</p>

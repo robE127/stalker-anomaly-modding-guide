@@ -1345,6 +1345,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Debug HUD and other debug settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-zone-names-in-actor-inside-zone-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding zone names in Actor Inside Zone Info
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -2090,6 +2107,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -2245,6 +2266,62 @@
     
   
     NPCs & Factions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/space-restrictors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Space Restrictors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/smart-terrains/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Smart Terrains
   
 
     
@@ -3082,6 +3159,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Debug HUD and other debug settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-zone-names-in-actor-inside-zone-info" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding zone names in Actor Inside Zone Info
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -3365,6 +3459,10 @@ The X-Ray engine writes the log in Windows-1252. If your Lua source file is save
 </span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>run_string level.change_game_time(0,-3,0)
 </span></code></pre></div>
 <p>Advances or rewinds the in-game clock by the given number of hours. Affects the actual game clock that <code>level.get_time_hours()</code> reads — unlike the weather editor, which only changes the visual sky appearance.</p>
+<div class="admonition warning">
+<p class="admonition-title">Avoid extreme <code>time_factor</code> for stability testing</p>
+<p>Very high <code>time_factor</code> values can destabilize Anomaly's simulation (rapid spawn/destroy churn) and cause crashes unrelated to your script changes. For testing time-based mod logic, prefer direct clock jumps with <code>run_string level.change_game_time(0,h,0)</code>.</p>
+</div>
 <p><strong>Read the current hour</strong></p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>run_string printf(&quot;hour=%s&quot;, level.get_time_hours())
 </span></code></pre></div>
@@ -3387,8 +3485,15 @@ The X-Ray engine writes the log in Windows-1252. If your Lua source file is save
 <li><strong>Debug HUD</strong> — shows a real-time overlay including the current in-game time. Essential for testing any time-based feature (night respawn, day/night event triggers, etc.) because it reflects the actual clock rather than the visual sky.</li>
 <li><strong>Debug map spots</strong> — renders extra markers on the minimap for debug purposes.</li>
 <li><strong>Debug error notifications</strong> — shows error popups in the HUD when Lua errors occur, in addition to the log entries.</li>
+<li><strong>Actor Inside Zone Info</strong> — lists the names of <code>space_restrictor</code> zones the actor is currently inside. This mirrors <code>db.actor_inside_zones</code> (key = zone name, value = zone object), so entries like <code>esc_2_12_stalker_wolf_kill_zone</code> are level object names, not Lua variables.</li>
 </ul>
 <p>Enable all three when actively developing and testing a mod. They have no effect when <code>-dbg</code> is not active.</p>
+<h4 id="understanding-zone-names-in-actor-inside-zone-info">Understanding zone names in Actor Inside Zone Info<a class="headerlink" href="#understanding-zone-names-in-actor-inside-zone-info" title="Permanent link">&para;</a></h4>
+<p>Zone names in this overlay come from map data (<code>space_restrictor</code> object names in the level), so they often look editor-generated and verbose. A suffix like <code>_kill_zone</code> usually indicates a gameplay trigger/restrictor volume created by level logic.</p>
+<p>You can inspect the same data directly from Lua:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>run_string for name,_ in pairs(db.actor_inside_zones or {}) do printf(&quot;inside_zone=%s&quot;, name) end
+</span></code></pre></div>
+<p>Use this when you need to confirm that zone entry/exit logic matches what the debug HUD shows. For API details, see <a href="../../api-reference/level/"><code>db.actor_inside_zones</code> in the <code>level</code> reference</a>.</p>
 <hr />
 <h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>

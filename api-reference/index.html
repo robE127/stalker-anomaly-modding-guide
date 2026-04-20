@@ -1682,6 +1682,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -1837,6 +1841,62 @@
     
   
     NPCs & Factions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../systems/space-restrictors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Space Restrictors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../systems/smart-terrains/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Smart Terrains
   
 
     
@@ -4909,11 +4969,6 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 <td>Add/subtract CTimes</td>
 </tr>
 <tr>
-<td><code>CTime()</code></td>
-<td></td>
-<td>Construct zeroed time</td>
-</tr>
-<tr>
 <td><code>t:dateToString(fmt)</code></td>
 <td></td>
 <td>Format date as string</td>
@@ -4945,7 +5000,7 @@ Parameters in <code>[brackets]</code> are optional. Frequency counts show how ma
 </tr>
 </tbody>
 </table>
-<p>Format constants: <code>CTime.TimeToHours</code>, <code>CTime.TimeToMinutes</code>, <code>CTime.TimeToSeconds</code>, <code>CTime.DateToDay</code>, <code>CTime.DateToMonth</code>, <code>CTime.DateToYear</code>.</p>
+<p>Global <code>CTime()</code> / <code>CTime(t)</code> constructors and the <code>CTime.*</code> format name constants are <strong>often not registered</strong> for mod scripts — use <code>game.get_game_time()</code> and numeric format codes (see <a href="ctime/#getting-a-ctime-userdata">CTime</a>).</p>
 <hr />
 <h2 id="particles_object">particles_object<a class="headerlink" href="#particles_object" title="Permanent link">&para;</a></h2>
 <p>Script-controlled particle effect object.</p>

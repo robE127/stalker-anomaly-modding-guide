@@ -2116,6 +2116,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -2271,6 +2275,62 @@
     
   
     NPCs & Factions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/space-restrictors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Space Restrictors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/smart-terrains/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Smart Terrains
   
 
     
@@ -3259,6 +3319,10 @@
 <div class="language-lua highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nf">alife_release_id</span><span class="p">(</span><span class="nv">object_id</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;my_mod cleanup&quot;</span><span class="p">)</span>
 </span></code></pre></div>
 <p>Convenience form: looks up the server entity by ID and releases it.</p>
+<div class="admonition warning">
+<p class="admonition-title">Don't release inventory entities while their container is online/open</p>
+<p>Releasing stash items (or the stash container itself) while that container is online (<code>level.object_by_id(stash_id)</code> exists, especially if inventory UI is open) can trigger engine destroy-order errors and crashes. Safe pattern: only release those entities when the stash is offline, or defer cleanup until it goes offline.</p>
+</div>
 <hr />
 <h2 id="raw-alife-methods">Raw alife() methods<a class="headerlink" href="#raw-alife-methods" title="Permanent link">&para;</a></h2>
 <h3 id="object-lookup">Object lookup<a class="headerlink" href="#object-lookup" title="Permanent link">&para;</a></h3>
@@ -3345,11 +3409,12 @@
 </span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="nf">alife</span><span class="p">():</span><span class="nf">dont_has_info</span><span class="p">(</span><span class="nv">entity_id</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;info_id_string&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1">-- returns true if entity does NOT have the info</span>
 </span></code></pre></div>
 <h3 id="children">Children<a class="headerlink" href="#children" title="Permanent link">&para;</a></h3>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1">-- Get all child objects of a server entity (e.g. items in an NPC&#39;s inventory)</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="c1">-- Returns an iterator</span>
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="kr">for</span><span class="w"> </span><span class="nv">child</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nf">alife</span><span class="p">():</span><span class="nf">get_children</span><span class="p">(</span><span class="nv">se_obj</span><span class="p">)</span><span class="w"> </span><span class="kr">do</span>
-</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;child id: %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">child</span><span class="p">.</span><span class="py">id</span><span class="p">)</span>
-</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1">-- Get all child objects of a server entity (e.g. items in an NPC&#39;s inventory).</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="c1">-- Returns an iterator. In Anomaly each iteration value is the child&#39;s **alife id</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="c1">-- (a number)**, not a server-entity table — use the number directly:</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="kr">for</span><span class="w"> </span><span class="nv">child_id</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nf">alife</span><span class="p">():</span><span class="nf">get_children</span><span class="p">(</span><span class="nv">se_obj</span><span class="p">)</span><span class="w"> </span><span class="kr">do</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">    </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;child id: %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">child_id</span><span class="p">)</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="kr">end</span>
 </span></code></pre></div>
 <hr />
 <h2 id="server-entity-se_abstract">Server entity (se_abstract)<a class="headerlink" href="#server-entity-se_abstract" title="Permanent link">&para;</a></h2>

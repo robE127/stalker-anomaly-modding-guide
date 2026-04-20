@@ -1679,6 +1679,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -1834,6 +1838,62 @@
     
   
     NPCs & Factions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/space-restrictors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Space Restrictors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../systems/smart-terrains/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Smart Terrains
   
 
     
@@ -3021,6 +3081,7 @@
 <p>A <strong>smart terrain</strong> is a named alife zone that owns a set of <strong>jobs</strong> — scripted activities such as patrolling, sitting at a campfire, standing guard, or manning a post. NPCs do not pick destinations independently; the simulation board assigns <a href="#squad">squads</a> to smart terrains, and the terrain assigns each NPC to one of its jobs.</p>
 <p>From a modding perspective, smart terrains define where NPCs go and what they do when they get there. A terrain's LTX config specifies <code>max_population</code>, faction restrictions, job definitions (patrol paths, idle animations, etc.), and optional respawn behaviour.</p>
 <p>Access from scripts: <code>db.smart_terrain_by_id[id]</code> returns the server entity.</p>
+<p>See <a href="../../systems/smart-terrains/">Smart Terrains</a> for the full system walkthrough.</p>
 <hr />
 <h2 id="squad">squad<a class="headerlink" href="#squad" title="Permanent link">&para;</a></h2>
 <p>A <strong>squad</strong> is the atomic unit of NPC grouping in the alife simulation. It is a server-side object (<code>sim_squad_scripted</code>) that owns one or more NPC server entities and moves as a unit between <a href="#smart-terrain">smart terrains</a>. Individual NPCs do not navigate the alife simulation independently — their squad does.</p>
