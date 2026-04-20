@@ -377,6 +377,9 @@ run_string level.change_game_time(0,-3,0)
 
 Advances or rewinds the in-game clock by the given number of hours. Affects the actual game clock that `level.get_time_hours()` reads — unlike the weather editor, which only changes the visual sky appearance.
 
+!!! warning "Avoid extreme `time_factor` for stability testing"
+    Very high `time_factor` values can destabilize Anomaly's simulation (rapid spawn/destroy churn) and cause crashes unrelated to your script changes. For testing time-based mod logic, prefer direct clock jumps with `run_string level.change_game_time(0,h,0)`.
+
 **Read the current hour**
 
 ```
@@ -411,8 +414,21 @@ With `-dbg` active, the **Others** tab in the options menu exposes extra debug o
 - **Debug HUD** — shows a real-time overlay including the current in-game time. Essential for testing any time-based feature (night respawn, day/night event triggers, etc.) because it reflects the actual clock rather than the visual sky.
 - **Debug map spots** — renders extra markers on the minimap for debug purposes.
 - **Debug error notifications** — shows error popups in the HUD when Lua errors occur, in addition to the log entries.
+- **Actor Inside Zone Info** — lists the names of `space_restrictor` zones the actor is currently inside. This mirrors `db.actor_inside_zones` (key = zone name, value = zone object), so entries like `esc_2_12_stalker_wolf_kill_zone` are level object names, not Lua variables.
 
 Enable all three when actively developing and testing a mod. They have no effect when `-dbg` is not active.
+
+#### Understanding zone names in Actor Inside Zone Info
+
+Zone names in this overlay come from map data (`space_restrictor` object names in the level), so they often look editor-generated and verbose. A suffix like `_kill_zone` usually indicates a gameplay trigger/restrictor volume created by level logic.
+
+You can inspect the same data directly from Lua:
+
+```
+run_string for name,_ in pairs(db.actor_inside_zones or {}) do printf("inside_zone=%s", name) end
+```
+
+Use this when you need to confirm that zone entry/exit logic matches what the debug HUD shows. For API details, see [`db.actor_inside_zones` in the `level` reference](../api-reference/level.md).
 
 ---
 

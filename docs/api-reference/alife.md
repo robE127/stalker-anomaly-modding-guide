@@ -92,6 +92,9 @@ alife_release_id(object_id, "my_mod cleanup")
 
 Convenience form: looks up the server entity by ID and releases it.
 
+!!! warning "Don't release inventory entities while their container is online/open"
+    Releasing stash items (or the stash container itself) while that container is online (`level.object_by_id(stash_id)` exists, especially if inventory UI is open) can trigger engine destroy-order errors and crashes. Safe pattern: only release those entities when the stash is offline, or defer cleanup until it goes offline.
+
 ---
 
 ## Raw alife() methods
@@ -217,10 +220,11 @@ alife():dont_has_info(entity_id, "info_id_string")  -- returns true if entity do
 ### Children
 
 ```lua
--- Get all child objects of a server entity (e.g. items in an NPC's inventory)
--- Returns an iterator
-for child in alife():get_children(se_obj) do
-    printf("child id: %d", child.id)
+-- Get all child objects of a server entity (e.g. items in an NPC's inventory).
+-- Returns an iterator. In Anomaly each iteration value is the child's **alife id
+-- (a number)**, not a server-entity table — use the number directly:
+for child_id in alife():get_children(se_obj) do
+    printf("child id: %d", child_id)
 end
 ```
 

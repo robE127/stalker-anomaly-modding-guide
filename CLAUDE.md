@@ -29,6 +29,7 @@ Full paths, key files, and notable clones: read `CLAUDE-SOURCES.md` when needed.
 - Ask the owner when a detail can't be confirmed — faster and more reliable than guessing.
 - Accurate over complete. Short verified page > long speculative page.
 - Update `docs/` in the same session whenever the test mod reveals new engine behaviour. Don't defer.
+- If you use or confirm modding knowledge **not already represented in `docs/`** (unpacked game scripts, `xray-monolith`, runtime behaviour, verified external sources, etc.), **add or update `docs/` in the same session** so the guide improves with the work. Prefer extending existing pages; keep claims source-traceable.
 - No WIP stubs. `!!! note "Work in progress"` must never appear in committed content.
 - Use `local` for all module-level variables and callback functions.
 - Show the full `on_game_start` / `on_game_end` registration pattern in every example that registers callbacks.

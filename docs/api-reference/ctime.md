@@ -4,18 +4,25 @@
 
 ---
 
-## Getting a CTime
+## Getting a CTime userdata
+
+Always obtain a value you can call `:get()`, `:diffSec()`, etc. on from the engine:
 
 ```lua
--- Current in-game time
 local t = game.get_game_time()
-
--- Copy of another CTime
-local t2 = CTime(t)
-
--- New empty CTime (zeroed)
-local t3 = CTime()
 ```
+
+!!! warning "`CTime` is not a reliable Lua global"
+Many Anomaly `.script` environments do **not** register a global **`CTime`** callable as a constructor. Treat zero-argument and copy constructors (`CTime()`, `CTime(other)`) as **unavailable** from mod scripts unless you have verified them in your exact build.
+
+**Use instead**
+
+| Need | Approach |
+|------|----------|
+| Current in-game clock | `game.get_game_time()` |
+| Elapsed in-game duration without saving userdata | `game.time()` — milliseconds since the game epoch ([game → Time](game.md#time)) |
+| Difference between two moments **in the same session** | Keep an earlier `local earlier = game.get_game_time()` and later `local now = game.get_game_time(); now:diffSec(earlier)` |
+| Persisting a moment across saves | Store primitives (e.g. seven numbers from `t:get(...)`) and compare in Lua, or store `game.time()` ms — do not assume you can rebuild userdata with `CTime()` in Lua |
 
 ---
 
@@ -65,8 +72,10 @@ Format constants:
 
 ```lua
 local t = game.get_game_time()
-printf("Time: %s", t:timeToString(CTime.TimeToMinutes))   -- "14:35"
-printf("Date: %s", t:dateToString(CTime.DateToYear))      -- "April 12, 2012"
+-- Pass numeric format codes (see table above). Avoid `CTime.TimeToMinutes` etc.
+-- when the `CTime` global table is not registered in your script environment.
+printf("Time: %s", t:timeToString(1))   -- 1 = minutes, e.g. "14:35"
+printf("Date: %s", t:dateToString(2))   -- 2 = with year, e.g. "April 12, 2012"
 ```
 
 ---
@@ -154,5 +163,5 @@ end
 
 ## See also
 
-- [game](game.md) — `game.get_game_time()`, `game.time()` (real-ms timer)
+- [game](game.md) — `game.get_game_time()`, `game.time()` (in-game ms since epoch)
 - [level](level.md) — `level.get_time_hours()`, `level.get_time_minutes()`, `level.change_game_time()`

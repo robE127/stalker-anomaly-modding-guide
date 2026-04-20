@@ -20,6 +20,10 @@
     {
       "full_name": "fdsprod/Jabbers-Soulslike-Anomaly-Mod",
       "note": "Implements stash creation, inventory loss, PDA location, and teleportation on death interception"
+    },
+    {
+      "full_name": "lTheon/iTheon-PDA-Taskboard",
+      "note": "Implements a PDA taskboard with a custom UI and functionality."
     }
   ]
 }

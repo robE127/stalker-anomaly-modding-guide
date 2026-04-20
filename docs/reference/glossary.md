@@ -226,6 +226,8 @@ From a modding perspective, smart terrains define where NPCs go and what they do
 
 Access from scripts: `db.smart_terrain_by_id[id]` returns the server entity.
 
+See [Smart Terrains](../systems/smart-terrains.md) for the full system walkthrough.
+
 ---
 
 ## squad

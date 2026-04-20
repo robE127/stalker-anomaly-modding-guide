@@ -562,7 +562,6 @@ In-game time object returned by `game.get_game_time()`.
 | Method | Req | Description |
 |--------|-----|-------------|
 | `t:add(other)` / `t:sub(other)` | | Add/subtract CTimes |
-| `CTime()` | | Construct zeroed time |
 | `t:dateToString(fmt)` | | Format date as string |
 | `t:diffSec(other)` | | Difference in game seconds |
 | `t:get(...)` | | Returns year, month, day, h, m, s, ms |
@@ -570,7 +569,7 @@ In-game time object returned by `game.get_game_time()`.
 | `t:setHMS(h, m, s)` | | Set H:M:S |
 | `t:timeToString(fmt)` | | Format time as string |
 
-Format constants: `CTime.TimeToHours`, `CTime.TimeToMinutes`, `CTime.TimeToSeconds`, `CTime.DateToDay`, `CTime.DateToMonth`, `CTime.DateToYear`.
+Global `CTime()` / `CTime(t)` constructors and the `CTime.*` format name constants are **often not registered** for mod scripts — use `game.get_game_time()` and numeric format codes (see [CTime](ctime.md#getting-a-ctime-userdata)).
 
 ---
 

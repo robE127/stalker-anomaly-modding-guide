@@ -214,6 +214,12 @@ IsWeapon(obj)
 alife_create("medkit", pos)
 ```
 
+### Not every engine type is a Lua global
+
+Reads from your script fall through to `_G`, but **bindings are curated**: some C++ APIs exist only as **methods on userdata** returned by a factory (for example `game.get_game_time()`), not as a freestanding global you can call. A common pitfall is assuming a **constructor** such as `CTime()` or `CTime(copy)` exists because it appears in generic X-Ray Lua examples — in Anomaly mod scripts it is often **nil**, which fails at runtime with `attempt to call global 'CTime' (a nil value)`.
+
+Prefer engine entry points (`game.get_game_time()`, `game.time()`, etc.) and see [CTime — getting userdata](../api-reference/ctime.md#getting-a-ctime-userdata).
+
 ---
 
 ## Sharing state between scripts

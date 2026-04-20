@@ -90,6 +90,8 @@ nav:
     - Localization: systems/localization.md
     - Items & Inventory: systems/items.md
     - NPCs & Factions: systems/npcs.md
+    - Space Restrictors: systems/space-restrictors.md
+    - Smart Terrains: systems/smart-terrains.md
     - UI Scripting: systems/ui-scripting.md
 
   - Callbacks Reference:
