@@ -75,6 +75,9 @@ local SAFE_ZONES_BY_NAME = {}  -- zone_name -> zone table (same refs as SAFE_ZON
 -- intercepted and replaced with this file -- see actor_on_first_update and
 -- on_console_execute.
 local SAVE_FILENAME   = "em_extraction_save"
+-- Reserved stem: copies of `SAVE_FILENAME` on disk before an illegal external
+-- save can overwrite them. Removed after deferred cleanup runs.
+local SLOT_GUARD_STEM = "em_extraction_save_guard_tmp"
 
 -- Dev-tool overrides file (saves folder). Written by set_spawn(); read by
 -- load_config() so overrides survive game restarts without touching the LTX.
@@ -259,6 +262,12 @@ end
 -- Lets on_console_execute skip the zone check only for saves WE triggered,
 -- not for any external call that happens to use our filename.
 local save_in_progress = false
+
+-- Populated when save_state sees an external save (C++ console, engine path,
+-- etc.): fingerprint of our slot before the engine writes, safe-zone flag, and
+-- whether we copied the live slot to SLOT_GUARD_STEM (illegal saves cannot be
+-- blocked pre-write from Lua; we restore from that copy when needed).
+local external_save_cleanup_ctx = nil
 
 -- Set of item section names to keep in the player's inventory on death.
 -- Populated from extraction_mod_config.ltx [keep_on_death] at game start.
@@ -534,6 +543,57 @@ end
 -- Save & load state
 -- ─────────────────────────────────────────────────────────────────────────────
 
+-- Bytes of `SAVE_FILENAME.scop` read for a cheap on-disk fingerprint (size +
+-- rolling hash of prefix). Used to detect an external overwrite of our fixed
+-- slot when the filename stays SAVE_FILENAME (e.g. C++ console `save em_extraction_save`).
+local SLOTFPRINT_READ = 8192
+
+local function get_slot_disk_fingerprint()
+    local path = getFS():update_path("$game_saves$", "") .. SAVE_FILENAME .. ".scop"
+    local fh   = io.open(path, "rb")
+    if not fh then return nil end
+    local sz = fh:seek("end")
+    fh:seek("set", 0)
+    local chunk = fh:read(SLOTFPRINT_READ) or ""
+    fh:close()
+    local sig = #chunk
+    for i = 1, #chunk do
+        sig = (sig * 131 + string.byte(chunk, i)) % 2147483647
+    end
+    return { size = sz, sig = sig }
+end
+
+local function slot_disk_fingerprint_changed(before, after)
+    if before == nil and after == nil then return false end
+    if before == nil or after == nil then return true end
+    return before.size ~= after.size or before.sig ~= after.sig
+end
+
+-- Copy companion save files (.scop / .scoc / .dds) between stems. Returns
+-- true if a .scop was copied (confirms a readable slot existed on disk).
+local function copy_save_extensions_between_stems(src_stem, dst_stem)
+    local base = getFS():update_path("$game_saves$", "")
+    local copied_scop = false
+    for _, ext in ipairs({ ".scop", ".scoc", ".dds" }) do
+        local src_path = base .. src_stem .. ext
+        local dst_path = base .. dst_stem .. ext
+        local ri       = io.open(src_path, "rb")
+        if ri then
+            local bytes = ri:read("*a")
+            ri:close()
+            local wo = io.open(dst_path, "wb")
+            if wo then
+                wo:write(bytes or "")
+                wo:close()
+                if ext == ".scop" then copied_scop = true end
+            else
+                dbg("copy_save_extensions_between_stems: failed to write '%s'", dst_path)
+            end
+        end
+    end
+    return copied_scop
+end
+
 -- Scan the saves folder for any .scop file that is not our fixed save and
 -- delete it. Called with a short delay after save_state detects an external
 -- save, giving the engine time to finish writing the file to disk first.
@@ -542,6 +602,9 @@ end
 -- Call :NameFull() to get the filename string (confirmed from FillList in
 -- ui_load_dialog.script which does the same).
 local function cleanup_unauthorized_saves()
+    local ctx = external_save_cleanup_ctx
+    external_save_cleanup_ctx = nil
+
     local flist = getFS():file_list_open_ex(
         "$game_saves$",
         bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
@@ -559,6 +622,32 @@ local function cleanup_unauthorized_saves()
             ui_load_dialog.delete_save_game(save_name)
         end
     end
+
+    -- Same stem as SAVE_FILENAME but written outside a base (C++ console, etc.).
+    -- The loop above keeps that file; if the slot changed and we have a guard
+    -- snapshot from save_state, restore it so the last legal base save is not lost.
+    if ctx and not ctx.in_safe then
+        local after  = get_slot_disk_fingerprint()
+        local changed = slot_disk_fingerprint_changed(ctx.slot_fp_before, after)
+        if ctx.slot_guard_written and not changed then
+            dbg("cleanup_unauthorized_saves: discarding unused slot guard (slot untouched)")
+            ui_load_dialog.delete_save_game(SLOT_GUARD_STEM)
+        elseif changed then
+            if ctx.slot_guard_written then
+                dbg("cleanup_unauthorized_saves: restoring '%s' from guard after illegal overwrite",
+                    SAVE_FILENAME)
+                copy_save_extensions_between_stems(SLOT_GUARD_STEM, SAVE_FILENAME)
+                ui_load_dialog.delete_save_game(SLOT_GUARD_STEM)
+                show_msg("Cannot save outside a friendly base! Your last base save was restored.")
+            else
+                dbg("cleanup_unauthorized_saves: illegal write to empty slot -- deleting '%s'",
+                    SAVE_FILENAME)
+                ui_load_dialog.delete_save_game(SAVE_FILENAME)
+                show_msg("Cannot save outside a friendly base! Save was not kept.")
+            end
+        end
+    end
+
     return true
 end
 
@@ -581,6 +670,23 @@ local function save_state(m_data)
     -- unauthorized files after the engine finishes writing them.
     if not save_in_progress then
         dbg("save_state: external save detected -- scheduling cleanup scan")
+        local fp_before = get_slot_disk_fingerprint()
+        local in_safe   = is_in_safe_zone() ~= nil
+        -- While this callback runs the old .scop is still on disk; copy it before
+        -- the engine can overwrite with an illegal `save em_extraction_save`.
+        local guard_written = false
+        if not in_safe and fp_before ~= nil then
+            ui_load_dialog.delete_save_game(SLOT_GUARD_STEM)
+            guard_written = copy_save_extensions_between_stems(SAVE_FILENAME, SLOT_GUARD_STEM)
+            if not guard_written then
+                dbg("save_state: guard copy failed (no .scop to read?)")
+            end
+        end
+        external_save_cleanup_ctx = {
+            slot_fp_before      = fp_before,
+            in_safe             = in_safe,
+            slot_guard_written  = guard_written,
+        }
         CreateTimeEvent("extraction_mod", "save_cleanup", 1, cleanup_unauthorized_saves)
     end
 end
@@ -664,17 +770,22 @@ local function on_before_load_input(dik, bind, flags)
 end
 
 -- ─────────────────────────────────────────────────────────────────────────────
--- Save interception  -- TWO layers:
+-- Save interception  -- three layers:
 --
 --   Layer 1: on_before_save_input (quicksave only)
 --     Cancels the quicksave before anything is written to disk.
 --     Gives immediate feedback and avoids the write-then-delete cycle.
 --
---   Layer 2: on_console_execute (ALL save types)
---     Fires after ANY save completes (quicksave that got through, menu save,
---     autosave). Deletes saves outside base or with the wrong filename,
---     then redirects to the fixed file.
+--   Layer 2: on_console_execute (Lua-initiated saves only)
+--     Fires when exec_console_cmd runs a save. Redirects to the fixed file in
+--     a safe zone; wrong filenames are removed by cleanup_unauthorized_saves.
+--     C++ console saves never hit this callback.
 --     on_console_execute IS documented in the callbacks reference.
+--
+--   Layer 3: save_state + deferred cleanup (fingerprint + optional guard copy)
+--     C++ console `save em_extraction_save` bypasses Layer 2 but still runs
+--     save_state. Outside a base we copy the live slot to SLOT_GUARD_STEM first;
+--     after the write, cleanup restores the slot from that copy if it changed.
 --
 --   [GAP-3] ui_load_dialog.delete_save_game  -- not documented in guide.
 --           Found in Jabbers Soulslike source. Takes lowercase filename,
@@ -700,9 +811,9 @@ local function on_before_save_input(flags)
 end
 
 -- Layer 2: redirect any Lua-initiated save that slipped past Layer 1.
--- Deletion of unauthorised saves (including raw C++ console saves) is handled
--- entirely by cleanup_unauthorized_saves, which is scheduled from save_state
--- and runs 1 second after any save we did not initiate ourselves.
+-- Deletion of unauthorised saves (including raw C++ console writes to our slot)
+-- is handled by cleanup_unauthorized_saves, scheduled from save_state and run
+-- 1 second later so the .scop exists on disk before delete.
 -- This callback only fires for saves initiated via exec_console_cmd (the Lua
 -- wrapper in _g.script) -- direct C++ console input never reaches it.
 local function on_console_execute(cmd, ...)
@@ -1136,6 +1247,10 @@ function on_game_end()
     death_hour        = nil
     death_label       = nil
     data.stash_ids    = {}
+    external_save_cleanup_ctx = nil
+    if ui_load_dialog then
+        ui_load_dialog.delete_save_game(SLOT_GUARD_STEM)
+    end
 
     -- Restore UILoadDialog.load_game_internal to the original method.
     if orig_load_game_internal then
