@@ -1,0 +1,12 @@
+---
+description: Use CLAUDE.md as shared project rules
+alwaysApply: true
+---
+
+# Shared Rules Source
+
+Use `CLAUDE.md` in the repository root as the authoritative rule set for this project.
+
+- Read and follow `CLAUDE.md` before making substantive changes.
+- Treat its constraints, workflow requirements, and quality checks as always active.
+- If this file and `CLAUDE.md` ever conflict, prefer `CLAUDE.md`.

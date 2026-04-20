@@ -44,4 +44,6 @@ Full paths, key files, and notable clones: read `CLAUDE-SOURCES.md` when needed.
 
 **Never commit without explicit user approval.** Propose the commit message and wait for confirmation. Format: short imperative subject, blank line, bullet details. Always include `Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>`. Never commit `site/` or `data/clones/`.
 
+Known test-mod limitations and unresolved behavior should be tracked in `test_mod/KNOWN_ISSUES.md`. When a new issue is confirmed, add it there in the same session.
+
 Todo list: `TODO.md`.
