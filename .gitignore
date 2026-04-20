@@ -16,3 +16,6 @@ site/
 
 # Claude Code internal
 .claude/
+
+# Editor settings
+.vscode/
