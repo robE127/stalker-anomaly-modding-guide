@@ -20,7 +20,7 @@ Before starting any tests:
 - [ ] No existing `extraction_save.scop` file (delete it to start clean)
 - [ ] **Debug HUD enabled** (Options → Others → Debug HUD) — shows the actual in-game clock, essential for Features 8 and 9
 
-**Changing in-game time:** use `run_string level.change_game_time(0,h,0)` in the console to advance time by `h` hours. Do **not** use the weather editor — it changes the visual sky but not the game clock that the mod reads. `time_factor` also works but requires waiting; `run_string` is instant.
+**Changing in-game time:** use `run_string level.change_game_time(0,h,0)` in the console to advance time by `h` hours. Do **not** use the weather editor — it changes the visual sky but not the game clock that the mod reads. Avoid extreme `time_factor` acceleration when testing: very high values can crash Anomaly itself (simulation spawn/destroy instability) and create false positives unrelated to this mod. `run_string` is instant and safer for repeatable tests.
 
 ---
 

@@ -29,6 +29,20 @@ function on_mcm_load()
                 def     = false,
                 text    = "ui_mcm_extraction_mod_delete_items_on_death",
             },
+            {
+                id      = "stash_npc_looting",
+                type    = "check",
+                val     = 1,
+                def     = false,
+                text    = "ui_mcm_extraction_mod_stash_npc_looting",
+            },
+            {
+                id   = "stash_loot_interval_hours",
+                type = "input",
+                val  = 0,
+                def  = "12",
+                text = "ui_mcm_extraction_mod_stash_loot_interval_hours",
+            },
         }
     }
 end

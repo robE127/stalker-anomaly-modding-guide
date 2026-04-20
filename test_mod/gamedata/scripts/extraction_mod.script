@@ -9,6 +9,9 @@
 --   3. On death: full inventory transferred into an inv_backpack stash spawned
 --      at the death location. Player teleports to the last recorded friendly base.
 --   4. Night respawn: if death occurs 20:00–08:00 advance time to 08:00.
+--   5. Optional: prior death stashes can lose random items over in-game time
+--      (MCM + extraction_mod_config.ltx [stash_npc_looting], interval in hours);
+--      empty stashes are removed and PDA markers cleared.
 --
 -- REQUIREMENTS:
 --   Modded exes (xray-monolith) required for actor_on_before_death.
@@ -104,6 +107,7 @@ end
 local NIGHT_START     = 20
 local NIGHT_END       = 8
 local UPDATE_INTERVAL = 5000 -- ms between safe-zone checks
+local STASH_RELEASE_FLUSH_INTERVAL_SEC = 60
 local MOD_KEY         = "extraction_mod"
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -117,8 +121,13 @@ local MCM_DEFAULTS = {
     delete_items_on_death = false,
 }
 
--- Read an MCM option by key. Falls back to MCM_DEFAULTS if MCM is not
--- installed or the key has not been set yet.
+-- Defaults for stash NPC loot when ui_mcm.get returns nil (MCM absent or key
+-- never stored). Overwritten from extraction_mod_config.ltx [stash_npc_looting]
+-- in load_config().
+local stash_loot_ltx_enabled = false
+
+-- Read an MCM option by key. Falls back to MCM_DEFAULTS (or LTX for stash_npc_looting)
+-- if MCM is not installed or the key has not been set yet.
 -- MCM stores values under "<mod_id>/<key>" in ui_mcm.get().
 -- Pattern confirmed from soulslike_mcm.script get_config().
 local function cfg(key)
@@ -126,6 +135,7 @@ local function cfg(key)
         local v = ui_mcm.get(MOD_KEY .. "/" .. key)
         if v ~= nil then return v end
     end
+    if key == "stash_npc_looting" then return stash_loot_ltx_enabled end
     return MCM_DEFAULTS[key]
 end
 
@@ -175,6 +185,17 @@ local data = {
     -- Set of server IDs for death stashes that currently have a PDA marker.
     -- Persisted so markers survive save/load. Keyed by ID (number -> true).
     stash_ids       = {},
+    -- All death stashes we spawned (with or without a PDA marker). Used for
+    -- optional NPC-loot simulation and for removing empty stashes from the world.
+    death_stash_ids = {},
+    -- Empty stashes that were online when they became empty. We defer releasing
+    -- those until they go offline to avoid deleting a container while it is open
+    -- in UI (can crash with stale engine references).
+    pending_stash_release_ids = {},
+    -- game.time() (in-game ms since epoch) when we last ran the interval loot pulse.
+    -- Stored as a number so we never call CTime() — that global is not available
+    -- from this script environment in some builds (see maybe_stash_loot_by_game_time).
+    last_stash_loot_game_ms = nil,
 }
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -274,6 +295,27 @@ local external_save_cleanup_ctx = nil
 -- Populated from extraction_mod_config.ltx [keep_on_death] at game start.
 local keep_on_death = {}
 
+-- Hours of in-game time between automatic stash loot pulses (0 = disable).
+-- Read from LTX each load_config() as fallback when ui_mcm has no value, or when
+-- the MCM text field is empty / not a number (so the game stays usable).
+local stash_loot_interval_hours = 12
+
+local function cfg_stash_loot_interval_hours()
+    if ui_mcm then
+        local v = ui_mcm.get(MOD_KEY .. "/stash_loot_interval_hours")
+        if type(v) == "string" then
+            v = (v:match("^%s*(.-)%s*$") or "")
+            if v ~= "" then
+                local n = tonumber(v)
+                if n then
+                    return math.max(0, n)
+                end
+            end
+        end
+    end
+    return stash_loot_interval_hours
+end
+
 -- Forward declaration: load_spawn_overrides is defined after load_config but
 -- called from within it. Lua resolves the local variable at call time, so
 -- declaring it here lets load_config capture it as an upvalue rather than
@@ -295,6 +337,22 @@ local function load_config()
             end
         end
         dbg("load_config: %d section(s) configured to keep on death", n)
+    end
+
+    -- ── Stash NPC loot (optional) ─────────────────────────────────────────────
+    -- interval_game_hours is the fallback when MCM is absent or the interval
+    -- text field is empty / invalid (see cfg_stash_loot_interval_hours()).
+    stash_loot_interval_hours = 12
+    stash_loot_ltx_enabled = false
+    if ini:section_exist("stash_npc_looting") then
+        if ini:line_exist("stash_npc_looting", "enabled") then
+            stash_loot_ltx_enabled = ini:r_bool("stash_npc_looting", "enabled")
+        end
+        if ini:line_exist("stash_npc_looting", "interval_game_hours") then
+            stash_loot_interval_hours = math.max(0, ini:r_float("stash_npc_looting", "interval_game_hours"))
+        end
+        dbg("load_config: stash_npc_looting enabled=%s interval_game_hours=%.3f",
+            tostring(stash_loot_ltx_enabled), stash_loot_interval_hours)
     end
 
     -- ── Safe zones ────────────────────────────────────────────────────────────
@@ -674,6 +732,9 @@ local function save_state(m_data)
         last_base_lvid  = data.last_base_lvid,
         last_base_gvid  = data.last_base_gvid,
         stash_ids       = data.stash_ids,
+        death_stash_ids = data.death_stash_ids,
+        pending_stash_release_ids = data.pending_stash_release_ids,
+        last_stash_loot_game_ms = data.last_stash_loot_game_ms,
     }
     dbg("save_state: base=%s level=%s",
         tostring(data.last_base_name), tostring(data.last_base_level))
@@ -714,8 +775,181 @@ local function load_state(m_data)
     data.last_base_lvid  = saved.last_base_lvid
     data.last_base_gvid  = saved.last_base_gvid
     data.stash_ids       = saved.stash_ids or {}
+    data.death_stash_ids = saved.death_stash_ids or {}
+    data.pending_stash_release_ids = saved.pending_stash_release_ids or {}
+    -- Older saves only persisted stash_ids (marked stashes). Treat them as death
+    -- stashes so loot simulation and empty cleanup still apply after upgrade.
+    for sid, _ in pairs(data.stash_ids) do
+        data.death_stash_ids[sid] = true
+    end
+    data.last_stash_loot_game_ms = saved.last_stash_loot_game_ms
     dbg("load_state: base=%s level=%s",
         tostring(data.last_base_name), tostring(data.last_base_level))
+end
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Death stash NPC loot simulation (optional)
+-- Randomly removes items from prior death stashes on an in-game-time cadence.
+-- Empty stashes are released and PDA markers cleared. If a stash is currently
+-- online, release is deferred until it goes offline to avoid UI-time crashes.
+-- HARD INVARIANT:
+--   Never call alife_release_id on stash items OR the stash container while that
+--   stash is online (level.object_by_id(stash_id) ~= nil).
+--   Online stashes are skipped/deferred and processed only after they go offline.
+-- Uses alife():get_children + alife_release_id (works for online/offline stashes).
+-- ─────────────────────────────────────────────────────────────────────────────
+
+-- alife():get_children(se) yields each child's alife id as a **number** in Anomaly
+-- (not a table with .id). Accept both so offline inventory collection stays safe.
+local function alife_child_id(entry)
+    if type(entry) == "number" then return entry end
+    if type(entry) == "table" and entry.id then return entry.id end
+    return nil
+end
+
+local function death_stash_item_count(stash_id)
+    local se = alife_object(stash_id)
+    if not se then return 0 end
+    local n = 0
+    for _ in alife():get_children(se) do
+        n = n + 1
+    end
+    return n
+end
+
+local function death_stash_collect_item_ids(stash_id)
+    local ids = {}
+    local se = alife_object(stash_id)
+    if se then
+        for child in alife():get_children(se) do
+            local cid = alife_child_id(child)
+            if cid then ids[#ids + 1] = cid end
+        end
+    end
+    return ids
+end
+
+local function clear_stash_pda_marker(stash_id)
+    if data.stash_ids[stash_id] then
+        level.map_remove_object_spot(stash_id, "secondary_task_location")
+        data.stash_ids[stash_id] = nil
+        dbg("clear_stash_pda_marker: removed PDA spot for id=%d", stash_id)
+    end
+end
+
+local function remove_empty_death_stash(stash_id, reason)
+    if not data.death_stash_ids[stash_id] then return false end
+    if death_stash_item_count(stash_id) > 0 then return false end
+    if not alife_object(stash_id) then
+        clear_stash_pda_marker(stash_id)
+        data.death_stash_ids[stash_id] = nil
+        dbg("remove_empty_death_stash: id=%d missing alife -- cleared tracking (%s)",
+            stash_id, tostring(reason))
+        return true
+    end
+    clear_stash_pda_marker(stash_id)
+    if level.object_by_id(stash_id) then
+        data.pending_stash_release_ids[stash_id] = true
+        dbg("remove_empty_death_stash: id=%d empty but ONLINE -- deferring release (%s)",
+            stash_id, tostring(reason))
+        return true
+    end
+    alife_release_id(stash_id, reason or "extraction_mod_stash_empty")
+    data.death_stash_ids[stash_id] = nil
+    data.pending_stash_release_ids[stash_id] = nil
+    dbg("remove_empty_death_stash: released empty stash id=%d (%s)", stash_id, tostring(reason))
+    return true
+end
+
+local function flush_pending_stash_releases()
+    for stash_id, _ in pairs(data.pending_stash_release_ids) do
+        if not data.death_stash_ids[stash_id] then
+            data.pending_stash_release_ids[stash_id] = nil
+        elseif level.object_by_id(stash_id) then
+            -- Still online/open. Keep waiting.
+        elseif not alife_object(stash_id) then
+            data.pending_stash_release_ids[stash_id] = nil
+            data.death_stash_ids[stash_id] = nil
+            clear_stash_pda_marker(stash_id)
+            dbg("flush_pending_stash_releases: id=%d missing alife -- dropped tracking", stash_id)
+        elseif death_stash_item_count(stash_id) > 0 then
+            -- Became non-empty again somehow (e.g. script added an item). Cancel.
+            data.pending_stash_release_ids[stash_id] = nil
+            dbg("flush_pending_stash_releases: id=%d no longer empty -- canceled defer", stash_id)
+        else
+            clear_stash_pda_marker(stash_id)
+            alife_release_id(stash_id, "extraction_mod_stash_empty_deferred")
+            data.pending_stash_release_ids[stash_id] = nil
+            data.death_stash_ids[stash_id] = nil
+            dbg("flush_pending_stash_releases: released deferred empty stash id=%d", stash_id)
+        end
+    end
+end
+
+local function pending_stash_release_tick()
+    if db.actor and db.actor:alive() then
+        flush_pending_stash_releases()
+    end
+    return false -- keep polling via CreateTimeEvent
+end
+
+local function loot_one_random_item_from_death_stash(stash_id, reason)
+    if not data.death_stash_ids[stash_id] then return end
+    -- Never release child items while the container is online. Releasing alife
+    -- children of an online stash can trigger engine-side destroy-order errors.
+    -- Keep this stash untouched for now; a later pulse will process it offline.
+    if level.object_by_id(stash_id) then
+        dbg("loot_one_random_item_from_death_stash: id=%d is ONLINE -- skipping pulse", stash_id)
+        return
+    end
+    if not alife_object(stash_id) then
+        clear_stash_pda_marker(stash_id)
+        data.death_stash_ids[stash_id] = nil
+        dbg("loot_one_random_item_from_death_stash: id=%d invalid alife -- dropped tracking", stash_id)
+        return
+    end
+    local ids = death_stash_collect_item_ids(stash_id)
+    if #ids == 0 then
+        remove_empty_death_stash(stash_id, reason)
+        return
+    end
+    local pick = ids[math.random(#ids)]
+    alife_release_id(pick, reason or "extraction_mod_npc_loot")
+    dbg("loot_one_random_item_from_death_stash: released item id=%d from stash id=%d",
+        pick, stash_id)
+    remove_empty_death_stash(stash_id, reason)
+end
+
+local function stash_npc_loot_pulse(reason)
+    if not cfg("stash_npc_looting") then return end
+    local list = {}
+    for id, _ in pairs(data.death_stash_ids) do
+        list[#list + 1] = id
+    end
+    if #list == 0 then return end
+    dbg("stash_npc_loot_pulse: %d stash(es) reason=%s", #list, tostring(reason))
+    for _, id in ipairs(list) do
+        if data.death_stash_ids[id] then
+            loot_one_random_item_from_death_stash(id, reason)
+        end
+    end
+end
+
+local function maybe_stash_loot_by_game_time()
+    local hours = cfg_stash_loot_interval_hours()
+    if not cfg("stash_npc_looting") or hours <= 0 then return end
+    if not (db.actor and db.actor:alive()) then return end
+    -- game.time() = in-game ms since epoch (game.md). Do not use CTime() here:
+    -- the CTime constructor is not bound as a global in this script's Lua env.
+    local now_ms = game.time()
+    if not data.last_stash_loot_game_ms then
+        data.last_stash_loot_game_ms = now_ms
+        return
+    end
+    local need_ms = hours * 3600 * 1000
+    if (now_ms - data.last_stash_loot_game_ms) < need_ms then return end
+    stash_npc_loot_pulse("interval")
+    data.last_stash_loot_game_ms = now_ms
 end
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -724,6 +958,7 @@ end
 
 local last_check_time = 0
 local was_in_safe_zone = false
+local pending_release_timer_started = false
 
 local function actor_on_update()
     if not (db.actor and db.actor:alive()) then return end
@@ -748,6 +983,8 @@ local function actor_on_update()
         show_msg("Safe zone reached -- you will respawn here on death. Save your game!")
     end
     was_in_safe_zone = in_safe
+
+    maybe_stash_loot_by_game_time()
 end
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -1015,6 +1252,9 @@ local function wait_for_stash_and_respawn(stash_id)
 
     dbg("wait_for_stash_and_respawn: transfer complete  -- queuing respawn in 3s")
 
+    data.death_stash_ids[stash_id] = true
+    dbg("wait_for_stash_and_respawn: registered death_stash id=%d", stash_id)
+
     -- Add a PDA map marker so the player can find their stash after respawn.
     -- Uses "secondary_task_location" spot type (confirmed from soulslike_scenarios.script).
     -- map_add_object_spot_ser persists the marker in the save file.
@@ -1035,12 +1275,18 @@ local function wait_for_stash_and_respawn(stash_id)
 end
 
 -- Remove the PDA marker when the player takes any item from one of our stashes.
+-- If the stash is empty afterward, release it (same as NPC loot finishing a stash).
 local function actor_on_item_take_from_box(box, obj)
     local id = box:id()
-    if not data.stash_ids[id] then return end
-    level.map_remove_object_spot(id, "secondary_task_location")
-    data.stash_ids[id] = nil
-    dbg("actor_on_item_take_from_box: removed stash marker for id=%d", id)
+    if not (data.stash_ids[id] or data.death_stash_ids[id]) then return end
+
+    if data.stash_ids[id] then
+        level.map_remove_object_spot(id, "secondary_task_location")
+        data.stash_ids[id] = nil
+        dbg("actor_on_item_take_from_box: removed stash marker for id=%d", id)
+    end
+
+    remove_empty_death_stash(id, "extraction_mod_player_emptied")
 end
 
 -- Requires modded exes. flags.ret_value = false cancels the death event.
@@ -1235,6 +1481,11 @@ end
 function on_game_start()
     dbg("on_game_start: registering callbacks")
     load_config()
+    if not pending_release_timer_started then
+        CreateTimeEvent("extraction_mod", "pending_stash_release", STASH_RELEASE_FLUSH_INTERVAL_SEC,
+            pending_stash_release_tick)
+        pending_release_timer_started = true
+    end
 
     -- Patch UILoadDialog.load_game_internal to block in-game loads.
     -- We replace the method on the class table directly rather than wrapping
@@ -1285,7 +1536,11 @@ function on_game_end()
     death_hour        = nil
     death_label       = nil
     delete_items_on_death_pending = false
-    data.stash_ids    = {}
+    data.stash_ids              = {}
+    data.death_stash_ids        = {}
+    data.pending_stash_release_ids = {}
+    data.last_stash_loot_game_ms = nil
+    pending_release_timer_started = false
     external_save_cleanup_ctx = nil
     if ui_load_dialog then
         ui_load_dialog.delete_save_game(SLOT_GUARD_STEM)

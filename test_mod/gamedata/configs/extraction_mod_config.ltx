@@ -18,3 +18,15 @@ wpn_knife5          = true   ; kukri
 wpn_axe             = true   ; fire axe
 matches             = true   ; matches
 box_matches         = true   ; box of matches
+
+; [stash_npc_looting] -- optional simulation: death stashes lose random items
+; over in-game time. When a stash is emptied it is removed from the world and
+; its PDA marker cleared.
+; When MCM is not installed, `enabled` turns the feature on. With MCM, use the
+; MCM checkbox instead (this value is ignored if MCM has ever stored a value).
+[stash_npc_looting]
+enabled             = false
+; Hours between loot pulses when MCM is absent or the MCM field is empty / invalid.
+; With MCM installed, use Mod Configuration Menu → Extraction Mod → text field.
+interval_game_hours = 12   ; 0 = disables in-game-time loot pulses entirely
+; Decimals are allowed (e.g. 0.5 = every 30 in-game minutes).
