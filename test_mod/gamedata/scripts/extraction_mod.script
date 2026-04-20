@@ -114,6 +114,7 @@ local MOD_KEY         = "extraction_mod"
 local MCM_DEFAULTS = {
     show_stash_marker    = true,
     allow_neutral_bases  = false,
+    delete_items_on_death = false,
 }
 
 -- Read an MCM option by key. Falls back to MCM_DEFAULTS if MCM is not
@@ -525,6 +526,9 @@ local death_hour = nil
 -- problem (game.get_game_time() returns the restored save time by the time
 -- wait_for_stash_and_respawn runs). Pattern: utils_data.CTime_to_table().
 local death_label = nil
+-- Snapshot of the configured death-item handling mode at the time of death.
+-- Used by deferred respawn messaging so it reflects what actually happened.
+local delete_items_on_death_pending = false
 
 -- Trigger a save to our fixed file.
 -- [GAP-1] exec_console_cmd undocumented; confirmed by Jabbers Soulslike source.
@@ -537,6 +541,18 @@ local function do_save()
     -- on_console_execute handler has already seen save_in_progress == true and
     -- returned without any recursion.
     save_in_progress = false
+end
+
+-- Build a stable list of inventory items to process on death.
+-- Any item section in keep_on_death is excluded.
+local function collect_transferable_death_items()
+    local items = {}
+    db.actor:iterate_inventory(function(_, obj)
+        if not keep_on_death[obj:section()] then
+            items[#items + 1] = obj
+        end
+    end, nil)
+    return items
 end
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -894,8 +910,10 @@ local function do_respawn_deferred()
         return true
     end
     local hour = death_hour
+    local delete_mode = delete_items_on_death_pending
     death_hour  = nil
     death_label = nil
+    delete_items_on_death_pending = false
     dbg("do_respawn_deferred: hour at death=%d, is_night=%s", hour, tostring(is_night(hour)))
     if is_night(hour) then
         local hours = hours_until_dawn(hour)
@@ -942,7 +960,11 @@ local function do_respawn_deferred()
         dbg("do_respawn_deferred: invulnerable_time expired, removing fade, saving")
         level.remove_pp_effector(DEATH_FADE_ID)
         do_save()
-        show_msg("You have died. Your gear marks the site of your death.")
+        if delete_mode then
+            show_msg("You have died. Non-protected gear was destroyed.")
+        else
+            show_msg("You have died. Your gear marks the site of your death.")
+        end
     else
         dbg("do_respawn_deferred: CROSS-LEVEL respawn  -- using ChangeLevel (nothing executes after)")
         -- Pass the configured heading as a HPB vector (x = heading, y/z = 0).
@@ -950,7 +972,11 @@ local function do_respawn_deferred()
         -- when a respawn_dir is configured for the zone.
         local angle = base_dir and vector():set(base_dir, 0, 0) or VEC_ZERO
         dbg("do_respawn_deferred: angle=(%s, 0, 0)", base_dir and string.format("%.4f", base_dir) or "0")
-        show_msg("You have died. Your gear marks the site of your death.")
+        if delete_mode then
+            show_msg("You have died. Non-protected gear was destroyed.")
+        else
+            show_msg("You have died. Your gear marks the site of your death.")
+        end
         ChangeLevel(base_pos, data.last_base_lvid, data.last_base_gvid, angle, false)
     end
 
@@ -1048,6 +1074,8 @@ local function actor_on_before_death(who_id, flags)
         death_label = string.format("Death: %02d.%02d.%04d %02d:%02d", D, Mo, Y, h, m)
         dbg("actor_on_before_death: death_label='%s'", death_label)
     end
+    delete_items_on_death_pending = cfg("delete_items_on_death")
+    dbg("actor_on_before_death: delete_items_on_death=%s", tostring(delete_items_on_death_pending))
 
     flags.ret_value = false
     dbg("actor_on_before_death: flags.ret_value set to false (death cancelled)")
@@ -1081,6 +1109,16 @@ local function actor_on_before_death(who_id, flags)
 
     if #items == 0 then
         dbg("actor_on_before_death: inventory empty  -- skipping stash, respawn in 3s")
+        CreateTimeEvent("extraction_mod", "respawn", 3, do_respawn_deferred)
+        return
+    end
+
+    if delete_items_on_death_pending then
+        dbg("actor_on_before_death: deleting %d non-protected item(s)", #items)
+        for _, item in ipairs(items) do
+            dbg("actor_on_before_death: deleting item '%s'", item:section())
+            alife_release(item)
+        end
         CreateTimeEvent("extraction_mod", "respawn", 3, do_respawn_deferred)
         return
     end
@@ -1246,6 +1284,7 @@ function on_game_end()
     was_in_safe_zone  = false
     death_hour        = nil
     death_label       = nil
+    delete_items_on_death_pending = false
     data.stash_ids    = {}
     external_save_cleanup_ctx = nil
     if ui_load_dialog then
