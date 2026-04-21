@@ -1529,6 +1529,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#same-map-respawn-input-and-hud-after-fade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Same-map respawn: input and HUD after fade
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3151,6 +3162,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#same-map-respawn-input-and-hud-after-fade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Same-map respawn: input and HUD after fade
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3636,6 +3658,17 @@
 </span><span id="__span-33-34"><a id="__codelineno-33-34" name="__codelineno-33-34" href="#__codelineno-33-34"></a><span class="w">    </span><span class="nf">CreateTimeEvent</span><span class="p">(</span><span class="s2">&quot;my_mod&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;respawn&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nv">do_respawn</span><span class="p">)</span>
 </span><span id="__span-33-35"><a id="__codelineno-33-35" name="__codelineno-33-35" href="#__codelineno-33-35"></a><span class="kr">end</span>
 </span></code></pre></div>
+<h3 id="same-map-respawn-input-and-hud-after-fade">Same-map respawn: input and HUD after fade<a class="headerlink" href="#same-map-respawn-input-and-hud-after-fade" title="Permanent link">&para;</a></h3>
+<p>If your deferred respawn uses a <strong>cyclic blackout</strong> (<code>level.add_pp_effector("black_infinite.ppe", id, true)</code>) and then <strong><code>set_actor_position</code></strong> on the <strong>current</strong> level (instead of <code>ChangeLevel</code>), test for a <strong>post-respawn lock</strong>: no movement, no mouse, sometimes with a normal-looking view.</p>
+<p>After you <strong><code>level.remove_pp_effector</code></strong> on that fade ID, also:</p>
+<ol>
+<li><strong><code>level.enable_input()</code></strong> when available.</li>
+<li><strong><code>game.only_allow_movekeys(false)</code></strong> when <strong><code>game.only_movekeys_allowed()</code></strong> is true.</li>
+<li><strong><code>level.show_weapon(true)</code></strong> when you need the weapon mesh back.</li>
+</ol>
+<p>Schedule the same cleanup again with <strong><code>CreateTimeEvent(..., 0, ...)</code></strong> so it runs on the <strong>next</strong> <code>ProcessEventQueue</code> tick; a single call is sometimes not enough depending on save / message ordering.</p>
+<p>Put this cleanup in a small dedicated helper and call it once after teleport, then schedule the same helper on delay <strong>0</strong> for a second pass on the next tick.</p>
+<p>See also: <a href="../../callbacks-reference/#actor_on_before_death--critical-timing-notes">Callbacks Reference — actor_on_before_death</a>.</p>
 <hr />
 <h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
 <ul>

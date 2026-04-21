@@ -3460,7 +3460,7 @@ The X-Ray engine writes the log in Windows-1252. If your Lua source file is save
 </span></code></pre></div>
 <p>Advances or rewinds the in-game clock by the given number of hours. Affects the actual game clock that <code>level.get_time_hours()</code> reads — unlike the weather editor, which only changes the visual sky appearance.</p>
 <div class="admonition warning">
-<p class="admonition-title">Avoid extreme <code>time_factor</code> for stability testing</p>
+<p class="admonition-title">Avoid extreme <code>time_factor</code> when testing</p>
 <p>Very high <code>time_factor</code> values can destabilize Anomaly's simulation (rapid spawn/destroy churn) and cause crashes unrelated to your script changes. For testing time-based mod logic, prefer direct clock jumps with <code>run_string level.change_game_time(0,h,0)</code>.</p>
 </div>
 <p><strong>Read the current hour</strong></p>

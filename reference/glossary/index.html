@@ -2451,10 +2451,32 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#game-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        game graph
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#game_vertex_id" class="md-nav__link">
     <span class="md-ellipsis">
       
         game_vertex_id
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#game_vertex_id-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        game_vertex_id() (method)
       
     </span>
   </a>
@@ -2477,6 +2499,28 @@
     <span class="md-ellipsis">
       
         level_vertex_id
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        level graph
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#levelvertex_idpos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        level.vertex_id(pos)
       
     </span>
   </a>
@@ -2780,10 +2824,32 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#game-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        game graph
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#game_vertex_id" class="md-nav__link">
     <span class="md-ellipsis">
       
         game_vertex_id
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#game_vertex_id-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        game_vertex_id() (method)
       
     </span>
   </a>
@@ -2806,6 +2872,28 @@
     <span class="md-ellipsis">
       
         level_vertex_id
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        level graph
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#levelvertex_idpos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        level.vertex_id(pos)
       
     </span>
   </a>
@@ -3026,8 +3114,18 @@
 <p>A <strong>game_object</strong> is the Lua-side handle to an entity that is currently <strong>online</strong> (loaded near the player). It provides the full runtime API: position, animation, physics, AI state, and inventory. When an entity goes <a href="#online-offline">offline</a>, its <code>game_object</code> is destroyed — any stored reference becomes stale.</p>
 <p>See <a href="../../scripting/game-object/">What is a game_object?</a>.</p>
 <hr />
+<h2 id="game-graph">game graph<a class="headerlink" href="#game-graph" title="Permanent link">&para;</a></h2>
+<p>The <strong>game graph</strong> is the global alife navigation graph that connects all levels. Each node is a <a href="#game_vertex_id">game_vertex_id</a>, and each vertex belongs to some level.</p>
+<p>The engine uses the game graph for cross-level simulation decisions (for example, routing squads and tracking entities that move between maps). Server entities store a game-graph anchor so alife can reason about them even when they are offline.</p>
+<p>When spawning with <code>alife():create(section, pos, lvid, gvid)</code>, <code>gvid</code> is the node in this graph.</p>
+<hr />
 <h2 id="game_vertex_id">game_vertex_id<a class="headerlink" href="#game_vertex_id" title="Permanent link">&para;</a></h2>
 <p>A <strong>game vertex</strong> is a node in the global navigation graph that spans all levels. Unlike <a href="#level_vertex_id">level vertices</a> (which are local to one map), game vertices allow the alife simulation to track entities across level boundaries. Access via <code>obj:game_vertex_id()</code> or <code>se_obj.m_game_vertex_id</code>.</p>
+<hr />
+<h2 id="game_vertex_id-method">game_vertex_id() (method)<a class="headerlink" href="#game_vertex_id-method" title="Permanent link">&para;</a></h2>
+<p><code>obj:game_vertex_id()</code> returns the object's current <a href="#game_vertex_id">game_vertex_id</a>: a node in the global cross-level graph.</p>
+<p>When calling <code>alife():create(section, pos, lvid, gvid)</code>, the <code>gvid</code> argument is this global graph anchor. It is <strong>not</strong> ownership metadata; it does not mean the spawned object belongs to the source object.</p>
+<p>For spawned entities, scripts often use <code>db.actor:game_vertex_id()</code> as a convenient valid <code>gvid</code> when the actor is online.</p>
 <hr />
 <h2 id="info_portion">info_portion<a class="headerlink" href="#info_portion" title="Permanent link">&para;</a></h2>
 <p>An <strong>info_portion</strong> is a named boolean flag attached to the actor. It is either set or unset — there is no associated value. Info_portions are the primary mechanism for tracking quest state, dialog history, and one-time events.</p>
@@ -3038,7 +3136,25 @@
 <p>Info_portions are declared in XML files under <code>configs/gameplay/</code> (e.g. <code>info_portions.xml</code>). They appear as <code>+name</code> / <code>-name</code> sigils inside <a href="#condition-list">condition list</a> blocks, and as <code>&lt;has_info&gt;</code> / <code>&lt;dont_has_info&gt;</code> / <code>&lt;give_info&gt;</code> tags in dialog XML files.</p>
 <hr />
 <h2 id="level_vertex_id">level_vertex_id<a class="headerlink" href="#level_vertex_id" title="Permanent link">&para;</a></h2>
-<p>A <strong>level vertex</strong> is a node in the AI navigation mesh (navmesh) for the current level. The navmesh is a graph of walkable positions — each vertex represents a point that AI can navigate to. <code>obj:level_vertex_id()</code> returns the ID of the navmesh node nearest to the object.</p>
+<p>A <strong>level vertex</strong> is a node in the <a href="#level-graph">level graph</a> for the current level. <code>obj:level_vertex_id()</code> returns the ID of the navmesh node nearest to the object.</p>
+<hr />
+<h2 id="level-graph">level graph<a class="headerlink" href="#level-graph" title="Permanent link">&para;</a></h2>
+<p>The <strong>level graph</strong> is the per-map AI navigation graph (navmesh) for one level only. Its nodes are <a href="#level_vertex_id">level_vertex_id</a> values that represent walkable locations on that map.</p>
+<p>AI pathfinding within the currently loaded level uses this graph. Unlike the <a href="#game-graph">game graph</a>, level-graph IDs are only meaningful inside that one map and cannot be used across levels.</p>
+<hr />
+<h2 id="levelvertex_idpos">level.vertex_id(pos)<a class="headerlink" href="#levelvertex_idpos" title="Permanent link">&para;</a></h2>
+<p><code>level.vertex_id(pos)</code> returns the <a href="#level_vertex_id">level_vertex_id</a> nearest to <code>pos</code> on the current map.</p>
+<p>This is commonly used when spawning server entities:</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">pos</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nf">vector</span><span class="p">():</span><span class="nf">set</span><span class="p">(</span><span class="nv">x</span><span class="p">,</span><span class="w"> </span><span class="nv">y</span><span class="p">,</span><span class="w"> </span><span class="nv">z</span><span class="p">)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">lvid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">level</span><span class="p">.</span><span class="nf">vertex_id</span><span class="p">(</span><span class="nv">pos</span><span class="p">)</span><span class="w">       </span><span class="c1">-- map-local navmesh node</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kd">local</span><span class="w"> </span><span class="nv">gvid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">game_vertex_id</span><span class="p">()</span><span class="w">  </span><span class="c1">-- global graph node</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="kd">local</span><span class="w"> </span><span class="nv">se</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nf">alife</span><span class="p">():</span><span class="nf">create</span><span class="p">(</span><span class="nv">section</span><span class="p">,</span><span class="w"> </span><span class="nv">pos</span><span class="p">,</span><span class="w"> </span><span class="nv">lvid</span><span class="p">,</span><span class="w"> </span><span class="nv">gvid</span><span class="p">)</span>
+</span></code></pre></div>
+<p><code>alife():create</code> expects both IDs:</p>
+<ul>
+<li><code>lvid</code> places the entity on the current level graph.</li>
+<li><code>gvid</code> registers the entity in the global game graph.</li>
+</ul>
 <hr />
 <h2 id="modded-exes">modded exes<a class="headerlink" href="#modded-exes" title="Permanent link">&para;</a></h2>
 <p>The <strong>modded exes</strong> are a community-maintained fork of the Anomaly engine by themrdemonized. They add Lua callbacks not present in vanilla Anomaly (<code>actor_on_weapon_fired</code>, <code>npc_shot_dispersion</code>, <code>bullet_on_hit</code>, <code>on_xml_read</code>, and several <code>actor_on_before_*</code> / <code>npc_on_before_*</code> variants), the <code>game_object:is_valid()</code> method, memory optimisations, and engine bug fixes.</p>
@@ -3061,14 +3177,14 @@
 <h2 id="section">section<a class="headerlink" href="#section" title="Permanent link">&para;</a></h2>
 <p>"Section" has two distinct meanings in Anomaly, and both appear frequently in the codebase.</p>
 <p><strong>Sense 1 — LTX block:</strong> A <code>[section_name]</code> block in an LTX file. It is a named group of key-value pairs that defines something — an item, a weapon, a spawn template, AI logic. Example:</p>
-<div class="language-ini highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">[medkit]</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="na">cost</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s">850</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="na">inv_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">st_medkit</span>
+<div class="language-ini highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">[medkit]</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="na">cost</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s">850</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="na">inv_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">st_medkit</span>
 </span></code></pre></div>
 <p><strong>Sense 2 — entity config type:</strong> The config-section name of a specific object — the string returned by <code>obj:section()</code>. Every instance of a medkit returns <code>"medkit"</code> from <code>obj:section()</code>. This string is what you use to look up config data, check item type, or classify objects in script:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kr">if</span><span class="w"> </span><span class="nv">obj</span><span class="p">:</span><span class="nf">section</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;medkit&quot;</span><span class="w"> </span><span class="kr">then</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="c1">-- this is a medkit</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kr">if</span><span class="w"> </span><span class="nv">obj</span><span class="p">:</span><span class="nf">section</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;medkit&quot;</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="c1">-- this is a medkit</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kr">end</span>
 </span></code></pre></div>
 <p>In both senses, a section is an identifier that maps to a block of config data. When reading code, "the object's section" usually means sense 2; "the LTX section" usually means sense 1.</p>
 <p>See <a href="../../config-formats/ltx/">LTX Format</a> for sense 1, and <a href="../../scripting/game-object/">What is a game_object?</a> for sense 2.</p>
@@ -3086,29 +3202,29 @@
 <h2 id="squad">squad<a class="headerlink" href="#squad" title="Permanent link">&para;</a></h2>
 <p>A <strong>squad</strong> is the atomic unit of NPC grouping in the alife simulation. It is a server-side object (<code>sim_squad_scripted</code>) that owns one or more NPC server entities and moves as a unit between <a href="#smart-terrain">smart terrains</a>. Individual NPCs do not navigate the alife simulation independently — their squad does.</p>
 <p>Squads have a faction, a current smart terrain, and a target smart terrain (evaluated as a <a href="#condition-list">condition list</a>). Members are iterated with <code>for k in squad:squad_members() do</code> — <code>k.id</code> is the alife ID of each NPC server entity.</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">-- Find a named squad and iterate its members</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">squad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">get_story_squad</span><span class="p">(</span><span class="s2">&quot;my_named_squad&quot;</span><span class="p">)</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kr">if</span><span class="w"> </span><span class="nv">squad</span><span class="w"> </span><span class="kr">then</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="kr">for</span><span class="w"> </span><span class="nv">k</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">squad</span><span class="p">:</span><span class="nf">squad_members</span><span class="p">()</span><span class="w"> </span><span class="kr">do</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">        </span><span class="kd">local</span><span class="w"> </span><span class="nv">npc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">level</span><span class="p">.</span><span class="nf">object_by_id</span><span class="p">(</span><span class="nv">k</span><span class="p">.</span><span class="py">id</span><span class="p">)</span><span class="w">  </span><span class="c1">-- nil if offline</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">        </span><span class="kr">if</span><span class="w"> </span><span class="nv">npc</span><span class="w"> </span><span class="kr">then</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">            </span><span class="c1">-- do something with the online NPC</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">        </span><span class="kr">end</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span><span class="kr">end</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="kr">end</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">-- Find a named squad and iterate its members</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">squad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">get_story_squad</span><span class="p">(</span><span class="s2">&quot;my_named_squad&quot;</span><span class="p">)</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="kr">if</span><span class="w"> </span><span class="nv">squad</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="kr">for</span><span class="w"> </span><span class="nv">k</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">squad</span><span class="p">:</span><span class="nf">squad_members</span><span class="p">()</span><span class="w"> </span><span class="kr">do</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">        </span><span class="kd">local</span><span class="w"> </span><span class="nv">npc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">level</span><span class="p">.</span><span class="nf">object_by_id</span><span class="p">(</span><span class="nv">k</span><span class="p">.</span><span class="py">id</span><span class="p">)</span><span class="w">  </span><span class="c1">-- nil if offline</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">        </span><span class="kr">if</span><span class="w"> </span><span class="nv">npc</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">            </span><span class="c1">-- do something with the online NPC</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">        </span><span class="kr">end</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="kr">end</span>
 </span></code></pre></div>
 <hr />
 <h2 id="story_id">story_id<a class="headerlink" href="#story_id" title="Permanent link">&para;</a></h2>
 <p>A <strong>story_id</strong> is a stable, human-readable string alias permanently bound to a specific alife entity — an NPC, squad, item, or smart terrain. Because numeric alife IDs are volatile (they can be reused across saves), story_ids are the correct way to reference specific named entities across save/load boundaries.</p>
 <p>Story_ids are declared in spawn config LTX files:</p>
-<div class="language-ini highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">[story_object]</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="na">story_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">bar_barman</span>
+<div class="language-ini highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">[story_object]</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="na">story_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">bar_barman</span>
 </span></code></pre></div>
 <p>Lookup functions in <code>_g.script</code>:</p>
-<div class="language-lua highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nf">get_story_se_object</span><span class="p">(</span><span class="s2">&quot;bar_barman&quot;</span><span class="p">)</span><span class="w">   </span><span class="c1">-- server entity (always available)</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nf">get_story_object</span><span class="p">(</span><span class="s2">&quot;bar_barman&quot;</span><span class="p">)</span><span class="w">      </span><span class="c1">-- game_object (nil if offline)</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nf">get_story_object_id</span><span class="p">(</span><span class="s2">&quot;bar_barman&quot;</span><span class="p">)</span><span class="w">   </span><span class="c1">-- numeric alife ID</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nf">get_object_story_id</span><span class="p">(</span><span class="nv">obj_id</span><span class="p">)</span><span class="w">         </span><span class="c1">-- reverse lookup: numeric ID → story_id string</span>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nf">get_story_se_object</span><span class="p">(</span><span class="s2">&quot;bar_barman&quot;</span><span class="p">)</span><span class="w">   </span><span class="c1">-- server entity (always available)</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nf">get_story_object</span><span class="p">(</span><span class="s2">&quot;bar_barman&quot;</span><span class="p">)</span><span class="w">      </span><span class="c1">-- game_object (nil if offline)</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nf">get_story_object_id</span><span class="p">(</span><span class="s2">&quot;bar_barman&quot;</span><span class="p">)</span><span class="w">   </span><span class="c1">-- numeric alife ID</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="nf">get_object_story_id</span><span class="p">(</span><span class="nv">obj_id</span><span class="p">)</span><span class="w">         </span><span class="c1">-- reverse lookup: numeric ID → story_id string</span>
 </span></code></pre></div>
 <p>Story_ids must be globally unique across all mods. If two objects claim the same story_id, <code>story_objects.script</code> logs a warning and the second registration wins.</p>
 

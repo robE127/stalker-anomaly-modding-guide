@@ -2941,6 +2941,31 @@
 <div class="language-lua highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nf">CreateTimeEvent</span><span class="p">(</span><span class="s2">&quot;my_mod&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;respawn&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nv">do_respawn</span><span class="p">)</span>
 </span></code></pre></div>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">Same-map respawn: restore input and HUD after fade + teleport</p>
+<p>If you cancel death with <code>flags.ret_value = false</code>, use a <strong>full-screen PP fade</strong> (for example <code>black_infinite.ppe</code> with <code>level.add_pp_effector</code>), then <strong><code>db.actor:set_actor_position</code></strong> on the <strong>same level</strong>, the engine can finish the sequence with <strong>movement and mouse input disabled</strong> (player looks fine but cannot act).</p>
+<p>After <strong><code>level.remove_pp_effector</code></strong> on your fade ID, explicitly:</p>
+<ul>
+<li><strong><code>level.enable_input()</code></strong> — clears engine input suppression when it applies.</li>
+<li><strong><code>game.only_allow_movekeys(false)</code></strong> if <strong><code>game.only_movekeys_allowed()</code></strong> — clears move-keys-only mode if something left it on.</li>
+<li><strong><code>level.show_weapon(true)</code></strong> — restores the weapon view if the HUD got wedged.</li>
+</ul>
+<p>Wrap optional APIs in <strong><code>pcall</code></strong> if you support multiple builds. A <strong>second pass</strong> on the next tick helps when ordering matters, for example:</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">clear_death_fx_and_controls</span><span class="p">()</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="nv">level</span><span class="p">.</span><span class="nf">remove_pp_effector</span><span class="p">(</span><span class="nv">MY_FADE_ID</span><span class="p">)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">level</span><span class="p">.</span><span class="py">enable_input</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="nv">level</span><span class="p">.</span><span class="nf">enable_input</span><span class="p">()</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">game</span><span class="p">.</span><span class="py">only_movekeys_allowed</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">game</span><span class="p">.</span><span class="nf">only_movekeys_allowed</span><span class="p">()</span><span class="w"> </span><span class="kr">then</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">        </span><span class="nv">game</span><span class="p">.</span><span class="nf">only_allow_movekeys</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="kr">end</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">level</span><span class="p">.</span><span class="py">show_weapon</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="nv">level</span><span class="p">.</span><span class="nf">show_weapon</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="kr">end</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="kr">return</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="kr">end</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="c1">-- after same-map teleport + save:</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="nf">clear_death_fx_and_controls</span><span class="p">()</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="nf">CreateTimeEvent</span><span class="p">(</span><span class="s2">&quot;my_mod&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;post_respawn_ctrl&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nv">clear_death_fx_and_controls</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Removing only the post-process effector is often <strong>not</strong> enough; keep the input and HUD cleanup above whenever you use this same-map cancel-death + fade + teleport pattern.</p>
+</div>
 <p>See <a href="../api-reference/actor/#cancel-death-and-respawn-at-a-base">db.actor — Cancel death and respawn at a base</a> for the full respawn pattern.</p>
 <hr />
 <h2 id="weapons">Weapons<a class="headerlink" href="#weapons" title="Permanent link">&para;</a></h2>
