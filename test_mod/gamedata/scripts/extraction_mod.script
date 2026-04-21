@@ -59,13 +59,17 @@
 -- Safe zone table
 -- Populated at game start by load_config() from extraction_mod_zones.ltx.
 -- Format after loading:
---   SAFE_ZONES[level_name] = { {name, x, y, z, radius, owner, respawn_x, ...}, ... }
+--   SAFE_ZONES[level_name] = { { name, level, x, y, z, radius, owner, respawn_x, ... }, ... }
 -- owner is a faction community string or nil (nil = open to all factions).
 -- SAFE_ZONES_BY_NAME[zone_name] holds the same table reference for O(1) lookup.
 -- ─────────────────────────────────────────────────────────────────────────────
 
 local SAFE_ZONES         = {}
 local SAFE_ZONES_BY_NAME = {}  -- zone_name -> zone table (same refs as SAFE_ZONES)
+local SAFE_ZONES_BY_RESTRICTOR_ID = {} -- spawned restrictor server id -> zone table
+local ACTOR_INSIDE_SAFE_ZONE_IDS = {} -- restrictor server id -> true while actor is inside
+local SAFE_ZONE_RESTRICTOR_CALLBACKS_DONE = {} -- restrictor server id -> true once enter/exit callbacks are attached
+local SAFE_ZONE_RESTRICTOR_SEED_DONE = {} -- restrictor server id -> true after initial inside/outside seeding
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Configuration
@@ -82,8 +86,8 @@ local SAVE_FILENAME   = "em_extraction_save"
 -- save can overwrite them. Removed after deferred cleanup runs.
 local SLOT_GUARD_STEM = "em_extraction_save_guard_tmp"
 
--- Dev-tool overrides file (saves folder). Written by set_spawn(); read by
--- load_config() so overrides survive game restarts without touching the LTX.
+-- Dev CLI overrides file (saves folder). Written by dev_cli_set_zone_respawn /
+-- dev_cli_set_zone_center / dev_cli_set_zone_radius; read at end of load_config().
 local OVERRIDES_FILE  = "em_spawn_overrides.ltx"
 
 -- Flag file written by on_level_changing to mark that THIS session triggered a
@@ -106,7 +110,7 @@ local function get_overrides_path()
 end
 local NIGHT_START     = 20
 local NIGHT_END       = 8
-local UPDATE_INTERVAL = 5000 -- ms between safe-zone checks
+local UPDATE_INTERVAL = 5000 -- ms between periodic maintenance checks
 local STASH_RELEASE_FLUSH_INTERVAL_SEC = 60
 local MOD_KEY         = "extraction_mod"
 
@@ -130,7 +134,7 @@ local stash_loot_ltx_enabled = false
 -- if MCM is not installed or the key has not been set yet.
 -- MCM stores values under "<mod_id>/<key>" in ui_mcm.get().
 -- Pattern confirmed from soulslike_mcm.script get_config().
-local function cfg(key)
+local function mcm_option(key)
     if ui_mcm then
         local v = ui_mcm.get(MOD_KEY .. "/" .. key)
         if v ~= nil then return v end
@@ -143,7 +147,7 @@ end
 -- Debug logging
 -- ─────────────────────────────────────────────────────────────────────────────
 
--- dbg(fmt, ...) writes a formatted line to the log when the game is launched
+-- debug_log(fmt, ...) writes a formatted line to the log when the game is launched
 -- with -dbg (which sets the global DEV_DEBUG = true).
 --
 -- We gate on DEV_DEBUG rather than a local flag because printf() itself is a
@@ -153,7 +157,7 @@ end
 --
 -- Uses string.format() for interpolation because Anomaly's printf() only
 -- replaces %s (via string_gsub); %f and %d are silently dropped.
-local function dbg(fmt, ...)
+local function debug_log(fmt, ...)
     if not DEV_DEBUG then return end
     local ok, msg = pcall(string.format, fmt, ...)
     printf("[EM] %s", ok and msg or ("(fmt error) " .. tostring(fmt)))
@@ -173,7 +177,7 @@ end
 local data = {
     -- Name of the last safe zone entered (e.g. "rookie_village"). Used at
     -- respawn time to look up the current respawn coords from SAFE_ZONES_BY_NAME,
-    -- so a set_spawn() change takes effect on the next death without needing
+    -- so a dev_cli_set_zone_respawn() change takes effect on the next death without needing
     -- the player to re-enter the zone.
     last_base_name  = nil,
     last_base_level = nil,   -- level name at the time of entry
@@ -194,8 +198,12 @@ local data = {
     pending_stash_release_ids = {},
     -- game.time() (in-game ms since epoch) when we last ran the interval loot pulse.
     -- Stored as a number so we never call CTime() — that global is not available
-    -- from this script environment in some builds (see maybe_stash_loot_by_game_time).
+    -- from this script environment in some builds (see tick_death_stash_npc_loot_by_game_time).
     last_stash_loot_game_ms = nil,
+    -- Spawned safe-zone restrictor server ids keyed by configured zone name (session only).
+    -- Cleared on load_state / level change / game end -- alife ids are not stable
+    -- across those boundaries.
+    safe_zone_restrictor_ids = {},
 }
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -210,36 +218,27 @@ end
 -- safe zone, nil otherwise. Callers that only need a boolean can use the return
 -- value directly in an `if` test; callers that need zone data (e.g. to read the
 -- configured respawn position) can use the returned table directly.
-local function is_in_safe_zone()
-    if not (db.actor and db.actor:alive()) then return nil end
-    local level_name = level.name()
-    local zones = SAFE_ZONES[level_name]
-    if not zones then return nil end
-    local actor_pos = db.actor:position()
-    -- [GAP-7] get_actor_true_community() -- global in _g.script.
+local function safe_zone_allowed_for_player_faction(z)
+    if not z.owner then
+        return true
+    end
     local player_faction = get_actor_true_community()
-    for _, z in ipairs(zones) do
-        local zone_pos = vector():set(z.x, z.y, z.z)
-        -- Use distance_to_sqr (cheaper) and compare against radius squared.
-        if actor_pos:distance_to_sqr(zone_pos) <= (z.radius * z.radius) then
-            if not z.owner then
-                -- No owner: zone is neutral, open to all factions.
-                return z
-            end
-            -- [GAP-6] game_relations.is_factions_friends / is_factions_neutrals
-            if player_faction then
-                if game_relations.is_factions_friends(player_faction, z.owner) then
-                    return z
-                end
-                if cfg("allow_neutral_bases")
-                    and game_relations.is_factions_neutrals(player_faction, z.owner) then
-                    return z
-                end
-            end
-            -- Player is inside zone radius but their faction is not friendly
-            -- (or neutral, if that option is off) with the zone owner.
-            -- Keep checking other zones on this level in case one of them
-            -- has a different (or no) owner.
+    if not player_faction then
+        return false
+    end
+    if game_relations.is_factions_friends(player_faction, z.owner) then
+        return true
+    end
+    return mcm_option("allow_neutral_bases")
+        and game_relations.is_factions_neutrals(player_faction, z.owner)
+end
+
+local function get_friendly_safe_zone_actor_is_inside()
+    if not (db.actor and db.actor:alive()) then return nil end
+    for restrictor_id, _ in pairs(ACTOR_INSIDE_SAFE_ZONE_IDS) do
+        local z = SAFE_ZONES_BY_RESTRICTOR_ID[restrictor_id]
+        if z and safe_zone_allowed_for_player_faction(z) then
+            return z
         end
     end
     return nil
@@ -264,18 +263,18 @@ end
 
 -- Record which safe zone the player last entered. The zone name is persisted
 -- so that at respawn time we can look up the current respawn coords from
--- SAFE_ZONES_BY_NAME -- meaning a set_spawn() change takes effect on the next
+-- SAFE_ZONES_BY_NAME -- meaning a dev_cli_set_zone_respawn() change takes effect on the next
 -- death without needing to re-enter the zone.
 -- Navigation vertices (lvid/gvid) are captured from the actor here because
 -- there is no engine API to derive them from a world position later; they are
 -- needed by ChangeLevel for cross-level respawn.
-local function set_last_base(zone)
+local function record_respawn_base_from_zone(zone)
     if not (db.actor and db.actor:alive()) then return end
     data.last_base_name  = zone.name
     data.last_base_level = level.name()
     data.last_base_lvid  = db.actor:level_vertex_id()
     data.last_base_gvid  = db.actor:game_vertex_id()
-    dbg("set_last_base: name=%s level=%s lvid=%s gvid=%s",
+    debug_log("record_respawn_base_from_zone: name=%s level=%s lvid=%s gvid=%s",
         zone.name, data.last_base_level,
         tostring(data.last_base_lvid), tostring(data.last_base_gvid))
 end
@@ -300,7 +299,7 @@ local keep_on_death = {}
 -- the MCM text field is empty / not a number (so the game stays usable).
 local stash_loot_interval_hours = 12
 
-local function cfg_stash_loot_interval_hours()
+local function stash_loot_interval_hours_resolved()
     if ui_mcm then
         local v = ui_mcm.get(MOD_KEY .. "/stash_loot_interval_hours")
         if type(v) == "string" then
@@ -326,22 +325,22 @@ local function load_config()
     -- ── Keep-on-death list ────────────────────────────────────────────────────
     local ini = ini_file("extraction_mod_config.ltx")
     if not ini:section_exist("keep_on_death") then
-        dbg("load_config: [keep_on_death] section not found -- nothing kept on death")
+        debug_log("load_config: [keep_on_death] section not found -- nothing kept on death")
     else
         local n = ini:line_count("keep_on_death")
         for i = 0, n - 1 do
             local _, key, _ = ini:r_line("keep_on_death", i, "", "")
             if key and key ~= "" then
                 keep_on_death[key] = true
-                dbg("load_config: keep_on_death += %s", key)
+                debug_log("load_config: keep_on_death += %s", key)
             end
         end
-        dbg("load_config: %d section(s) configured to keep on death", n)
+        debug_log("load_config: %d section(s) configured to keep on death", n)
     end
 
     -- ── Stash NPC loot (optional) ─────────────────────────────────────────────
     -- interval_game_hours is the fallback when MCM is absent or the interval
-    -- text field is empty / invalid (see cfg_stash_loot_interval_hours()).
+    -- text field is empty / invalid (see stash_loot_interval_hours_resolved()).
     stash_loot_interval_hours = 12
     stash_loot_ltx_enabled = false
     if ini:section_exist("stash_npc_looting") then
@@ -351,7 +350,7 @@ local function load_config()
         if ini:line_exist("stash_npc_looting", "interval_game_hours") then
             stash_loot_interval_hours = math.max(0, ini:r_float("stash_npc_looting", "interval_game_hours"))
         end
-        dbg("load_config: stash_npc_looting enabled=%s interval_game_hours=%.3f",
+        debug_log("load_config: stash_npc_looting enabled=%s interval_game_hours=%.3f",
             tostring(stash_loot_ltx_enabled), stash_loot_interval_hours)
     end
 
@@ -359,9 +358,13 @@ local function load_config()
     -- Rebuild from scratch each time so a reload always reflects the LTX.
     SAFE_ZONES         = {}
     SAFE_ZONES_BY_NAME = {}
+    SAFE_ZONES_BY_RESTRICTOR_ID = {}
+    ACTOR_INSIDE_SAFE_ZONE_IDS = {}
+    SAFE_ZONE_RESTRICTOR_CALLBACKS_DONE = {}
+    SAFE_ZONE_RESTRICTOR_SEED_DONE = {}
     local zones_ini = ini_file("extraction_mod_zones.ltx")
     if not zones_ini:section_exist("zones") then
-        dbg("load_config: [zones] section not found in extraction_mod_zones.ltx -- no safe zones")
+        debug_log("load_config: [zones] section not found in extraction_mod_zones.ltx -- no safe zones")
         return
     end
     local zone_count = 0
@@ -370,7 +373,7 @@ local function load_config()
         local _, zone_name, _ = zones_ini:r_line("zones", i, "", "")
         if zone_name and zone_name ~= "" then
             if not zones_ini:section_exist(zone_name) then
-                dbg("load_config: zone '%s' listed in [zones] but has no section -- skipping", zone_name)
+                debug_log("load_config: zone '%s' listed in [zones] but has no section -- skipping", zone_name)
             else
                 local level_name = zones_ini:r_string(zone_name, "level")
                 -- owner is optional; line_exist guards against r_string failing
@@ -382,6 +385,9 @@ local function load_config()
                 local y      = zones_ini:r_float(zone_name, "y")
                 local z      = zones_ini:r_float(zone_name, "z")
                 local radius = zones_ini:r_float(zone_name, "radius")
+                local zone_section = zones_ini:line_exist(zone_name, "zone_section")
+                    and zones_ini:r_string(zone_name, "zone_section")
+                    or "space_restrictor"
 
                 -- respawn_x/y/z default to the zone centre when omitted.
                 local rx = zones_ini:line_exist(zone_name, "respawn_x")
@@ -401,49 +407,61 @@ local function load_config()
                 end
                 local zone_entry = {
                     name = zone_name,
+                    level = level_name, -- map id string (same as extraction_mod_zones "level" key)
                     x = x, y = y, z = z, radius = radius, owner = owner,
+                    zone_section = zone_section,
                     respawn_x = rx, respawn_y = ry, respawn_z = rz,
                     respawn_dir = rdir,
                 }
                 table.insert(SAFE_ZONES[level_name], zone_entry)
                 SAFE_ZONES_BY_NAME[zone_name] = zone_entry
                 zone_count = zone_count + 1
-                dbg("load_config: zone '%s' level=%s owner=%s centre=(%.2f,%.2f,%.2f) r=%.0f respawn=(%.2f,%.2f,%.2f) dir=%s",
+                debug_log("load_config: zone '%s' level=%s owner=%s centre=(%.2f,%.2f,%.2f) r=%.0f respawn=(%.2f,%.2f,%.2f) dir=%s",
                     zone_name, level_name, tostring(owner), x, y, z, radius, rx, ry, rz,
                     rdir and string.format("%.4f", rdir) or "nil")
             end
         end
     end
-    dbg("load_config: loaded %d safe zones across %d levels", zone_count, (function()
+    debug_log("load_config: loaded %d safe zones across %d levels", zone_count, (function()
         local c = 0; for _ in pairs(SAFE_ZONES) do c = c + 1 end; return c
     end)())
 
-    -- Apply any dev-tool overrides written by set_spawn().
+    -- Apply any dev CLI overrides (em_spawn_overrides.ltx).
     load_spawn_overrides()
 end
 
--- ─────────────────────────────────────────────────────────────────────────────
--- Dev-tool spawn overrides  (set_spawn)
+-- ═════════════════════════════════════════════════════════════════════════════
+-- DEVELOPER CLI TOOLS  (console / run_string while tuning extraction_mod_zones.ltx)
 --
--- set_spawn(zone_name) records the actor's current position and facing as the
--- respawn point for a named zone. It is intended for use during development:
--- position yourself in-game, then run from the console:
+-- Prefer the dev_cli_* names; set_zone_spawn / set_zone_center / set_zone_radius are shorter aliases.
 --
---   run_string extraction_mod.set_spawn("rookie_village")
+--   run_string extraction_mod.dev_cli_set_zone_respawn("rookie_village")
+--   run_string extraction_mod.dev_cli_set_zone_center("rookie_village")
+--   run_string extraction_mod.dev_cli_set_zone_radius("rookie_village")
+--   run_string extraction_mod.set_zone_spawn("rookie_village")
+--   run_string extraction_mod.set_zone_center("rookie_village")
+--   run_string extraction_mod.set_zone_radius("rookie_village")
 --
--- The override is applied to SAFE_ZONES immediately (no restart needed) and
--- written to em_spawn_overrides.ltx in the saves folder so it survives game
--- restarts. load_config() merges this file on every game start.
+-- Omit the string argument while standing inside a friendly safe zone to target
+-- that zone (same for both commands).
 --
--- To commit the values permanently, copy the section printed to the log into
--- extraction_mod_zones.ltx and delete the matching section from the overrides
--- file (or simply delete the file to revert all overrides).
+-- Overrides apply to SAFE_ZONES immediately and are written to em_spawn_overrides.ltx
+-- in the saves folder; load_config() merges that file on every game start.
+-- On the zone's configured map, dev_cli_set_zone_center / dev_cli_set_zone_radius
+-- recreate the restrictor (new position or sphere size).
 --
--- Requires: -dbg launch flag (printf output is suppressed without it).
--- ─────────────────────────────────────────────────────────────────────────────
+-- To commit values permanently, copy the printed section into extraction_mod_zones.ltx
+-- and trim or delete the overrides file (or delete the file to revert all overrides).
+--
+-- Console feedback uses printf. debug_log lines require -dbg.
+--
+-- load_spawn_overrides is defined next (must stay immediately after load_config).
+-- write_spawn_override_ltx + dev_cli_set_zone_* + set_zone_spawn/set_zone_center/set_zone_radius are grouped later
+-- after safe_zone_restrictor_callbacks_pending (search: "Dev CLI: persist").
+-- ═════════════════════════════════════════════════════════════════════════════
 
 -- Read em_spawn_overrides.ltx from the saves folder and apply any recognised
--- fields (respawn_x/y/z/dir) to the in-memory SAFE_ZONES_BY_NAME entries.
+-- fields (x/y/z centre, respawn_x/y/z/dir) to the in-memory SAFE_ZONES_BY_NAME entries.
 -- Called at the end of load_config() so overrides layer on top of the LTX.
 load_spawn_overrides = function()
     local path = get_overrides_path()
@@ -465,40 +483,217 @@ load_spawn_overrides = function()
                 if key and val then
                     local zone = SAFE_ZONES_BY_NAME[current_section]
                     if zone then
-                        zone[key]        = tonumber(val)
-                        zone._overridden = true  -- mark so save_spawn_overrides writes it back
+                        zone[key] = tonumber(val)
+                        if key == "x" or key == "y" or key == "z" then
+                            zone._centre_overridden = true -- dev_cli_set_zone_center / centre lines
+                        elseif key == "radius" then
+                            zone._radius_overridden = true -- dev_cli_set_zone_radius
+                        else
+                            zone._overridden = true -- respawn_* / respawn_dir (dev_cli_set_zone_respawn) or other keys
+                        end
                         updates = updates + 1
-                        dbg("load_spawn_overrides: zone '%s' %s = %s", current_section, key, val)
+                        debug_log("load_spawn_overrides: zone '%s' %s = %s", current_section, key, val)
                     else
-                        dbg("load_spawn_overrides: zone '%s' not in SAFE_ZONES_BY_NAME -- skipping", current_section)
+                        debug_log("load_spawn_overrides: zone '%s' not in SAFE_ZONES_BY_NAME -- skipping", current_section)
                     end
                 end
             end
         end
     end
     f:close()
-    dbg("load_spawn_overrides: applied %d field(s) from %s", updates, path)
+    debug_log("load_spawn_overrides: applied %d field(s) from %s", updates, path)
 end
 
--- Write all zones flagged _overridden = true to em_spawn_overrides.ltx.
+local function on_actor_entered_safe_zone_restrictor(zone_obj, entering_obj)
+    if not (db.actor and entering_obj and entering_obj:id() == db.actor:id()) then
+        return
+    end
+    local rid = zone_obj:id()
+    ACTOR_INSIDE_SAFE_ZONE_IDS[rid] = true
+    local z = SAFE_ZONES_BY_RESTRICTOR_ID[rid]
+    local zname = z and z.name or "?"
+    debug_log("safe_zone restrictor enter: id=%s zone=%s level=%s",
+        tostring(rid), tostring(zname), level.name())
+end
+
+local function on_actor_left_safe_zone_restrictor(zone_obj, leaving_obj)
+    if not (db.actor and leaving_obj and leaving_obj:id() == db.actor:id()) then
+        return
+    end
+    local rid = zone_obj:id()
+    ACTOR_INSIDE_SAFE_ZONE_IDS[rid] = nil
+    local z = SAFE_ZONES_BY_RESTRICTOR_ID[rid]
+    local zname = z and z.name or "?"
+    debug_log("safe_zone restrictor exit: id=%s zone=%s level=%s",
+        tostring(rid), tostring(zname), level.name())
+end
+
+-- One-shot sphere check after spawning/reload: if the actor is already inside the
+-- configured radius, mark membership before zone_enter callbacks have a chance to fire.
+local function seed_safe_zone_membership_if_already_inside_sphere()
+    if not (db.actor and db.actor:alive()) then return end
+    local actor_pos = db.actor:position()
+    local zones = SAFE_ZONES[level.name()] or {}
+    for _, z in ipairs(zones) do
+        if z.restrictor_id and not SAFE_ZONE_RESTRICTOR_SEED_DONE[z.restrictor_id] then
+            local zone_pos = vector():set(z.x, z.y, z.z)
+            if actor_pos:distance_to_sqr(zone_pos) <= (z.radius * z.radius) then
+                ACTOR_INSIDE_SAFE_ZONE_IDS[z.restrictor_id] = true
+            end
+            SAFE_ZONE_RESTRICTOR_SEED_DONE[z.restrictor_id] = true
+        end
+    end
+end
+
+local function attach_safe_zone_restrictor_callbacks()
+    for restrictor_id, _ in pairs(SAFE_ZONES_BY_RESTRICTOR_ID) do
+        if not SAFE_ZONE_RESTRICTOR_CALLBACKS_DONE[restrictor_id] then
+            local obj = level.object_by_id(restrictor_id)
+            if obj then
+                obj:set_callback(callback.zone_enter, on_actor_entered_safe_zone_restrictor)
+                obj:set_callback(callback.zone_exit, on_actor_left_safe_zone_restrictor)
+                SAFE_ZONE_RESTRICTOR_CALLBACKS_DONE[restrictor_id] = true
+            end
+        end
+    end
+end
+
+local function spawn_safe_zone_restrictor(zone)
+    if not (db.actor and db.actor:alive()) then
+        return nil
+    end
+    local pos = vector():set(zone.x, zone.y, zone.z)
+    local lvid = level.vertex_id(pos)
+    local gvid = db.actor:game_vertex_id()
+    -- LTX section name for alife():create (spawn profile). `space_restrictor` is
+    -- the base game's built-in restrictor spawn type: a server-side volume object
+    -- (bind_restrictor) used for triggers and spatial tests. Defined under
+    -- [space_restrictor] in configs/system.ltx. Optional key zone_section in
+    -- extraction_mod_zones.ltx overrides this if you use another restrictor-derived section.
+    local section = zone.zone_section or "space_restrictor"
+    local se_obj = alife():create(section, pos, lvid, gvid)
+    if not se_obj then
+        printe("![EM] spawn_safe_zone_restrictor: failed for zone '%s' (section=%s)", zone.name, section)
+        return nil
+    end
+
+    local shape_data = utils_stpk.get_space_restrictor_data(se_obj)
+    if shape_data then
+        shape_data.shapes = shape_data.shapes or {}
+        shape_data.shapes[1] = shape_data.shapes[1] or {}
+        shape_data.shapes[1].shtype = 0
+        shape_data.shapes[1].offset = vector():set(0, 0, 0)
+        shape_data.shapes[1].radius = zone.radius
+        utils_stpk.set_space_restrictor_data(shape_data, se_obj)
+    end
+    local rid = se_obj.id
+    debug_log("safe_zone restrictor spawned: id=%s zone=%s level=%s section=%s",
+        tostring(rid), tostring(zone.name), level.name(), tostring(section))
+    return rid
+end
+
+-- Clears Lua-side tracking for spawned space restrictors (membership + callbacks + id
+-- maps). Does not clear data.safe_zone_restrictor_ids: those are session bookkeeping and
+-- are discarded on load_state; on level change we clear them in on_level_changing.
+local function clear_safe_zone_restrictor_state()
+    SAFE_ZONES_BY_RESTRICTOR_ID = {}
+    ACTOR_INSIDE_SAFE_ZONE_IDS = {}
+    SAFE_ZONE_RESTRICTOR_CALLBACKS_DONE = {}
+    SAFE_ZONE_RESTRICTOR_SEED_DONE = {}
+    for _, zones in pairs(SAFE_ZONES) do
+        for _, z in ipairs(zones) do
+            z.restrictor_id = nil
+        end
+    end
+end
+
+-- Create missing space restrictors for the current level and refresh id maps.
+-- Intentionally does not attach callbacks (objects may not be online yet).
+local function ensure_safe_zone_restrictors_for_level()
+    if not (db.actor and db.actor:alive()) then return end
+    clear_safe_zone_restrictor_state()
+    local level_name = level.name()
+    local zones = SAFE_ZONES[level_name] or {}
+
+    for _, zone in ipairs(zones) do
+        local restrictor_id = data.safe_zone_restrictor_ids[zone.name]
+        if restrictor_id and not alife_object(restrictor_id) then
+            restrictor_id = nil
+            data.safe_zone_restrictor_ids[zone.name] = nil
+        end
+        if not restrictor_id then
+            restrictor_id = spawn_safe_zone_restrictor(zone)
+            if restrictor_id then
+                data.safe_zone_restrictor_ids[zone.name] = restrictor_id
+            end
+        end
+        if restrictor_id then
+            zone.restrictor_id = restrictor_id
+            SAFE_ZONES_BY_RESTRICTOR_ID[restrictor_id] = zone
+        end
+    end
+
+    seed_safe_zone_membership_if_already_inside_sphere()
+end
+
+-- Try to attach zone_enter/zone_exit callbacks; safe to call repeatedly until all ids bind.
+local function refresh_safe_zone_restrictor_callbacks()
+    attach_safe_zone_restrictor_callbacks()
+    seed_safe_zone_membership_if_already_inside_sphere()
+end
+
+local function safe_zone_restrictor_callbacks_pending()
+    for restrictor_id, _ in pairs(SAFE_ZONES_BY_RESTRICTOR_ID) do
+        if not SAFE_ZONE_RESTRICTOR_CALLBACKS_DONE[restrictor_id] then
+            return true
+        end
+    end
+    return false
+end
+
+-- ─── Dev CLI: persist + commands (see DEVELOPER CLI TOOLS header above) ───
+
+-- Remove the session's spawned restrictor for one zone so it can be recreated at a
+-- new centre or radius (dev_cli_set_zone_center / dev_cli_set_zone_radius). Clears
+-- data.safe_zone_restrictor_ids only; full maps are rebuilt by ensure_safe_zone_restrictors_for_level().
+local function release_session_safe_zone_restrictor_for_zone_name(zone_name)
+    local id = data.safe_zone_restrictor_ids[zone_name]
+    if id and alife_object(id) then
+        alife_release_id(id, "extraction_mod_dev_cli_restrictor_rebuild")
+    end
+    data.safe_zone_restrictor_ids[zone_name] = nil
+end
+
+-- Write dev overrides to em_spawn_overrides.ltx: centre x/y/z (dev_cli_set_zone_center),
+-- radius (dev_cli_set_zone_radius), and/or respawn_x/y/z/dir (dev_cli_set_zone_respawn).
 -- Returns true on success, false on IO failure.
-local function save_spawn_overrides()
+local function write_spawn_override_ltx()
     local path = get_overrides_path()
     local f = io.open(path, "w")
     if not f then
-        printe("![EM] save_spawn_overrides: cannot open '%s' for writing", path)
+        printe("![EM] write_spawn_override_ltx: cannot open '%s' for writing", path)
         return false
     end
-    f:write("; em_spawn_overrides.ltx -- written by extraction_mod.set_spawn()\n")
+    f:write("; em_spawn_overrides.ltx -- written by extraction_mod dev_cli_set_zone_respawn / center / radius\n")
     f:write("; copy section contents to extraction_mod_zones.ltx to make permanent\n\n")
     for name, z in pairs(SAFE_ZONES_BY_NAME) do
-        if z._overridden then
+        if z._overridden or z._centre_overridden or z._radius_overridden then
             f:write("[" .. name .. "]\n")
-            f:write(string.format("respawn_x   = %.4f\n", z.respawn_x))
-            f:write(string.format("respawn_y   = %.4f\n", z.respawn_y))
-            f:write(string.format("respawn_z   = %.4f\n", z.respawn_z))
-            if z.respawn_dir then
-                f:write(string.format("respawn_dir = %.4f\n", z.respawn_dir))
+            if z._centre_overridden then
+                f:write(string.format("x = %.4f\n", z.x))
+                f:write(string.format("y = %.4f\n", z.y))
+                f:write(string.format("z = %.4f\n", z.z))
+            end
+            if z._radius_overridden then
+                f:write(string.format("radius = %.4f\n", z.radius))
+            end
+            if z._overridden then
+                f:write(string.format("respawn_x   = %.4f\n", z.respawn_x))
+                f:write(string.format("respawn_y   = %.4f\n", z.respawn_y))
+                f:write(string.format("respawn_z   = %.4f\n", z.respawn_z))
+                if z.respawn_dir then
+                    f:write(string.format("respawn_dir = %.4f\n", z.respawn_dir))
+                end
             end
             f:write("\n")
         end
@@ -507,11 +702,10 @@ local function save_spawn_overrides()
     return true
 end
 
--- Public function accessible as extraction_mod.set_spawn("zone_name").
--- See the section header above for usage instructions.
-function set_spawn(zone_name)
+-- Capture respawn_x/y/z and respawn_dir from the actor (CLI dev tool).
+function dev_cli_set_zone_respawn(zone_name)
     if not (db.actor and db.actor:alive()) then
-        printf("[EM] set_spawn: actor not available")
+        printf("[EM] dev_cli_set_zone_respawn: actor not available")
         flush()
         return
     end
@@ -520,7 +714,7 @@ function set_spawn(zone_name)
     if zone_name then
         zone = SAFE_ZONES_BY_NAME[zone_name]
         if not zone then
-            printf("[EM] set_spawn: zone '%s' not found. Available zones:", tostring(zone_name))
+            printf("[EM] dev_cli_set_zone_respawn: zone '%s' not found. Available zones:", tostring(zone_name))
             for name, _ in pairs(SAFE_ZONES_BY_NAME) do
                 printf("[EM]   %s", name)
             end
@@ -528,12 +722,11 @@ function set_spawn(zone_name)
             return
         end
     else
-        -- No argument: use whichever safe zone the actor is currently inside.
-        zone = is_in_safe_zone()
+        zone = get_friendly_safe_zone_actor_is_inside()
         if not zone then
-            printf("[EM] set_spawn: not currently inside any safe zone.")
-            printf("[EM] Either move into a zone or pass the zone name explicitly:")
-            printf("[EM]   run_string extraction_mod.set_spawn(\"zone_name\")")
+            printf("[EM] dev_cli_set_zone_respawn: not currently inside any safe zone.")
+            printf("[EM] Move into a zone or pass the zone name explicitly:")
+            printf("[EM]   run_string extraction_mod.dev_cli_set_zone_respawn(\"zone_name\")")
             flush()
             return
         end
@@ -552,17 +745,21 @@ function set_spawn(zone_name)
     zone.respawn_dir = dir
     zone._overridden = true
 
-    -- Refresh the last-base record so do_respawn_deferred picks up the new
+    -- Refresh the last-base record so complete_extraction_respawn picks up the new
     -- coords on the next death without requiring a zone re-entry.
-    set_last_base(zone)
+    record_respawn_base_from_zone(zone)
 
-    local saved = save_spawn_overrides()
+    local saved = write_spawn_override_ltx()
 
-    printf("[EM] set_spawn: zone '%s' updated (level=%s)", zone_name, level.name())
+    printf("[EM] dev_cli_set_zone_respawn: zone '%s' respawn updated (configured level=%s, you are on %s)",
+        zone_name, tostring(zone.level), level.name())
     printf("[EM]   respawn_x   = %s", string.format("%.4f", pos.x))
     printf("[EM]   respawn_y   = %s", string.format("%.4f", pos.y))
     printf("[EM]   respawn_z   = %s", string.format("%.4f", pos.z))
     printf("[EM]   respawn_dir = %s", string.format("%.4f", dir))
+    if zone.level ~= level.name() then
+        printf("[EM] Respawn override is saved; it applies on death / when you play that zone.")
+    end
     if saved then
         printf("[EM] Written to: %s", get_overrides_path())
         printf("[EM] To make permanent, copy the [%s] section from that file", zone_name)
@@ -571,9 +768,150 @@ function set_spawn(zone_name)
     flush()
 end
 
+-- Capture zone centre x/y/z from the actor (CLI dev tool). Recreates the restrictor on this map.
+function dev_cli_set_zone_center(zone_name)
+    if not (db.actor and db.actor:alive()) then
+        printf("[EM] dev_cli_set_zone_center: actor not available")
+        flush()
+        return
+    end
+
+    local zone
+    if zone_name then
+        zone = SAFE_ZONES_BY_NAME[zone_name]
+        if not zone then
+            printf("[EM] dev_cli_set_zone_center: zone '%s' not found. Available zones:", tostring(zone_name))
+            for name, _ in pairs(SAFE_ZONES_BY_NAME) do
+                printf("[EM]   %s", name)
+            end
+            flush()
+            return
+        end
+    else
+        zone = get_friendly_safe_zone_actor_is_inside()
+        if not zone then
+            printf("[EM] dev_cli_set_zone_center: not currently inside any safe zone.")
+            printf("[EM] Move into a zone or pass the zone name explicitly:")
+            printf("[EM]   run_string extraction_mod.dev_cli_set_zone_center(\"zone_name\")")
+            flush()
+            return
+        end
+        zone_name = zone.name
+    end
+
+    local pos = db.actor:position()
+    zone.x = pos.x
+    zone.y = pos.y
+    zone.z = pos.z
+    zone._centre_overridden = true
+
+    local saved = write_spawn_override_ltx()
+
+    if zone.level == level.name() then
+        release_session_safe_zone_restrictor_for_zone_name(zone_name)
+        ensure_safe_zone_restrictors_for_level()
+        refresh_safe_zone_restrictor_callbacks()
+    end
+
+    printf("[EM] dev_cli_set_zone_center: zone '%s' center updated (configured level=%s, you are on %s)",
+        zone_name, tostring(zone.level), level.name())
+    printf("[EM]   x = %s", string.format("%.4f", pos.x))
+    printf("[EM]   y = %s", string.format("%.4f", pos.y))
+    printf("[EM]   z = %s", string.format("%.4f", pos.z))
+    if zone.level ~= level.name() then
+        printf("[EM] Restrictor is recreated when you load that zone; overrides file is still updated.")
+    end
+    if saved then
+        printf("[EM] Written to: %s", get_overrides_path())
+        printf("[EM] To make permanent, copy the [%s] section from that file", zone_name)
+        printf("[EM] into extraction_mod_zones.ltx.")
+    end
+    flush()
+end
+
+-- Set zone.radius to the 3D distance from the configured zone center to the actor (CLI).
+-- Stand on the desired sphere boundary (or anywhere inside/outside with a named zone);
+-- radius is max(distance, 1) metres so the value is always usable. Recreates the
+-- restrictor on this map when the zone belongs to the current level.
+function dev_cli_set_zone_radius(zone_name)
+    if not (db.actor and db.actor:alive()) then
+        printf("[EM] dev_cli_set_zone_radius: actor not available")
+        flush()
+        return
+    end
+
+    local zone
+    if zone_name then
+        zone = SAFE_ZONES_BY_NAME[zone_name]
+        if not zone then
+            printf("[EM] dev_cli_set_zone_radius: zone '%s' not found. Available zones:", tostring(zone_name))
+            for name, _ in pairs(SAFE_ZONES_BY_NAME) do
+                printf("[EM]   %s", name)
+            end
+            flush()
+            return
+        end
+    else
+        zone = get_friendly_safe_zone_actor_is_inside()
+        if not zone then
+            printf("[EM] dev_cli_set_zone_radius: not currently inside any safe zone.")
+            printf("[EM] Move into a zone or pass the zone name explicitly:")
+            printf("[EM]   run_string extraction_mod.dev_cli_set_zone_radius(\"zone_name\")")
+            flush()
+            return
+        end
+        zone_name = zone.name
+    end
+
+    local MIN_RADIUS_METRES = 1.0
+    local center = vector():set(zone.x, zone.y, zone.z)
+    local ap = db.actor:position()
+    local dist = math.sqrt(ap:distance_to_sqr(center))
+    local r = math.max(dist, MIN_RADIUS_METRES)
+    zone.radius = r
+    zone._radius_overridden = true
+
+    local saved = write_spawn_override_ltx()
+
+    if zone.level == level.name() then
+        release_session_safe_zone_restrictor_for_zone_name(zone_name)
+        ensure_safe_zone_restrictors_for_level()
+        refresh_safe_zone_restrictor_callbacks()
+    end
+
+    printf("[EM] dev_cli_set_zone_radius: zone '%s' radius set from actor distance (configured level=%s, you are on %s)",
+        zone_name, tostring(zone.level), level.name())
+    printf("[EM]   center=(%s, %s, %s)", string.format("%.4f", zone.x), string.format("%.4f", zone.y), string.format("%.4f", zone.z))
+    printf("[EM]   actor distance = %s  ->  radius = %s (min %s)",
+        string.format("%.4f", dist), string.format("%.4f", r), string.format("%.1f", MIN_RADIUS_METRES))
+    if zone.level ~= level.name() then
+        printf("[EM] Restrictor is recreated when you load that zone; overrides file is still updated.")
+    end
+    if saved then
+        printf("[EM] Written to: %s", get_overrides_path())
+        printf("[EM] To make permanent, copy the [%s] section from that file", zone_name)
+        printf("[EM] into extraction_mod_zones.ltx.")
+    end
+    flush()
+end
+
+-- Shorter CLI-friendly names (same as dev_cli_*). Thin wrappers so these behave like
+-- normal global functions if the loader only binds `function` decls.
+function set_zone_spawn(zone_name)
+    dev_cli_set_zone_respawn(zone_name)
+end
+
+function set_zone_center(zone_name)
+    dev_cli_set_zone_center(zone_name)
+end
+
+function set_zone_radius(zone_name)
+    dev_cli_set_zone_radius(zone_name)
+end
+
 -- In-game hour captured at the moment actor_on_before_death fires.
 -- level.get_time_hours() can return a stale/reset value by the time
--- do_respawn_deferred runs ~3 seconds later (the engine appears to restore
+-- complete_extraction_respawn runs ~3 seconds later (the engine appears to restore
 -- save-file time as part of processing the cancelled death). Caching here
 -- gives us the definitive time-of-death for the night-respawn check.
 local death_hour = nil
@@ -582,7 +920,7 @@ local death_hour = nil
 -- "Death: 14.04.2012 21:33". Used as the PDA stash marker label.
 -- Captured alongside death_hour using CTime:get() to avoid the same stale-time
 -- problem (game.get_game_time() returns the restored save time by the time
--- wait_for_stash_and_respawn runs). Pattern: utils_data.CTime_to_table().
+-- poll_death_stash_transfer_and_queue_respawn runs). Pattern: utils_data.CTime_to_table().
 local death_label = nil
 -- Snapshot of the configured death-item handling mode at the time of death.
 -- Used by deferred respawn messaging so it reflects what actually happened.
@@ -590,8 +928,8 @@ local delete_items_on_death_pending = false
 
 -- Trigger a save to our fixed file.
 -- [GAP-1] exec_console_cmd undocumented; confirmed by Jabbers Soulslike source.
-local function do_save()
-    dbg("do_save: writing %s (level=%s)", SAVE_FILENAME, level.name())
+local function save_extraction_slot()
+    debug_log("save_extraction_slot: writing %s (level=%s)", SAVE_FILENAME, level.name())
     save_in_progress = true
     exec_console_cmd("save " .. SAVE_FILENAME)
     -- exec_console_cmd fires on_console_execute synchronously (SendScriptCallback
@@ -603,7 +941,7 @@ end
 
 -- Build a stable list of inventory items to process on death.
 -- Any item section in keep_on_death is excluded.
-local function collect_transferable_death_items()
+local function collect_actor_inventory_excluding_keep_on_death()
     local items = {}
     db.actor:iterate_inventory(function(_, obj)
         if not keep_on_death[obj:section()] then
@@ -622,7 +960,7 @@ end
 -- slot when the filename stays SAVE_FILENAME (e.g. C++ console `save em_extraction_save`).
 local SLOTFPRINT_READ = 8192
 
-local function get_slot_disk_fingerprint()
+local function read_mod_save_slot_disk_fingerprint()
     local path = getFS():update_path("$game_saves$", "") .. SAVE_FILENAME .. ".scop"
     local fh   = io.open(path, "rb")
     if not fh then return nil end
@@ -637,7 +975,7 @@ local function get_slot_disk_fingerprint()
     return { size = sz, sig = sig }
 end
 
-local function slot_disk_fingerprint_changed(before, after)
+local function mod_save_disk_fingerprints_differ(before, after)
     if before == nil and after == nil then return false end
     if before == nil or after == nil then return true end
     return before.size ~= after.size or before.sig ~= after.sig
@@ -645,7 +983,7 @@ end
 
 -- Copy companion save files (.scop / .scoc / .dds) between stems. Returns
 -- true if a .scop was copied (confirms a readable slot existed on disk).
-local function copy_save_extensions_between_stems(src_stem, dst_stem)
+local function copy_save_slot_extensions_between_stems(src_stem, dst_stem)
     local base = getFS():update_path("$game_saves$", "")
     local copied_scop = false
     for _, ext in ipairs({ ".scop", ".scoc", ".dds" }) do
@@ -661,7 +999,7 @@ local function copy_save_extensions_between_stems(src_stem, dst_stem)
                 wo:close()
                 if ext == ".scop" then copied_scop = true end
             else
-                dbg("copy_save_extensions_between_stems: failed to write '%s'", dst_path)
+                debug_log("copy_save_slot_extensions_between_stems: failed to write '%s'", dst_path)
             end
         end
     end
@@ -675,7 +1013,7 @@ end
 -- NOTE: flist:GetAt(i) returns a file object (userdata), NOT a plain string.
 -- Call :NameFull() to get the filename string (confirmed from FillList in
 -- ui_load_dialog.script which does the same).
-local function cleanup_unauthorized_saves()
+local function enforce_single_mod_save_slot()
     local ctx = external_save_cleanup_ctx
     external_save_cleanup_ctx = nil
 
@@ -685,14 +1023,14 @@ local function cleanup_unauthorized_saves()
         "*.scop"
     )
     local n = flist:Size()
-    dbg("cleanup_unauthorized_saves: scanning %s .scop files", n)
+    debug_log("enforce_single_mod_save_slot: scanning %s .scop files", n)
     for i = 0, n - 1 do
         local file      = flist:GetAt(i)
         local fullname  = file:NameFull()   -- e.g. "player - quicksave.scop"
         -- Strip .scop extension to get the name delete_save_game expects.
         local save_name = fullname:match("^(.+)%.scop$") or fullname
         if save_name ~= SAVE_FILENAME then
-            dbg("cleanup_unauthorized_saves: deleting unauthorized save '%s'", save_name)
+            debug_log("enforce_single_mod_save_slot: deleting unauthorized save '%s'", save_name)
             ui_load_dialog.delete_save_game(save_name)
         end
     end
@@ -701,20 +1039,20 @@ local function cleanup_unauthorized_saves()
     -- The loop above keeps that file; if the slot changed and we have a guard
     -- snapshot from save_state, restore it so the last legal base save is not lost.
     if ctx and not ctx.in_safe then
-        local after  = get_slot_disk_fingerprint()
-        local changed = slot_disk_fingerprint_changed(ctx.slot_fp_before, after)
+        local after  = read_mod_save_slot_disk_fingerprint()
+        local changed = mod_save_disk_fingerprints_differ(ctx.slot_fp_before, after)
         if ctx.slot_guard_written and not changed then
-            dbg("cleanup_unauthorized_saves: discarding unused slot guard (slot untouched)")
+            debug_log("enforce_single_mod_save_slot: discarding unused slot guard (slot untouched)")
             ui_load_dialog.delete_save_game(SLOT_GUARD_STEM)
         elseif changed then
             if ctx.slot_guard_written then
-                dbg("cleanup_unauthorized_saves: restoring '%s' from guard after illegal overwrite",
+                debug_log("enforce_single_mod_save_slot: restoring '%s' from guard after illegal overwrite",
                     SAVE_FILENAME)
-                copy_save_extensions_between_stems(SLOT_GUARD_STEM, SAVE_FILENAME)
+                copy_save_slot_extensions_between_stems(SLOT_GUARD_STEM, SAVE_FILENAME)
                 ui_load_dialog.delete_save_game(SLOT_GUARD_STEM)
                 show_msg("Cannot save outside a friendly base! Your last base save was restored.")
             else
-                dbg("cleanup_unauthorized_saves: illegal write to empty slot -- deleting '%s'",
+                debug_log("enforce_single_mod_save_slot: illegal write to empty slot -- deleting '%s'",
                     SAVE_FILENAME)
                 ui_load_dialog.delete_save_game(SAVE_FILENAME)
                 show_msg("Cannot save outside a friendly base! Save was not kept.")
@@ -736,7 +1074,7 @@ local function save_state(m_data)
         pending_stash_release_ids = data.pending_stash_release_ids,
         last_stash_loot_game_ms = data.last_stash_loot_game_ms,
     }
-    dbg("save_state: base=%s level=%s",
+    debug_log("save_state: base=%s level=%s",
         tostring(data.last_base_name), tostring(data.last_base_level))
 
     -- on_console_execute only fires when saves are triggered through Lua's
@@ -746,17 +1084,17 @@ local function save_state(m_data)
     -- external save we didn't initiate, so schedule a scan to remove any
     -- unauthorized files after the engine finishes writing them.
     if not save_in_progress then
-        dbg("save_state: external save detected -- scheduling cleanup scan")
-        local fp_before = get_slot_disk_fingerprint()
-        local in_safe   = is_in_safe_zone() ~= nil
+        debug_log("save_state: external save detected -- scheduling cleanup scan")
+        local fp_before = read_mod_save_slot_disk_fingerprint()
+        local in_safe   = get_friendly_safe_zone_actor_is_inside() ~= nil
         -- While this callback runs the old .scop is still on disk; copy it before
         -- the engine can overwrite with an illegal `save em_extraction_save`.
         local guard_written = false
         if not in_safe and fp_before ~= nil then
             ui_load_dialog.delete_save_game(SLOT_GUARD_STEM)
-            guard_written = copy_save_extensions_between_stems(SAVE_FILENAME, SLOT_GUARD_STEM)
+            guard_written = copy_save_slot_extensions_between_stems(SAVE_FILENAME, SLOT_GUARD_STEM)
             if not guard_written then
-                dbg("save_state: guard copy failed (no .scop to read?)")
+                debug_log("save_state: guard copy failed (no .scop to read?)")
             end
         end
         external_save_cleanup_ctx = {
@@ -764,7 +1102,7 @@ local function save_state(m_data)
             in_safe             = in_safe,
             slot_guard_written  = guard_written,
         }
-        CreateTimeEvent("extraction_mod", "save_cleanup", 1, cleanup_unauthorized_saves)
+        CreateTimeEvent("extraction_mod", "save_cleanup", 1, enforce_single_mod_save_slot)
     end
 end
 
@@ -777,13 +1115,15 @@ local function load_state(m_data)
     data.stash_ids       = saved.stash_ids or {}
     data.death_stash_ids = saved.death_stash_ids or {}
     data.pending_stash_release_ids = saved.pending_stash_release_ids or {}
+    -- Spawned restrictor ids are session-only; do not restore from save data.
+    data.safe_zone_restrictor_ids = {}
     -- Older saves only persisted stash_ids (marked stashes). Treat them as death
     -- stashes so loot simulation and empty cleanup still apply after upgrade.
     for sid, _ in pairs(data.stash_ids) do
         data.death_stash_ids[sid] = true
     end
     data.last_stash_loot_game_ms = saved.last_stash_loot_game_ms
-    dbg("load_state: base=%s level=%s",
+    debug_log("load_state: base=%s level=%s",
         tostring(data.last_base_name), tostring(data.last_base_level))
 end
 
@@ -833,7 +1173,7 @@ local function clear_stash_pda_marker(stash_id)
     if data.stash_ids[stash_id] then
         level.map_remove_object_spot(stash_id, "secondary_task_location")
         data.stash_ids[stash_id] = nil
-        dbg("clear_stash_pda_marker: removed PDA spot for id=%d", stash_id)
+        debug_log("clear_stash_pda_marker: removed PDA spot for id=%d", stash_id)
     end
 end
 
@@ -843,25 +1183,25 @@ local function remove_empty_death_stash(stash_id, reason)
     if not alife_object(stash_id) then
         clear_stash_pda_marker(stash_id)
         data.death_stash_ids[stash_id] = nil
-        dbg("remove_empty_death_stash: id=%d missing alife -- cleared tracking (%s)",
+        debug_log("remove_empty_death_stash: id=%d missing alife -- cleared tracking (%s)",
             stash_id, tostring(reason))
         return true
     end
     clear_stash_pda_marker(stash_id)
     if level.object_by_id(stash_id) then
         data.pending_stash_release_ids[stash_id] = true
-        dbg("remove_empty_death_stash: id=%d empty but ONLINE -- deferring release (%s)",
+        debug_log("remove_empty_death_stash: id=%d empty but ONLINE -- deferring release (%s)",
             stash_id, tostring(reason))
         return true
     end
     alife_release_id(stash_id, reason or "extraction_mod_stash_empty")
     data.death_stash_ids[stash_id] = nil
     data.pending_stash_release_ids[stash_id] = nil
-    dbg("remove_empty_death_stash: released empty stash id=%d (%s)", stash_id, tostring(reason))
+    debug_log("remove_empty_death_stash: released empty stash id=%d (%s)", stash_id, tostring(reason))
     return true
 end
 
-local function flush_pending_stash_releases()
+local function release_pending_empty_death_stashes()
     for stash_id, _ in pairs(data.pending_stash_release_ids) do
         if not data.death_stash_ids[stash_id] then
             data.pending_stash_release_ids[stash_id] = nil
@@ -871,41 +1211,41 @@ local function flush_pending_stash_releases()
             data.pending_stash_release_ids[stash_id] = nil
             data.death_stash_ids[stash_id] = nil
             clear_stash_pda_marker(stash_id)
-            dbg("flush_pending_stash_releases: id=%d missing alife -- dropped tracking", stash_id)
+            debug_log("release_pending_empty_death_stashes: id=%d missing alife -- dropped tracking", stash_id)
         elseif death_stash_item_count(stash_id) > 0 then
             -- Became non-empty again somehow (e.g. script added an item). Cancel.
             data.pending_stash_release_ids[stash_id] = nil
-            dbg("flush_pending_stash_releases: id=%d no longer empty -- canceled defer", stash_id)
+            debug_log("release_pending_empty_death_stashes: id=%d no longer empty -- canceled defer", stash_id)
         else
             clear_stash_pda_marker(stash_id)
             alife_release_id(stash_id, "extraction_mod_stash_empty_deferred")
             data.pending_stash_release_ids[stash_id] = nil
             data.death_stash_ids[stash_id] = nil
-            dbg("flush_pending_stash_releases: released deferred empty stash id=%d", stash_id)
+            debug_log("release_pending_empty_death_stashes: released deferred empty stash id=%d", stash_id)
         end
     end
 end
 
-local function pending_stash_release_tick()
+local function tick_pending_death_stash_releases()
     if db.actor and db.actor:alive() then
-        flush_pending_stash_releases()
+        release_pending_empty_death_stashes()
     end
     return false -- keep polling via CreateTimeEvent
 end
 
-local function loot_one_random_item_from_death_stash(stash_id, reason)
+local function remove_random_item_from_death_stash(stash_id, reason)
     if not data.death_stash_ids[stash_id] then return end
     -- Never release child items while the container is online. Releasing alife
     -- children of an online stash can trigger engine-side destroy-order errors.
     -- Keep this stash untouched for now; a later pulse will process it offline.
     if level.object_by_id(stash_id) then
-        dbg("loot_one_random_item_from_death_stash: id=%d is ONLINE -- skipping pulse", stash_id)
+        debug_log("remove_random_item_from_death_stash: id=%d is ONLINE -- skipping pulse", stash_id)
         return
     end
     if not alife_object(stash_id) then
         clear_stash_pda_marker(stash_id)
         data.death_stash_ids[stash_id] = nil
-        dbg("loot_one_random_item_from_death_stash: id=%d invalid alife -- dropped tracking", stash_id)
+        debug_log("remove_random_item_from_death_stash: id=%d invalid alife -- dropped tracking", stash_id)
         return
     end
     local ids = death_stash_collect_item_ids(stash_id)
@@ -915,29 +1255,29 @@ local function loot_one_random_item_from_death_stash(stash_id, reason)
     end
     local pick = ids[math.random(#ids)]
     alife_release_id(pick, reason or "extraction_mod_npc_loot")
-    dbg("loot_one_random_item_from_death_stash: released item id=%d from stash id=%d",
+    debug_log("remove_random_item_from_death_stash: released item id=%d from stash id=%d",
         pick, stash_id)
     remove_empty_death_stash(stash_id, reason)
 end
 
-local function stash_npc_loot_pulse(reason)
-    if not cfg("stash_npc_looting") then return end
+local function pulse_death_stash_npc_looting(reason)
+    if not mcm_option("stash_npc_looting") then return end
     local list = {}
     for id, _ in pairs(data.death_stash_ids) do
         list[#list + 1] = id
     end
     if #list == 0 then return end
-    dbg("stash_npc_loot_pulse: %d stash(es) reason=%s", #list, tostring(reason))
+    debug_log("pulse_death_stash_npc_looting: %d stash(es) reason=%s", #list, tostring(reason))
     for _, id in ipairs(list) do
         if data.death_stash_ids[id] then
-            loot_one_random_item_from_death_stash(id, reason)
+            remove_random_item_from_death_stash(id, reason)
         end
     end
 end
 
-local function maybe_stash_loot_by_game_time()
-    local hours = cfg_stash_loot_interval_hours()
-    if not cfg("stash_npc_looting") or hours <= 0 then return end
+local function tick_death_stash_npc_loot_by_game_time()
+    local hours = stash_loot_interval_hours_resolved()
+    if not mcm_option("stash_npc_looting") or hours <= 0 then return end
     if not (db.actor and db.actor:alive()) then return end
     -- game.time() = in-game ms since epoch (game.md). Do not use CTime() here:
     -- the CTime constructor is not bound as a global in this script's Lua env.
@@ -948,7 +1288,7 @@ local function maybe_stash_loot_by_game_time()
     end
     local need_ms = hours * 3600 * 1000
     if (now_ms - data.last_stash_loot_game_ms) < need_ms then return end
-    stash_npc_loot_pulse("interval")
+    pulse_death_stash_npc_looting("interval")
     data.last_stash_loot_game_ms = now_ms
 end
 
@@ -957,34 +1297,41 @@ end
 -- ─────────────────────────────────────────────────────────────────────────────
 
 local last_check_time = 0
+local last_safe_zone_restrictor_bind_poll_time = 0
 local was_in_safe_zone = false
 local pending_release_timer_started = false
 
 local function actor_on_update()
     if not (db.actor and db.actor:alive()) then return end
-    local now = game.time()
-    if (now - last_check_time) < UPDATE_INTERVAL then return end
-    last_check_time = now
 
-    -- TODO: Might there be a callback that we can fire when we enter a certain area so we don't have to do this here (expensive)
-    -- is_in_safe_zone() returns the matched zone table (truthy) or nil.
-    local zone    = is_in_safe_zone()
+    local now = game.time()
+    -- Restrictors may come online a few ticks after alife():create. Binding is cheap;
+    -- establishment (spawn + shape rewrite) runs only from load_state / first update.
+    if safe_zone_restrictor_callbacks_pending()
+        or (now - last_safe_zone_restrictor_bind_poll_time) > 250 then
+        last_safe_zone_restrictor_bind_poll_time = now
+        refresh_safe_zone_restrictor_callbacks()
+    end
+
+    local zone    = get_friendly_safe_zone_actor_is_inside()
     local in_safe = zone ~= nil
 
     if in_safe ~= was_in_safe_zone then
-        dbg("actor_on_update: safe zone state changed -> %s (level=%s)",
+        debug_log("actor_on_update: safe zone state changed -> %s (level=%s)",
             tostring(in_safe), level.name())
     end
 
     if in_safe and not was_in_safe_zone then
-        -- First tick after entering a base zone: record which zone this is.
-        dbg("actor_on_update: entered base zone -- recording last base")
-        set_last_base(zone)
+        debug_log("actor_on_update: entered base zone -- recording last base")
+        record_respawn_base_from_zone(zone)
         show_msg("Safe zone reached -- you will respawn here on death. Save your game!")
     end
     was_in_safe_zone = in_safe
 
-    maybe_stash_loot_by_game_time()
+    if (now - last_check_time) < UPDATE_INTERVAL then return end
+    last_check_time = now
+
+    tick_death_stash_npc_loot_by_game_time()
 end
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -1018,7 +1365,7 @@ local function on_before_load_input(dik, bind, flags)
     -- db.actor is nil at the main menu (no session active) -- allow load.
     if not db.actor then return end
     flags.ret = true
-    dbg("on_before_load_input: BLOCKED -- session active")
+    debug_log("on_before_load_input: BLOCKED -- session active")
     show_msg("Cannot load -- extraction mode is active!")
 end
 
@@ -1031,7 +1378,7 @@ end
 --
 --   Layer 2: on_console_execute (Lua-initiated saves only)
 --     Fires when exec_console_cmd runs a save. Redirects to the fixed file in
---     a safe zone; wrong filenames are removed by cleanup_unauthorized_saves.
+--     a safe zone; wrong filenames are removed by enforce_single_mod_save_slot.
 --     C++ console saves never hit this callback.
 --     on_console_execute IS documented in the callbacks reference.
 --
@@ -1048,46 +1395,46 @@ end
 -- Layer 1: block quicksave at the input level (no file is written).
 local function on_before_save_input(flags)
     if not db.actor then return end
-    local in_safe = is_in_safe_zone() ~= nil
-    dbg("on_before_save_input: in_safe=%s level=%s", tostring(in_safe), level.name())
+    local in_safe = get_friendly_safe_zone_actor_is_inside() ~= nil
+    debug_log("on_before_save_input: in_safe=%s level=%s", tostring(in_safe), level.name())
     if not in_safe then
         flags.ret = true -- "ret = true" cancels per callbacks-reference docs
-        dbg("on_before_save_input: BLOCKED (not in safe zone) level=%s", level.name())
+        debug_log("on_before_save_input: BLOCKED (not in safe zone) level=%s", level.name())
         show_msg("Cannot save  -- not at a friendly base!")
         return
     end
     -- In safe zone: cancel normal quicksave, redirect to our fixed file.
     flags.ret = true
-    dbg("on_before_save_input: redirecting quicksave -> %s (level=%s)", SAVE_FILENAME, level.name())
-    do_save()
-    -- on_console_execute fires as part of do_save(), sees our filename, passes.
+    debug_log("on_before_save_input: redirecting quicksave -> %s (level=%s)", SAVE_FILENAME, level.name())
+    save_extraction_slot()
+    -- on_console_execute fires as part of save_extraction_slot(), sees our filename, passes.
 end
 
 -- Layer 2: redirect any Lua-initiated save that slipped past Layer 1.
 -- Deletion of unauthorised saves (including raw C++ console writes to our slot)
--- is handled by cleanup_unauthorized_saves, scheduled from save_state and run
+-- is handled by enforce_single_mod_save_slot, scheduled from save_state and run
 -- 1 second later so the .scop exists on disk before delete.
 -- This callback only fires for saves initiated via exec_console_cmd (the Lua
 -- wrapper in _g.script) -- direct C++ console input never reaches it.
 local function on_console_execute(cmd, ...)
     if cmd ~= "save" then return end
 
-    -- Recursion guard: do_save() sets save_in_progress = true before calling
+    -- Recursion guard: save_extraction_slot() sets save_in_progress = true before calling
     -- exec_console_cmd, which fires this callback synchronously. If the flag is
     -- set we know this is our own intentional save  -- trust it and return.
     if save_in_progress then
-        dbg("on_console_execute: save_in_progress flag set -- this is our save, skipping")
+        debug_log("on_console_execute: save_in_progress flag set -- this is our save, skipping")
         return
     end
 
     -- Any external Lua save (e.g. another mod calling exec_console_cmd("save ...")).
     -- If we are in a safe zone, redirect to our fixed filename; the subsequent
-    -- cleanup_unauthorized_saves will delete any wrong-named file that was written.
-    if is_in_safe_zone() then
-        dbg("on_console_execute: external save in safe zone -- redirecting to %s", SAVE_FILENAME)
-        do_save()
+    -- enforce_single_mod_save_slot will delete any wrong-named file that was written.
+    if get_friendly_safe_zone_actor_is_inside() then
+        debug_log("on_console_execute: external save in safe zone -- redirecting to %s", SAVE_FILENAME)
+        save_extraction_slot()
     end
-    -- Outside a safe zone: do nothing here. cleanup_unauthorized_saves will
+    -- Outside a safe zone: do nothing here. enforce_single_mod_save_slot will
     -- delete whatever file the engine wrote.
 end
 
@@ -1104,7 +1451,7 @@ local DEATH_FADE_ID = 5606 -- pp effector ID for death blackout (matches Jabbers
 -- health hits 0  -- without this, hurt sounds continue playing after respawn.
 -- Confirmed from lua_help.script: `function wounded(boolean)` is a setter.
 local function heal_actor()
-    dbg("heal_actor: restoring health/power/radiation/bleeding/psy_health/wounded")
+    debug_log("heal_actor: restoring health/power/radiation/bleeding/psy_health/wounded")
     db.actor:set_health_ex(1.0)
     db.actor.power      = 1
     db.actor.radiation  = 0
@@ -1129,10 +1476,44 @@ end
 --   forces bleeding=1 every frame, causing hurt sounds even after healing.
 --   Setting it to time_global()+1 lets it expire immediately once the actor is
 --   safely at the base. Pattern from Jabbers Soulslike OnRespawn().
-local function do_respawn_deferred()
-    dbg("do_respawn_deferred: fired")
+--
+-- HARD INVARIANT:
+--   Same-level respawn after cancelled death uses black_infinite.ppe then
+--   set_actor_position on this level. Do not end that path with only
+--   level.remove_pp_effector(DEATH_FADE_ID) — Anomaly can leave movement and mouse
+--   input disabled (HUD / input state wedged) until explicitly restored below.
+--   This helper must: remove_pp_effector(DEATH_FADE_ID); level.enable_input() when
+--   present; game.only_allow_movekeys(false) when game.only_movekeys_allowed();
+--   level.show_weapon(true) when present (wrap optional APIs in pcall).
+--   The same-level branch of complete_extraction_respawn must also schedule this
+--   function again with CreateTimeEvent(..., 0, ...) after the first pass so cleanup
+--   runs on the next ProcessEventQueue tick.
+-- ─────────────────────────────────────────────────────────────────────────────
+
+local function extraction_respawn_clear_death_fx_and_controls()
+    level.remove_pp_effector(DEATH_FADE_ID)
+    pcall(function()
+        if level.enable_input then
+            level.enable_input()
+        end
+    end)
+    pcall(function()
+        if game.only_movekeys_allowed and game.only_movekeys_allowed() then
+            game.only_allow_movekeys(false)
+        end
+    end)
+    pcall(function()
+        if level.show_weapon then
+            level.show_weapon(true)
+        end
+    end)
+    return true
+end
+
+local function complete_extraction_respawn()
+    debug_log("complete_extraction_respawn: fired")
     if not db.actor then
-        dbg("do_respawn_deferred: db.actor is nil  -- aborting")
+        debug_log("complete_extraction_respawn: db.actor is nil  -- aborting")
         return true
     end
 
@@ -1140,10 +1521,10 @@ local function do_respawn_deferred()
     -- level.get_time_hours() is unreliable by the time this deferred function
     -- fires -- the value observed in-game can differ from the time of death for
     -- reasons that are not fully understood. death_hour should always be set here
-    -- because do_respawn_deferred is only ever reached via the stash-poll chain
+    -- because complete_extraction_respawn is only ever reached via the stash-poll chain
     -- started by actor_on_before_death, which sets death_hour first.
     if not death_hour then
-        printe("![EM] do_respawn_deferred: death_hour is nil -- this should never happen")
+        printe("![EM] complete_extraction_respawn: death_hour is nil -- this should never happen")
         return true
     end
     local hour = death_hour
@@ -1151,10 +1532,10 @@ local function do_respawn_deferred()
     death_hour  = nil
     death_label = nil
     delete_items_on_death_pending = false
-    dbg("do_respawn_deferred: hour at death=%d, is_night=%s", hour, tostring(is_night(hour)))
+    debug_log("complete_extraction_respawn: hour at death=%d, is_night=%s", hour, tostring(is_night(hour)))
     if is_night(hour) then
         local hours = hours_until_dawn(hour)
-        dbg("do_respawn_deferred: advancing time by %d hours to reach dawn", hours)
+        debug_log("complete_extraction_respawn: advancing time by %d hours to reach dawn", hours)
         if hours > 0 then
             level.change_game_time(0, hours, 0)
         end
@@ -1163,13 +1544,13 @@ local function do_respawn_deferred()
     heal_actor()
 
     -- Look up the zone by name to get current respawn coords. This means a
-    -- set_spawn() change takes effect on the next death without re-entering.
+    -- dev_cli_set_zone_respawn() change takes effect on the next death without re-entering.
     -- actor_on_before_death already verified a valid base exists before queuing
     -- this deferred call, so base_zone should never be nil here.
     local base_zone = data.last_base_name and SAFE_ZONES_BY_NAME[data.last_base_name]
     if not base_zone then
-        printe("![EM] do_respawn_deferred: base_zone is nil -- this should not happen")
-        level.remove_pp_effector(DEATH_FADE_ID)
+        printe("![EM] complete_extraction_respawn: base_zone is nil -- this should not happen")
+        extraction_respawn_clear_death_fx_and_controls()
         return true
     end
 
@@ -1177,38 +1558,40 @@ local function do_respawn_deferred()
     local base_dir = base_zone.respawn_dir  -- nil = no direction override
 
     local current_level = level.name()
-    dbg("do_respawn_deferred: base=%s current_level=%s base_level=%s",
+    debug_log("complete_extraction_respawn: base=%s current_level=%s base_level=%s",
         data.last_base_name, current_level, tostring(data.last_base_level))
-    dbg("do_respawn_deferred: respawn=(%.2f, %.2f, %.2f) dir=%s lvid=%s gvid=%s",
+    debug_log("complete_extraction_respawn: respawn=(%.2f, %.2f, %.2f) dir=%s lvid=%s gvid=%s",
         base_pos.x, base_pos.y, base_pos.z,
         base_dir and string.format("%.4f", base_dir) or "nil",
         tostring(data.last_base_lvid), tostring(data.last_base_gvid))
 
     if data.last_base_level == current_level then
-        dbg("do_respawn_deferred: SAME-LEVEL respawn  -- using set_actor_position")
+        debug_log("complete_extraction_respawn: SAME-LEVEL respawn  -- using set_actor_position")
         db.actor:set_actor_position(base_pos)
         -- Apply configured facing direction, if any.
         -- set_actor_direction(number) confirmed on db.actor from sr_teleport.script.
         if base_dir then
-            dbg("do_respawn_deferred: setting direction to %.4f rad", base_dir)
+            debug_log("complete_extraction_respawn: setting direction to %.4f rad", base_dir)
             db.actor:set_actor_direction(base_dir)
         end
         bind_stalker_ext.invulnerable_time = time_global() + 1
-        dbg("do_respawn_deferred: invulnerable_time expired, removing fade, saving")
-        level.remove_pp_effector(DEATH_FADE_ID)
-        do_save()
+        debug_log("complete_extraction_respawn: invulnerable_time expired, removing fade, saving")
+        extraction_respawn_clear_death_fx_and_controls()
+        save_extraction_slot()
         if delete_mode then
             show_msg("You have died. Non-protected gear was destroyed.")
         else
             show_msg("You have died. Your gear marks the site of your death.")
         end
+        -- HARD INVARIANT: second-tick pass required (see block above this helper).
+        CreateTimeEvent("extraction_mod", "post_respawn_ctrl", 0, extraction_respawn_clear_death_fx_and_controls)
     else
-        dbg("do_respawn_deferred: CROSS-LEVEL respawn  -- using ChangeLevel (nothing executes after)")
+        debug_log("complete_extraction_respawn: CROSS-LEVEL respawn  -- using ChangeLevel (nothing executes after)")
         -- Pass the configured heading as a HPB vector (x = heading, y/z = 0).
         -- All existing base-game ChangeLevel calls use VEC_ZERO; we only deviate
         -- when a respawn_dir is configured for the zone.
         local angle = base_dir and vector():set(base_dir, 0, 0) or VEC_ZERO
-        dbg("do_respawn_deferred: angle=(%s, 0, 0)", base_dir and string.format("%.4f", base_dir) or "0")
+        debug_log("complete_extraction_respawn: angle=(%s, 0, 0)", base_dir and string.format("%.4f", base_dir) or "0")
         if delete_mode then
             show_msg("You have died. Non-protected gear was destroyed.")
         else
@@ -1224,53 +1607,48 @@ end
 -- all actor inventory into it, then queues the respawn timer.
 -- Returns false to keep polling, true when done (CreateTimeEvent contract).
 -- Pattern confirmed from Jabbers Soulslike HandleItemsAndRespawn source.
-local function wait_for_stash_and_respawn(stash_id)
+local function poll_death_stash_transfer_and_queue_respawn(stash_id)
     local stash = level.object_by_id(stash_id)
     if not stash then
-        dbg("wait_for_stash_and_respawn: stash id=%s not online yet  -- polling", tostring(stash_id))
+        debug_log("poll_death_stash_transfer_and_queue_respawn: stash id=%s not online yet  -- polling", tostring(stash_id))
         return false -- not online yet, poll again next tick
     end
 
-    dbg("wait_for_stash_and_respawn: stash id=%s is ONLINE  -- transferring items", tostring(stash_id))
+    debug_log("poll_death_stash_transfer_and_queue_respawn: stash id=%s is ONLINE  -- transferring items", tostring(stash_id))
 
     -- Transfer all items from actor into the stash container, except those
     -- listed in keep_on_death (e.g. the PDA).
     -- db.actor:transfer_item(item, container) confirmed from Jabbers source.
     -- Collect into a table first to avoid modifying inventory mid-iteration.
-    local items = {}
-    db.actor:iterate_inventory(function(_, obj)
-        if not keep_on_death[obj:section()] then
-            items[#items + 1] = obj
-        end
-    end, nil)
+    local items = collect_actor_inventory_excluding_keep_on_death()
 
-    dbg("wait_for_stash_and_respawn: transferring %d items to stash", #items)
+    debug_log("poll_death_stash_transfer_and_queue_respawn: transferring %d items to stash", #items)
     for _, item in ipairs(items) do
-        dbg("wait_for_stash_and_respawn: transferring item '%s'", item:section())
+        debug_log("poll_death_stash_transfer_and_queue_respawn: transferring item '%s'", item:section())
         db.actor:transfer_item(item, stash)
     end
 
-    dbg("wait_for_stash_and_respawn: transfer complete  -- queuing respawn in 3s")
+    debug_log("poll_death_stash_transfer_and_queue_respawn: transfer complete  -- queuing respawn in 3s")
 
     data.death_stash_ids[stash_id] = true
-    dbg("wait_for_stash_and_respawn: registered death_stash id=%d", stash_id)
+    debug_log("poll_death_stash_transfer_and_queue_respawn: registered death_stash id=%d", stash_id)
 
     -- Add a PDA map marker so the player can find their stash after respawn.
     -- Uses "secondary_task_location" spot type (confirmed from soulslike_scenarios.script).
     -- map_add_object_spot_ser persists the marker in the save file.
     -- The marker is removed in actor_on_item_take_from_box when the player loots the stash.
-    if cfg("show_stash_marker") then
+    if mcm_option("show_stash_marker") then
         -- Use the in-game date/time captured at the moment of death (e.g.
         -- "Death: 14.04.2012 21:33"). Falls back to a generic label if somehow
         -- death_label was not set (should not happen in normal flow).
         local label = death_label or "Death stash"
         level.map_add_object_spot_ser(stash_id, "secondary_task_location", label)
         data.stash_ids[stash_id] = true
-        dbg("wait_for_stash_and_respawn: added PDA marker for stash id=%d label='%s'", stash_id, label)
+        debug_log("poll_death_stash_transfer_and_queue_respawn: added PDA marker for stash id=%d label='%s'", stash_id, label)
     end
 
     -- Respawn 3 seconds after items are transferred  -- gives the fade time to play.
-    CreateTimeEvent("extraction_mod", "respawn", 3, do_respawn_deferred)
+    CreateTimeEvent("extraction_mod", "respawn", 3, complete_extraction_respawn)
     return true
 end
 
@@ -1283,7 +1661,7 @@ local function actor_on_item_take_from_box(box, obj)
     if data.stash_ids[id] then
         level.map_remove_object_spot(id, "secondary_task_location")
         data.stash_ids[id] = nil
-        dbg("actor_on_item_take_from_box: removed stash marker for id=%d", id)
+        debug_log("actor_on_item_take_from_box: removed stash marker for id=%d", id)
     end
 
     remove_empty_death_stash(id, "extraction_mod_player_emptied")
@@ -1291,14 +1669,14 @@ end
 
 -- Requires modded exes. flags.ret_value = false cancels the death event.
 local function actor_on_before_death(who_id, flags)
-    dbg("actor_on_before_death: fired  -- who_id=%s", tostring(who_id))
+    debug_log("actor_on_before_death: fired  -- who_id=%s", tostring(who_id))
 
     -- If the player has never reached a safe zone there is no respawn point.
     -- Delete any existing mod save before allowing the death so the player
     -- cannot cheat by deliberately unsetting their spawn to reload an old save.
     local base_zone = data.last_base_name and SAFE_ZONES_BY_NAME[data.last_base_name]
     if not base_zone then
-        dbg("actor_on_before_death: no base on record -- deleting save and allowing death (game over)")
+        debug_log("actor_on_before_death: no base on record -- deleting save and allowing death (game over)")
         ui_load_dialog.delete_save_game(SAVE_FILENAME)
         return
     end
@@ -1306,9 +1684,9 @@ local function actor_on_before_death(who_id, flags)
     -- Cache the time of death NOW, before any engine state changes.
     -- The engine appears to restore the last save's time as part of processing
     -- the cancelled death, so level.get_time_hours() returns a stale/wrong value
-    -- by the time do_respawn_deferred fires a few seconds later.
+    -- by the time complete_extraction_respawn fires a few seconds later.
     death_hour = level.get_time_hours()
-    dbg("actor_on_before_death: death_hour=%d (cached before engine state changes)", death_hour)
+    debug_log("actor_on_before_death: death_hour=%d (cached before engine state changes)", death_hour)
 
     -- Build a human-readable in-game date/time label for the PDA stash marker.
     -- CTime:get() returns Y,M,D,h,m,s,ms (all as numbers).
@@ -1318,54 +1696,52 @@ local function actor_on_before_death(who_id, flags)
         local Y, Mo, D, h, m, s, ms = 0, 0, 0, 0, 0, 0, 0
         Y, Mo, D, h, m, s, ms = t:get(Y, Mo, D, h, m, s, ms)
         death_label = string.format("Death: %02d.%02d.%04d %02d:%02d", D, Mo, Y, h, m)
-        dbg("actor_on_before_death: death_label='%s'", death_label)
+        debug_log("actor_on_before_death: death_label='%s'", death_label)
     end
-    delete_items_on_death_pending = cfg("delete_items_on_death")
-    dbg("actor_on_before_death: delete_items_on_death=%s", tostring(delete_items_on_death_pending))
+    delete_items_on_death_pending = mcm_option("delete_items_on_death")
+    debug_log("actor_on_before_death: delete_items_on_death=%s", tostring(delete_items_on_death_pending))
 
     flags.ret_value = false
-    dbg("actor_on_before_death: flags.ret_value set to false (death cancelled)")
+    debug_log("actor_on_before_death: flags.ret_value set to false (death cancelled)")
 
     -- Invulnerability: actor_on_update forces health=1 while this is in the future,
     -- preventing re-death from residual damage during the respawn sequence.
     -- Pattern confirmed from Jabbers Soulslike OnDeath().
     bind_stalker_ext.invulnerable_time = time_global() + 30000
-    dbg("actor_on_before_death: invulnerable_time set (+30s)")
+    debug_log("actor_on_before_death: invulnerable_time set (+30s)")
 
     -- Restore health immediately so g_Alive() returns true.
     -- g_Alive() == `GetfHealth() > 0` (Entity.h:90)  -- health is 0 at this point.
     db.actor:set_health_ex(1.0)
-    dbg("actor_on_before_death: health restored to 1.0")
+    debug_log("actor_on_before_death: health restored to 1.0")
 
     -- Fade to black.
     level.add_pp_effector("black_infinite.ppe", DEATH_FADE_ID, true)
-    dbg("actor_on_before_death: fade to black started (effector id=%d)", DEATH_FADE_ID)
+    debug_log("actor_on_before_death: fade to black started (effector id=%d)", DEATH_FADE_ID)
 
     -- Count transferable items (excluding keep_on_death sections) before
     -- deciding whether to spawn a stash.
-    local items = {}
+    local items = collect_actor_inventory_excluding_keep_on_death()
     db.actor:iterate_inventory(function(_, obj)
-        if not keep_on_death[obj:section()] then
-            items[#items + 1] = obj
-        else
-            dbg("actor_on_before_death: keeping '%s' (in keep_on_death)", obj:section())
+        if keep_on_death[obj:section()] then
+            debug_log("actor_on_before_death: keeping '%s' (in keep_on_death)", obj:section())
         end
     end, nil)
-    dbg("actor_on_before_death: transferable item count=%d", #items)
+    debug_log("actor_on_before_death: transferable item count=%d", #items)
 
     if #items == 0 then
-        dbg("actor_on_before_death: inventory empty  -- skipping stash, respawn in 3s")
-        CreateTimeEvent("extraction_mod", "respawn", 3, do_respawn_deferred)
+        debug_log("actor_on_before_death: inventory empty  -- skipping stash, respawn in 3s")
+        CreateTimeEvent("extraction_mod", "respawn", 3, complete_extraction_respawn)
         return
     end
 
     if delete_items_on_death_pending then
-        dbg("actor_on_before_death: deleting %d non-protected item(s)", #items)
+        debug_log("actor_on_before_death: deleting %d non-protected item(s)", #items)
         for _, item in ipairs(items) do
-            dbg("actor_on_before_death: deleting item '%s'", item:section())
+            debug_log("actor_on_before_death: deleting item '%s'", item:section())
             alife_release(item)
         end
-        CreateTimeEvent("extraction_mod", "respawn", 3, do_respawn_deferred)
+        CreateTimeEvent("extraction_mod", "respawn", 3, complete_extraction_respawn)
         return
     end
 
@@ -1374,17 +1750,17 @@ local function actor_on_before_death(who_id, flags)
     local death_pos  = db.actor:position()
     local death_lvid = db.actor:level_vertex_id()
     local death_gvid = db.actor:game_vertex_id()
-    dbg("actor_on_before_death: death pos=(%.2f, %.2f, %.2f) lvid=%s gvid=%s level=%s",
+    debug_log("actor_on_before_death: death pos=(%.2f, %.2f, %.2f) lvid=%s gvid=%s level=%s",
         death_pos.x, death_pos.y, death_pos.z,
         tostring(death_lvid), tostring(death_gvid), level.name())
 
     local se_stash = alife_create("inv_backpack", death_pos, death_lvid, death_gvid)
     if se_stash then
-        dbg("actor_on_before_death: stash created, server id=%s  -- polling for online", tostring(se_stash.id))
-        CreateTimeEvent("extraction_mod", "wait_stash", 0, wait_for_stash_and_respawn, se_stash.id)
+        debug_log("actor_on_before_death: stash created, server id=%s  -- polling for online", tostring(se_stash.id))
+        CreateTimeEvent("extraction_mod", "wait_stash", 0, poll_death_stash_transfer_and_queue_respawn, se_stash.id)
     else
-        dbg("actor_on_before_death: stash creation FAILED  -- skipping item transfer, respawn in 3s")
-        CreateTimeEvent("extraction_mod", "respawn", 3, do_respawn_deferred)
+        debug_log("actor_on_before_death: stash creation FAILED  -- skipping item transfer, respawn in 3s")
+        CreateTimeEvent("extraction_mod", "respawn", 3, complete_extraction_respawn)
     end
 end
 
@@ -1399,13 +1775,18 @@ end
 -- The flag is a plain file in the saves folder ("em_transition_flag").
 -- actor_on_first_update deletes it after reading it, so it never accumulates.
 local function on_level_changing()
+    first_update_done = false
+    was_in_safe_zone = false
+    data.safe_zone_restrictor_ids = {}
+    clear_safe_zone_restrictor_state()
+
     -- Write "1" to the flag file. actor_on_first_update reads this and resets
     -- it to "0" after consuming it, so the file persists as a persistent
     -- on/off indicator across level transitions.
     -- NOTE: os.remove is not available in Anomaly's Lua sandbox, so we cannot
     -- delete the file. We use content ("1"/"0") to track state instead.
     local flag_path = get_flag_path()
-    dbg("on_level_changing: writing transition flag to '%s'", flag_path)
+    debug_log("on_level_changing: writing transition flag to '%s'", flag_path)
     local f = io.open(flag_path, "w")
     if f then
         f:write("1")
@@ -1424,7 +1805,7 @@ local first_update_done    = false
 local function actor_on_first_update()
     if first_update_done then return end
     first_update_done = true
-    dbg("actor_on_first_update: first update fired (level=%s)", level.name())
+    debug_log("actor_on_first_update: first update fired (level=%s)", level.name())
 
     -- [GAP-8] Level-transition autosave cleanup.
     -- The C++ engine writes user_name() .. " - autosave" during every level
@@ -1455,22 +1836,25 @@ local function actor_on_first_update()
             local fw = io.open(flag_path, "w")
             if fw then fw:write("0"); fw:close() end
             local autosave_name = string.lower(user_name()) .. " - autosave"
-            dbg("actor_on_first_update: transition flag found -- deleting engine autosave '%s'", autosave_name)
+            debug_log("actor_on_first_update: transition flag found -- deleting engine autosave '%s'", autosave_name)
             ui_load_dialog.delete_save_game(autosave_name)
         else
-            dbg("actor_on_first_update: no transition flag (val='%s') -- skipping autosave cleanup", flag_val)
+            debug_log("actor_on_first_update: no transition flag (val='%s') -- skipping autosave cleanup", flag_val)
         end
-        -- No do_save() here: the existing em_extraction_save from before the
-        -- transition is still valid. actor_on_update will write a new save the
-        -- next time the player is in a safe zone on this level.
+        -- No save_extraction_slot() here: the existing em_extraction_save from before the
+        -- transition is still valid. The player saves manually when inside a base.
     end
 
     if not data.last_base_name then
-        dbg("actor_on_first_update: no base on record -- player must visit a safe zone")
+        debug_log("actor_on_first_update: no base on record -- player must visit a safe zone")
     else
-        dbg("actor_on_first_update: base on record: %s (level=%s)",
+        debug_log("actor_on_first_update: base on record: %s (level=%s)",
             data.last_base_name, tostring(data.last_base_level))
     end
+
+    ensure_safe_zone_restrictors_for_level()
+    refresh_safe_zone_restrictor_callbacks()
+
     show_msg("Extraction mode active. Saves only at friendly bases.")
 end
 
@@ -1479,11 +1863,11 @@ end
 -- ─────────────────────────────────────────────────────────────────────────────
 
 function on_game_start()
-    dbg("on_game_start: registering callbacks")
+    debug_log("on_game_start: registering callbacks")
     load_config()
     if not pending_release_timer_started then
         CreateTimeEvent("extraction_mod", "pending_stash_release", STASH_RELEASE_FLUSH_INTERVAL_SEC,
-            pending_stash_release_tick)
+            tick_pending_death_stash_releases)
         pending_release_timer_started = true
     end
 
@@ -1505,12 +1889,12 @@ function on_game_start()
                 -- the main menu, so loads from there are always allowed through.
                 if db.actor and db.actor:alive() then
                     show_msg("Cannot load -- extraction mode is active!")
-                    dbg("UILoadDialog.load_game_internal: BLOCKED")
+                    debug_log("UILoadDialog.load_game_internal: BLOCKED")
                     return
                 end
                 return orig_load_game_internal(self_dlg)
             end
-            dbg("on_game_start: UILoadDialog.load_game_internal patched")
+            debug_log("on_game_start: UILoadDialog.load_game_internal patched")
         else
             printe("![EM] on_game_start: ui_load_dialog.UILoadDialog not found -- ESC menu load blocking unavailable")
         end
@@ -1529,9 +1913,10 @@ function on_game_start()
 end
 
 function on_game_end()
-    dbg("on_game_end: unregistering callbacks and resetting state")
+    debug_log("on_game_end: unregistering callbacks and resetting state")
     first_update_done = false
     last_check_time   = 0
+    last_safe_zone_restrictor_bind_poll_time = 0
     was_in_safe_zone  = false
     death_hour        = nil
     death_label       = nil
@@ -1540,6 +1925,11 @@ function on_game_end()
     data.death_stash_ids        = {}
     data.pending_stash_release_ids = {}
     data.last_stash_loot_game_ms = nil
+    data.safe_zone_restrictor_ids = {}
+    SAFE_ZONES_BY_RESTRICTOR_ID    = {}
+    ACTOR_INSIDE_SAFE_ZONE_IDS  = {}
+    SAFE_ZONE_RESTRICTOR_CALLBACKS_DONE = {}
+    SAFE_ZONE_RESTRICTOR_SEED_DONE = {}
     pending_release_timer_started = false
     external_save_cleanup_ctx = nil
     if ui_load_dialog then

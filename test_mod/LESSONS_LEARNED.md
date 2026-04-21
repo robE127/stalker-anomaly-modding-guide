@@ -189,6 +189,20 @@ CreateTimeEvent("my_mod", "respawn", 1, my_respawn_fn)
 
 ---
 
+### Same-map respawn after cancelled death — no movement / no mouse
+Observed in `extraction_mod.script`: `black_infinite.ppe` + deferred `set_actor_position`
+on the **same** level could leave input dead after `remove_pp_effector` alone.
+
+**Fix:** after removing the PP id, call `level.enable_input()`, clear
+`game.only_allow_movekeys(false)` when `game.only_movekeys_allowed()`, `level.show_weapon(true)`,
+and schedule the same cleanup again with `CreateTimeEvent(..., 0, ...)`.
+
+**Documented in the guide** under `actor_on_before_death` (callbacks reference) and
+under cancel-death / same-map respawn (actor API page).
+Implementation reference: `extraction_respawn_clear_death_fx_and_controls` in this mod.
+
+---
+
 ### `ProcessEventQueue` is driven by `AddUniqueCall`, not `actor_on_update`
 `CreateTimeEvent` events are processed by `ProcessEventQueue`, which is registered
 via `AddUniqueCall(ProcessEventQueue)` in `bind_stalker_ext.actor_on_reinit`. This
@@ -244,7 +258,7 @@ the actual Windows account.
 
 The engine log file is named at startup BEFORE this override runs, which is why
 the log is `xray_roced.log` (OS login = "roced") while `user_name()` returns
-"Player" at runtime. `character_name()` is unrelated — it returns the in-game
+"Player" once the game is running. `character_name()` is unrelated — it returns the in-game
 actor display name (faction archetype, e.g. "stalker"), not any OS or save-file
 identity.
 
