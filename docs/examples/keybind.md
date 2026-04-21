@@ -80,6 +80,8 @@ local defaults = {
 local function cfg(key)
     if ui_mcm then
         local v = ui_mcm.get("my_keybind_mod/" .. key)
+        -- MCM stores 0 when a key_bind is cleared; treat it as unbound.
+        if key == "hotkey" and v == 0 then return nil end
         return v ~= nil and v or defaults[key]
     end
     return defaults[key]
@@ -110,7 +112,8 @@ local function on_key_press(key)
     if not cfg("enable") then return end
 
     -- Match the configured key
-    if key ~= cfg("hotkey") then return end
+    local hotkey = cfg("hotkey")
+    if not hotkey or key ~= hotkey then return end
 
     -- Don't fire during menus or conversations
     if not actor_menu.is_hud_free() then return end
@@ -158,9 +161,19 @@ end
 
 ## How it works
 
-**Key detection.** `on_key_press` receives a DIK key code. Comparing it against `cfg("hotkey")` handles both the hardcoded default and any MCM override — because `cfg` returns the MCM value when available and the default otherwise.
+**Key detection.** `on_key_press` receives a DIK key code. Comparing it against `cfg("hotkey")` handles both the hardcoded default and any MCM override.
+When a `key_bind` is cleared in MCM, it is typically stored as `0`; treat that as unbound (`nil`) so your action cleanly disables instead of matching a real key.
 
 **Guard conditions.** The check `actor_menu.is_hud_free()` returns `false` when any menu is open (inventory, PDA, trade). The `is_talking()` check prevents the action during dialogs. Both are good practice for any hotkey action.
+
+For context-sensitive actions (for example, base-only actions), add your area/state guard after input guards:
+
+```lua
+if not in_allowed_zone() then
+    actor_menu.set_msg(1, "You must be in a safe zone.", 3)
+    return
+end
+```
 
 **PP effector.** `level.add_pp_effector` takes a file from `gamedata/anims/`, a unique numeric ID, and a loop flag. `false` means play once and remove itself. The ID `58391` is arbitrary — pick a number you're unlikely to clash with (check base game IDs in `_g.script` for values to avoid).
 
