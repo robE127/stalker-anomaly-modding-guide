@@ -377,7 +377,7 @@ run_string level.change_game_time(0,-3,0)
 
 Advances or rewinds the in-game clock by the given number of hours. Affects the actual game clock that `level.get_time_hours()` reads — unlike the weather editor, which only changes the visual sky appearance.
 
-!!! warning "Avoid extreme `time_factor` for stability testing"
+!!! warning "Avoid extreme `time_factor` when testing"
     Very high `time_factor` values can destabilize Anomaly's simulation (rapid spawn/destroy churn) and cause crashes unrelated to your script changes. For testing time-based mod logic, prefer direct clock jumps with `run_string level.change_game_time(0,h,0)`.
 
 **Read the current hour**

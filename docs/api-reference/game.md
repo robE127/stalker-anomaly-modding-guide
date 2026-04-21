@@ -272,7 +272,7 @@ ui_load_dialog.delete_save_game("autosave")
 
 Defined in `ui_load_dialog.script`. Deletes both the `.scop` save file and the associated `.dds` screenshot thumbnail.
 
-**Single-slot save pattern** (used by ironman / extraction-mode mods):
+**Single-slot save pattern** (used by ironman-style or other single-save-slot challenge modes):
 
 ```lua
 local SAVE_NAME = "my_mod_save"

@@ -115,6 +115,34 @@ UnregisterScriptCallback("callback_name", your_function)
     CreateTimeEvent("my_mod", "respawn", 1, do_respawn)
     ```
 
+!!! warning "Same-map respawn: restore input and HUD after fade + teleport"
+    If you cancel death with `flags.ret_value = false`, use a **full-screen PP fade** (for example `black_infinite.ppe` with `level.add_pp_effector`), then **`db.actor:set_actor_position`** on the **same level**, the engine can finish the sequence with **movement and mouse input disabled** (player looks fine but cannot act).
+
+    After **`level.remove_pp_effector`** on your fade ID, explicitly:
+
+    - **`level.enable_input()`** — clears engine input suppression when it applies.
+    - **`game.only_allow_movekeys(false)`** if **`game.only_movekeys_allowed()`** — clears move-keys-only mode if something left it on.
+    - **`level.show_weapon(true)`** — restores the weapon view if the HUD got wedged.
+
+    Wrap optional APIs in **`pcall`** if you support multiple builds. A **second pass** on the next tick helps when ordering matters, for example:
+
+    ```lua
+    local function clear_death_fx_and_controls()
+        level.remove_pp_effector(MY_FADE_ID)
+        if level.enable_input then level.enable_input() end
+        if game.only_movekeys_allowed and game.only_movekeys_allowed() then
+            game.only_allow_movekeys(false)
+        end
+        if level.show_weapon then level.show_weapon(true) end
+        return true
+    end
+    -- after same-map teleport + save:
+    clear_death_fx_and_controls()
+    CreateTimeEvent("my_mod", "post_respawn_ctrl", 0, clear_death_fx_and_controls)
+    ```
+
+    Removing only the post-process effector is often **not** enough; keep the input and HUD cleanup above whenever you use this same-map cancel-death + fade + teleport pattern.
+
 See [db.actor — Cancel death and respawn at a base](../api-reference/actor.md#cancel-death-and-respawn-at-a-base) for the full respawn pattern.
 
 ---

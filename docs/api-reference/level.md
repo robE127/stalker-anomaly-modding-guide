@@ -257,7 +257,7 @@ level.map_change_spot_hint(obj_id, "secondary_object", "New hint text")
 |-----------|-------------|
 | `"primary_object"` | Primary quest marker (large icon) |
 | `"secondary_object"` | Secondary marker (smaller icon) |
-| `"secondary_task_location"` | Secondary task location marker — used for custom markers such as death stash locations. Confirmed from community mods (Jabbers Soulslike, extraction_mod). |
+| `"secondary_task_location"` | Secondary task location marker — used for custom markers such as death stash locations. |
 | `"treasure"` | Stash marker |
 | `"fast_travel"` | Fast travel point |
 | `"ui_pda2_mechanic_location"` | Mechanic location |

@@ -542,6 +542,22 @@ local function actor_on_before_death(who_id, flags)
 end
 ```
 
+### Same-map respawn: input and HUD after fade
+
+If your deferred respawn uses a **cyclic blackout** (`level.add_pp_effector("black_infinite.ppe", id, true)`) and then **`set_actor_position`** on the **current** level (instead of `ChangeLevel`), test for a **post-respawn lock**: no movement, no mouse, sometimes with a normal-looking view.
+
+After you **`level.remove_pp_effector`** on that fade ID, also:
+
+1. **`level.enable_input()`** when available.
+2. **`game.only_allow_movekeys(false)`** when **`game.only_movekeys_allowed()`** is true.
+3. **`level.show_weapon(true)`** when you need the weapon mesh back.
+
+Schedule the same cleanup again with **`CreateTimeEvent(..., 0, ...)`** so it runs on the **next** `ProcessEventQueue` tick; a single call is sometimes not enough depending on save / message ordering.
+
+Put this cleanup in a small dedicated helper and call it once after teleport, then schedule the same helper on delay **0** for a second pass on the next tick.
+
+See also: [Callbacks Reference — actor_on_before_death](../callbacks-reference/index.md#actor_on_before_death--critical-timing-notes).
+
 ---
 
 ## Notes

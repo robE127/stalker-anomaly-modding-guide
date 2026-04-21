@@ -127,9 +127,29 @@ See [What is a game_object?](../scripting/game-object.md).
 
 ---
 
+## game graph
+
+The **game graph** is the global alife navigation graph that connects all levels. Each node is a [game_vertex_id](#game_vertex_id), and each vertex belongs to some level.
+
+The engine uses the game graph for cross-level simulation decisions (for example, routing squads and tracking entities that move between maps). Server entities store a game-graph anchor so alife can reason about them even when they are offline.
+
+When spawning with `alife():create(section, pos, lvid, gvid)`, `gvid` is the node in this graph.
+
+---
+
 ## game_vertex_id
 
 A **game vertex** is a node in the global navigation graph that spans all levels. Unlike [level vertices](#level_vertex_id) (which are local to one map), game vertices allow the alife simulation to track entities across level boundaries. Access via `obj:game_vertex_id()` or `se_obj.m_game_vertex_id`.
+
+---
+
+## game_vertex_id() (method)
+
+`obj:game_vertex_id()` returns the object's current [game_vertex_id](#game_vertex_id): a node in the global cross-level graph.
+
+When calling `alife():create(section, pos, lvid, gvid)`, the `gvid` argument is this global graph anchor. It is **not** ownership metadata; it does not mean the spawned object belongs to the source object.
+
+For spawned entities, scripts often use `db.actor:game_vertex_id()` as a convenient valid `gvid` when the actor is online.
 
 ---
 
@@ -149,7 +169,35 @@ Info_portions are declared in XML files under `configs/gameplay/` (e.g. `info_po
 
 ## level_vertex_id
 
-A **level vertex** is a node in the AI navigation mesh (navmesh) for the current level. The navmesh is a graph of walkable positions — each vertex represents a point that AI can navigate to. `obj:level_vertex_id()` returns the ID of the navmesh node nearest to the object.
+A **level vertex** is a node in the [level graph](#level-graph) for the current level. `obj:level_vertex_id()` returns the ID of the navmesh node nearest to the object.
+
+---
+
+## level graph
+
+The **level graph** is the per-map AI navigation graph (navmesh) for one level only. Its nodes are [level_vertex_id](#level_vertex_id) values that represent walkable locations on that map.
+
+AI pathfinding within the currently loaded level uses this graph. Unlike the [game graph](#game-graph), level-graph IDs are only meaningful inside that one map and cannot be used across levels.
+
+---
+
+## level.vertex_id(pos)
+
+`level.vertex_id(pos)` returns the [level_vertex_id](#level_vertex_id) nearest to `pos` on the current map.
+
+This is commonly used when spawning server entities:
+
+```lua
+local pos  = vector():set(x, y, z)
+local lvid = level.vertex_id(pos)       -- map-local navmesh node
+local gvid = db.actor:game_vertex_id()  -- global graph node
+local se   = alife():create(section, pos, lvid, gvid)
+```
+
+`alife():create` expects both IDs:
+
+- `lvid` places the entity on the current level graph.
+- `gvid` registers the entity in the global game graph.
 
 ---
 
