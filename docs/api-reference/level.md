@@ -415,7 +415,7 @@ ChangeLevel(target_pos, target_lvid, target_gvid, VEC_ZERO, false)
 | `position` | `vector` | World-space destination position |
 | `level_vertex_id` | `number` | Nav mesh vertex ID at the destination |
 | `game_vertex_id` | `number` | Game vertex identifying the destination level |
-| `angle` | `vector` | Facing direction at arrival (`VEC_ZERO` = default) |
+| `angle` | `vector` | Actor `o_Angle` as `pitch,yaw,roll` (`VEC_ZERO` = preserve default) |
 | `use_animation` | `boolean` | `true` = fade to black with `sleep_fade.ppe`, 3-second deferred travel; `false` = immediate |
 
 !!! warning "Execution stops immediately"
@@ -441,6 +441,22 @@ ChangeLevel(target_pos, target_lvid, target_gvid, VEC_ZERO, false)
         ChangeLevel(target_pos, target_lvid, target_gvid, VEC_ZERO, false)
     end
     ```
+
+!!! warning "Angle vector is pitch,yaw,roll (not yaw,pitch,roll)"
+    In xray-monolith, `CALifeUpdateManager::change_level` reads the packet angle into the actor server entity as `o_Angle`, then applies:
+
+    - `o_torso.pitch = o_Angle.x`
+    - `o_torso.yaw = o_Angle.y`
+
+    If you have a heading scalar (for example from `-db.actor:direction():getH()`), pass it as yaw in the **Y** slot:
+
+    ```lua
+    local heading = -db.actor:direction():getH()
+    local angle = vector():set(0, heading, 0) -- x=pitch, y=yaw, z=roll
+    ChangeLevel(pos, lvid, gvid, angle, false)
+    ```
+
+    Passing heading in `x` sets pitch and can produce a visibly wrong camera orientation until player look input refreshes it.
 
 ---
 
