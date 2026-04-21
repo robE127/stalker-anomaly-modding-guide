@@ -43,6 +43,18 @@ function on_mcm_load()
                 def  = "12",
                 text = "ui_mcm_extraction_mod_stash_loot_interval_hours",
             },
+            {
+                id   = "base_hotkey_section",
+                type = "title",
+                text = "ui_mcm_extraction_mod_base_hotkey_section",
+            },
+            {
+                id   = "base_hotkey",
+                type = "key_bind",
+                val  = 2,
+                def  = DIK_keys.DIK_F8,
+                text = "ui_mcm_extraction_mod_base_hotkey_key",
+            },
         }
     }
 end

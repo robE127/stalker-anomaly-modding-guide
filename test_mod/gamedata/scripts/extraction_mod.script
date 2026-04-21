@@ -5,7 +5,8 @@
 --   1. Player can only save within a friendly base area.
 --   2. All saves (quicksave, menu save, autosave) are redirected to a single
 --      fixed file "extraction_save". Any save to a different name is deleted
---      and replaced with the fixed file.
+--      and replaced with the fixed file. MCM can assign a base hotkey to set
+--      exact respawn at your feet while in a friendly base (hotkey never saves).
 --   3. On death: full inventory transferred into an inv_backpack stash spawned
 --      at the death location. Player teleports to the last recorded friendly base.
 --   4. Night respawn: if death occurs 20:00–08:00 advance time to 08:00.
@@ -120,9 +121,9 @@ local MOD_KEY         = "extraction_mod"
 
 -- Default values used when MCM is not installed.
 local MCM_DEFAULTS = {
-    show_stash_marker    = true,
-    allow_neutral_bases  = false,
-    delete_items_on_death = false,
+    show_stash_marker       = true,
+    allow_neutral_bases     = false,
+    delete_items_on_death   = false,
 }
 
 -- Defaults for stash NPC loot when ui_mcm.get returns nil (MCM absent or key
@@ -141,6 +142,18 @@ local function mcm_option(key)
     end
     if key == "stash_npc_looting" then return stash_loot_ltx_enabled end
     return MCM_DEFAULTS[key]
+end
+
+-- Returns nil when the player cleared the bind in MCM (0); otherwise a DIK code.
+local function mcm_base_hotkey_dik()
+    if ui_mcm then
+        local v = ui_mcm.get(MOD_KEY .. "/base_hotkey")
+        if type(v) == "number" then
+            if v == 0 then return nil end
+            return v
+        end
+    end
+    return DIK_keys.DIK_F8
 end
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -702,6 +715,24 @@ local function write_spawn_override_ltx()
     return true
 end
 
+-- Copy actor position and facing into the zone's respawn_* fields, refresh
+-- last-base graph data, and write em_spawn_overrides.ltx. Shared by dev CLI
+-- and the MCM base hotkey.
+local function apply_zone_respawn_from_actor(zone)
+    if not (db.actor and db.actor:alive() and zone) then
+        return false
+    end
+    local pos = db.actor:position()
+    local dir = -db.actor:direction():getH()
+    zone.respawn_x   = pos.x
+    zone.respawn_y   = pos.y
+    zone.respawn_z   = pos.z
+    zone.respawn_dir = dir
+    zone._overridden = true
+    record_respawn_base_from_zone(zone)
+    return write_spawn_override_ltx()
+end
+
 -- Capture respawn_x/y/z and respawn_dir from the actor (CLI dev tool).
 function dev_cli_set_zone_respawn(zone_name)
     if not (db.actor and db.actor:alive()) then
@@ -733,31 +764,14 @@ function dev_cli_set_zone_respawn(zone_name)
         zone_name = zone.name
     end
 
-    local pos = db.actor:position()
-    -- Direction convention from base game scripts (sr_teleport.script,
-    -- dialogs_warlab.script): angle = -dir:getH(). Used as yaw for
-    -- set_actor_direction(yaw) and as o_Angle.y when building the ChangeLevel
-    -- angle vector (engine: o_torso.pitch = o_Angle.x, o_torso.yaw = o_Angle.y).
-    local dir = -db.actor:direction():getH()
-
-    zone.respawn_x   = pos.x
-    zone.respawn_y   = pos.y
-    zone.respawn_z   = pos.z
-    zone.respawn_dir = dir
-    zone._overridden = true
-
-    -- Refresh the last-base record so complete_extraction_respawn picks up the new
-    -- coords on the next death without requiring a zone re-entry.
-    record_respawn_base_from_zone(zone)
-
-    local saved = write_spawn_override_ltx()
+    local saved = apply_zone_respawn_from_actor(zone)
 
     printf("[EM] dev_cli_set_zone_respawn: zone '%s' respawn updated (configured level=%s, you are on %s)",
         zone_name, tostring(zone.level), level.name())
-    printf("[EM]   respawn_x   = %s", string.format("%.4f", pos.x))
-    printf("[EM]   respawn_y   = %s", string.format("%.4f", pos.y))
-    printf("[EM]   respawn_z   = %s", string.format("%.4f", pos.z))
-    printf("[EM]   respawn_dir = %s", string.format("%.4f", dir))
+    printf("[EM]   respawn_x   = %s", string.format("%.4f", zone.respawn_x))
+    printf("[EM]   respawn_y   = %s", string.format("%.4f", zone.respawn_y))
+    printf("[EM]   respawn_z   = %s", string.format("%.4f", zone.respawn_z))
+    printf("[EM]   respawn_dir = %s", string.format("%.4f", zone.respawn_dir or 0))
     if zone.level ~= level.name() then
         printf("[EM] Respawn override is saved; it applies on death / when you play that zone.")
     end
@@ -938,6 +952,26 @@ local function save_extraction_slot()
     -- on_console_execute handler has already seen save_in_progress == true and
     -- returned without any recursion.
     save_in_progress = false
+end
+
+-- MCM-configurable hotkey: in a safe zone, set the active respawn BASE
+-- (record_respawn_base_from_zone only). This hotkey never triggers a save and
+-- does not write respawn_* overrides.
+local function extraction_mod_on_key_press(key)
+    local dik = mcm_base_hotkey_dik()
+    if not dik or key ~= dik then return end
+    if not (db.actor and db.actor:alive()) then return end
+    if not actor_menu.is_hud_free() then return end
+    if db.actor:is_talking() then return end
+
+    local zone = get_friendly_safe_zone_actor_is_inside()
+    if not zone then
+        show_msg("Base hotkey: enter a safe zone to set that zone as respawn.")
+        return
+    end
+
+    record_respawn_base_from_zone(zone)
+    show_msg("Respawn base updated.")
 end
 
 -- Build a stable list of inventory items to process on death.
@@ -1323,9 +1357,8 @@ local function actor_on_update()
     end
 
     if in_safe and not was_in_safe_zone then
-        debug_log("actor_on_update: entered base zone -- recording last base")
-        record_respawn_base_from_zone(zone)
-        show_msg("Safe zone reached -- you will respawn here on death. Save your game!")
+        debug_log("actor_on_update: entered base zone")
+        show_msg("Safe zone: you can save here and set this zone as your respawn base.")
     end
     was_in_safe_zone = in_safe
 
@@ -1912,6 +1945,7 @@ function on_game_start()
     RegisterScriptCallback("on_before_save_input", on_before_save_input)
     RegisterScriptCallback("on_console_execute", on_console_execute)
     RegisterScriptCallback("on_level_changing", on_level_changing)
+    RegisterScriptCallback("on_key_press", extraction_mod_on_key_press)
     RegisterScriptCallback("save_state", save_state)
     RegisterScriptCallback("load_state", load_state)
 end
@@ -1957,6 +1991,7 @@ function on_game_end()
     UnregisterScriptCallback("on_before_save_input", on_before_save_input)
     UnregisterScriptCallback("on_console_execute", on_console_execute)
     UnregisterScriptCallback("on_level_changing", on_level_changing)
+    UnregisterScriptCallback("on_key_press", extraction_mod_on_key_press)
     UnregisterScriptCallback("save_state", save_state)
     UnregisterScriptCallback("load_state", load_state)
 end
