@@ -44,6 +44,8 @@ Full paths, key files, and notable clones: read `CLAUDE-SOURCES.md` when needed.
 
 **Before committing any new or changed page:** run `python -m mkdocs build` to verify clean build. When adding a page, also add it to `nav:` in `mkdocs.yml`.
 
+**Commit scope:** When changes span **both** `docs/` and anything else (for example `test_mod/`, `CLAUDE.md`, or `mkdocs.yml`), always use **at least two commits** and keep boundaries strict: the **first** commit contains **only** paths under `docs/` (no other directories in that commit). **After** that, commit the remaining files in one or more follow-up commits as appropriate. Never mix `docs/` with other project paths in a single commit.
+
 **Never commit without explicit user approval.** Propose the commit message and wait for confirmation. Format: short imperative subject, blank line, bullet details. Always include `Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>`. Never commit `site/` or `data/clones/`.
 
 Known test-mod limitations and unresolved behavior should be tracked in `test_mod/KNOWN_ISSUES.md`. When a new issue is confirmed, add it there in the same session.

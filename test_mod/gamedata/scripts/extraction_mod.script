@@ -735,8 +735,9 @@ function dev_cli_set_zone_respawn(zone_name)
 
     local pos = db.actor:position()
     -- Direction convention from base game scripts (sr_teleport.script,
-    -- dialogs_warlab.script): angle = -dir:getH(). This is the value that
-    -- set_actor_direction() and the ChangeLevel angle vector both expect.
+    -- dialogs_warlab.script): angle = -dir:getH(). Used as yaw for
+    -- set_actor_direction(yaw) and as o_Angle.y when building the ChangeLevel
+    -- angle vector (engine: o_torso.pitch = o_Angle.x, o_torso.yaw = o_Angle.y).
     local dir = -db.actor:direction():getH()
 
     zone.respawn_x   = pos.x
@@ -1587,11 +1588,14 @@ local function complete_extraction_respawn()
         CreateTimeEvent("extraction_mod", "post_respawn_ctrl", 0, extraction_respawn_clear_death_fx_and_controls)
     else
         debug_log("complete_extraction_respawn: CROSS-LEVEL respawn  -- using ChangeLevel (nothing executes after)")
-        -- Pass the configured heading as a HPB vector (x = heading, y/z = 0).
-        -- All existing base-game ChangeLevel calls use VEC_ZERO; we only deviate
-        -- when a respawn_dir is configured for the zone.
-        local angle = base_dir and vector():set(base_dir, 0, 0) or VEC_ZERO
-        debug_log("complete_extraction_respawn: angle=(%s, 0, 0)", base_dir and string.format("%.4f", base_dir) or "0")
+        -- Angle is the server actor o_Angle Fvector: x = pitch, y = yaw, z = roll
+        -- (CALifeUpdateManager::change_level). Putting heading in .x was treated as
+        -- pitch and produced a wrong/inverted camera until look input refreshed.
+        -- All vanilla ChangeLevel angle args use VEC_ZERO; when respawn_dir is set,
+        -- pass yaw in .y only (same heading scalar as set_actor_direction()).
+        local angle = base_dir and vector():set(0, base_dir, 0) or VEC_ZERO
+        debug_log("complete_extraction_respawn: angle pitch,yaw,roll=(0, %s, 0)",
+            base_dir and string.format("%.4f", base_dir) or "0")
         if delete_mode then
             show_msg("You have died. Non-protected gear was destroyed.")
         else

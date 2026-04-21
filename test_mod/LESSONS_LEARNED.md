@@ -112,6 +112,15 @@ must come **before** `ChangeLevel`, not after.
 `anim=true` adds a `sleep_fade.ppe` effect and a 3-second deferred timer before
 the actual level change. `anim=false` fires immediately.
 
+**Angle packing gotcha (cross-level):** engine side (`CALifeUpdateManager::change_level`)
+maps `o_Angle.x -> pitch` and `o_Angle.y -> yaw`. If a heading scalar is passed as
+`vector():set(heading, 0, 0)`, it is interpreted as pitch and can produce an
+upside-down/wrong camera until mouse look updates. Correct packing is:
+```lua
+local angle = vector():set(0, heading, 0) -- pitch,yaw,roll
+ChangeLevel(pos, lvid, gvid, angle, false)
+```
+
 **Same-level vs cross-level:** `ChangeLevel` on the same level causes a "ghost
 camera" state — the level reloads but the actor binder does not reinitialise
 correctly. The base game's `game_fast_travel.script` uses `set_actor_position` for
@@ -123,8 +132,8 @@ else
     ChangeLevel(base_pos, lvid, gvid, VEC_ZERO, false)
 end
 ```
-Not documented in the guide. `VEC_ZERO` is a global defined in `_g.script`.
-**Should be added to:** api-reference (level utilities or a teleportation page).
+Now documented in `docs/api-reference/level.md` (teleportation / ChangeLevel section).
+`VEC_ZERO` is a global defined in `_g.script`.
 
 ---
 
