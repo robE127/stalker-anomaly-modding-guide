@@ -3406,7 +3406,7 @@
 <tr>
 <td><code>angle</code></td>
 <td><code>vector</code></td>
-<td>Facing direction at arrival (<code>VEC_ZERO</code> = default)</td>
+<td>Actor <code>o_Angle</code> as <code>pitch,yaw,roll</code> (<code>VEC_ZERO</code> = preserve default)</td>
 </tr>
 <tr>
 <td><code>use_animation</code></td>
@@ -3436,6 +3436,20 @@
 </span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">    </span><span class="nf">ChangeLevel</span><span class="p">(</span><span class="nv">target_pos</span><span class="p">,</span><span class="w"> </span><span class="nv">target_lvid</span><span class="p">,</span><span class="w"> </span><span class="nv">target_gvid</span><span class="p">,</span><span class="w"> </span><span class="nv">VEC_ZERO</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
 </span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="kr">end</span>
 </span></code></pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Angle vector is pitch,yaw,roll (not yaw,pitch,roll)</p>
+<p>In xray-monolith, <code>CALifeUpdateManager::change_level</code> reads the packet angle into the actor server entity as <code>o_Angle</code>, then applies:</p>
+<ul>
+<li><code>o_torso.pitch = o_Angle.x</code></li>
+<li><code>o_torso.yaw = o_Angle.y</code></li>
+</ul>
+<p>If you have a heading scalar (for example from <code>-db.actor:direction():getH()</code>), pass it as yaw in the <strong>Y</strong> slot:</p>
+<div class="language-lua highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kd">local</span><span class="w"> </span><span class="nv">heading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="nv">db</span><span class="p">.</span><span class="py">actor</span><span class="p">:</span><span class="nf">direction</span><span class="p">():</span><span class="nf">getH</span><span class="p">()</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="kd">local</span><span class="w"> </span><span class="nv">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">vector</span><span class="p">():</span><span class="nf">set</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nv">heading</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="c1">-- x=pitch, y=yaw, z=roll</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="nf">ChangeLevel</span><span class="p">(</span><span class="nv">pos</span><span class="p">,</span><span class="w"> </span><span class="nv">lvid</span><span class="p">,</span><span class="w"> </span><span class="nv">gvid</span><span class="p">,</span><span class="w"> </span><span class="nv">angle</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Passing heading in <code>x</code> sets pitch and can produce a visibly wrong camera orientation until player look input refreshes it.</p>
 </div>
 <hr />
 <h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
