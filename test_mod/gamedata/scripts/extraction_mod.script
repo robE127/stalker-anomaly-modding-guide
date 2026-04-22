@@ -214,8 +214,8 @@ local data = {
     -- from this script environment in some builds (see tick_death_stash_npc_loot_by_game_time).
     last_stash_loot_game_ms = nil,
     -- Spawned safe-zone restrictor server ids keyed by configured zone name (session only).
-    -- Cleared on load_state / level change / game end -- alife ids are not stable
-    -- across those boundaries.
+    -- Persisted in save_state/load_state; values are validated each load and
+    -- recreated when missing/invalid.
     safe_zone_restrictor_ids = {},
 }
 
@@ -302,6 +302,7 @@ local save_in_progress = false
 -- whether we copied the live slot to SLOT_GUARD_STEM (illegal saves cannot be
 -- blocked pre-write from Lua; we restore from that copy when needed).
 local external_save_cleanup_ctx = nil
+
 
 -- Set of item section names to keep in the player's inventory on death.
 -- Populated from extraction_mod_config.ltx [keep_on_death] at game start.
@@ -606,8 +607,8 @@ local function spawn_safe_zone_restrictor(zone)
 end
 
 -- Clears Lua-side tracking for spawned space restrictors (membership + callbacks + id
--- maps). Does not clear data.safe_zone_restrictor_ids: those are session bookkeeping and
--- are discarded on load_state; on level change we clear them in on_level_changing.
+-- maps). Does not clear data.safe_zone_restrictor_ids during normal rebuilds; those
+-- persist in save data and are validated by ensure_safe_zone_restrictors_for_level().
 local function clear_safe_zone_restrictor_state()
     SAFE_ZONES_BY_RESTRICTOR_ID = {}
     ACTOR_INSIDE_SAFE_ZONE_IDS = {}
@@ -627,26 +628,93 @@ local function ensure_safe_zone_restrictors_for_level()
     clear_safe_zone_restrictor_state()
     local level_name = level.name()
     local zones = SAFE_ZONES[level_name] or {}
+    debug_log("ensure_safe_zone_restrictors_for_level: level=%s configured_zones=%d",
+        tostring(level_name), #zones)
+
+    local function server_restrictor_section_name(id)
+        local se = alife_object(id)
+        if not se or type(se.section_name) ~= "function" then
+            return nil
+        end
+        local ok, section = pcall(function() return se:section_name() end)
+        if ok then return section end
+        return nil
+    end
+
+    local function apply_zone_properties_to_restrictor(id, zone)
+        local se = alife_object(id)
+        if not se then return false end
+
+        -- Position and graph placement.
+        local pos = vector():set(zone.x, zone.y, zone.z)
+        se.position = pos
+        se.m_level_vertex_id = level.vertex_id(pos)
+        se.m_game_vertex_id = db.actor:game_vertex_id()
+
+        -- Runtime sphere shape (radius) from config.
+        local shape_data = utils_stpk.get_space_restrictor_data(se)
+        if shape_data then
+            shape_data.shapes = shape_data.shapes or {}
+            shape_data.shapes[1] = shape_data.shapes[1] or {}
+            shape_data.shapes[1].shtype = 0
+            shape_data.shapes[1].offset = vector():set(0, 0, 0)
+            shape_data.shapes[1].radius = zone.radius
+            utils_stpk.set_space_restrictor_data(shape_data, se)
+        end
+        debug_log("safe_zone restrictor apply: id=%s zone=%s pos=(%.2f,%.2f,%.2f) radius=%.2f",
+            tostring(id), tostring(zone.name), zone.x, zone.y, zone.z, zone.radius)
+        return true
+    end
 
     for _, zone in ipairs(zones) do
         local restrictor_id = data.safe_zone_restrictor_ids[zone.name]
-        if restrictor_id and not alife_object(restrictor_id) then
-            restrictor_id = nil
-            data.safe_zone_restrictor_ids[zone.name] = nil
+        debug_log("safe_zone restrictor resolve: zone=%s saved_id=%s section=%s",
+            tostring(zone.name), tostring(restrictor_id), tostring(zone.zone_section or "space_restrictor"))
+        if restrictor_id then
+            local se = alife_object(restrictor_id)
+            if not se then
+                debug_log("safe_zone restrictor resolve: saved id missing in alife -- zone=%s id=%s",
+                    tostring(zone.name), tostring(restrictor_id))
+                restrictor_id = nil
+                data.safe_zone_restrictor_ids[zone.name] = nil
+            elseif server_restrictor_section_name(restrictor_id) ~= (zone.zone_section or "space_restrictor") then
+                debug_log("safe_zone restrictor section changed: replacing id=%s zone=%s level=%s",
+                    tostring(restrictor_id), tostring(zone.name), level.name())
+                alife_release_id(restrictor_id, "extraction_mod_zone_section_changed")
+                restrictor_id = nil
+                data.safe_zone_restrictor_ids[zone.name] = nil
+            else
+                debug_log("safe_zone restrictor resolve: reusing saved id=%s zone=%s",
+                    tostring(restrictor_id), tostring(zone.name))
+            end
         end
+
         if not restrictor_id then
             restrictor_id = spawn_safe_zone_restrictor(zone)
             if restrictor_id then
                 data.safe_zone_restrictor_ids[zone.name] = restrictor_id
+                debug_log("safe_zone restrictor resolve: spawned new id=%s zone=%s",
+                    tostring(restrictor_id), tostring(zone.name))
+            else
+                debug_log("safe_zone restrictor resolve: spawn failed zone=%s", tostring(zone.name))
             end
         end
         if restrictor_id then
+            apply_zone_properties_to_restrictor(restrictor_id, zone)
             zone.restrictor_id = restrictor_id
             SAFE_ZONES_BY_RESTRICTOR_ID[restrictor_id] = zone
+            debug_log("safe_zone restrictor map: zone=%s -> id=%s", tostring(zone.name), tostring(restrictor_id))
+        else
+            debug_log("safe_zone restrictor map: zone=%s unresolved (no id)", tostring(zone.name))
         end
     end
 
     seed_safe_zone_membership_if_already_inside_sphere()
+    debug_log("ensure_safe_zone_restrictors_for_level: completed level=%s mapped_ids=%d", tostring(level_name), (function()
+        local n = 0
+        for _ in pairs(SAFE_ZONES_BY_RESTRICTOR_ID) do n = n + 1 end
+        return n
+    end)())
 end
 
 -- Try to attach zone_enter/zone_exit callbacks; safe to call repeatedly until all ids bind.
@@ -1099,6 +1167,10 @@ local function enforce_single_mod_save_slot()
 end
 
 local function save_state(m_data)
+    local safe_zone_ids_to_save = 0
+    for _ in pairs(data.safe_zone_restrictor_ids) do
+        safe_zone_ids_to_save = safe_zone_ids_to_save + 1
+    end
     m_data[MOD_KEY] = {
         last_base_name  = data.last_base_name,
         last_base_level = data.last_base_level,
@@ -1108,9 +1180,13 @@ local function save_state(m_data)
         death_stash_ids = data.death_stash_ids,
         pending_stash_release_ids = data.pending_stash_release_ids,
         last_stash_loot_game_ms = data.last_stash_loot_game_ms,
+        safe_zone_restrictor_ids = data.safe_zone_restrictor_ids,
     }
-    debug_log("save_state: base=%s level=%s",
-        tostring(data.last_base_name), tostring(data.last_base_level))
+    debug_log("save_state: base=%s level=%s safe_zone_ids=%d",
+        tostring(data.last_base_name), tostring(data.last_base_level), safe_zone_ids_to_save)
+    for zone_name, rid in pairs(data.safe_zone_restrictor_ids) do
+        debug_log("save_state: safe_zone_id[%s]=%s", tostring(zone_name), tostring(rid))
+    end
 
     -- on_console_execute only fires when saves are triggered through Lua's
     -- exec_console_cmd wrapper. Saves typed directly into the C++ console
@@ -1150,16 +1226,33 @@ local function load_state(m_data)
     data.stash_ids       = saved.stash_ids or {}
     data.death_stash_ids = saved.death_stash_ids or {}
     data.pending_stash_release_ids = saved.pending_stash_release_ids or {}
-    -- Spawned restrictor ids are session-only; do not restore from save data.
     data.safe_zone_restrictor_ids = {}
+    local restored = 0
+    local dropped = 0
+    local incoming = 0
+    if type(saved.safe_zone_restrictor_ids) == "table" then
+        for zone_name, rid in pairs(saved.safe_zone_restrictor_ids) do
+            incoming = incoming + 1
+            local rid_num = tonumber(rid)
+            if SAFE_ZONES_BY_NAME[zone_name] and rid_num then
+                data.safe_zone_restrictor_ids[zone_name] = rid_num
+                restored = restored + 1
+                debug_log("load_state: restored safe_zone_id[%s]=%s", tostring(zone_name), tostring(rid_num))
+            else
+                dropped = dropped + 1
+                debug_log("load_state: dropped invalid safe_zone_id[%s]=%s (zone_exists=%s)",
+                    tostring(zone_name), tostring(rid), tostring(SAFE_ZONES_BY_NAME[zone_name] ~= nil))
+            end
+        end
+    end
     -- Older saves only persisted stash_ids (marked stashes). Treat them as death
     -- stashes so loot simulation and empty cleanup still apply after upgrade.
     for sid, _ in pairs(data.stash_ids) do
         data.death_stash_ids[sid] = true
     end
     data.last_stash_loot_game_ms = saved.last_stash_loot_game_ms
-    debug_log("load_state: base=%s level=%s",
-        tostring(data.last_base_name), tostring(data.last_base_level))
+    debug_log("load_state: base=%s level=%s safe_zone_ids incoming=%d restored=%d dropped=%d",
+        tostring(data.last_base_name), tostring(data.last_base_level), incoming, restored, dropped)
 end
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -1814,7 +1907,6 @@ end
 local function on_level_changing()
     first_update_done = false
     was_in_safe_zone = false
-    data.safe_zone_restrictor_ids = {}
     clear_safe_zone_restrictor_state()
 
     -- Write "1" to the flag file. actor_on_first_update reads this and resets
