@@ -404,7 +404,7 @@ local function load_config()
                     and zones_ini:r_string(zone_name, "zone_section")
                     or DEFAULT_ZONE_SECTION
 
-                -- respawn_x/y/z default to the zone centre when omitted.
+                -- respawn_x/y/z default to the zone center when omitted.
                 local rx = zones_ini:line_exist(zone_name, "respawn_x")
                     and zones_ini:r_float(zone_name, "respawn_x") or x
                 local ry = zones_ini:line_exist(zone_name, "respawn_y")
@@ -431,7 +431,7 @@ local function load_config()
                 table.insert(SAFE_ZONES[level_name], zone_entry)
                 SAFE_ZONES_BY_NAME[zone_name] = zone_entry
                 zone_count = zone_count + 1
-                debug_log("load_config: zone '%s' level=%s owner=%s centre=(%.2f,%.2f,%.2f) r=%.0f respawn=(%.2f,%.2f,%.2f) dir=%s",
+                debug_log("load_config: zone '%s' level=%s owner=%s center=(%.2f,%.2f,%.2f) r=%.0f respawn=(%.2f,%.2f,%.2f) dir=%s",
                     zone_name, level_name, tostring(owner), x, y, z, radius, rx, ry, rz,
                     rdir and string.format("%.4f", rdir) or "nil")
             end
@@ -476,7 +476,7 @@ end
 -- ═════════════════════════════════════════════════════════════════════════════
 
 -- Read em_spawn_overrides.ltx from the saves folder and apply any recognised
--- fields (x/y/z centre, respawn_x/y/z/dir) to the in-memory SAFE_ZONES_BY_NAME entries.
+-- fields (x/y/z center, respawn_x/y/z/dir) to the in-memory SAFE_ZONES_BY_NAME entries.
 -- Called at the end of load_config() so overrides layer on top of the LTX.
 load_spawn_overrides = function()
     local path = get_overrides_path()
@@ -500,7 +500,7 @@ load_spawn_overrides = function()
                     if zone then
                         zone[key] = tonumber(val)
                         if key == "x" or key == "y" or key == "z" then
-                            zone._centre_overridden = true -- dev_cli_set_zone_center / centre lines
+                            zone._center_overridden = true -- dev_cli_set_zone_center / center lines
                         elseif key == "radius" then
                             zone._radius_overridden = true -- dev_cli_set_zone_radius
                         else
@@ -736,7 +736,7 @@ end
 -- ─── Dev CLI: persist + commands (see DEVELOPER CLI TOOLS header above) ───
 
 -- Remove the session's spawned restrictor for one zone so it can be recreated at a
--- new centre or radius (dev_cli_set_zone_center / dev_cli_set_zone_radius). Clears
+-- new center or radius (dev_cli_set_zone_center / dev_cli_set_zone_radius). Clears
 -- data.safe_zone_restrictor_ids only; full maps are rebuilt by ensure_safe_zone_restrictors_for_level().
 local function release_session_safe_zone_restrictor_for_zone_name(zone_name)
     local id = data.safe_zone_restrictor_ids[zone_name]
@@ -746,7 +746,7 @@ local function release_session_safe_zone_restrictor_for_zone_name(zone_name)
     data.safe_zone_restrictor_ids[zone_name] = nil
 end
 
--- Write dev overrides to em_spawn_overrides.ltx: centre x/y/z (dev_cli_set_zone_center),
+-- Write dev overrides to em_spawn_overrides.ltx: center x/y/z (dev_cli_set_zone_center),
 -- radius (dev_cli_set_zone_radius), and/or respawn_x/y/z/dir (dev_cli_set_zone_respawn).
 -- Returns true on success, false on IO failure.
 local function write_spawn_override_ltx()
@@ -759,9 +759,9 @@ local function write_spawn_override_ltx()
     f:write("; em_spawn_overrides.ltx -- written by extraction_mod dev_cli_set_zone_respawn / center / radius\n")
     f:write("; copy section contents to extraction_mod_zones.ltx to make permanent\n\n")
     for name, z in pairs(SAFE_ZONES_BY_NAME) do
-        if z._overridden or z._centre_overridden or z._radius_overridden then
+        if z._overridden or z._center_overridden or z._radius_overridden then
             f:write("[" .. name .. "]\n")
-            if z._centre_overridden then
+            if z._center_overridden then
                 f:write(string.format("x = %.4f\n", z.x))
                 f:write(string.format("y = %.4f\n", z.y))
                 f:write(string.format("z = %.4f\n", z.z))
@@ -852,7 +852,7 @@ function dev_cli_set_zone_respawn(zone_name)
     flush()
 end
 
--- Capture zone centre x/y/z from the actor (CLI dev tool). Recreates the restrictor on this map.
+-- Capture zone center x/y/z from the actor (CLI dev tool). Recreates the restrictor on this map.
 function dev_cli_set_zone_center(zone_name)
     if not (db.actor and db.actor:alive()) then
         printf("[EM] dev_cli_set_zone_center: actor not available")
@@ -887,7 +887,7 @@ function dev_cli_set_zone_center(zone_name)
     zone.x = pos.x
     zone.y = pos.y
     zone.z = pos.z
-    zone._centre_overridden = true
+    zone._center_overridden = true
 
     local saved = write_spawn_override_ltx()
 
