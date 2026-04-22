@@ -83,6 +83,7 @@ local SAFE_ZONE_RESTRICTOR_SEED_DONE = {} -- restrictor server id -> true after 
 -- intercepted and replaced with this file -- see actor_on_first_update and
 -- on_console_execute.
 local SAVE_FILENAME   = "em_extraction_save"
+local DEFAULT_ZONE_SECTION = "em_safe_zone_restrictor"
 -- Reserved stem: copies of `SAVE_FILENAME` on disk before an illegal external
 -- save can overwrite them. Removed after deferred cleanup runs.
 local SLOT_GUARD_STEM = "em_extraction_save_guard_tmp"
@@ -401,7 +402,7 @@ local function load_config()
                 local radius = zones_ini:r_float(zone_name, "radius")
                 local zone_section = zones_ini:line_exist(zone_name, "zone_section")
                     and zones_ini:r_string(zone_name, "zone_section")
-                    or "space_restrictor"
+                    or DEFAULT_ZONE_SECTION
 
                 -- respawn_x/y/z default to the zone centre when omitted.
                 local rx = zones_ini:line_exist(zone_name, "respawn_x")
@@ -584,7 +585,7 @@ local function spawn_safe_zone_restrictor(zone)
     -- (bind_restrictor) used for triggers and spatial tests. Defined under
     -- [space_restrictor] in configs/system.ltx. Optional key zone_section in
     -- extraction_mod_zones.ltx overrides this if you use another restrictor-derived section.
-    local section = zone.zone_section or "space_restrictor"
+    local section = zone.zone_section or DEFAULT_ZONE_SECTION
     local se_obj = alife():create(section, pos, lvid, gvid)
     if not se_obj then
         printe("![EM] spawn_safe_zone_restrictor: failed for zone '%s' (section=%s)", zone.name, section)
@@ -669,7 +670,7 @@ local function ensure_safe_zone_restrictors_for_level()
     for _, zone in ipairs(zones) do
         local restrictor_id = data.safe_zone_restrictor_ids[zone.name]
         debug_log("safe_zone restrictor resolve: zone=%s saved_id=%s section=%s",
-            tostring(zone.name), tostring(restrictor_id), tostring(zone.zone_section or "space_restrictor"))
+            tostring(zone.name), tostring(restrictor_id), tostring(zone.zone_section or DEFAULT_ZONE_SECTION))
         if restrictor_id then
             local se = alife_object(restrictor_id)
             if not se then
@@ -677,7 +678,7 @@ local function ensure_safe_zone_restrictors_for_level()
                     tostring(zone.name), tostring(restrictor_id))
                 restrictor_id = nil
                 data.safe_zone_restrictor_ids[zone.name] = nil
-            elseif server_restrictor_section_name(restrictor_id) ~= (zone.zone_section or "space_restrictor") then
+            elseif server_restrictor_section_name(restrictor_id) ~= (zone.zone_section or DEFAULT_ZONE_SECTION) then
                 debug_log("safe_zone restrictor section changed: replacing id=%s zone=%s level=%s",
                     tostring(restrictor_id), tostring(zone.name), level.name())
                 alife_release_id(restrictor_id, "extraction_mod_zone_section_changed")
