@@ -89,6 +89,15 @@ This remains separate from level-authored **named** restrictors in `db.actor_ins
 
 Typical per-zone fields: `level`, center `x` / `y` / `z`, `radius`, optional `owner`, optional `zone_section` (if omitted, default to `space_restrictor` in your spawn helper).
 
+If you want a custom restrictor section without editing `system.ltx` directly, define it in a DLTX patch file under `configs/`:
+
+```ltx
+; configs/mod_system_my_restrictors.ltx
+[em_safe_zone_restrictor]:space_restrictor
+```
+
+Because `mod_system_*.ltx` patches are merged into the `system_ini()` domain, `alife():create("em_safe_zone_restrictor", ...)` can resolve this section at runtime.
+
 ```ltx
 ; configs/my_safe_zones.ltx
 [zones]
