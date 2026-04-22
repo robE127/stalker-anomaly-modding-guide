@@ -82,6 +82,9 @@ Goals:
 
 This remains separate from level-authored **named** restrictors in `db.actor_inside_zones["zone_name"]`, but you get the same event-driven enter/exit behaviour for script-spawned volumes.
 
+!!! warning "Do not assign `se_obj.name` directly on dynamic restrictors"
+    For this guide, assume Anomaly Lua does **not** expose safe server-object name mutators (`name_replace` / `set_name_replace`) for dynamically created restrictors. Writing `se_obj.name = "..."` can shadow the bound `name()` method and crash scripts that later call `obj:name()`. Use a persisted zone-key -> id map with validation instead of name-based singleton tagging.
+
 ### Component A: zone config (LTX)
 
 Typical per-zone fields: `level`, center `x` / `y` / `z`, `radius`, optional `owner`, optional `zone_section` (if omitted, default to `space_restrictor` in your spawn helper).
@@ -133,18 +136,27 @@ local function spawn_safe_zone_restrictor(zone)
 end
 ```
 
-### Component C: session ids, clear Lua maps, ensure per level
+### Component C: persisted ids (validated), clear Lua maps, ensure per level
 
-Store **per-zone server ids** for the current session in a table keyed by zone name (below: `safe_zone_restrictor_session_ids`). That table is **not** cleared by `clear_safe_zone_restrictor_state`, which only resets Lua maps and `zone.restrictor_id` on each row; you should clear or invalidate the session id map on **load** and **level change** when ids are no longer valid.
+Use a Lua table keyed by zone section name (for example `safe_zone_restrictor_ids[zone.name] = id`) and persist it in `save_state`/`load_state`.
 
-`ensure_safe_zone_restrictors_for_level` runs with a live actor: it clears Lua-side state, then for each zone on `level.name()` either reuses a still-valid `alife_object(id)` from `safe_zone_restrictor_session_ids` or calls `spawn_safe_zone_restrictor`, assigns `zone.restrictor_id`, and fills `SAFE_ZONES_BY_RESTRICTOR_ID`. It ends with **`seed_safe_zone_membership_if_already_inside_sphere()`** (no arguments — it reads `SAFE_ZONES[level.name()]`).
+Important behavior:
+
+- Treat saved ids as **cached references**, not a blind truth source.
+- On each ensure pass, validate `alife_object(id)` still exists and still uses the configured restrictor section (`zone_section` or `space_restrictor`).
+- If invalid, drop that id and spawn a new restrictor for the same zone key.
+- Re-apply config-owned fields (position / vertices / radius) after reuse so config edits take effect.
+
+`clear_safe_zone_restrictor_state` should only clear Lua tracking maps (`SAFE_ZONES_BY_RESTRICTOR_ID`, membership/callback tables, `zone.restrictor_id`), not the persisted zone->id cache.
+
+`ensure_safe_zone_restrictors_for_level` runs with a live actor: it rebuilds Lua maps from the validated zone->id cache, spawns missing restrictors, assigns `zone.restrictor_id`, and fills `SAFE_ZONES_BY_RESTRICTOR_ID`. It ends with **`seed_safe_zone_membership_if_already_inside_sphere()`** (no arguments — it reads `SAFE_ZONES[level.name()]`).
 
 ```lua
 local SAFE_ZONES_BY_RESTRICTOR_ID = {}          -- server id -> zone table
 local ACTOR_INSIDE_SAFE_ZONE_IDS = {}           -- server id -> true while actor inside
 local SAFE_ZONE_RESTRICTOR_CALLBACKS_DONE = {}  -- server id -> true once callbacks attached
 local SAFE_ZONE_RESTRICTOR_SEED_DONE = {}       -- server id -> true after initial sphere seed
-local safe_zone_restrictor_session_ids = {}     -- zone.name -> server id (session only)
+local safe_zone_restrictor_ids = {}             -- zone.name -> server id (persisted)
 
 local function clear_safe_zone_restrictor_state()
     SAFE_ZONES_BY_RESTRICTOR_ID = {}
@@ -178,15 +190,15 @@ local function ensure_safe_zone_restrictors_for_level()
     clear_safe_zone_restrictor_state()
     local zones = SAFE_ZONES[level.name()] or {}
     for _, zone in ipairs(zones) do
-        local restrictor_id = safe_zone_restrictor_session_ids[zone.name]
+        local restrictor_id = safe_zone_restrictor_ids[zone.name]
         if restrictor_id and not alife_object(restrictor_id) then
             restrictor_id = nil
-            safe_zone_restrictor_session_ids[zone.name] = nil
+            safe_zone_restrictor_ids[zone.name] = nil
         end
         if not restrictor_id then
             restrictor_id = spawn_safe_zone_restrictor(zone)
             if restrictor_id then
-                safe_zone_restrictor_session_ids[zone.name] = restrictor_id
+                safe_zone_restrictor_ids[zone.name] = restrictor_id
             end
         end
         if restrictor_id then
