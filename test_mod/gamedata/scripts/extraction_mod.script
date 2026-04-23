@@ -2021,6 +2021,10 @@ local function actor_on_first_update()
         else
             debug_log("actor_on_first_update: no transition flag (val='%s') -- skipping autosave cleanup", flag_val)
         end
+        -- Guard snapshots are strictly temporary and should never survive level
+        -- loads. A transition can interrupt the deferred save-cleanup timer that
+        -- normally deletes SLOT_GUARD_STEM; purge it deterministically here.
+        ui_load_dialog.delete_save_game(SLOT_GUARD_STEM)
         -- No save_extraction_slot() here: the existing em_extraction_save from before the
         -- transition is still valid. The player saves manually when inside a base.
     end
