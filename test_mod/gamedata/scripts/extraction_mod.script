@@ -99,12 +99,56 @@ local OVERRIDES_FILE  = "em_spawn_overrides.ltx"
 -- The file is written to the saves folder (same dir as .scop files) and consumed
 -- (overwritten with "0") immediately after being read.
 local TRANSITION_FLAG = "em_transition_flag"
+local SESSION_LOCK_FILE = "em_session_lock"
+local MAIN_MENU_LOAD_FLAG = "em_main_menu_load_flag"
 
 local function get_flag_path()
     -- getFS():update_path("$game_saves$", "") returns the absolute path to the
     -- saves folder with a trailing separator (e.g. "C:\...\savedgames\").
     -- Confirmed: alife_storage_manager.script uses the same pattern for io.open.
     return getFS():update_path("$game_saves$", "") .. TRANSITION_FLAG
+end
+
+local function get_session_lock_path()
+    return getFS():update_path("$game_saves$", "") .. SESSION_LOCK_FILE
+end
+
+local function get_main_menu_load_flag_path()
+    return getFS():update_path("$game_saves$", "") .. MAIN_MENU_LOAD_FLAG
+end
+
+local function read_session_lock_flag()
+    local f = io.open(get_session_lock_path(), "r")
+    local v = f and f:read("*l") or "0"
+    if f then f:close() end
+    return v
+end
+
+local function write_session_lock_flag(v)
+    local f = io.open(get_session_lock_path(), "w")
+    if f then
+        f:write(v)
+        f:close()
+    else
+        printe("![EM] write_session_lock_flag: failed to write '%s'", get_session_lock_path())
+    end
+end
+
+local function read_main_menu_load_flag()
+    local f = io.open(get_main_menu_load_flag_path(), "r")
+    local v = f and f:read("*l") or "0"
+    if f then f:close() end
+    return v
+end
+
+local function write_main_menu_load_flag(v)
+    local f = io.open(get_main_menu_load_flag_path(), "w")
+    if f then
+        f:write(v)
+        f:close()
+    else
+        printe("![EM] write_main_menu_load_flag: failed to write '%s'", get_main_menu_load_flag_path())
+    end
 end
 
 local function get_overrides_path()
@@ -115,6 +159,7 @@ local NIGHT_END       = 8
 local UPDATE_INTERVAL = 5000 -- ms between periodic maintenance checks
 local STASH_RELEASE_FLUSH_INTERVAL_SEC = 60
 local MOD_KEY         = "extraction_mod"
+local CHEAT_LOAD_WATERMARK_MSG = "CHEAT LOAD DETECTED - Run invalid: You are now permanently irradiated. Recovery: quit to main menu, then load a valid save. DO NOT SAVE until you have reloaded a valid save."
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- MCM
@@ -242,6 +287,9 @@ local data = {
     -- Persisted in save_state/load_state; values are validated each load and
     -- recreated when missing/invalid.
     safe_zone_restrictor_ids = {},
+    -- Set after suspicious mid-session loads that bypass normal load blockers.
+    -- Persisted to keep a run visibly invalid after detection.
+    tainted_by_forbidden_load = false,
 }
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -327,6 +375,7 @@ local save_in_progress = false
 -- whether we copied the live slot to SLOT_GUARD_STEM (illegal saves cannot be
 -- blocked pre-write from Lua; we restore from that copy when needed).
 local external_save_cleanup_ctx = nil
+local load_state_seen_this_session = false
 
 
 -- Set of item section names to keep in the player's inventory on death.
@@ -1214,6 +1263,7 @@ local function save_state(m_data)
         pending_stash_release_ids = data.pending_stash_release_ids,
         last_stash_loot_game_ms = data.last_stash_loot_game_ms,
         safe_zone_restrictor_ids = data.safe_zone_restrictor_ids,
+        tainted_by_forbidden_load = data.tainted_by_forbidden_load,
     }
     debug_log("save_state: base=%s level=%s safe_zone_ids=%d",
         tostring(data.last_base_name), tostring(data.last_base_level), safe_zone_ids_to_save)
@@ -1251,6 +1301,7 @@ local function save_state(m_data)
 end
 
 local function load_state(m_data)
+    load_state_seen_this_session = true
     local saved          = m_data[MOD_KEY] or {}
     data.last_base_name  = saved.last_base_name
     data.last_base_level = saved.last_base_level
@@ -1260,6 +1311,7 @@ local function load_state(m_data)
     data.death_stash_ids = saved.death_stash_ids or {}
     data.pending_stash_release_ids = saved.pending_stash_release_ids or {}
     data.safe_zone_restrictor_ids = {}
+    data.tainted_by_forbidden_load = saved.tainted_by_forbidden_load == true
     local restored = 0
     local dropped = 0
     local incoming = 0
@@ -1284,6 +1336,9 @@ local function load_state(m_data)
         data.death_stash_ids[sid] = true
     end
     data.last_stash_loot_game_ms = saved.last_stash_loot_game_ms
+    if data.tainted_by_forbidden_load then
+        next_taint_warning_ms = game.time()
+    end
     debug_log("load_state: base=%s level=%s safe_zone_ids incoming=%d restored=%d dropped=%d",
         tostring(data.last_base_name), tostring(data.last_base_level), incoming, restored, dropped)
 end
@@ -1471,6 +1526,15 @@ local last_check_time = 0
 local last_safe_zone_restrictor_bind_poll_time = 0
 local was_in_safe_zone = false
 local pending_release_timer_started = false
+local next_taint_warning_ms = nil
+
+local function mark_run_tainted_by_forbidden_load(reason)
+    if data.tainted_by_forbidden_load then return end
+    data.tainted_by_forbidden_load = true
+    next_taint_warning_ms = game.time()
+    debug_log("mark_run_tainted_by_forbidden_load: %s", tostring(reason))
+    show_msg(CHEAT_LOAD_WATERMARK_MSG)
+end
 
 local function actor_on_update()
     if not (db.actor and db.actor:alive()) then return end
@@ -1502,8 +1566,20 @@ local function actor_on_update()
     end
     was_in_safe_zone = in_safe
 
+    if data.tainted_by_forbidden_load then
+        -- Keep persistent punishment state for tainted runs.
+        db.actor.radiation = 1
+    end
+
     if (now - last_check_time) < UPDATE_INTERVAL then return end
     last_check_time = now
+
+    if data.tainted_by_forbidden_load then
+        if not next_taint_warning_ms or now >= next_taint_warning_ms then
+            show_msg(CHEAT_LOAD_WATERMARK_MSG)
+            next_taint_warning_ms = now + 15000
+        end
+    end
 
     tick_death_stash_npc_loot_by_game_time()
 end
@@ -2020,11 +2096,24 @@ local function actor_on_first_update()
             ui_load_dialog.delete_save_game(autosave_name)
         else
             debug_log("actor_on_first_update: no transition flag (val='%s') -- skipping autosave cleanup", flag_val)
+            -- Only treat this as suspicious when a save was actually loaded in
+            -- this session. Starting a brand-new game should never be tainted by
+            -- stale lock state from a previous run.
+            local main_menu_load_flag = read_main_menu_load_flag()
+            if load_state_seen_this_session
+                and read_session_lock_flag() == "1"
+                and main_menu_load_flag ~= "1" then
+                mark_run_tainted_by_forbidden_load("session lock active without level transition")
+            end
+            -- Consume the flag whether or not we used it.
+            write_main_menu_load_flag("0")
         end
         -- Guard snapshots are strictly temporary and should never survive level
         -- loads. A transition can interrupt the deferred save-cleanup timer that
         -- normally deletes SLOT_GUARD_STEM; purge it deterministically here.
         ui_load_dialog.delete_save_game(SLOT_GUARD_STEM)
+        -- Mark current session active after load completes.
+        write_session_lock_flag("1")
         -- No save_extraction_slot() here: the existing em_extraction_save from before the
         -- transition is still valid. The player saves manually when inside a base.
     end
@@ -2057,6 +2146,9 @@ end
 
 function on_game_start()
     debug_log("on_game_start: registering callbacks")
+    load_state_seen_this_session = false
+    data.tainted_by_forbidden_load = false
+    next_taint_warning_ms = nil
     load_config()
     if not pending_release_timer_started then
         CreateTimeEvent("extraction_mod", "pending_stash_release", STASH_RELEASE_FLUSH_INTERVAL_SEC,
@@ -2085,6 +2177,9 @@ function on_game_start()
                     debug_log("UILoadDialog.load_game_internal: BLOCKED")
                     return
                 end
+                -- Main-menu initiated load path: mark it so actor_on_first_update
+                -- can distinguish legit recovery loads from in-session console loads.
+                write_main_menu_load_flag("1")
                 return orig_load_game_internal(self_dlg)
             end
             debug_log("on_game_start: UILoadDialog.load_game_internal patched")
@@ -2114,6 +2209,8 @@ function on_game_end()
     last_check_time   = 0
     last_safe_zone_restrictor_bind_poll_time = 0
     was_in_safe_zone  = false
+    next_taint_warning_ms = nil
+    load_state_seen_this_session = false
     death_hour        = nil
     death_label       = nil
     delete_items_on_death_pending = false
@@ -2122,6 +2219,7 @@ function on_game_end()
     data.pending_stash_release_ids = {}
     data.last_stash_loot_game_ms = nil
     data.safe_zone_restrictor_ids = {}
+    data.tainted_by_forbidden_load = false
     SAFE_ZONES_BY_RESTRICTOR_ID    = {}
     ACTOR_INSIDE_SAFE_ZONE_IDS  = {}
     SAFE_ZONE_RESTRICTOR_CALLBACKS_DONE = {}
@@ -2131,6 +2229,8 @@ function on_game_end()
     if ui_load_dialog then
         ui_load_dialog.delete_save_game(SLOT_GUARD_STEM)
     end
+    -- Best effort session-end marker. (If the process crashes this may remain "1".)
+    write_session_lock_flag("0")
 
     -- Restore UILoadDialog.load_game_internal to the original method.
     if orig_load_game_internal then
