@@ -9,11 +9,9 @@ function on_mcm_load()
         sh = true,
         gr = {
             {
-                id      = "show_stash_marker",
-                type    = "check",
-                val     = 1,       -- 1 = boolean type
-                def     = true,
-                text    = "ui_mcm_extraction_mod_show_stash_marker",
+                id   = "ui_section_options",
+                type = "title",
+                text = "ui_mcm_extraction_mod_section_options",
             },
             {
                 id      = "allow_neutral_bases",
@@ -30,6 +28,13 @@ function on_mcm_load()
                 text    = "ui_mcm_extraction_mod_delete_items_on_death",
             },
             {
+                id      = "show_stash_marker",
+                type    = "check",
+                val     = 1,       -- 1 = boolean type
+                def     = true,
+                text    = "ui_mcm_extraction_mod_show_stash_marker",
+            },
+            {
                 id      = "stash_npc_looting",
                 type    = "check",
                 val     = 1,
@@ -44,16 +49,16 @@ function on_mcm_load()
                 text = "ui_mcm_extraction_mod_stash_loot_interval_hours",
             },
             {
-                id   = "base_hotkey_section",
+                id   = "ui_section_hotkeys",
                 type = "title",
-                text = "ui_mcm_extraction_mod_base_hotkey_section",
+                text = "ui_mcm_extraction_mod_section_hotkeys",
             },
             {
                 id   = "base_hotkey",
                 type = "key_bind",
                 val  = 2,
                 def  = DIK_keys.DIK_F8,
-                text = "ui_mcm_extraction_mod_base_hotkey_key",
+                text = "ui_mcm_extraction_mod_base_hotkey",
             },
         }
     }

@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <string_table>
+    <string id="ui_mcm_menu_extraction_mod">
+        <text>Extraction Mod</text>
+    </string>
+    <string id="ui_mcm_extraction_mod_section_options">
+        <text>Options</text>
+    </string>
     <string id="ui_mcm_extraction_mod_show_stash_marker">
-        <text>Show death stash location on PDA</text>
+        <text>Show death stash markers on the PDA map</text>
     </string>
     <string id="ui_mcm_extraction_mod_allow_neutral_bases">
-        <text>Allow neutral bases (not only allied)</text>
+        <text>Allow neutral safe zones as valid bases</text>
     </string>
     <string id="ui_mcm_extraction_mod_delete_items_on_death">
-        <text>Destroy non-protected items on death</text>
+        <text>Delete non-protected inventory items on death</text>
     </string>
     <string id="ui_mcm_extraction_mod_stash_npc_looting">
-        <text>Simulate NPC looting of old death stashes</text>
+        <text>Simulate NPC looting of death stashes</text>
     </string>
     <string id="ui_mcm_extraction_mod_stash_loot_interval_hours">
-        <text>Stash loot interval (in-game hours, 0 = off)</text>
+        <text>NPC death stash loot interval (in-game hours; 0 disables)</text>
     </string>
-    <string id="ui_mcm_extraction_mod_base_hotkey_section">
-        <text>Safe zone hotkey</text>
+    <string id="ui_mcm_extraction_mod_section_hotkeys">
+        <text>Hotkeys</text>
     </string>
-    <string id="ui_mcm_extraction_mod_base_hotkey_key">
-        <text>Set current safe zone as respawn base</text>
+    <string id="ui_mcm_extraction_mod_base_hotkey">
+        <text>Register base as respawn location</text>
     </string>
 </string_table>

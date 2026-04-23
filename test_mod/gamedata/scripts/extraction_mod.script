@@ -1454,6 +1454,10 @@ local function actor_on_update()
         debug_log("actor_on_update: entered base zone")
         show_msg("Safe zone: you can save here and set this zone as your respawn base.")
     end
+    if (not in_safe) and was_in_safe_zone then
+        debug_log("actor_on_update: left base zone")
+        show_msg("Left safe zone: saves are disabled until you return.")
+    end
     was_in_safe_zone = in_safe
 
     if (now - last_check_time) < UPDATE_INTERVAL then return end
