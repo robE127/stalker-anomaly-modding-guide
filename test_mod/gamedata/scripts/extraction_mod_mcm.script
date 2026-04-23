@@ -45,8 +45,15 @@ function on_mcm_load()
                 id   = "stash_loot_interval_hours",
                 type = "input",
                 val  = 0,
-                def  = "12",
+                def  = "1",
                 text = "ui_mcm_extraction_mod_stash_loot_interval_hours",
+            },
+            {
+                id   = "stash_loot_delete_chance_percent",
+                type = "input",
+                val  = 0,
+                def  = "25",
+                text = "ui_mcm_extraction_mod_stash_loot_delete_chance_percent",
             },
             {
                 id   = "ui_section_hotkeys",

@@ -21,6 +21,9 @@
     <string id="ui_mcm_extraction_mod_stash_loot_interval_hours">
         <text>NPC death stash loot interval (in-game hours; 0 disables)</text>
     </string>
+    <string id="ui_mcm_extraction_mod_stash_loot_delete_chance_percent">
+        <text>Death stash loot delete chance per interval (0-100%)</text>
+    </string>
     <string id="ui_mcm_extraction_mod_section_hotkeys">
         <text>Hotkeys</text>
     </string>

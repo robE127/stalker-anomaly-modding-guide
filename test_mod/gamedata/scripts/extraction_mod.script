@@ -145,6 +145,30 @@ local function mcm_option(key)
     return MCM_DEFAULTS[key]
 end
 
+-- Read a numeric MCM option with fallback + clamp.
+-- Handles MCM input fields that can arrive as string/number/nil.
+local function mcm_number_option_clamped(key, fallback, min_value, max_value)
+    local v = nil
+    if ui_mcm then
+        v = ui_mcm.get(MOD_KEY .. "/" .. key)
+    end
+
+    local n = nil
+    if type(v) == "string" then
+        local trimmed = (v:match("^%s*(.-)%s*$") or "")
+        if trimmed ~= "" then
+            n = tonumber(trimmed)
+        end
+    elseif type(v) == "number" then
+        n = v
+    end
+
+    if n == nil then
+        n = fallback
+    end
+    return math.max(min_value, math.min(max_value, n))
+end
+
 -- Returns nil when the player cleared the bind in MCM (0); otherwise a DIK code.
 local function mcm_base_hotkey_dik()
     if ui_mcm then
@@ -312,22 +336,24 @@ local keep_on_death = {}
 -- Hours of in-game time between automatic stash loot pulses (0 = disable).
 -- Read from LTX each load_config() as fallback when ui_mcm has no value, or when
 -- the MCM text field is empty / not a number (so the game stays usable).
-local stash_loot_interval_hours = 12
+local stash_loot_interval_hours = 1
+-- Percent chance (0..100) that each tracked stash loses one random item during
+-- a pulse. Rolled independently per stash.
+local stash_loot_delete_chance_percent = 25
 
 local function stash_loot_interval_hours_resolved()
-    if ui_mcm then
-        local v = ui_mcm.get(MOD_KEY .. "/stash_loot_interval_hours")
-        if type(v) == "string" then
-            v = (v:match("^%s*(.-)%s*$") or "")
-            if v ~= "" then
-                local n = tonumber(v)
-                if n then
-                    return math.max(0, n)
-                end
-            end
-        end
-    end
-    return stash_loot_interval_hours
+    return mcm_number_option_clamped("stash_loot_interval_hours", stash_loot_interval_hours, 0, math.huge)
+end
+
+local function refresh_stash_loot_delete_chance_percent(source)
+    stash_loot_delete_chance_percent = mcm_number_option_clamped(
+        "stash_loot_delete_chance_percent",
+        stash_loot_delete_chance_percent,
+        0,
+        100
+    )
+    debug_log("refresh_stash_loot_delete_chance_percent: source=%s value=%.2f",
+        tostring(source), stash_loot_delete_chance_percent)
 end
 
 -- Forward declaration: load_spawn_overrides is defined after load_config but
@@ -354,9 +380,10 @@ local function load_config()
     end
 
     -- ── Stash NPC loot (optional) ─────────────────────────────────────────────
-    -- interval_game_hours is the fallback when MCM is absent or the interval
+    -- These are the fallback when MCM is absent or the interval
     -- text field is empty / invalid (see stash_loot_interval_hours_resolved()).
     stash_loot_interval_hours = 12
+    stash_loot_delete_chance_percent = 75
     stash_loot_ltx_enabled = false
     if ini:section_exist("stash_npc_looting") then
         if ini:line_exist("stash_npc_looting", "enabled") then
@@ -365,9 +392,14 @@ local function load_config()
         if ini:line_exist("stash_npc_looting", "interval_game_hours") then
             stash_loot_interval_hours = math.max(0, ini:r_float("stash_npc_looting", "interval_game_hours"))
         end
-        debug_log("load_config: stash_npc_looting enabled=%s interval_game_hours=%.3f",
-            tostring(stash_loot_ltx_enabled), stash_loot_interval_hours)
+        if ini:line_exist("stash_npc_looting", "delete_chance_percent") then
+            stash_loot_delete_chance_percent = math.max(0, math.min(100,
+                ini:r_float("stash_npc_looting", "delete_chance_percent")))
+        end
+        debug_log("load_config: stash_npc_looting enabled=%s interval_game_hours=%.3f delete_chance_percent=%.2f",
+            tostring(stash_loot_ltx_enabled), stash_loot_interval_hours, stash_loot_delete_chance_percent)
     end
+    refresh_stash_loot_delete_chance_percent("load_config")
 
     -- ── Safe zones ────────────────────────────────────────────────────────────
     -- Rebuild from scratch each time so a reload always reflects the LTX.
@@ -1396,10 +1428,20 @@ local function pulse_death_stash_npc_looting(reason)
         list[#list + 1] = id
     end
     if #list == 0 then return end
-    debug_log("pulse_death_stash_npc_looting: %d stash(es) reason=%s", #list, tostring(reason))
+    local chance_pct = stash_loot_delete_chance_percent
+    debug_log("pulse_death_stash_npc_looting: %d stash(es) reason=%s delete_chance_percent=%.2f",
+        #list, tostring(reason), chance_pct)
+    if chance_pct <= 0 then return end
     for _, id in ipairs(list) do
         if data.death_stash_ids[id] then
-            remove_random_item_from_death_stash(id, reason)
+            -- Roll per stash so each one is evaluated independently this pulse.
+            local roll_pct = math.random() * 100
+            if roll_pct < chance_pct then
+                remove_random_item_from_death_stash(id, reason)
+            else
+                debug_log("pulse_death_stash_npc_looting: stash id=%d skipped (roll=%.2f >= %.2f)",
+                    id, roll_pct, chance_pct)
+            end
         end
     end
 end
@@ -1452,8 +1494,8 @@ local function actor_on_update()
 
     if in_safe and not was_in_safe_zone then
         debug_log("actor_on_update: entered base zone")
-        show_msg("Safe zone: you can save here and set this zone as your respawn base.")
-    end
+        show_msg("Safe zone: you can save here and/or set this zone as your respawn base.")
+    end 
     if (not in_safe) and was_in_safe_zone then
         debug_log("actor_on_update: left base zone")
         show_msg("Left safe zone: saves are disabled until you return.")
@@ -1936,6 +1978,10 @@ end
 
 local first_update_done    = false
 
+local function on_option_change()
+    refresh_stash_loot_delete_chance_percent("on_option_change")
+end
+
 local function actor_on_first_update()
     if first_update_done then return end
     first_update_done = true
@@ -2051,9 +2097,11 @@ function on_game_start()
     RegisterScriptCallback("on_before_save_input", on_before_save_input)
     RegisterScriptCallback("on_console_execute", on_console_execute)
     RegisterScriptCallback("on_level_changing", on_level_changing)
+    RegisterScriptCallback("on_option_change", on_option_change)
     RegisterScriptCallback("on_key_press", extraction_mod_on_key_press)
     RegisterScriptCallback("save_state", save_state)
     RegisterScriptCallback("load_state", load_state)
+    refresh_stash_loot_delete_chance_percent("on_game_start")
 end
 
 function on_game_end()
@@ -2097,6 +2145,7 @@ function on_game_end()
     UnregisterScriptCallback("on_before_save_input", on_before_save_input)
     UnregisterScriptCallback("on_console_execute", on_console_execute)
     UnregisterScriptCallback("on_level_changing", on_level_changing)
+    UnregisterScriptCallback("on_option_change", on_option_change)
     UnregisterScriptCallback("on_key_press", extraction_mod_on_key_press)
     UnregisterScriptCallback("save_state", save_state)
     UnregisterScriptCallback("load_state", load_state)
