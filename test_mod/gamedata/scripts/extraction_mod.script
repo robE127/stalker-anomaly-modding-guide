@@ -1975,15 +1975,24 @@ local function actor_on_first_update()
         -- transition is still valid. The player saves manually when inside a base.
     end
 
+    ensure_safe_zone_restrictors_for_level()
+    refresh_safe_zone_restrictor_callbacks()
+
+    -- First-spawn convenience: if no base has ever been recorded yet and the
+    -- actor already spawned inside a friendly safe zone, capture it immediately.
     if not data.last_base_name then
-        debug_log("actor_on_first_update: no base on record -- player must visit a safe zone")
+        local zone = get_friendly_safe_zone_actor_is_inside()
+        if zone then
+            record_respawn_base_from_zone(zone)
+            debug_log("actor_on_first_update: auto-set initial base to '%s'", tostring(zone.name))
+            show_msg("Initial respawn base set to current safe zone.")
+        else
+            debug_log("actor_on_first_update: no base on record -- player must visit a safe zone")
+        end
     else
         debug_log("actor_on_first_update: base on record: %s (level=%s)",
             data.last_base_name, tostring(data.last_base_level))
     end
-
-    ensure_safe_zone_restrictors_for_level()
-    refresh_safe_zone_restrictor_callbacks()
 
     show_msg("Extraction mode active. Saves only at friendly bases.")
 end
