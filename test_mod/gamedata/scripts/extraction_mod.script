@@ -160,6 +160,7 @@ local UPDATE_INTERVAL = 5000 -- ms between periodic maintenance checks
 local STASH_RELEASE_FLUSH_INTERVAL_SEC = 60
 local MOD_KEY         = "extraction_mod"
 local CHEAT_LOAD_WATERMARK_MSG = "CHEAT LOAD DETECTED - Run invalid: You are now permanently irradiated. Recovery: quit to main menu, then load a valid save. DO NOT SAVE until you have reloaded a valid save."
+local FIRST_RUN_BACKUP_DIR_PREFIX = "em_pre_extraction_backup_"
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- MCM
@@ -290,6 +291,9 @@ local data = {
     -- Set after suspicious mid-session loads that bypass normal load blockers.
     -- Persisted to keep a run visibly invalid after detection.
     tainted_by_forbidden_load = false,
+    -- Per-playthrough first-run marker. False means this playthrough has not yet
+    -- run initial save migration/forced extraction save bootstrap.
+    first_run_migration_done = false,
 }
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -376,6 +380,7 @@ local save_in_progress = false
 -- blocked pre-write from Lua; we restore from that copy when needed).
 local external_save_cleanup_ctx = nil
 local load_state_seen_this_session = false
+local suppress_external_save_cleanup_once = false
 
 
 -- Set of item section names to keep in the player's inventory on death.
@@ -1191,6 +1196,67 @@ local function copy_save_slot_extensions_between_stems(src_stem, dst_stem)
     return copied_scop
 end
 
+local function migrate_all_existing_saves_to_first_run_backup()
+    local fs = getFS()
+    if not fs then return false end
+    local base = getFS():update_path("$game_saves$", "")
+    local backup_dir = FIRST_RUN_BACKUP_DIR_PREFIX .. os.date("%Y%m%d_%H%M%S")
+
+    local flist = fs:file_list_open_ex(
+        "$game_saves$",
+        bit_or(FS.FS_ListFiles, FS.FS_RootOnly),
+        "*.scop"
+    )
+    local n = flist:Size()
+    debug_log("first-run migration: found %d save slot(s), backup_dir=%s", n, backup_dir)
+    local moved = 0
+    local failed = 0
+    for i = 0, n - 1 do
+        local file      = flist:GetAt(i)
+        local fullname  = file:NameFull()
+        local stem = fullname:match("^(.+)%.scop$") or fullname
+        local moved_scop = false
+        local move_failed = false
+        for _, ext in ipairs({ ".scop", ".scoc", ".dds" }) do
+            local src_path = base .. stem .. ext
+            local ri = io.open(src_path, "rb")
+            if ri then
+                ri:close()
+                local dst_path = base .. backup_dir .. "/" .. stem .. ext
+                local moved = false
+                if fs.file_rename then
+                    local ok = pcall(function()
+                        fs:file_rename(src_path, dst_path, true)
+                    end)
+                    if ok then
+                        local src_chk = io.open(src_path, "rb")
+                        local dst_chk = io.open(dst_path, "rb")
+                        if src_chk then src_chk:close() end
+                        if dst_chk then dst_chk:close() end
+                        moved = (dst_chk ~= nil and src_chk == nil)
+                    end
+                end
+                if moved then
+                    if ext == ".scop" then moved_scop = true end
+                else
+                    move_failed = true
+                    printe("![EM] first-run migration: move failed '%s' -> '%s'", src_path, dst_path)
+                end
+            end
+        end
+        if moved_scop and not move_failed then
+            moved = moved + 1
+            debug_log("first-run migration: moved save '%s' to '%s/%s'", stem, backup_dir, stem)
+        else
+            failed = failed + 1
+            debug_log("first-run migration: move incomplete for '%s' (moved_scop=%s move_failed=%s)",
+                stem, tostring(moved_scop), tostring(move_failed))
+        end
+    end
+    debug_log("first-run migration: done moved=%d failed=%d backup_dir=%s", moved, failed, backup_dir)
+    return failed == 0
+end
+
 -- Scan the saves folder for any .scop file that is not our fixed save and
 -- delete it. Called with a short delay after save_state detects an external
 -- save, giving the engine time to finish writing the file to disk first.
@@ -1264,6 +1330,7 @@ local function save_state(m_data)
         last_stash_loot_game_ms = data.last_stash_loot_game_ms,
         safe_zone_restrictor_ids = data.safe_zone_restrictor_ids,
         tainted_by_forbidden_load = data.tainted_by_forbidden_load,
+        first_run_migration_done = data.first_run_migration_done,
     }
     debug_log("save_state: base=%s level=%s safe_zone_ids=%d",
         tostring(data.last_base_name), tostring(data.last_base_level), safe_zone_ids_to_save)
@@ -1277,6 +1344,11 @@ local function save_state(m_data)
     -- we use it as a catch-all: if save_in_progress is false this is an
     -- external save we didn't initiate, so schedule a scan to remove any
     -- unauthorized files after the engine finishes writing them.
+    if suppress_external_save_cleanup_once then
+        suppress_external_save_cleanup_once = false
+        debug_log("save_state: skipping one external cleanup pass (first-run forced save)")
+        return
+    end
     if not save_in_progress then
         debug_log("save_state: external save detected -- scheduling cleanup scan")
         local fp_before = read_mod_save_slot_disk_fingerprint()
@@ -1312,6 +1384,7 @@ local function load_state(m_data)
     data.pending_stash_release_ids = saved.pending_stash_release_ids or {}
     data.safe_zone_restrictor_ids = {}
     data.tainted_by_forbidden_load = saved.tainted_by_forbidden_load == true
+    data.first_run_migration_done = saved.first_run_migration_done == true
     local restored = 0
     local dropped = 0
     local incoming = 0
@@ -1397,6 +1470,14 @@ local function remove_empty_death_stash(stash_id, reason)
     if not data.death_stash_ids[stash_id] then return false end
     if death_stash_item_count(stash_id) > 0 then return false end
     if not alife_object(stash_id) then
+        -- During inventory/UI teardown (player emptied stash) the engine can drop
+        -- alife handle mid-frame. Defer final cleanup to periodic release pass.
+        if reason == "extraction_mod_player_emptied" then
+            data.pending_stash_release_ids[stash_id] = true
+            debug_log("remove_empty_death_stash: id=%d missing alife during player-empty -- deferring cleanup",
+                stash_id)
+            return true
+        end
         clear_stash_pda_marker(stash_id)
         data.death_stash_ids[stash_id] = nil
         debug_log("remove_empty_death_stash: id=%d missing alife -- cleared tracking (%s)",
@@ -1905,19 +1986,17 @@ local function poll_death_stash_transfer_and_queue_respawn(stash_id)
     return true
 end
 
--- Remove the PDA marker when the player takes any item from one of our stashes.
--- If the stash is empty afterward, release it (same as NPC loot finishing a stash).
+-- If one of our tracked stashes is emptied by the player, clean it up.
+-- This runs deferred by one tick to avoid mutating stash state during UI teardown.
 local function actor_on_item_take_from_box(box, obj)
     local id = box:id()
     if not (data.stash_ids[id] or data.death_stash_ids[id]) then return end
-
-    if data.stash_ids[id] then
-        level.map_remove_object_spot(id, "secondary_task_location")
-        data.stash_ids[id] = nil
-        debug_log("actor_on_item_take_from_box: removed stash marker for id=%d", id)
-    end
-
-    remove_empty_death_stash(id, "extraction_mod_player_emptied")
+    -- Defer stash-empty handling by one tick so we do not mutate marker/release
+    -- state while inventory UI is being torn down.
+    CreateTimeEvent("extraction_mod", "player_emptied_stash_" .. tostring(id), 0, function()
+        remove_empty_death_stash(id, "extraction_mod_player_emptied")
+        return true
+    end)
 end
 
 -- Requires modded exes. flags.ret_value = false cancels the death event.
@@ -2120,6 +2199,22 @@ local function actor_on_first_update()
 
     ensure_safe_zone_restrictors_for_level()
     refresh_safe_zone_restrictor_callbacks()
+
+    if not data.first_run_migration_done then
+        debug_log("actor_on_first_update: first-run migration bootstrap starting")
+        local moved_ok = migrate_all_existing_saves_to_first_run_backup()
+        if moved_ok then
+            -- First-run bootstrap must seed extraction save even outside safe zones.
+            suppress_external_save_cleanup_once = true
+            save_extraction_slot()
+            data.first_run_migration_done = true
+            show_msg("Extraction first-run setup complete: saves were backed up and extraction save initialized.")
+            debug_log("actor_on_first_update: first-run migration bootstrap complete")
+        else
+            show_msg("Extraction first-run setup failed: could not back up existing saves.")
+            printe("![EM] actor_on_first_update: first-run migration failed -- marker not set")
+        end
+    end
 
     -- First-spawn convenience: if no base has ever been recorded yet and the
     -- actor already spawned inside a friendly safe zone, capture it immediately.
