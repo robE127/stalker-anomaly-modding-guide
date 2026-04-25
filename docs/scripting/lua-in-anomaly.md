@@ -47,11 +47,13 @@ Most of Lua's standard library is available. The commonly used ones:
 | `string` | Yes | Full |
 | `table` | Yes | Full |
 | `io` | Partial | File reading works; writing is restricted |
-| `os` | Partial | `os.clock()`, `os.time()` work; `os.execute()` does not |
+| `os` | Partial | `os.clock()`, `os.time()` work; `os.execute` is often **missing or nil** — calling it throws `attempt to call field 'execute' (a nil value)` |
 | `debug` | Partial | Some introspection available |
 | `coroutine` | Yes | Full (LuaJIT) |
 | `bit` | Yes | LuaJIT bitwise operations |
 | `ffi` | No | FFI is disabled |
+
+Do not rely on `os.execute` or other `os` file helpers to create directories in the saves folder from gameplay scripts. Use engine APIs (`getFS()`, `io.open` under paths from `getFS():update_path(...)`, or move/rename helpers exposed on the FS object) instead.
 
 ### Performance tip: cache standard library calls
 

@@ -95,6 +95,8 @@ Convenience form: looks up the server entity by ID and releases it.
 !!! warning "Don't release inventory entities while their container is online/open"
     Releasing stash items (or the stash container itself) while that container is online (`level.object_by_id(stash_id)` exists, especially if inventory UI is open) can trigger engine destroy-order errors and crashes. Safe pattern: only release those entities when the stash is offline, or defer cleanup until it goes offline.
 
+    When the player empties a stash from the inventory UI, `alife_object(stash_id)` may briefly disappear **before** the client object is fully gone — still a bad window for `map_remove_object_spot` or clearing tracking synchronously. Combine **deferred cleanup** (e.g. `CreateTimeEvent` with delay `0`) with a **pending-id set** processed from `actor_on_update` or a repeating time event, and only call `alife_release_id` on the container once it is confirmed offline and empty.
+
 ---
 
 ## Raw alife() methods

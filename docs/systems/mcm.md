@@ -114,6 +114,10 @@ end
 
 Calling `on_option_change()` at startup ensures your mod initialises correctly even before the player touches the settings menu.
 
+### Numeric options in hot paths
+
+Some MCM control types return strings or need parsing (`tonumber`). If you read them inside `actor_on_update` every frame, you pay repeated parsing and clamping. **Cache** the resolved number in a module-level variable inside `on_option_change` (and refresh from LTX or defaults in `on_game_start` if MCM is absent). Keep a single small helper that reads `ui_mcm.get`, parses, and clamps to min/max so both the callback and startup use one code path.
+
 ---
 
 ## Option types

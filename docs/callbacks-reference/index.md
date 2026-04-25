@@ -67,7 +67,7 @@ UnregisterScriptCallback("callback_name", your_function)
 | Callback | Req | Freq | Params | Description |
 |----------|-----|------|--------|-------------|
 | `actor_on_item_take` | | 39 | `(obj: game_object)` | Player picked up an item. |
-| `actor_on_item_take_from_box` | | — | `(item: game_object, box: game_object)` | Player took an item from a stash/box. |
+| `actor_on_item_take_from_box` | | — | `(box: game_object, item: game_object)` | Player took an item from a stash/box. Fires during inventory updates; defer heavy or destructive work (see [Items & Inventory](../systems/items.md#actor_on_item_take_from_box)). |
 | `actor_on_item_put_in_box` | | — | `(item: game_object, box: game_object)` | Player put an item into a stash/box. |
 | `actor_on_item_drop` | | 34 | `(obj: game_object)` | Player dropped an item. |
 | `actor_on_item_use` | | 58 | `(obj: game_object, section: string)` | Player used a consumable. `obj` is the item, `section` is its LTX section name. |

@@ -253,6 +253,18 @@ end
 !!! warning "`GetAt` returns a file object, not a string"
     `flist:GetAt(i)` returns a **file object** (userdata), not a plain string. Calling string methods like `match` or `sub` directly on it throws a Lua error that fails silently inside a `CreateTimeEvent` callback, meaning no files get processed. Always call `:NameFull()` on the result first to get the filename string. This pattern is confirmed from `UILoadDialog:FillList` in `ui_load_dialog.script`, which does the same.
 
+### Moving save files (backups, first-run migration)
+
+Sometimes you need to relocate every file for a save **stem** (`.scop`, `.scoc`, `.dds`) — for example a one-time backup when enabling a mod on an existing playthrough.
+
+**Prefer a filesystem move over copy-and-delete** if your engine build exposes it: moving preserves the files’ original modification times; copying through Lua or the engine and then deleting the sources typically resets timestamps to “now”.
+
+- **`getFS()` rename/move:** On builds where `getFS().file_rename` exists, `fs:file_rename(src_path, dst_path, true)` (exact arity depends on the bind) performs a move within the same volume. **Verify success in Lua** by opening the destination with `io.open(dst, "rb")` and confirming the source is gone (`io.open(src, "rb")` fails) — do not assume a return value is a boolean; some C++ signatures bind as `void` and appear as `nil` in Lua.
+- **`fs:file_copy`:** Treating the Lua return value as “true/false success” is unreliable for the same reason — confirm with `io.open` on the written path if you must use copy.
+- **Subfolders under `$game_saves$`:** You cannot use `os.execute("mkdir ...")` from Anomaly Lua in many setups — `os.execute` is often nil (see [Lua in Anomaly](lua-in-anomaly.md#standard-library-availability)). If moves require a subdirectory, rely on the engine creating the path when renaming, pre-seed the folder via a tool outside the game, or keep backup names flat under `$game_saves$` with a unique prefix instead of nested directories.
+
+**Per-playthrough flags:** If migration should run only once per character/save lineage, persist a boolean in `save_state` / `load_state` under your mod key (for example `first_run_migration_done`). A brand-new game with no prior `m_data` should run migration again on first load with the mod enabled.
+
 ### Using `save_state` to detect all saves
 
 `on_console_execute` only fires when saves are initiated through the Lua `exec_console_cmd` wrapper. It does **not** fire when the player types `save` directly in the C++ in-game console. `save_state`, on the other hand, is called by the C++ engine for every save regardless of how it was triggered — making it the reliable catch-all.
@@ -421,6 +433,19 @@ end
     ```
 
     Your mod still needs `user_name()` to delete the engine's level-transition autosave (since the engine names it that way and you cannot change it). Guard the delete with the flag-file pattern above so that it only runs when *this session* triggered the transition — not when a pre-existing autosave from another playthrough happens to be sitting in the saves folder. Everything your mod writes uses your prefixed name, and any file management that targets your mod's saves can do so safely by matching `"em_*"` (or whatever prefix you choose) rather than relying on the OS username.
+
+---
+
+## Session vs menu loads (file markers)
+
+Not every load goes through the same Lua entry points, and some mods try to detect **in-session** loads (player issues a load while already in a level) separately from **main-menu** loads. A practical pattern is to combine several weak signals instead of relying on one callback:
+
+- **`load_state`** runs for every load — use it to set a process-local “a load happened” flag (not persisted), or to merge disk state.
+- **A session lock file** under `$game_saves$` (or another writable path) written when a level is active and removed in `on_game_start` / `on_game_end` helps distinguish “we were in a session” from “cold start / new game”.
+- **A main-menu load flag** set from a patched `UILoadDialog.load_game_internal` (or equivalent) when the player picks a save from the menu — cleared after `actor_on_first_update` consumes it — avoids treating legitimate menu loads as cheats.
+- **Persisted per-playthrough state** (in `m_data`) should be updated only when the combination of signals matches your definition; reset it on new game so a previous playthrough’s flags do not leak.
+
+This is fragile by nature; document your assumptions if you ship behaviour that depends on it.
 
 ---
 

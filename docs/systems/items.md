@@ -84,6 +84,12 @@ local function actor_on_item_take_from_box(box, item)
 end
 ```
 
+#### Defer work if you mutate or destroy the container
+
+This callback runs while the inventory UI is still updating. If the player removes the **last** item from a container your mod tracks, the engine may tear down the stash UI (`Unregister UI: UIInventory`) in the same frame. Calling `level.map_remove_object_spot`, `alife_release_id`, or aggressively clearing script state **immediately** inside `actor_on_item_take_from_box` can coincide with that teardown and trigger hard-to-debug native faults (for example faults in `CRender::detectSector` / `ISpatial::spatial_updatesector_internal`).
+
+**Safe pattern:** queue any empty-container cleanup for the **next** tick with `CreateTimeEvent(..., 0, fn)` (delay `0` still runs after the current callback chain). Inside the deferred step, if `alife_object(stash_id)` is temporarily unavailable while the UI closes, treat that as “not ready yet” and keep the stash ID in a pending table until a periodic pass can release the container **only when** it is offline (`level.object_by_id(stash_id)` is `nil`) and alife state is stable. See the warning on **`alife_release_id`** in [alife](../api-reference/alife.md) for the same invariant from the A-Life side.
+
 ### actor_item_to_ruck / actor_item_to_slot
 
 Fires when an item moves between belt and backpack.
@@ -332,3 +338,5 @@ end
 
 - [db.actor](../api-reference/actor.md) — inventory iteration methods and item slot constants
 - [game_object](../scripting/game-object.md) — base methods available on item game_objects
+- [Callbacks Reference](../callbacks-reference/index.md) — `actor_on_item_take_from_box` signature and neighbours
+- [alife](../api-reference/alife.md) — releasing entities and containers safely
