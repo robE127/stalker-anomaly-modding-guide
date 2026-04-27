@@ -20,6 +20,9 @@ UnregisterScriptCallback("callback_name", your_function)
 !!! note "Best-effort accuracy"
     **Exes** markings are based on author annotations in the game scripts and inspection of the modded exes source. Without access to a vanilla (pre-modded-exes) build to diff against, some markings may be incomplete or incorrect.
 
+!!! tip "Want to see callbacks fire in real time?"
+    The [Callback Logger](../examples/callback-logger.md) example is a drop-in development tool that registers a handler for every callback on this page and logs each one as it fires. Install it, load a save, and watch the log while playing to learn exactly when each callback triggers.
+
 ---
 
 ## Core game flow

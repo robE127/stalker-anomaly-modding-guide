@@ -242,3 +242,4 @@ An entity's ID is stable for its entire lifetime — it never changes. However, 
 | Offline entities per update | 20 | Configurable via `alife():set_objects_per_update()` |
 | Alife process time per frame | 900 &mu;s | Configurable via `alife():set_process_time()` |
 | `client_data` size field | `u16` | Max 65,535 bytes, but limited by NET_Packet (16 KB) |
+| LuaJIT upvalues per function | 60 | A single function may not close over more than 60 locals. Registering many callbacks in `on_game_start` by capturing each handler as a separate local hits this limit quickly. The fix is to store handlers in a table: `on_game_start` closes over one upvalue (the table) and iterates it. See [Callback Logger](../examples/callback-logger.md) for a worked example. |
