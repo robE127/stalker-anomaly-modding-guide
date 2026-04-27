@@ -2273,6 +2273,8 @@
       
         
       
+        
+      
     
     
     
@@ -2428,6 +2430,34 @@
     
   
     MCM Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/callback-logger/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callback Logger
   
 
     
@@ -3131,6 +3161,11 @@
 <td><code>client_data</code> size field</td>
 <td><code>u16</code></td>
 <td>Max 65,535 bytes, but limited by NET_Packet (16 KB)</td>
+</tr>
+<tr>
+<td>LuaJIT upvalues per function</td>
+<td>60</td>
+<td>A single function may not close over more than 60 locals. Registering many callbacks in <code>on_game_start</code> by capturing each handler as a separate local hits this limit quickly. The fix is to store handlers in a table: <code>on_game_start</code> closes over one upvalue (the table) and iterates it. See <a href="../../examples/callback-logger/">Callback Logger</a> for a worked example.</td>
 </tr>
 </tbody>
 </table>

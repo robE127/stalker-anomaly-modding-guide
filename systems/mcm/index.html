@@ -1861,6 +1861,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Reacting to changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#numeric-options-in-hot-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Numeric options in hot paths
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2316,6 +2333,8 @@
       
         
       
+        
+      
     
     
     
@@ -2471,6 +2490,34 @@
     
   
     MCM Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/callback-logger/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callback Logger
   
 
     
@@ -2722,6 +2769,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Reacting to changes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#numeric-options-in-hot-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Numeric options in hot paths
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3006,6 +3070,8 @@
 </span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="kr">end</span>
 </span></code></pre></div>
 <p>Calling <code>on_option_change()</code> at startup ensures your mod initialises correctly even before the player touches the settings menu.</p>
+<h3 id="numeric-options-in-hot-paths">Numeric options in hot paths<a class="headerlink" href="#numeric-options-in-hot-paths" title="Permanent link">&para;</a></h3>
+<p>Some MCM control types return strings or need parsing (<code>tonumber</code>). If you read them inside <code>actor_on_update</code> every frame, you pay repeated parsing and clamping. <strong>Cache</strong> the resolved number in a module-level variable inside <code>on_option_change</code> (and refresh from LTX or defaults in <code>on_game_start</code> if MCM is absent). Keep a single small helper that reads <code>ui_mcm.get</code>, parses, and clamps to min/max so both the callback and startup use one code path.</p>
 <hr />
 <h2 id="option-types">Option types<a class="headerlink" href="#option-types" title="Permanent link">&para;</a></h2>
 <h3 id="check-boolean-toggle">check — boolean toggle<a class="headerlink" href="#check-boolean-toggle" title="Permanent link">&para;</a></h3>

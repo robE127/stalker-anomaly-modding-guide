@@ -2200,6 +2200,8 @@
       
         
       
+        
+      
     
     
     
@@ -2355,6 +2357,34 @@
     
   
     MCM Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/callback-logger/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callback Logger
   
 
     
@@ -2747,7 +2777,7 @@
 <tr>
 <td><code>os</code></td>
 <td>Partial</td>
-<td><code>os.clock()</code>, <code>os.time()</code> work; <code>os.execute()</code> does not</td>
+<td><code>os.clock()</code>, <code>os.time()</code> work; <code>os.execute</code> is often <strong>missing or nil</strong> — calling it throws <code>attempt to call field 'execute' (a nil value)</code></td>
 </tr>
 <tr>
 <td><code>debug</code></td>
@@ -2771,6 +2801,7 @@
 </tr>
 </tbody>
 </table>
+<p>Do not rely on <code>os.execute</code> or other <code>os</code> file helpers to create directories in the saves folder from gameplay scripts. Use engine APIs (<code>getFS()</code>, <code>io.open</code> under paths from <code>getFS():update_path(...)</code>, or move/rename helpers exposed on the FS object) instead.</p>
 <h3 id="performance-tip-cache-standard-library-calls">Performance tip: cache standard library calls<a class="headerlink" href="#performance-tip-cache-standard-library-calls" title="Permanent link">&para;</a></h3>
 <p>The base game scripts cache frequently called functions as module-level locals. You should do the same in hot paths:</p>
 <div class="language-lua highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">-- At the top of your script</span>

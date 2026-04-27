@@ -1175,6 +1175,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#moving-save-files-backups-first-run-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Moving save files (backups, first-run migration)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#using-save_state-to-detect-all-saves" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1198,6 +1209,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session-vs-menu-loads-file-markers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session vs menu loads (file markers)
+      
+    </span>
+  </a>
   
 </li>
       
@@ -2266,6 +2288,8 @@
       
         
       
+        
+      
     
     
     
@@ -2421,6 +2445,34 @@
     
   
     MCM Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/callback-logger/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callback Logger
   
 
     
@@ -2765,6 +2817,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#moving-save-files-backups-first-run-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Moving save files (backups, first-run migration)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#using-save_state-to-detect-all-saves" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2788,6 +2851,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session-vs-menu-loads-file-markers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session vs menu loads (file markers)
+      
+    </span>
+  </a>
   
 </li>
       
@@ -3057,6 +3131,15 @@
 <p class="admonition-title"><code>GetAt</code> returns a file object, not a string</p>
 <p><code>flist:GetAt(i)</code> returns a <strong>file object</strong> (userdata), not a plain string. Calling string methods like <code>match</code> or <code>sub</code> directly on it throws a Lua error that fails silently inside a <code>CreateTimeEvent</code> callback, meaning no files get processed. Always call <code>:NameFull()</code> on the result first to get the filename string. This pattern is confirmed from <code>UILoadDialog:FillList</code> in <code>ui_load_dialog.script</code>, which does the same.</p>
 </div>
+<h3 id="moving-save-files-backups-first-run-migration">Moving save files (backups, first-run migration)<a class="headerlink" href="#moving-save-files-backups-first-run-migration" title="Permanent link">&para;</a></h3>
+<p>Sometimes you need to relocate every file for a save <strong>stem</strong> (<code>.scop</code>, <code>.scoc</code>, <code>.dds</code>) — for example a one-time backup when enabling a mod on an existing playthrough.</p>
+<p><strong>Prefer a filesystem move over copy-and-delete</strong> if your engine build exposes it: moving preserves the files’ original modification times; copying through Lua or the engine and then deleting the sources typically resets timestamps to “now”.</p>
+<ul>
+<li><strong><code>getFS()</code> rename/move:</strong> On builds where <code>getFS().file_rename</code> exists, <code>fs:file_rename(src_path, dst_path, true)</code> (exact arity depends on the bind) performs a move within the same volume. <strong>Verify success in Lua</strong> by opening the destination with <code>io.open(dst, "rb")</code> and confirming the source is gone (<code>io.open(src, "rb")</code> fails) — do not assume a return value is a boolean; some C++ signatures bind as <code>void</code> and appear as <code>nil</code> in Lua.</li>
+<li><strong><code>fs:file_copy</code>:</strong> Treating the Lua return value as “true/false success” is unreliable for the same reason — confirm with <code>io.open</code> on the written path if you must use copy.</li>
+<li><strong>Subfolders under <code>$game_saves$</code>:</strong> You cannot use <code>os.execute("mkdir ...")</code> from Anomaly Lua in many setups — <code>os.execute</code> is often nil (see <a href="../lua-in-anomaly/#standard-library-availability">Lua in Anomaly</a>). If moves require a subdirectory, rely on the engine creating the path when renaming, pre-seed the folder via a tool outside the game, or keep backup names flat under <code>$game_saves$</code> with a unique prefix instead of nested directories.</li>
+</ul>
+<p><strong>Per-playthrough flags:</strong> If migration should run only once per character/save lineage, persist a boolean in <code>save_state</code> / <code>load_state</code> under your mod key (for example <code>first_run_migration_done</code>). A brand-new game with no prior <code>m_data</code> should run migration again on first load with the mod enabled.</p>
 <h3 id="using-save_state-to-detect-all-saves">Using <code>save_state</code> to detect all saves<a class="headerlink" href="#using-save_state-to-detect-all-saves" title="Permanent link">&para;</a></h3>
 <p><code>on_console_execute</code> only fires when saves are initiated through the Lua <code>exec_console_cmd</code> wrapper. It does <strong>not</strong> fire when the player types <code>save</code> directly in the C++ in-game console. <code>save_state</code>, on the other hand, is called by the C++ engine for every save regardless of how it was triggered — making it the reliable catch-all.</p>
 <p>A common pattern for mods that restrict saving is to use <code>save_state</code> to detect external saves and schedule a deferred cleanup scan:</p>
@@ -3202,6 +3285,16 @@
 </span></code></pre></div>
 <p>Your mod still needs <code>user_name()</code> to delete the engine's level-transition autosave (since the engine names it that way and you cannot change it). Guard the delete with the flag-file pattern above so that it only runs when <em>this session</em> triggered the transition — not when a pre-existing autosave from another playthrough happens to be sitting in the saves folder. Everything your mod writes uses your prefixed name, and any file management that targets your mod's saves can do so safely by matching <code>"em_*"</code> (or whatever prefix you choose) rather than relying on the OS username.</p>
 </div>
+<hr />
+<h2 id="session-vs-menu-loads-file-markers">Session vs menu loads (file markers)<a class="headerlink" href="#session-vs-menu-loads-file-markers" title="Permanent link">&para;</a></h2>
+<p>Not every load goes through the same Lua entry points, and some mods try to detect <strong>in-session</strong> loads (player issues a load while already in a level) separately from <strong>main-menu</strong> loads. A practical pattern is to combine several weak signals instead of relying on one callback:</p>
+<ul>
+<li><strong><code>load_state</code></strong> runs for every load — use it to set a process-local “a load happened” flag (not persisted), or to merge disk state.</li>
+<li><strong>A session lock file</strong> under <code>$game_saves$</code> (or another writable path) written when a level is active and removed in <code>on_game_start</code> / <code>on_game_end</code> helps distinguish “we were in a session” from “cold start / new game”.</li>
+<li><strong>A main-menu load flag</strong> set from a patched <code>UILoadDialog.load_game_internal</code> (or equivalent) when the player picks a save from the menu — cleared after <code>actor_on_first_update</code> consumes it — avoids treating legitimate menu loads as cheats.</li>
+<li><strong>Persisted per-playthrough state</strong> (in <code>m_data</code>) should be updated only when the combination of signals matches your definition; reset it on new game so a previous playthrough’s flags do not leak.</li>
+</ul>
+<p>This is fragile by nature; document your assumptions if you ship behaviour that depends on it.</p>
 <hr />
 <h2 id="see-also">See also<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h2>
 <ul>

@@ -1940,6 +1940,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="actor_on_item_take_from_box">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#defer-work-if-you-mutate-or-destroy-the-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Defer work if you mutate or destroy the container
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2355,6 +2372,8 @@
       
         
       
+        
+      
     
     
     
@@ -2510,6 +2529,34 @@
     
   
     MCM Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/callback-logger/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callback Logger
   
 
     
@@ -2785,6 +2832,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="actor_on_item_take_from_box">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#defer-work-if-you-mutate-or-destroy-the-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Defer work if you mutate or destroy the container
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -3054,6 +3118,9 @@
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="nf">printf</span><span class="p">(</span><span class="s2">&quot;[my_mod] looted %s from container %s&quot;</span><span class="p">,</span><span class="w"> </span><span class="nv">item</span><span class="p">:</span><span class="nf">section</span><span class="p">(),</span><span class="w"> </span><span class="nv">box</span><span class="p">:</span><span class="nf">name</span><span class="p">())</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kr">end</span>
 </span></code></pre></div>
+<h4 id="defer-work-if-you-mutate-or-destroy-the-container">Defer work if you mutate or destroy the container<a class="headerlink" href="#defer-work-if-you-mutate-or-destroy-the-container" title="Permanent link">&para;</a></h4>
+<p>This callback runs while the inventory UI is still updating. If the player removes the <strong>last</strong> item from a container your mod tracks, the engine may tear down the stash UI (<code>Unregister UI: UIInventory</code>) in the same frame. Calling <code>level.map_remove_object_spot</code>, <code>alife_release_id</code>, or aggressively clearing script state <strong>immediately</strong> inside <code>actor_on_item_take_from_box</code> can coincide with that teardown and trigger hard-to-debug native faults (for example faults in <code>CRender::detectSector</code> / <code>ISpatial::spatial_updatesector_internal</code>).</p>
+<p><strong>Safe pattern:</strong> queue any empty-container cleanup for the <strong>next</strong> tick with <code>CreateTimeEvent(..., 0, fn)</code> (delay <code>0</code> still runs after the current callback chain). Inside the deferred step, if <code>alife_object(stash_id)</code> is temporarily unavailable while the UI closes, treat that as “not ready yet” and keep the stash ID in a pending table until a periodic pass can release the container <strong>only when</strong> it is offline (<code>level.object_by_id(stash_id)</code> is <code>nil</code>) and alife state is stable. See the warning on <strong><code>alife_release_id</code></strong> in <a href="../../api-reference/alife/">alife</a> for the same invariant from the A-Life side.</p>
 <h3 id="actor_item_to_ruck-actor_item_to_slot">actor_item_to_ruck / actor_item_to_slot<a class="headerlink" href="#actor_item_to_ruck-actor_item_to_slot" title="Permanent link">&para;</a></h3>
 <p>Fires when an item moves between belt and backpack.</p>
 <div class="language-lua highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">local</span><span class="w"> </span><span class="kr">function</span><span class="w"> </span><span class="nf">actor_item_to_ruck</span><span class="p">(</span><span class="nv">item</span><span class="p">)</span>
@@ -3264,6 +3331,8 @@
 <ul>
 <li><a href="../../api-reference/actor/">db.actor</a> — inventory iteration methods and item slot constants</li>
 <li><a href="../../scripting/game-object/">game_object</a> — base methods available on item game_objects</li>
+<li><a href="../../callbacks-reference/">Callbacks Reference</a> — <code>actor_on_item_take_from_box</code> signature and neighbours</li>
+<li><a href="../../api-reference/alife/">alife</a> — releasing entities and containers safely</li>
 </ul>
 
 

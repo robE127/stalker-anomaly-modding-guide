@@ -2037,6 +2037,8 @@
       
         
       
+        
+      
     
     
     
@@ -2192,6 +2194,34 @@
     
   
     MCM Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/callback-logger/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callback Logger
   
 
     
@@ -2574,6 +2604,10 @@
 <p class="admonition-title">Best-effort accuracy</p>
 <p><strong>Exes</strong> markings are based on author annotations in the game scripts and inspection of the modded exes source. Without access to a vanilla (pre-modded-exes) build to diff against, some markings may be incomplete or incorrect.</p>
 </div>
+<div class="admonition tip">
+<p class="admonition-title">Want to see callbacks fire in real time?</p>
+<p>The <a href="../examples/callback-logger/">Callback Logger</a> example is a drop-in development tool that registers a handler for every callback on this page and logs each one as it fires. Install it, load a save, and watch the log while playing to learn exactly when each callback triggers.</p>
+</div>
 <hr />
 <h2 id="core-game-flow">Core game flow<a class="headerlink" href="#core-game-flow" title="Permanent link">&para;</a></h2>
 <table>
@@ -2810,8 +2844,8 @@
 <td><code>actor_on_item_take_from_box</code></td>
 <td></td>
 <td>—</td>
-<td><code>(item: game_object, box: game_object)</code></td>
-<td>Player took an item from a stash/box.</td>
+<td><code>(box: game_object, item: game_object)</code></td>
+<td>Player took an item from a stash/box. Fires during inventory updates; defer heavy or destructive work (see <a href="../systems/items/#actor_on_item_take_from_box">Items &amp; Inventory</a>).</td>
 </tr>
 <tr>
 <td><code>actor_on_item_put_in_box</code></td>

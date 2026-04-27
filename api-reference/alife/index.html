@@ -2471,6 +2471,8 @@
       
         
       
+        
+      
     
     
     
@@ -2626,6 +2628,34 @@
     
   
     MCM Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/callback-logger/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Callback Logger
   
 
     
@@ -3322,6 +3352,7 @@
 <div class="admonition warning">
 <p class="admonition-title">Don't release inventory entities while their container is online/open</p>
 <p>Releasing stash items (or the stash container itself) while that container is online (<code>level.object_by_id(stash_id)</code> exists, especially if inventory UI is open) can trigger engine destroy-order errors and crashes. Safe pattern: only release those entities when the stash is offline, or defer cleanup until it goes offline.</p>
+<p>When the player empties a stash from the inventory UI, <code>alife_object(stash_id)</code> may briefly disappear <strong>before</strong> the client object is fully gone — still a bad window for <code>map_remove_object_spot</code> or clearing tracking synchronously. Combine <strong>deferred cleanup</strong> (e.g. <code>CreateTimeEvent</code> with delay <code>0</code>) with a <strong>pending-id set</strong> processed from <code>actor_on_update</code> or a repeating time event, and only call <code>alife_release_id</code> on the container once it is confirmed offline and empty.</p>
 </div>
 <hr />
 <h2 id="raw-alife-methods">Raw alife() methods<a class="headerlink" href="#raw-alife-methods" title="Permanent link">&para;</a></h2>
