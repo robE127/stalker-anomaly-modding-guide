@@ -1,0 +1,18 @@
+-- callback_logger_mcm.script
+-- MCM registration for Callback Logger.
+
+function on_mcm_load()
+    return {
+        id = "callback_logger",
+        sh = true,
+        gr = {
+            {
+                id      = "enabled",
+                type    = "check",
+                val     = 1,
+                def     = true,
+                text    = "ui_mcm_callback_logger_enabled",
+            },
+        }
+    }
+end
